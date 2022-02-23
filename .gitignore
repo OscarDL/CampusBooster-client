@@ -6,9 +6,12 @@
 .pnp.js
 
 # testing
+crt.pem
+key.pem
 /coverage
 
 # production
+.env
 /build
 
 # misc

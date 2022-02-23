@@ -1,0 +1,694 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+  font-display: fallback;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+
+/* --- Custom scrollbar design --- */
+
+::-webkit-scrollbar {
+  width: 1rem;
+  height: 1rem;
+}
+
+::-webkit-scrollbar-thumb {
+  /*
+    The thumb should be at least a certain size
+    if there's a lot of content to scroll through
+  */
+  min-width: 2rem;
+  min-height: 2rem;
+
+  /* Design */
+  background-clip: padding-box;
+  border: 0.25rem solid transparent;
+  border-radius: var(--radius-large);
+  background-color: rgba(var(--scrollbar-background), 0.5);
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(var(--scrollbar-background), 0.75);
+}
+
+
+/* --- Global variables --- */
+
+:root {
+  --opacity-font: 0.65;
+  --opacity-disabled: 0.5;
+
+  --radius-small: 0.33rem;
+  --radius-medium: 0.66rem;
+  --radius-large: 1rem;
+  --radius-round: 50%;
+
+  --z-index-dropdown: 2;
+  --z-index-prompt: 3;
+  --z-index-rmsc: 4;
+  --z-index-mui-tooltip: 5;
+
+  --header-height: 5rem;
+
+  --button-bg: 238, 238, 238;
+  --select-bg: 250, 250, 250;
+  --accent-color: 80, 60, 180;
+  --button-bg-darker: 221, 221, 221;
+  --separation-color: 170, 170, 170;
+  --scrollbar-background: 100, 100, 100;
+  --separation-color-light: 204, 204, 204;
+}
+
+
+/* --- Global custom CSS --- */
+
+/* Layout */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+}
+
+.body {
+  flex-grow: 1;
+  min-height: 0;
+  display: flex;
+}
+
+.container {
+  margin: 10px;
+  padding: 20px;
+  overflow: auto;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+
+  margin: 0 15px;
+  cursor: pointer;
+}
+
+.checkbox * {
+  padding: 0 5px;
+  cursor: pointer;
+  user-select: none;
+  accent-color: rgb(var(--accent-color));
+}
+
+.checkbox > input:disabled + label {
+  opacity: 0.75;
+}
+
+h2 {
+  font-size: 23px;
+}
+
+hr {
+  height: 0;
+  border: none;
+  border-top: 2px solid #999;
+  border-radius: var(--radius-small);
+}
+
+
+/* Buttons */
+
+button {
+  border: none;
+  cursor: pointer;
+  transition: 0.25s !important;
+}
+
+.button {
+  padding: 6px 12px !important;
+  background-color: rgb(var(--button-bg));
+}
+.button > * {
+  transition: 0.25s;
+}
+.button > *:not(span[class*="material-icons"]) {
+  font-weight: 600;
+}
+.button:not(:disabled):hover > * {
+  color: rgb(var(--accent-color)) !important;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+/* Links */
+
+a {
+  text-decoration: none;
+}
+a:hover, a:focus {
+  text-decoration: underline;
+}
+
+
+/* Content Header */
+
+.content__header {
+  gap: 15px;
+  margin: 0 10px;
+  min-height: 56px;
+  padding: 10px 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  border-radius: var(--radius-medium);
+  background-color: rgb(var(--button-bg));
+  box-shadow: 0px 0px 0.4rem 0.1rem var(--button-bg);
+}
+
+.content__header > h2 {
+  display: flex;
+  align-items: center;
+}
+
+.content__header > .options {
+  gap: 1rem;
+  display: flex;
+}
+.content__header > .options > * {
+  gap: 0.75rem;
+  display: flex;
+  max-height: 2rem;
+  align-items: center;
+}
+.button > .MuiButton-label > .MuiButton-startIcon > [class*="material-icons"] {
+  font-size: 1.5rem;
+}
+
+.content__header .button.icon {
+  height: 2rem;
+  padding: 0 0.33rem !important;
+
+  display: flex;
+  align-items: center;
+}
+.content__header .button.icon > * {
+  color: #333;
+}
+
+.content__header a {
+  color: inherit;
+  text-decoration: none;
+}
+.content__header span[class*="material-icons"] {
+  font-size: 2rem;
+}
+
+.content__header .separation, .MuiInputBase-adornedEnd .separation {
+  border: 1px solid rgb(var(--separation-color));
+  background-color: rgb(var(--separation-color));
+}
+
+
+/* Loader */
+
+.loader {
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+
+  display: grid;
+  place-items: center;
+}
+
+
+/* Pop-up prompts */
+
+.prompt__container {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 90%;
+  height: 90%;
+  max-width: 620px;
+  max-height: 620px;
+  background-color: #fff;
+  border-radius: var(--radius-medium);
+}
+
+.prompt__wrapper {
+  gap: 1.5rem;
+  padding: 1.5rem;
+  overflow: hidden auto;
+
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.prompt__container button:not(.button) {
+  color: white;
+  font-size: 1.2rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-small);
+  background-color: rgba(var(--accent-color), 204);
+}
+.prompt__container button:not(.button):hover, .prompt__container button:not(.button):focus {
+  transform: scale(1.02);
+  background-color: rgba(var(--accent-color), 221);
+}
+
+.prompt__container .flexRow {
+  gap: 12px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.prompt__container .flexRow.column {
+  flex-direction: column;
+}
+.prompt__container .flexRow:not(.column) > * {
+  width: 50%;
+}
+.prompt__container .flexRow > .radioRow > div {
+  gap: 14px;
+  flex-direction: row;
+}
+.prompt__container .flexRow > .radioRow > legend {
+  line-height: 1;
+}
+
+.prompt__title {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.prompt__title > h1 {
+  text-align: center;
+  margin: -12px auto 12px;
+  color: rgba(var(--accent-color), 204);
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.prompt__title > h1 ~ * {
+  text-align: center;
+}
+.prompt__title > h1 ~ * .singleSelect {
+  max-width: 50%;
+}
+
+.prompt__content {
+  gap: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.prompt__actions {
+  padding: 24px;
+  box-shadow: 0px -0.2rem 0.2rem -0.1rem rgb(var(--button-bg-darker));
+}
+
+
+/* Pop-up prompt animation */
+@keyframes backdrop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes prompt {
+  from {
+    transform: translateY(50px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.prompt__backdrop.animated {
+  animation: backdrop 0.33s;
+}
+.prompt__container.animated {
+  animation: prompt 0.33s;
+}
+
+
+/* Pop-up prompt backdrop */
+.prompt__backdrop {
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+
+  inset: 0;
+  z-index: var(--z-index-prompt);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+/* Top left logo */
+
+.branding {
+  padding: 1rem;
+  max-width: 33%;
+  user-select: none;
+
+  gap: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.branding > img {
+  width: 4rem;
+  height: 4rem;
+}
+.branding > span {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+
+/* Regular Select */
+
+.singleSelect {
+  width: 100%;
+  height: 1rem;
+  padding: 0 6px;
+  max-width: 100%;
+  
+  outline: 0;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: 0.25s;
+  font-family: inherit;
+  color: rgb(var(--accent-color));
+  border-radius: var(--radius-small);
+  background-color: rgb(var(--select-bg));
+  border: 1px solid rgb(var(--separation-color-light));
+}
+
+.singleSelect:not(:disabled):hover {
+  border: 1px solid rgba(var(--accent-color), 136) !important;
+}
+.singleSelect:not(:disabled):focus {
+  box-shadow: 0 0 0 1px rgb(var(--accent-color));
+  border: 1px solid rgba(var(--accent-color), 136) !important;
+}
+
+.singleSelect > option {
+  color: initial;
+}
+
+
+/* Multi select */
+
+/* Opening animation */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(-0.6rem); }
+  100% { opacity: 1; transform: translateY(0rem); }
+}
+
+.sidebar__select {
+  padding: 0.33rem 0.66rem;
+  width: var(--sidebar-width);
+  max-width: var(--sidebar-width);
+}
+.sidebar .sidebar__select {
+  width: auto;
+}
+
+.sidebar__select.disabled {
+  opacity: 0.66;
+  cursor: no-drop;
+}
+.sidebar__select:not(.disabled) .dropdown-heading-value span {
+  color: rgba(var(--accent-color), 204);
+}
+
+.rmsc.multi-select {
+  --rmsc-h: 2rem;
+  --rmsc-bg: rgb(var(--select-bg));
+  --rmsc-radius: var(--radius-small);
+  --rmsc-p: 0.33rem 0.33rem 0.33rem 0.66rem;
+  --rmsc-main: rgba(var(--accent-color), 88);
+}
+
+.rmsc.multi-select * {
+  transition: 0.25s, color 0s, opacity 0s;
+}
+
+/* Select input field */
+.rmsc.multi-select .dropdown-heading {
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  user-select: none;
+  align-items: center;
+}
+.rmsc.multi-select .dropdown-heading-value {
+  padding: var(--rmsc-p);
+}
+
+.rmsc__arrow {
+  color: rgb(var(--separation-color));
+}
+.rmsc.multi-select button {
+  background-color: transparent !important;
+}
+
+
+.rmsc.multi-select .dropdown-container:hover {
+  border-color: rgb(var(--rmsc-main));
+}
+.rmsc.multi-select .dropdown-container[aria-expanded="true"] .rmsc__arrow {
+  transform: rotateZ(180deg);
+}
+
+.rmsc.multi-select .dropdown-container[aria-disabled="true"], select:disabled {
+  opacity: 0.7;
+  border: 1px solid rgb(var(--separation-color-light));
+}
+.rmsc.multi-select .dropdown-container[aria-disabled="true"] *, select:disabled {
+  cursor: no-drop;
+}
+.rmsc.multi-select .dropdown-container[aria-disabled="true"]:focus {
+  box-shadow: none;
+}
+
+/* Select dropdown content */
+.rmsc.multi-select .item-renderer {
+  font-size: 0.8rem;
+  user-select: none;
+  
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+  white-space: nowrap;
+}
+.rmsc.multi-select .item-renderer > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rmsc.multi-select .dropdown-content {
+  animation: fadeIn 0.25s;
+}
+
+.rmsc.multi-select .panel-content .options {
+  max-height: 160px;
+}
+
+.rmsc.multi-select .search input {
+  padding: var(--rmsc-p);
+}
+
+.prompt__container .rmsc.multi-select .dropdown-content {
+  z-index: var(--z-index-rmsc);
+}
+
+
+/* Tippy.js --- Tooltip component */
+
+body [data-tippy-root] {
+  /* Fix issue where the pop-up disappears before hovering it */
+  margin: 0 -0.66rem !important;
+}
+
+body .tippy-box {
+  max-width: 12rem !important;
+  border-radius: var(--radius-medium) !important;
+  box-shadow: 0 0 1.25rem 0.66rem rgb(154 160 174 / 25%), 0 0.25rem 2.5rem -0.5rem rgb(35 40 45 / 50%) !important;
+}
+
+body .tippy-content {
+  padding: 10px 15px !important;
+}
+body .tippy-content > div {
+  gap: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* Material-UI custom styling --- adding "body" makes the custom styling higher in priority for CSS */
+
+body .MuiTextField-root .MuiInputLabel-outlined, .MuiInputBase-adornedStart span[class*="material-icons"] {
+  transition: 0.25s;
+}
+
+body .MuiInputLabel-root.Mui-focused,
+body .MuiCheckbox-colorPrimary.Mui-checked,
+body .MuiOutlinedInput-root.Mui-focused .material-icons-outlined {
+  color: rgb(var(--accent-color)) !important;
+}
+body div[role="tooltip"] .MuiInputLabel-root.Mui-focused {
+  color: #3f51b5 !important;
+}
+
+body .MuiOutlinedInput-root {
+  border-radius: var(--radius-small);
+}
+body .MuiOutlinedInput-root fieldset {
+  transition: 0.25s;
+  border-width: 2px;
+}
+
+body .MuiOutlinedInput-root:hover fieldset {
+  border-color: rgba(var(--accent-color), 0.5) !important;
+}
+body .MuiOutlinedInput-root.Mui-focused fieldset {
+  border-color: rgb(var(--accent-color)) !important;
+}
+
+body button.MuiButton-root {
+  min-width: unset;
+}
+body button.MuiButton-root.Mui-disabled {
+  opacity: 0.5;
+  color: white;
+}
+body button.MuiButton-root.Mui-disabled [class*="material-icons"] {
+  color: initial;
+}
+
+/* Make primary buttons text bigger */
+body button.MuiButton-root.btnPrimary > .MuiButton-label {
+  transform: scale(1.1);
+}
+
+body button.MuiButton-root.btnDismiss {
+  color: #f22;
+  text-transform: none;
+  background-color: transparent !important;
+}
+
+body button.MuiButton-root.btnSecondary {
+  color: black;
+  text-transform: none;
+  border: 1px solid black;
+  background-color: transparent !important;
+}
+
+body .MuiInputAdornment-root button[class*="MuiButton"] {
+  padding: 0;
+  color: unset;
+  transform: unset;
+  background-color: transparent;
+}
+
+body button .MuiButton-startIcon.MuiButton-iconSizeSmall {
+  margin-left: 0;
+}
+
+
+/* DataGrid tables */
+
+.datagrid__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  box-shadow: 0px -0.25rem 0.25rem -0.125rem var(--button-bg-darker);
+}
+
+.MuiGridPanel-root { /* Make Grid pop-ups at the top-right */
+  top: 157px !important;
+  left: unset !important;
+  right: 41px !important;
+  transform: none !important;
+  z-index: var(--mui-tooltip) !important;
+}
+
+body .content__header .MuiDataGrid-toolbarContainer {
+  gap: 0.66rem;
+  padding: 0 !important;
+}
+body .MuiDataGrid-toolbarContainer .MuiButton-label { font-family: inherit; }
+body .MuiDataGrid-toolbarContainer .MuiButton-textSizeSmall { font-size: inherit; }
+body .MuiDataGrid-toolbarContainer .MuiButton-iconSizeSmall .MuiSvgIcon-root { font-size: 1.25rem; }
+
+body .MuiDataGrid-root {
+  font-weight: unset;
+  font-family: unset;
+  line-height: unset;
+  letter-spacing: unset;
+  border-radius: var(--radius-medium);
+}
+body .MuiDataGrid-root .content__header {
+  margin: 0.66rem;
+  border-radius: var(--radius-small);
+}
+body .MuiDataGrid-root .MuiDataGrid-columnHeaderTitle {
+  font-weight: 600;
+}
+
+body .MuiDataGrid-columnHeaderWrapper > *:focus-within,
+body .MuiDataGrid-columnHeaderWrapper > *:focus,
+body .MuiDataGrid-row > *:focus-within,
+body .MuiDataGrid-row > *:focus {
+  outline: 0 !important;
+}
+
+
+/* React switch */
+
+.react-switch-handle {
+  box-shadow: none !important;
+}
+.react-switch-handle > div {
+  display: flex;
+}
+
+
+/* Miscellaneous */
+
+button, span[class*="material-icons"] {
+  user-select: none;
+}
+
+
+/* --- End Global Custom CSS --- */
