@@ -1,5 +1,5 @@
-import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
+import React, { Suspense } from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
 
 import i18next from 'i18next';
@@ -7,8 +7,8 @@ import { initReactI18next } from 'react-i18next';
 import LoadTranslations from 'i18next-http-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-import { appReducer } from './context/app/reducer';
-import { AppProvider } from './context/app/Provider';
+import { store } from './store/store';
+import { Provider } from 'react-redux';
 
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
@@ -31,7 +31,8 @@ i18next // Translation module
     supportedLngs: ['en', 'fr']
   });
 
-// Show blank page for the couple of milliseconds translations take to load
+
+// Show blank page while translations load
 const loading = {
   top: 0,
   left: 0,
@@ -42,6 +43,7 @@ const loading = {
   backgroundColor: 'transparent'
 };
 
+
 // Set Material-UI Pro License Key
 // (add "REACT_APP_MUI_KEY" key with the license key value in the ".env" file + uncomment line below)
 // LicenseInfo.setLicenseKey(process.env.REACT_APP_MUI_KEY);
@@ -50,11 +52,11 @@ const loading = {
 ReactDOM.render(
   <React.StrictMode>
     <Suspense fallback={<div style={loading}/>}>
-      <AppProvider reducer={appReducer}>
+      <Provider store={store}>
         <ChakraProvider>
           <App/>
         </ChakraProvider>
-      </AppProvider>
+      </Provider>
     </Suspense>
   </React.StrictMode>,
   document.getElementById('root')

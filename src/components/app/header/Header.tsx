@@ -1,27 +1,25 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 
-// import { logout } from '../../../Functions/auth';
+import { getAuthStateWithUser } from '../../../shared/utils';
+import { logout } from '../../../store/features/auth/authSlice';
 
 import './Header.css';
 
 
 function Header() {
   const { t } = useTranslation();
-
+  const dispatch = useDispatch();
+  const { user } = useSelector(getAuthStateWithUser);
 
   const toggleDropdown = (id: string) => {
     document.querySelector('#' + id)?.classList.toggle('open');
     document.querySelectorAll('.dropdown > ul').forEach((dropdown) => (
-      dropdown.id !== id && dropdown.classList.remove('open') // close other dropdowns
+      dropdown.id !== id && dropdown.classList.remove('open') // close other dropdowns if any
     ));
-  }
-
-  const handleLogout = () => null; // logout().then(() => {
-  //   localStorage.removeItem('signedIn');
-  //   return window.location.pathname = '/'; // Reset context to the initial state
-  // });
+  };
 
 
   useEffect(() => {
@@ -54,33 +52,17 @@ function Header() {
             <span className="material-icons-outlined">timer</span>
             <span>{t('header.realtime')}</span>
           </Link>
-
-          <div className={window.location.pathname.startsWith('/admin') ? 'dropdown selected' : 'dropdown'}>
-            <ul className="dropdown__list" id="admin" style={{left: 0}}>
-              <li><Link to="/admin/accounts">{t('header.admin.accounts')}</Link></li>
-              <li><Link to="/admin/groups">{t('header.admin.groups')}</Link></li>
-              <li><Link to="/admin/locations">{t('header.admin.locations')}</Link></li>
-            </ul>
-
-            <div className="dropdown__content" onClick={() => toggleDropdown('admin')}>
-              <span className="dropdown__open material-icons-outlined dropdown__icon">admin_panel_settings</span>
-              <span className="dropdown__open dropdown__title">
-                More
-              </span>
-              <span className="dropdown__open material-icons-round dropdown__arrow">expand_more</span>
-            </div>
-          </div>
         </nav>
         
         <div className={window.location.pathname.startsWith('/settings') ? 'dropdown selected' : 'dropdown'}>
           <ul className="dropdown__list" id="user">
             <li><Link to="/settings">{t('header.user.settings')}</Link></li>
-            <li onClick={handleLogout}><span>{t('header.user.logout')}</span></li>
+            <li onClick={() => dispatch(logout())}><span>{t('header.user.logout')}</span></li>
           </ul>
 
           <div className="dropdown__content" onClick={() => toggleDropdown('user')}>
             <span className="dropdown__open material-icons-outlined dropdown__icon">account_circle</span>
-            <span className="dropdown__open dropdown__title">Username</span>
+            <span className="dropdown__open dropdown__title">{user.firstName}</span>
             <span className="dropdown__open material-icons-round dropdown__arrow">expand_more</span>
           </div>
         </div>

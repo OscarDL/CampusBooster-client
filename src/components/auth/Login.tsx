@@ -1,30 +1,29 @@
-import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Unsupported from './Unsupported';
-import { fakeUserData } from '../../shared/utils';
-import { useAppContext } from '../../context/app/Provider';
+import { fakeUserLogin } from '../../shared/utils';
+import { login } from '../../store/features/auth/authSlice';
 
 import './Auth.css';
 
 
 function Login() {
   const { t } = useTranslation();
-  const [, appDispatch] = useAppContext();
-  const [supported, setSupported] = useState<boolean | null>(null);
+  const dispatch = useDispatch();
+  const [unsupported, setUnsupported] = useState<boolean | null>(null);
 
 
   const handleLogin = () => {
-    appDispatch({ user: fakeUserData });
-    toast(t('login.success'), { type: 'success' });
+    dispatch(login(fakeUserLogin));
   };
 
   useEffect(() => {
-    document.title = t('login.page');
+    document.title = `${t('brand')} - ${t('login.title')}`;
 
     import('detect-browser').then(({detect}) => {
-      setSupported(!['edge', 'ie'].includes(detect()?.name ?? 'ie'));
+      setUnsupported(['edge', 'ie'].includes(detect()?.name ?? 'ie'));
     });
   }, [t]);
 
@@ -35,9 +34,7 @@ function Login() {
         Click to login with fake user data
       </button>
 
-      {supported === false && (
-        <Unsupported/>
-      )}
+      {unsupported && <Unsupported/>}
     </>
   );
 };

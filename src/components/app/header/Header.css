@@ -101,7 +101,7 @@
   transition: 0.25s;
   border-radius: 6px;
   background-color: #fff;
-  box-shadow: 0px 0px 0.66rem 0.125rem var(--button-bg-darker);
+  box-shadow: 0px 0px 0.66rem 0.125rem rgb(var(--button-bg-darker));
 }
 
 /* Dropdown options list */

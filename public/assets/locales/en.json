@@ -1,1 +1,48 @@
-{}
+{
+  "brand": "Campus Booster",
+
+
+  "login": {
+    "title": "Sign in",
+
+    "errors": {
+      "error": "Could not sign in.",
+      "data": "Could not retrieve user data."
+    }
+  },
+
+  "profile": {
+    "logout": "Logout",
+    "settings": "Settings",
+    "ms_account": "Microsoft account"
+  },
+
+
+  "summary": {
+    "title": "Summary"
+  },
+
+  "subjects": {
+    "title": "Subjects"
+  },
+
+  "students": {
+    "title": "Students"
+  },
+
+  "absences": {
+    "title": "Absences"
+  },
+
+  "internships": {
+    "title": "Internships"
+  },
+
+  "accounting": {
+    "title": "Accounting"
+  },
+
+  "administration": {
+    "title": "Administration"
+  }
+}

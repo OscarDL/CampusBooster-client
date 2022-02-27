@@ -1,1 +1,48 @@
-{}
+{
+  "brand": "Campus Booster",
+
+
+  "login": {
+    "title": "Connexion",
+
+    "errors": {
+      "error": "Erreur de connexion.",
+      "data": "Erreur de récupération des données utilisateurs."
+    }
+  },
+
+  "profile": {
+    "logout": "Se déconnecter",
+    "settings": "Réglages",
+    "ms_account": "Compte Microsoft"
+  },
+
+
+  "summary": {
+    "title": "Résumé"
+  },
+
+  "subjects": {
+    "title": "Matières"
+  },
+
+  "students": {
+    "title": "Étudiants"
+  },
+
+  "absences": {
+    "title": "Absences"
+  },
+
+  "internships": {
+    "title": "Stages et contrats"
+  },
+
+  "accounting": {
+    "title": "Comptabilité"
+  },
+
+  "administration": {
+    "title": "Administration"
+  }
+}
