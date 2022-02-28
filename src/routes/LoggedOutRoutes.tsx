@@ -5,12 +5,14 @@ import LoginView from '../views/auth/Login';
 
 function LoggedOutRoutes() {
   return (
-    <Routes>
-      <Route path="/login" element={<LoginView/>}/>
+    <div className="app">
+      <Routes>
+        <Route path="/login" element={<LoginView/>}/>
 
-      {/* Redirect to login page if not a route */}
-      <Route path="*" element={<Navigate replace to="/login"/>}/>
-    </Routes>
+        {/* Redirect to login page if not a route */}
+        <Route path="*" element={<Navigate replace to="/login"/>}/>
+      </Routes>
+    </div>
   );
 };
 

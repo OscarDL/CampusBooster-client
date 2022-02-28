@@ -7,7 +7,7 @@ import Header from '../components/app/header/Header';
 
 function LoggedInRoutes() {
   return (
-    <>
+    <div className="app">
       <Header/>
 
       <Routes>
@@ -20,7 +20,7 @@ function LoggedInRoutes() {
         {/* Redirect to the home page if the route doesn't exist */}
         <Route path="*" element={<Navigate replace to="/summary"/>}/>
       </Routes>
-    </>
+    </div>
   );
 };
 
