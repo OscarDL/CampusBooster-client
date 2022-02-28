@@ -23,7 +23,6 @@ function App() {
 
   const onAuthenticated = async (userAccountInfo: AccountInfo) => {
     setCurrentUser(userAccountInfo);
-    console.log('user', userAccountInfo);
   };
 
   // Render JSON data in readable format
