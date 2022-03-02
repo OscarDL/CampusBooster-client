@@ -8,7 +8,7 @@ import {
 } from '@azure/msal-browser';
 
 
-import { MSAL_CONFIG } from './azureAuthConfig';
+import { MSAL_CONFIG } from './config';
 
 
 export class AzureAuthenticationContext {

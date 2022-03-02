@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import { colors } from '../shared/utils';
-import AzureAuthenticationButton from '../azure/azureAuthComponent';
+import AzureAuthenticationButton from '../azure/auth/Button';
 import { userData, setUser } from '../store/features/auth/authSlice';
 
 import LoggedInRoutes from '../routes/LoggedInRoutes';

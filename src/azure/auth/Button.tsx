@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { AccountInfo } from '@azure/msal-browser';
 
-import AzureAuthenticationContext from './azureAuthContext';
+import AzureAuthContext from './context';
 
 
-const authModule = new AzureAuthenticationContext();
+const authModule = new AzureAuthContext();
 
 
-const AzureAuthenticationButton = ({ onAuthenticated }: any): JSX.Element => {
+const AzureAuthButton = ({ onAuthenticated }: any): JSX.Element => {
   const [user, setUser] = useState<AccountInfo>();
   const [authenticated, setAuthenticated] = useState<Boolean>(false);
 
@@ -39,7 +39,7 @@ const AzureAuthenticationButton = ({ onAuthenticated }: any): JSX.Element => {
 
   const loginButton = (): any => {
     return (
-      <button id="authenticationButton" onClick={handleLogin}>
+      <button id="azure-login-btn" onClick={handleLogin}>
         Log in
       </button>
     );
@@ -47,19 +47,15 @@ const AzureAuthenticationButton = ({ onAuthenticated }: any): JSX.Element => {
 
   const logoutButton = (): any => {
     return (
-      <div id="authenticationButtonDiv">
-        <div id="authentication">
-          <button id="authenticationButton" onClick={handleLogout}>
-            Log out
-          </button>
-        </div>
-      </div>
+      <button id="azure-logout-btn" onClick={handleLogout}>
+        Log out
+      </button>
     );
   };
 
 
   return (
-    <div id="authentication">
+    <div id="azure-auth">
       {authModule.isAuthenticationConfigured ? (
         authenticated ? logoutButton() : loginButton()
       ) : (
@@ -70,4 +66,4 @@ const AzureAuthenticationButton = ({ onAuthenticated }: any): JSX.Element => {
 };
 
 
-export default AzureAuthenticationButton;
+export default AzureAuthButton;
