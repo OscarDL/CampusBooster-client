@@ -1,6 +1,5 @@
 import ReactDOM from 'react-dom';
 import React, { Suspense } from 'react';
-import { ChakraProvider } from '@chakra-ui/react';
 
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
@@ -53,9 +52,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Suspense fallback={<div style={loading}/>}>
       <Provider store={store}>
-        <ChakraProvider>
-          <App/>
-        </ChakraProvider>
+        <App/>
       </Provider>
     </Suspense>
   </React.StrictMode>,

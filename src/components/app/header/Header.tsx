@@ -62,7 +62,7 @@ function Header() {
 
           <div className="dropdown__content" onClick={() => toggleDropdown('user')}>
             <span className="dropdown__open material-icons-outlined dropdown__icon">account_circle</span>
-            <span className="dropdown__open dropdown__title">{user.firstName}</span>
+            <span className="dropdown__open dropdown__title">{user.name}</span>
             <span className="dropdown__open material-icons-round dropdown__arrow">expand_more</span>
           </div>
         </div>

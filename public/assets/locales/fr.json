@@ -2,6 +2,19 @@
   "brand": "Campus Booster",
 
 
+  "browser": {
+    "unsupported": {
+      "title": "Navigateur non supporté",
+      "download": "Vous pouvez télécharger l'un des navigateurs suivants :",
+      "description": "Cette nouvelle version du tableau de bord SDS comporte différentes fonctionnalités supplémentaires, non-fonctionnelles sur ce navigateur."
+    },
+    "edge": "Microsoft Edge",
+    "chrome": "Google Chrome",
+    "firefox": "Mozilla Firefox",
+    "new_edge": "Nouveau Microsoft Edge"
+  },
+
+
   "login": {
     "title": "Connexion",
 

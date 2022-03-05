@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { Settings } from '../../../shared/interfaces/settings';
+import { Settings } from '../../../shared/types/settings';
 
 
 const initialState: Settings = {

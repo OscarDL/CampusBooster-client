@@ -1,4 +1,4 @@
-import { User } from './interfaces/user';
+import { User } from './types/user';
 
 
 export const getAuthStateWithUser = (state: RootState) => ({
@@ -13,16 +13,4 @@ export const colors = {
 
 export const values = {
   languages: ['en', 'fr'],
-};
-
-export const fakeUserLogin = {
-  email: 'john@doe.com',
-  password: 'JohnDoe_42'
-};
-
-export const fakeUserData = {
-  id: 12345,
-  lastName: 'Doe',
-  firstName: 'John',
-  email: 'john@doe.com'
 };

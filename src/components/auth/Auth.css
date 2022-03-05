@@ -104,6 +104,7 @@
   transition: transform 0s 0.15s, opacity 0.15s;
 
   padding: 0.5rem 0.75rem;
+  color: rgb(var(--accent-color));
   border-radius: var(--radius-small);
   background-color: rgb(var(--button-bg));
   

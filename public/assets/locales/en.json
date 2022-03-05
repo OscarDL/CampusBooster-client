@@ -2,6 +2,19 @@
   "brand": "Campus Booster",
 
 
+  "browser": {
+    "unsupported": {
+      "title": "Unsupported browser",
+      "download": "You can download one of these browsers:",
+      "description": "This second verison of the SDS Dashboard contains various improvements, including new features which are not functional on this browser."
+    },
+    "edge": "Microsoft Edge",
+    "chrome": "Google Chrome",
+    "firefox": "Mozilla Firefox",
+    "new_edge": "New Microsoft Edge"
+  },
+
+
   "login": {
     "title": "Sign in",
 

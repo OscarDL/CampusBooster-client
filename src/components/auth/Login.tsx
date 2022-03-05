@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Unsupported from './Unsupported';
-import { fakeUserLogin } from '../../shared/utils';
+import { AzureUser } from '../../shared/types/user';
+import AzureAuthButton from '../../azure/auth/Button';
 import { login } from '../../store/features/auth/authSlice';
 
 import './Auth.css';
@@ -12,12 +13,13 @@ import './Auth.css';
 function Login() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const [unsupported, setUnsupported] = useState<boolean | null>(null);
+  const [unsupported, setUnsupported] = useState<boolean>();
 
 
-  const handleLogin = () => {
-    dispatch(login(fakeUserLogin));
+  const handleLogin = async (azureUser: AzureUser) => {
+    dispatch(login(azureUser));
   };
+
 
   useEffect(() => {
     document.title = `${t('brand')} - ${t('login.title')}`;
@@ -28,15 +30,20 @@ function Login() {
   }, [t]);
 
 
-  return (
-    <>
-      <button onClick={handleLogin}>
-        Click to login with fake user data
-      </button>
+  const displayLoginPage = (unsupported: boolean | undefined): JSX.Element => {
+    switch (unsupported) {
+      case true: return <Unsupported/>;
 
-      {unsupported && <Unsupported/>}
-    </>
-  );
+      case false: return (
+        <AzureAuthButton onAuthenticated={handleLogin}/>
+      );
+
+      default: return <></>;
+    }
+  };
+
+
+  return displayLoginPage(unsupported);
 };
 
 

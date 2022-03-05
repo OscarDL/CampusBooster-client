@@ -3,10 +3,10 @@ import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 import authService from './authService';
-import { User, UserLogin } from '../../../shared/interfaces/user';
+import { AzureUser, User } from '../../../shared/types/user';
 
 
-export interface AuthState {
+export type AuthState = {
   user: User | null,
   loading: boolean,
   isLoggedIn: boolean
@@ -20,9 +20,9 @@ const initialState: AuthState = {
 };
 
 
-export const login = createAsyncThunk('auth/login', async (user: UserLogin, thunkAPI) => {
+export const login = createAsyncThunk('auth/login', async (azureUser: AzureUser, thunkAPI) => {
   try {
-    return await authService.login(user);
+    return await authService.login(azureUser);
   }
 
   catch (error: any) {
