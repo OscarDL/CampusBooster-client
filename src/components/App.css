@@ -59,6 +59,7 @@ code {
   --z-index-mui-tooltip: 5;
 
   --header-height: 5rem;
+  --mobile-drawer-screen-width: 768px;
 
   --button-bg: 238, 238, 238;
   --select-bg: 250, 250, 250;
@@ -76,22 +77,14 @@ code {
 
 .app {
   display: flex;
-  flex-direction: column;
 
   width: 100vw;
   height: 100vh;
   max-width: 100%;
 }
 
-.body {
+.app__content {
   flex-grow: 1;
-  min-height: 0;
-  display: flex;
-}
-
-.container {
-  margin: 10px;
-  padding: 20px;
   overflow: auto;
 }
 
@@ -99,12 +92,12 @@ code {
   display: flex;
   align-items: center;
 
-  margin: 0 15px;
+  margin: 0 1rem;
   cursor: pointer;
 }
 
 .checkbox * {
-  padding: 0 5px;
+  padding: 0 0.33rem;
   cursor: pointer;
   user-select: none;
   accent-color: rgb(var(--accent-color));
@@ -115,7 +108,7 @@ code {
 }
 
 h2 {
-  font-size: 23px;
+  font-size: 1.5rem;
 }
 
 hr {
@@ -135,7 +128,7 @@ button {
 }
 
 .button {
-  padding: 6px 12px !important;
+  padding: 0.4rem 0.8rem !important;
   background-color: rgb(var(--button-bg));
 }
 .button > * {
@@ -156,21 +149,23 @@ button {
 
 /* Links */
 
+/*
 a {
   text-decoration: none;
 }
 a:hover, a:focus {
   text-decoration: underline;
 }
+*/
 
 
 /* Content Header */
 
 .content__header {
-  gap: 15px;
-  margin: 0 10px;
-  min-height: 56px;
-  padding: 10px 20px;
+  gap: 1rem;
+  margin: 0 0.66rem;
+  min-height: 3.5rem;
+  padding: 0.75rem 1.25rem;
 
   display: flex;
   align-items: center;
@@ -178,7 +173,7 @@ a:hover, a:focus {
   
   border-radius: var(--radius-medium);
   background-color: rgb(var(--button-bg));
-  box-shadow: 0px 0px 0.4rem 0.1rem var(--button-bg);
+  box-shadow: 0 0 0.4rem 0.1rem var(--button-bg);
 }
 
 .content__header > h2 {
@@ -235,137 +230,9 @@ a:hover, a:focus {
   display: grid;
   place-items: center;
 }
-
-
-/* Pop-up prompts */
-
-.prompt__container {
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  justify-content: space-between;
-
-  width: 90%;
-  height: 90%;
-  max-width: 620px;
-  max-height: 620px;
-  background-color: #fff;
-  border-radius: var(--radius-medium);
-}
-
-.prompt__wrapper {
-  gap: 1.5rem;
-  padding: 1.5rem;
-  overflow: hidden auto;
-
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.prompt__container button:not(.button) {
-  color: white;
-  font-size: 1.2rem;
-  border: 1px solid transparent;
-  border-radius: var(--radius-small);
-  background-color: rgba(var(--accent-color), 204);
-}
-.prompt__container button:not(.button):hover, .prompt__container button:not(.button):focus {
-  transform: scale(1.02);
-  background-color: rgba(var(--accent-color), 221);
-}
-
-.prompt__container .flexRow {
-  gap: 12px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-.prompt__container .flexRow.column {
-  flex-direction: column;
-}
-.prompt__container .flexRow:not(.column) > * {
-  width: 50%;
-}
-.prompt__container .flexRow > .radioRow > div {
-  gap: 14px;
-  flex-direction: row;
-}
-.prompt__container .flexRow > .radioRow > legend {
-  line-height: 1;
-}
-
-.prompt__title {
-  width: 100%;
-  margin: 0 auto;
-}
-
-.prompt__title > h1 {
-  text-align: center;
-  margin: -12px auto 12px;
-  color: rgba(var(--accent-color), 204);
-
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.prompt__title > h1 ~ * {
-  text-align: center;
-}
-.prompt__title > h1 ~ * .singleSelect {
-  max-width: 50%;
-}
-
-.prompt__content {
-  gap: 20px;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.prompt__actions {
-  padding: 24px;
-  box-shadow: 0px -0.2rem 0.2rem -0.1rem rgb(var(--button-bg-darker));
-}
-
-
-/* Pop-up prompt animation */
-@keyframes backdrop {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes prompt {
-  from {
-    transform: translateY(50px);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-.prompt__backdrop.animated {
-  animation: backdrop 0.33s;
-}
-.prompt__container.animated {
-  animation: prompt 0.33s;
-}
-
-
-/* Pop-up prompt backdrop */
-.prompt__backdrop {
-  display: flex;
-  position: fixed;
-  align-items: center;
-  justify-content: center;
-
+.loader.fullscreen {
   inset: 0;
-  z-index: var(--z-index-prompt);
-  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
 }
 
 
@@ -396,7 +263,7 @@ a:hover, a:focus {
 .singleSelect {
   width: 100%;
   height: 1rem;
-  padding: 0 6px;
+  padding: 0 0.33rem;
   max-width: 100%;
   
   outline: 0;
@@ -520,7 +387,7 @@ a:hover, a:focus {
 }
 
 .rmsc.multi-select .panel-content .options {
-  max-height: 160px;
+  max-height: 10rem;
 }
 
 .rmsc.multi-select .search input {
@@ -546,10 +413,10 @@ body .tippy-box {
 }
 
 body .tippy-content {
-  padding: 10px 15px !important;
+  padding: 0.66rem 1rem !important;
 }
 body .tippy-content > div {
-  gap: 5px;
+  gap: 0.33rem;
   display: flex;
   flex-direction: column;
 }
@@ -632,7 +499,7 @@ body button .MuiButton-startIcon.MuiButton-iconSizeSmall {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  box-shadow: 0px -0.25rem 0.25rem -0.125rem var(--button-bg-darker);
+  box-shadow: 0 -0.25rem 0.25rem -0.125rem var(--button-bg-darker);
 }
 
 .MuiGridPanel-root { /* Make Grid pop-ups at the top-right */
@@ -688,7 +555,26 @@ body .MuiDataGrid-row > *:focus {
 
 button, span[class*="material-icons"] {
   user-select: none;
+  transition: 0.25s;
 }
 
+
+/* Media queries */
+
+/* Smartphones */
+@media (max-width: 480px) {
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+}
+
+/* Tablets */
+@media (max-width: 1024px) {
+}
+
+/* Tablets */
+@media (min-width: 1025px) {
+}
 
 /* --- End Global Custom CSS --- */

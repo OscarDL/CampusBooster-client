@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getAuthStateWithUser } from '../../../shared/utils';
+import { getLoggedInAuthState } from '../../../shared/utils';
 import { logout } from '../../../store/features/auth/authSlice';
 
 import './Header.css';
@@ -12,7 +12,7 @@ import './Header.css';
 function Header() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { user } = useSelector(getAuthStateWithUser);
+  const { user } = useSelector(getLoggedInAuthState);
 
   const toggleDropdown = (id: string) => {
     document.querySelector('#' + id)?.classList.toggle('open');

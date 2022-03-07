@@ -8,7 +8,7 @@ function Settings() {
   const { t } = useTranslation();
 
   useEffect(() => {
-    document.title = t('settings.page');
+    document.title = `${t('brand')} - ${t('settings.title')}`;
   }, [t]);
 
 

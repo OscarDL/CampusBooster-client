@@ -1,3 +1,6 @@
+import './Prompt.css';
+
+
 type Props = {
   animated: boolean,
   children: JSX.Element,

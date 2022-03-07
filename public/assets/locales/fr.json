@@ -24,15 +24,19 @@
     }
   },
 
-  "profile": {
+  "settings": {
+    "title": "Réglages",
     "logout": "Se déconnecter",
-    "settings": "Réglages",
     "ms_account": "Compte Microsoft"
   },
 
 
   "summary": {
     "title": "Résumé"
+  },
+
+  "marks": {
+    "title": "Notes"
   },
 
   "subjects": {

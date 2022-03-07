@@ -24,38 +24,50 @@
     }
   },
 
-  "profile": {
+  "settings": {
+    "title": "Settings",
     "logout": "Logout",
-    "settings": "Settings",
     "ms_account": "Microsoft account"
   },
 
 
   "summary": {
-    "title": "Summary"
+    "title": "Summary",
+    "icon": "dashboard"
+  },
+
+  "marks": {
+    "title": "Marks",
+    "icon": "task"
   },
 
   "subjects": {
-    "title": "Subjects"
+    "title": "Subjects",
+    "icon": "topic"
   },
 
   "students": {
-    "title": "Students"
+    "title": "Students",
+    "icon": "school"
   },
 
   "absences": {
-    "title": "Absences"
+    "title": "Absences",
+    "icon": "calendar_month"
   },
 
   "internships": {
-    "title": "Internships"
+    "title": "Internships",
+    "icon": "work"
   },
 
   "accounting": {
-    "title": "Accounting"
+    "title": "Accounting",
+    "icon": "balance"
   },
 
   "administration": {
-    "title": "Administration"
+    "title": "Administration",
+    "icon": "admin_panel_settings"
   }
 }
