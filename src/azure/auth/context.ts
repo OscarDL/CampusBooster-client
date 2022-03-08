@@ -1,12 +1,4 @@
-import {
-  PublicClientApplication,
-  AuthenticationResult,
-  AccountInfo,
-  EndSessionRequest,
-  RedirectRequest,
-  PopupRequest,
-} from '@azure/msal-browser';
-
+import { AccountInfo, AuthenticationResult, PopupRequest, PublicClientApplication } from '@azure/msal-browser';
 
 import { MSAL_CONFIG } from './config';
 
@@ -16,7 +8,6 @@ export class AzureAuthenticationContext {
 
   private account?: AccountInfo;
   private loginRequest?: PopupRequest;
-  private loginRedirectRequest?: RedirectRequest;
 
   public isAuthenticationConfigured = false;
 
@@ -25,6 +16,7 @@ export class AzureAuthenticationContext {
     // @ts-ignore
     this.account = null;
     this.setRequestObjects();
+
     if (MSAL_CONFIG?.auth?.clientId) {
       this.isAuthenticationConfigured = true;
     }
@@ -36,42 +28,28 @@ export class AzureAuthenticationContext {
       scopes: [],
       prompt: "select_account",
     };
-
-    this.loginRedirectRequest = {
-      ...this.loginRequest,
-      redirectStartPage: window.location.href,
-    };
   };
 
 
-  login(signInType: string, setUser: any): void {
-    if (signInType === 'loginPopup') {
-      this.myMSALObj
-        .loginPopup(this.loginRequest)
-        .then((resp: AuthenticationResult) => {
-          this.handleResponse(resp, setUser);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    }
-    else if (signInType === 'loginRedirect') {
-      this.myMSALObj.loginRedirect(this.loginRedirectRequest);
-    }
+  login = async (setUser: any): Promise<void> => {
+    await this.myMSALObj
+      .loginPopup(this.loginRequest)
+      .then((resp: AuthenticationResult) => {
+        this.handleResponse(resp, setUser);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
 
-  logout(account: AccountInfo): void {
-    const logOutRequest: EndSessionRequest = {
-      account,
-    };
-
-    this.myMSALObj.logoutRedirect(logOutRequest);
+  logout = async (account: AccountInfo): Promise<void> => {
+    await this.myMSALObj.logoutPopup({account});
   };
 
 
-  handleResponse(response: AuthenticationResult, incomingFunction: any) {
-    if(response !==null && response.account !==null) {
+  handleResponse = (response: AuthenticationResult, incomingFunction: any) => {
+    if (response !== null && response.account !== null) {
       this.account = response.account;
     }
     else {
@@ -85,20 +63,17 @@ export class AzureAuthenticationContext {
 
 
   private getAccount(): AccountInfo | undefined {
-    console.log(`loadAuthModule`);
     const currentAccounts = this.myMSALObj.getAllAccounts();
     if (currentAccounts === null) {
-      // @ts-ignore
-      console.log('No accounts detected');
+      console.log('No account detected.');
       return undefined;
     }
 
-    if (currentAccounts.length > 1) {
-      // TBD: Add choose account code here
-      // @ts-ignore
-      console.log('Multiple accounts detected, need to add choose account code.');
+    else if (currentAccounts.length > 1) {
+      console.log('Multiple accounts detected.');
       return currentAccounts[0];
     }
+
     else if (currentAccounts.length === 1) {
       return currentAccounts[0];
     }

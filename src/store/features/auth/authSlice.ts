@@ -109,13 +109,13 @@ const authSlice = createSlice({
 
 
     builder // User logout process
-      .addMatcher(isAnyOf(logout.fulfilled, logout.rejected), (state, action: any) => {
+      .addMatcher(isAnyOf(logout.fulfilled, logout.rejected), (state, {payload: logoutFromMsAccount}) => {
         state.user = {} as User;
         state.isLoggedIn = false;
 
         // Reset to the initial state
         localStorage.removeItem('isLoggedIn');
-        if (action.payload.logoutFromMsAccount) window.location.pathname = '/';
+        if (logoutFromMsAccount === false) window.location.pathname = '/';
       });
   }
 });

@@ -12,7 +12,9 @@ import './Summary.css';
 function Summary() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+
   const {user} = useSelector(getLoggedInAuthState);
+
 
   useEffect(() => {
     document.title = `${t('brand')} - ${t('summary.title')}`;
