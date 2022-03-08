@@ -1,11 +1,11 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Unsupported from './Unsupported';
 import { AzureUser } from '../../shared/types/user';
-import AzureAuthButton from '../../azure/auth/Button';
-import { login } from '../../store/features/auth/authSlice';
+import { login, logout } from '../../store/features/auth/authSlice';
+import { LoginButton, LogoutButton } from '../../azure/auth/Buttons';
 
 import './Auth.css';
 
@@ -13,11 +13,17 @@ import './Auth.css';
 function Login() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+
+  const {user} = useSelector(state => state.auth);
   const [unsupported, setUnsupported] = useState<boolean>();
 
 
   const handleLogin = async (azureUser: AzureUser) => {
     dispatch(login(azureUser));
+  };
+
+  const handleLogout = async () => {
+    dispatch(logout(false));
   };
 
 
@@ -30,12 +36,16 @@ function Login() {
   }, [t]);
 
 
-  const displayLoginPage = (unsupported: boolean | undefined): JSX.Element => {
+  const displayLoginPage = (): JSX.Element => {
     switch (unsupported) {
       case true: return <Unsupported/>;
 
       case false: return (
-        <AzureAuthButton onAuthenticated={handleLogin}/>
+        user?.id ? (
+          <LogoutButton user={user} handleLogout={handleLogout}/>
+        ) : (
+          <LoginButton handleLogin={handleLogin}/>
+        )
       );
 
       default: return <></>;
@@ -43,7 +53,7 @@ function Login() {
   };
 
 
-  return displayLoginPage(unsupported);
+  return displayLoginPage();
 };
 
 

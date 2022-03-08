@@ -11,10 +11,7 @@
 }
 
 .drawer__expand-btn {
-  bottom: 0;
   width: 100%;
-  position: absolute;
-
   display: flex;
   flex-direction: column;
 }

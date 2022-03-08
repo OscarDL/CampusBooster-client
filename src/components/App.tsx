@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
-import { BeatLoader } from 'react-spinners';
 import { Slide, ToastContainer } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import { colors } from '../shared/utils';
 import { userData, setUser } from '../store/features/auth/authSlice';
 
+import Loader from './shared/Loader';
 import LoggedInRoutes from '../routes/LoggedInRoutes';
 import LoggedOutRoutes from '../routes/LoggedOutRoutes';
 
@@ -16,7 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const dispatch = useDispatch();
-  const { loading, user } = useSelector((state) => state.auth);
+  const {loading, user} = useSelector((state) => state.auth);
 
 
   useEffect(() => {
@@ -36,16 +35,14 @@ function App() {
 
   return (
     <div>
-      {loading && <BeatLoader color={colors.loader}/>}
+      {loading && <Loader fullscreen/>}
 
       {user ? (
         <Router>
           {user.id ? <LoggedInRoutes/> : <LoggedOutRoutes/>}
         </Router>
       ) : (
-        <div className="loader">
-          <BeatLoader color={colors.loader}/>
-        </div>
+        <Loader fullscreen/>
       )}
 
       <ToastContainer

@@ -59,9 +59,9 @@ function SidebarDrawer() {
 
         <Divider/>
 
-        <List>
+        <List sx={{overflowX: 'hidden', flexGrow: 1}}>
           {values.categories.map(category => (
-            <Link to={'/' + category}>
+            <Link key={category} to={'/' + category}>
               <ListItemButton key={category} className="drawer__item" sx={{px: 2.5, minHeight: 48}}>
                 <ListItemIcon className="drawer__icon" sx={{minWidth: 0, justifyContent: 'center'}}>
                   <span className="material-icons-round">

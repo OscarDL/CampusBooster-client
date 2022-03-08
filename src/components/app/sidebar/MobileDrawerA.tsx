@@ -5,12 +5,12 @@ import { useTranslation } from 'react-i18next';
 import { Global } from '@emotion/react';
 import { grey } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
-import { Box, List, ListItemButton, ListItemIcon, ListItemText, SwipeableDrawer, Typography } from '@mui/material';
+import { Box, Divider, List, ListItemButton, ListItemIcon, ListItemText, SwipeableDrawer, Typography } from '@mui/material';
 
 import { values } from '../../../shared/utils';
 
 
-const drawerBleeding = 56;
+const drawerHeight = 80; // px
 
 const Root = styled('div')(({ theme }) => ({
   height: '100%',
@@ -23,13 +23,11 @@ const StyledBox = styled(Box)(({ theme }) => ({
 }));
 
 const Puller = styled(Box)(({ theme }) => ({
-  width: 30,
+  width: 40,
   height: 6,
   backgroundColor: theme.palette.mode === 'light' ? grey[300] : grey[900],
   borderRadius: 3,
-  position: 'absolute',
-  top: 8,
-  left: 'calc(50% - 15px)',
+  margin: '0.5rem auto 0'
 }));
 
 
@@ -47,41 +45,45 @@ function MobileDrawer() {
       <Global
         styles={{
           '.MuiDrawer-root > .MuiPaper-root': {
-            height: `calc(50% - ${drawerBleeding}px)`,
             overflow: 'visible',
-          },
+            margin: '0 0.5rem'
+          }
         }}
       />
       <SwipeableDrawer
-        anchor="bottom"
         open={open}
-        onClose={toggleDrawer(false)}
-        onOpen={toggleDrawer(true)}
-        swipeAreaWidth={drawerBleeding}
+        anchor="bottom"
         disableSwipeToOpen={false}
+        onOpen={toggleDrawer(true)}
+        onClose={toggleDrawer(false)}
+        swipeAreaWidth={drawerHeight}
         ModalProps={{keepMounted: true}}
       >
         <StyledBox
           sx={{
-            //boxShadow: '0 0.66rem 0.5rem 0.66rem grey',
+            top: -drawerHeight,
             position: 'absolute',
-            top: -drawerBleeding,
             borderTopLeftRadius: 8,
             borderTopRightRadius: 8,
+            height: `${drawerHeight}px`,
             visibility: 'visible',
             right: 0,
             left: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            boxShadow: '0 0.5rem 0 0 white, 0 0 0.25rem 0.25rem #0002'
           }}
         >
           <Puller/>
-          <Typography sx={{p: 2}}>
+          <Typography sx={{px: 2, flexGrow: 1, display: 'grid', placeItems: 'center'}}>
             Swipe up to navigate
           </Typography>
+          <Divider sx={{transform: 'translateY(2px)'}}/>
         </StyledBox>
 
         <List className="drawer">
           {values.categories.map(category => (
-            <Link to={'/' + category}>
+            <Link key={category} to={'/' + category}>
               <ListItemButton key={category} className="drawer__item" sx={{px: 2.5, minHeight: 48}}>
                 <ListItemIcon className="drawer__icon" sx={{minWidth: 0, justifyContent: 'center'}}>
                   <span className="material-icons-round">

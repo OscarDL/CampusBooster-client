@@ -565,7 +565,11 @@ button, span[class*="material-icons"] {
 @media (max-width: 480px) {
 }
 
-/* Tablets */
+/* Tablets portrait */
+@media (max-width: 640px) {
+}
+
+/* Tablets landscape */
 @media (max-width: 768px) {
 }
 

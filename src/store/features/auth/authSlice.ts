@@ -1,4 +1,4 @@
-import i18next from 'i18next';
+import { t } from 'i18next';
 import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
@@ -22,33 +22,42 @@ const initialState: AuthState = {
 
 export const login = createAsyncThunk('auth/login', async (azureUser: AzureUser, thunkAPI) => {
   try {
-    return await authService.login(azureUser);
+    const response = await authService.login(azureUser);
+    if (!response.success) throw response;
+
+    return response;
   }
 
   catch (error: any) {
-    const message = error.response?.data.error || error.message || error || 'error';
+    const message = error.response?.data.error || 'error';
     return thunkAPI.rejectWithValue(message);
   }
 });
 
 export const userData = createAsyncThunk('auth/userData', async (_, thunkAPI) => {
   try {
-    return await authService.getUserData();
+    const response = await authService.getUserData();
+    if (!response.success) throw response;
+
+    return response;
   }
 
   catch (error: any) {
-    const message = error.response?.data.error || error.message || error || 'error';
+    const message = error.response?.data.error || 'error';
     return thunkAPI.rejectWithValue(message);
   }
 });
 
-export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
+export const logout = createAsyncThunk('auth/logout', async (logoutFromMsAccount: boolean, thunkAPI) => {
   try {
-    return await authService.logout();
+    const response = await authService.logout();
+    if (!response.success) throw response;
+
+    return logoutFromMsAccount;
   }
 
   catch (error: any) {
-    const message = error.response?.data.error || error.message || error || 'error';
+    const message = error.response?.data.error || 'error';
     return thunkAPI.rejectWithValue(message);
   }
 });
@@ -73,13 +82,12 @@ const authSlice = createSlice({
         state.loading = false;
         state.isLoggedIn = true;
         state.user = payload.user;
-        toast.success(i18next.t('login.success'));
       })
       .addCase(login.rejected, (state, {payload}) => {
         state.loading = false;
         state.user = {} as User;
         state.isLoggedIn = false;
-        toast.success(i18next.t('login.errors.' + payload));
+        toast.error(t('login.errors.' + payload));
       });
 
 
@@ -96,18 +104,18 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = {} as User;
         state.isLoggedIn = false;
-        toast.success(i18next.t('login.errors.data'));
+        toast.error(t('login.errors.data'));
       });
 
 
     builder // User logout process
-      .addMatcher(isAnyOf(logout.fulfilled, logout.rejected), (state) => {
+      .addMatcher(isAnyOf(logout.fulfilled, logout.rejected), (state, action: any) => {
         state.user = {} as User;
         state.isLoggedIn = false;
 
         // Reset to the initial state
-        window.location.pathname = '/';
         localStorage.removeItem('isLoggedIn');
+        if (action.payload.logoutFromMsAccount) window.location.pathname = '/';
       });
   }
 });
