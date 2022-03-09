@@ -1,12 +1,11 @@
 import axios from 'axios';
 
-import { AzureUser } from '../../../shared/types/user';
 import { apiUrl, axiosConfig } from '../../../shared/api';
 
 
-const login = async (azureUser: AzureUser) => {
+const login = async (azureUid: string) => {
   try {
-    const {data} = await axios.post(apiUrl + 'auth/login', {azureUser}, axiosConfig);
+    const {data} = await axios.post(apiUrl + 'auth/login', {azureUid}, axiosConfig);
 
     return data.success ? data : data?.error;
   }

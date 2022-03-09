@@ -1,13 +1,15 @@
+import i18next from 'i18next';
 import ReactDOM from 'react-dom';
 import React, { Suspense } from 'react';
-
-import i18next from 'i18next';
+import { MsalProvider } from '@azure/msal-react';
 import { initReactI18next } from 'react-i18next';
 import LoadTranslations from 'i18next-http-backend';
+import { PublicClientApplication } from '@azure/msal-browser';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 import { store } from './store/store';
 import { Provider } from 'react-redux';
+import { msalConfig } from './azure/auth/config';
 
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
@@ -48,11 +50,17 @@ const loading = {
 // LicenseInfo.setLicenseKey(process.env.REACT_APP_MUI_KEY);
 
 
+// Create a new MSAL instance for Azure authentication
+const msalInstance = new PublicClientApplication(msalConfig);
+
+
 ReactDOM.render(
   <React.StrictMode>
     <Suspense fallback={<div style={loading}/>}>
       <Provider store={store}>
-        <App/>
+        <MsalProvider instance={msalInstance}>
+          <App/>
+        </MsalProvider>
       </Provider>
     </Suspense>
   </React.StrictMode>,

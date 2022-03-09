@@ -1,16 +1,20 @@
-import { useSelector } from 'react-redux';
-
-import AzureAuthContext from './context';
-import { getLoggedInAuthState } from '../../shared/utils';
+import { toast } from 'react-toastify';
+import { useMsal } from '@azure/msal-react';
 
 
-const authModule = new AzureAuthContext();
+export const LoginButton = ({handleLogin}: any) => {
+  const { instance } = useMsal();
 
 
-export const LoginButton = ({ handleLogin }: any): JSX.Element => {
-  const handleAzureLogin = (): any => {
-    // Instantiate Azure login process
-    authModule.login('loginPopup', handleLogin);
+  const handleAzureLogin = (): void => {
+    instance.loginPopup()
+      .then((azureData) => {
+        handleLogin(azureData);
+      })
+      .catch(e => {
+        console.error(e);
+        toast.error('login.error');
+      });
   };
 
 
@@ -22,21 +26,24 @@ export const LoginButton = ({ handleLogin }: any): JSX.Element => {
 };
 
 
-export const LogoutButton = ({ handleLogout, logoutFromMsAccount = false }: any) => {
-  const {user} = useSelector(getLoggedInAuthState);
+export const LogoutButton = ({handleLogout, logoutFromAzure = false}: any) => {
+  const { instance } = useMsal();
+
 
   const handleAzureLogout = (): any => {
-    if (user) {
-      // Mitigate login error after logging out
-      sessionStorage.removeItem('msal.interaction.status');
+    if (logoutFromAzure) {
+      instance.logoutPopup()
+        .then(() => {
+          handleLogout(true);
+        })
+        .catch(e => {
+          console.error(e);
+          toast.error('logout.error');
+        });
+    }
 
-      if (logoutFromMsAccount) {
-        // Instantiate Azure logout process
-        authModule.logout(user.azureUser);
-      }
-      else {
-        handleLogout();
-      }
+    else {
+      handleLogout(false);
     }
   };
 
