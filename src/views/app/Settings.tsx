@@ -3,7 +3,7 @@ import Settings from '../../components/app/settings/Settings';
 
 function SettingsView() {
   return (
-    <div className="settings">
+    <div className="settings-view">
       <Settings/>
     </div>
   );

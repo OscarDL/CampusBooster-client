@@ -31,6 +31,6 @@ export const values = {
     'absences',
     'internships',
     'accounting',
-    'administration'
+    'admin'
   ]
 };

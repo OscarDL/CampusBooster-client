@@ -1,8 +1,10 @@
 import { toast } from 'react-toastify';
 import { useMsal } from '@azure/msal-react';
+import { useTranslation } from 'react-i18next';
 
 
 export const LoginButton = ({handleLogin}: any) => {
+  const { t } = useTranslation();
   const { instance } = useMsal();
 
 
@@ -13,7 +15,7 @@ export const LoginButton = ({handleLogin}: any) => {
       })
       .catch(e => {
         console.error(e);
-        toast.error('login.error');
+        toast.error(t('login.errors.error'));
       });
   };
 
@@ -38,7 +40,7 @@ export const LogoutButton = ({handleLogout, logoutFromAzure = false}: any) => {
         })
         .catch(e => {
           console.error(e);
-          toast.error('logout.error');
+          toast.error('logout.errors.error');
         });
     }
 

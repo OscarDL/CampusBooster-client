@@ -116,10 +116,7 @@ const authSlice = createSlice({
 
 
     builder // User logout process
-      .addMatcher(isAnyOf(logout.fulfilled, logout.rejected), (state) => {
-        state.user = {} as User;
-        state.isLoggedIn = false;
-
+      .addMatcher(isAnyOf(logout.fulfilled, logout.rejected), () => {
         // Reset to the initial state
         localStorage.removeItem('isLoggedIn');
         window.location.pathname = '/login';

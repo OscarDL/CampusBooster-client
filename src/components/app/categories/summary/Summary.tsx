@@ -15,7 +15,7 @@ function Summary() {
 
   return (
     <div className="summary">
-      <p>Summary page</p>
+      <p>Summary</p>
     </div>
   );
 };
