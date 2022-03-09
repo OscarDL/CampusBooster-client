@@ -6,6 +6,11 @@ export const getLoggedInAuthState = (state: RootState) => ({
   user: state.auth.user as User
 });
 
+export const serializeDate = (date: Date | null): number | null => {
+  if (!date) return null;
+  return Date.parse(date.toString());
+};
+
 
 export const colors = {
   loader: '#3b2f92',

@@ -9,7 +9,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 
 import { store } from './store/store';
 import { Provider } from 'react-redux';
-import { msalConfig } from './azure/newAuth/config';
+import { msalConfig } from './azure/auth/config';
 
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';

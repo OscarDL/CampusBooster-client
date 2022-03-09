@@ -22,7 +22,7 @@ function ProfileButton({opacity}: Props) {
           </ListItemIcon>
 
           <ListItemText className="drawer__text" sx={{ml:3, opacity}}>
-            {user.name}
+            {user.firstName} {user.lastName}
           </ListItemText>
         </ListItemButton>
       </Link>

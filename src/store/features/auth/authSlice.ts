@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 import authService from './authService';
-import { AzureUser, User } from '../../../shared/types/user';
+import { AzureData, User } from '../../../shared/types/user';
 
 
 export type AuthState = {
@@ -20,12 +20,19 @@ const initialState: AuthState = {
 };
 
 
-export const login = createAsyncThunk('auth/login', async (azureUser: AzureUser, thunkAPI) => {
+export const login = createAsyncThunk('auth/login', async (azureData: AzureData, thunkAPI) => {
   try {
-    const response = await authService.login(azureUser);
+    const response = await authService.login(azureData.uniqueId);
     if (!response.success) throw response;
 
-    return response;
+    return {
+      user: {
+        ...response.user,
+        azureData
+      }
+    } as {
+      user: User
+    };
   }
 
   catch (error: any) {
@@ -48,12 +55,12 @@ export const userData = createAsyncThunk('auth/userData', async (_, thunkAPI) =>
   }
 });
 
-export const logout = createAsyncThunk('auth/logout', async (logoutFromMsAccount: boolean, thunkAPI) => {
+export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
     const response = await authService.logout();
     if (!response.success) throw response;
 
-    return logoutFromMsAccount;
+    return response;
   }
 
   catch (error: any) {
@@ -109,13 +116,13 @@ const authSlice = createSlice({
 
 
     builder // User logout process
-      .addMatcher(isAnyOf(logout.fulfilled, logout.rejected), (state, {payload: logoutFromMsAccount}) => {
+      .addMatcher(isAnyOf(logout.fulfilled, logout.rejected), (state) => {
         state.user = {} as User;
         state.isLoggedIn = false;
 
         // Reset to the initial state
         localStorage.removeItem('isLoggedIn');
-        if (logoutFromMsAccount === false) window.location.pathname = '/';
+        window.location.pathname = '/login';
       });
   }
 });
