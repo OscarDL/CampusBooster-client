@@ -1,25 +1,16 @@
-import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Unsupported from './Unsupported';
-import { AzureData } from '../../shared/types/user';
 import { LoginButton } from '../../azure/auth/Buttons';
-import { login } from '../../store/features/auth/authSlice';
 
 import './Auth.css';
 
 
 function Login() {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
 
   const [unsupported, setUnsupported] = useState<boolean>();
-
-
-  const handleLogin = async (azureData: AzureData) => {
-    dispatch(login(azureData));
-  };
 
 
   useEffect(() => {
@@ -37,7 +28,7 @@ function Login() {
 
       case false: return (
         <div className="loader">
-          <LoginButton handleLogin={handleLogin}/>
+          <LoginButton/>
         </div>
       );
 

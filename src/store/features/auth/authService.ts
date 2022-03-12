@@ -5,7 +5,7 @@ import { apiUrl, axiosConfig } from '../../../shared/api';
 
 const login = async (azureUid: string) => {
   try {
-    const {data} = await axios.post(apiUrl + 'auth/login', {azureUid}, axiosConfig);
+    const { data } = await axios.post(apiUrl + 'auth/login', {azureUid}, axiosConfig);
 
     return data.success ? data : data?.error;
   }
@@ -17,7 +17,7 @@ const login = async (azureUid: string) => {
 
 const getUserData = async () => {
   try {
-    const {data} = await axios.get(apiUrl + 'auth/data', axiosConfig);
+    const { data } = await axios.get(apiUrl + 'auth/data', axiosConfig);
 
     return data.success ? data : data?.error;
   }
@@ -29,7 +29,7 @@ const getUserData = async () => {
 
 const logout = async () => {
   try {
-    const {data} = await axios.get(apiUrl + 'auth/logout', axiosConfig);
+    const { data } = await axios.get(apiUrl + 'auth/logout', axiosConfig);
 
     return data.success ? data : data?.error;
   }

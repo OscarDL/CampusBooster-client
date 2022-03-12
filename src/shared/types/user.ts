@@ -1,7 +1,7 @@
-import { AuthenticationResult } from '@azure/msal-browser';
+import { AccountInfo } from '@azure/msal-browser';
 
 
-export type AzureData = AuthenticationResult;
+export type AzureData = AccountInfo;
 
 
 export type User = {

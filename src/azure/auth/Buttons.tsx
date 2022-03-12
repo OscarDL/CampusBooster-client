@@ -1,18 +1,18 @@
+import { t } from 'i18next';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
 import { useMsal } from '@azure/msal-react';
-import { useTranslation } from 'react-i18next';
+
+import { logout } from '../../store/features/auth/authSlice';
+import { clearAzureLocalStorageData } from '../../shared/utils';
 
 
-export const LoginButton = ({handleLogin}: any) => {
-  const { t } = useTranslation();
+export const LoginButton = () => {
   const { instance } = useMsal();
 
 
-  const handleAzureLogin = (): void => {
-    instance.loginPopup()
-      .then((azureData) => {
-        handleLogin(azureData);
-      })
+  const handleAzureLogin = () => {
+    instance.loginRedirect()
       .catch(e => {
         console.error(e);
         toast.error(t('login.errors.error'));
@@ -28,24 +28,25 @@ export const LoginButton = ({handleLogin}: any) => {
 };
 
 
-export const LogoutButton = ({handleLogout, logoutFromAzure = false}: any) => {
-  const { instance } = useMsal();
+export const LogoutButton = ({logoutFromAzure = false}: any) => {
+  const dispatch = useDispatch();
+  const { instance, accounts: [azureData] } = useMsal();
 
 
-  const handleAzureLogout = (): any => {
+  const handleAzureLogout = () => {
     if (logoutFromAzure) {
-      instance.logoutPopup()
-        .then(() => {
-          handleLogout(true);
-        })
+      localStorage.removeItem('loggedIn');
+
+      instance.logoutRedirect()
         .catch(e => {
           console.error(e);
-          toast.error('logout.errors.error');
+          toast.error('login.errors.logout');
         });
     }
-
+  
     else {
-      handleLogout(false);
+      dispatch(logout());
+      clearAzureLocalStorageData(azureData);
     }
   };
 

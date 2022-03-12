@@ -11,7 +11,7 @@ type Props = {
 
 
 function ProfileButton({opacity}: Props) {
-  const {user} = useSelector(getLoggedInAuthState);
+  const { user } = useSelector(getLoggedInAuthState);
 
   return (
     <List>

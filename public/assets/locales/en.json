@@ -20,7 +20,7 @@
 
     "errors": {
       "error": "Could not sign in.",
-      "data": "Could not retrieve user data."
+      "logout": "Could not sign out."
     }
   },
 

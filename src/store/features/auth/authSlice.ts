@@ -22,7 +22,7 @@ const initialState: AuthState = {
 
 export const login = createAsyncThunk('auth/login', async (azureData: AzureData, thunkAPI) => {
   try {
-    const response = await authService.login(azureData.uniqueId);
+    const response = await authService.login(azureData.localAccountId);
     if (!response.success) throw response;
 
     return {
@@ -33,20 +33,6 @@ export const login = createAsyncThunk('auth/login', async (azureData: AzureData,
     } as {
       user: User
     };
-  }
-
-  catch (error: any) {
-    const message = error.response?.data.error || 'error';
-    return thunkAPI.rejectWithValue(message);
-  }
-});
-
-export const userData = createAsyncThunk('auth/userData', async (_, thunkAPI) => {
-  try {
-    const response = await authService.getUserData();
-    if (!response.success) throw response;
-
-    return response;
   }
 
   catch (error: any) {
@@ -81,7 +67,8 @@ const authSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    builder // User login process
+    // User login process
+    builder
       .addCase(login.pending, (state) => {
         state.loading = true;
       })
@@ -89,6 +76,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.isLoggedIn = true;
         state.user = payload.user;
+        localStorage.setItem('loggedIn', 'true');
       })
       .addCase(login.rejected, (state, {payload}) => {
         state.loading = false;
@@ -97,28 +85,11 @@ const authSlice = createSlice({
         toast.error(t('login.errors.' + payload));
       });
 
-
-    builder // User data retrieval process
-      .addCase(userData.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(userData.fulfilled, (state, {payload}) => {
-        state.loading = false;
-        state.isLoggedIn = true;
-        state.user = payload.user;
-      })
-      .addCase(userData.rejected, (state) => {
-        state.loading = false;
-        state.user = {} as User;
-        state.isLoggedIn = false;
-        toast.error(t('login.errors.data'));
-      });
-
-
-    builder // User logout process
+    // User logout process
+    builder
       .addMatcher(isAnyOf(logout.fulfilled, logout.rejected), () => {
         // Reset to the initial state
-        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('loggedIn');
         window.location.pathname = '/login';
       });
   }

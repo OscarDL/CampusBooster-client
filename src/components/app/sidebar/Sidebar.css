@@ -8,6 +8,7 @@
 .drawer a {
   color: unset;
   text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .drawer__expand-btn {

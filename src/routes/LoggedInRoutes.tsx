@@ -11,9 +11,10 @@ import Accounting from '../views/app/Accounting';
 import Admin from '../views/app/Admin';
 import Settings from '../views/app/Settings';
 
-import '../components/app/sidebar/Sidebar.css';
 import MobileDrawer from '../components/app/sidebar/MobileDrawerA';
 import DesktopDrawer from '../components/app/sidebar/DesktopDrawer';
+
+import '../components/app/sidebar/Sidebar.css';
 
 
 function LoggedInRoutes() {
