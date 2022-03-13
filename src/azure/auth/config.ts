@@ -6,8 +6,7 @@ const azureAppClientId: string = process.env.REACT_APP_AZURE_APP_CLIENT_ID ?? ''
 
 export const msalConfig: Configuration = {
   auth: {
-    clientId: azureAppClientId,
-    redirectUri: 'https://localhost:3000/login'
+    clientId: azureAppClientId
   },
 
   cache: {

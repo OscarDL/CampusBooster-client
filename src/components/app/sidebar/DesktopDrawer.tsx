@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { styled, CSSObject, Theme } from '@mui/material/styles';
 import { Drawer as MuiDrawer, List, Divider, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 
@@ -11,24 +13,40 @@ import { useStateWithCallback } from '../../../shared/hooks';
 
 const drawerWidth = 240;
 
-const drawerTheme = (theme: Theme, expanded: boolean): CSSObject => ({
-  width: expanded ? drawerWidth : `calc(${theme.spacing(8)} + 1px)`,
+const drawerTheme = (theme: Theme, expanded: boolean, scrollbarWidth: number): CSSObject => {
+  return {
+    width: expanded ? drawerWidth : `calc(${theme.spacing(8)} + ${scrollbarWidth}px + 1px)`,
 
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration[expanded ? 'leavingScreen' : 'enteringScreen'],
-  })
-});
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration[expanded ? 'leavingScreen' : 'enteringScreen'],
+    })
+  };
+};
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open: expanded }) => ({
-    overflowX: 'hidden',
-    flexShrink: 0,
-    whiteSpace: 'nowrap',
-    boxSizing: 'border-box',
-    ...drawerTheme(theme, expanded!),
-    '& .MuiDrawer-paper': drawerTheme(theme, expanded!)
-  }),
+  ({ theme, open: expanded }) => {
+    const [scrollbarWidth, setScrollbarWidth] = useState(0);
+
+    useEffect(() => {
+      const drawer = document.getElementById('desktop-nav');
+      const getScrollbarWidth = () => setScrollbarWidth((drawer?.offsetWidth ?? 0) - (drawer?.clientWidth ?? 0));
+
+      getScrollbarWidth();
+      window.addEventListener('resize', getScrollbarWidth);
+      return () => window.removeEventListener('resize', getScrollbarWidth);
+    }, []);
+
+  
+    return {
+      flexShrink: 0,
+      overflowX: 'hidden',
+      whiteSpace: 'nowrap',
+      boxSizing: 'border-box',
+      ...drawerTheme(theme, expanded!, scrollbarWidth),
+      '& .MuiDrawer-paper': drawerTheme(theme, expanded!, scrollbarWidth)
+    };
+  }
 );
 
 
@@ -59,7 +77,7 @@ function SidebarDrawer() {
 
         <Divider/>
 
-        <List sx={{overflowX: 'hidden', flexGrow: 1}}>
+        <List id="desktop-nav" sx={{overflowX: 'hidden', flexGrow: 1}}>
           {values.categories.map(category => (
             <Link key={category} to={'/' + category}>
               <ListItemButton key={category} className="drawer__item" sx={{px: 2.5, minHeight: 48}}>

@@ -14,20 +14,19 @@ const drawerHeight = 80; // px
 
 const Root = styled('div')(({ theme }) => ({
   height: '100%',
-  backgroundColor:
-    theme.palette.mode === 'light' ? grey[100] : theme.palette.background.default,
+  backgroundColor: grey[100]
 }));
 
 const StyledBox = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'light' ? '#fff' : grey[800],
+  backgroundColor: 'white'
 }));
 
 const Puller = styled(Box)(({ theme }) => ({
   width: 40,
   height: 6,
-  backgroundColor: theme.palette.mode === 'light' ? grey[300] : grey[900],
   borderRadius: 3,
-  margin: '0.5rem auto 0'
+  margin: '0.5rem auto 0',
+  backgroundColor: grey[300]
 }));
 
 
@@ -61,16 +60,16 @@ function MobileDrawer() {
       >
         <StyledBox
           sx={{
+            left: 0,
+            right: 0,
+            display: 'flex',
             top: -drawerHeight,
             position: 'absolute',
+            visibility: 'visible',
             borderTopLeftRadius: 8,
             borderTopRightRadius: 8,
-            height: `${drawerHeight}px`,
-            visibility: 'visible',
-            right: 0,
-            left: 0,
-            display: 'flex',
             flexDirection: 'column',
+            height: `${drawerHeight}px`,
             boxShadow: '0 0.5rem 0 0 white, 0 0 0.25rem 0.25rem #0002'
           }}
         >
