@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { useMsal } from '@azure/msal-react';
 
-import { logout } from '../../store/features/auth/authSlice';
+import { logout } from '../../store/features/auth/slice';
 import { clearAzureLocalStorageData } from '../../shared/utils';
 
 

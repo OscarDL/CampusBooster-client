@@ -5,9 +5,9 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
 
 import Loader from './shared/Loader';
+import { login } from '../store/features/auth/slice';
 import LoggedInRoutes from '../routes/LoggedInRoutes';
 import LoggedOutRoutes from '../routes/LoggedOutRoutes';
-import { login } from '../store/features/auth/authSlice';
 
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';

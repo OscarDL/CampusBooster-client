@@ -2,7 +2,7 @@ import { t } from 'i18next';
 import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-import authService from './authService';
+import authService from '../../../services/auth';
 import { AzureData, User } from '../../../shared/types/user';
 
 
@@ -22,7 +22,7 @@ const initialState: AuthState = {
 
 export const login = createAsyncThunk('auth/login', async (azureData: AzureData, thunkAPI) => {
   try {
-    const response = await authService.login(azureData.localAccountId);
+    const response = await authService.login(azureData);
     if (!response.success) throw response;
 
     return {

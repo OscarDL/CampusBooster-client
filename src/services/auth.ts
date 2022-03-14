@@ -1,23 +1,16 @@
 import axios from 'axios';
 
-import { apiUrl, axiosConfig } from '../../../shared/api';
+import { AzureData } from '../shared/types/user';
+import { apiUrl, axiosConfig } from '../shared/api';
 
 
-const login = async (azureUid: string) => {
+const login = async (azureData: AzureData) => {
   try {
-    const { data } = await axios.post(apiUrl + 'auth/login', {azureUid}, axiosConfig);
-
-    return data.success ? data : data?.error;
-  }
-
-  catch (error: any) {
-    return error.response?.data?.error || 'error';
-  }
-};
-
-const getUserData = async () => {
-  try {
-    const { data } = await axios.get(apiUrl + 'auth/data', axiosConfig);
+    const loginRequest = {
+      email: azureData.username,
+      azureUid: azureData.localAccountId
+    };
+    const { data } = await axios.post(apiUrl + 'auth/login', loginRequest, axiosConfig);
 
     return data.success ? data : data?.error;
   }
@@ -42,8 +35,7 @@ const logout = async () => {
 
 const authService = {
   login,
-  logout,
-  getUserData
+  logout
 };
 
 export default authService;
