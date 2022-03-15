@@ -76,7 +76,6 @@ const authSlice = createSlice({
         state.loading = false;
         state.isLoggedIn = true;
         state.user = payload.user;
-        localStorage.setItem('loggedIn', 'true');
       })
       .addCase(login.rejected, (state, {payload}) => {
         state.loading = false;
@@ -89,7 +88,6 @@ const authSlice = createSlice({
     builder
       .addMatcher(isAnyOf(logout.fulfilled, logout.rejected), () => {
         // Reset to the initial state
-        localStorage.removeItem('loggedIn');
         window.location.pathname = '/login';
       });
   }
