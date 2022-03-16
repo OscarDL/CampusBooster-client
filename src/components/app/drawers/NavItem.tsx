@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ListItemButton, ListItemText } from '@mui/material';
@@ -11,7 +12,7 @@ type Props = {
 };
 
 
-function NavItem({text, category, expanded = true, onClick = () => null}: Props) {
+const NavItem: FC<Props> = ({text, category, expanded = true, onClick = () => null}) => {
   const { t } = useTranslation();
 
   return (

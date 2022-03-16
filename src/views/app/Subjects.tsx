@@ -1,7 +1,9 @@
+import { FC } from 'react';
+
 import Subjects from '../../components/app/categories/subjects/Subjects';
 
 
-function SubjectsView() {
+const SubjectsView: FC = () => {
   return (
     <div className="subjects-view">
       <Subjects/>

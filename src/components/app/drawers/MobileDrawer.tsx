@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Divider, List, SwipeableDrawer } from '@mui/material';
@@ -11,7 +11,7 @@ import { getLoggedInAuthState, values } from '../../../shared/utils';
 const drawerHeight = 80; // px
 
 
-function MobileDrawer() {
+const MobileDrawer: FC = () => {
   const [open, setOpen] = useState(false);
   const { user } = useSelector(getLoggedInAuthState);
   useTranslation(); // If this is removed, the drawer is visually glitched on page load.

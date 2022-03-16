@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { Divider, IconButton } from '@mui/material';
 
 
@@ -7,7 +8,7 @@ type Props = {
 };
 
 
-function ExpandButton({expanded, toggleDrawer}: Props) {
+const ExpandButton: FC<Props> = ({expanded, toggleDrawer}) => {
   return (
     <div className="drawer__expand-btn">
       <Divider/>

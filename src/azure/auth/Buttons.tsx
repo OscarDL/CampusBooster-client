@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { t } from 'i18next';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
@@ -7,9 +8,8 @@ import { logout } from '../../store/features/auth/slice';
 import { clearAzureLocalStorageData } from '../../shared/utils';
 
 
-export const LoginButton = () => {
+export const LoginButton: FC = () => {
   const { instance } = useMsal();
-
 
   const handleAzureLogin = () => {
     instance.loginRedirect()
@@ -19,7 +19,6 @@ export const LoginButton = () => {
       });
   };
 
-
   return (
     <button id="azure-login-btn" onClick={handleAzureLogin}>
       Log in
@@ -28,10 +27,13 @@ export const LoginButton = () => {
 };
 
 
-export const LogoutButton = ({logoutFromAzure = false}: any) => {
+type LogoutProps = {
+  logoutFromAzure?: boolean
+};
+
+export const LogoutButton: FC<LogoutProps> = ({logoutFromAzure}) => {
   const dispatch = useDispatch();
   const { instance, accounts: [azureData] } = useMsal();
-
 
   const handleAzureLogout = () => {
     if (logoutFromAzure) {
@@ -49,7 +51,6 @@ export const LogoutButton = ({logoutFromAzure = false}: any) => {
       clearAzureLocalStorageData(azureData);
     }
   };
-
 
   return (
     <button id="azure-logout-btn" onClick={handleAzureLogout}>

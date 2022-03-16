@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { styled, CSSObject, Theme } from '@mui/material/styles';
 import { Drawer as MuiDrawer, List, Divider } from '@mui/material';
 
@@ -48,7 +48,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 
-function DesktopDrawer() {
+const DesktopDrawer: FC = () => {
   const { user } = useSelector(getLoggedInAuthState);
   const [expanded, setExpanded] = useStateWithCallback(
     !localStorage.getItem('hideDrawer')

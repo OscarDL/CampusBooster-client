@@ -1,3 +1,5 @@
+import { FC } from 'react';
+
 import './Prompt.css';
 
 
@@ -7,14 +9,11 @@ type Props = {
   style: React.CSSProperties
 };
 
-
-function Prompt({children, animated, style}: Props) {
-  return (
-    <div className={'prompt__backdrop ' + (animated ? 'animated' : '')} style={style}>
-      {children}
-    </div>
-  );
-};
+const Prompt: FC<Props> = ({children, animated, style}) => (
+  <div className={'prompt__backdrop ' + (animated ? 'animated' : '')} style={style}>
+    {children}
+  </div>
+);
 
 
 export default Prompt;

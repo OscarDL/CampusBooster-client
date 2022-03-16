@@ -1,10 +1,12 @@
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import './Summary.css';
 
 
-function Summary() {
+
+
+const Summary: FC = () => {
   const { t } = useTranslation();
 
 

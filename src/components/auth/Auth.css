@@ -5,10 +5,7 @@
 }
 
 
-.auth .branding {
-  margin: 0 auto;
-  min-height: var(--header-height);
-}
+/* FORM CONTAINER */
 
 .auth .prompt__backdrop {
   background-color: transparent;
@@ -17,9 +14,6 @@
 .auth .prompt__container {
   box-shadow: 0 0 1rem 0.33rem rgb(var(--button-bg-darker));
 }
-
-
-/* FORM CONTAINER */
 
 .auth .prompt__content {
   gap: 0;

@@ -1,4 +1,7 @@
-function Admin() {
+import { FC } from 'react';
+
+
+const Admin: FC = () => {
   return (
     <div>Admin</div>
   );

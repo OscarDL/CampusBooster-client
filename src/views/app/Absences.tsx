@@ -1,7 +1,9 @@
+import { FC } from 'react';
+
 import Absences from '../../components/app/categories/absences/Absences';
 
 
-function AbsencesView() {
+const AbsencesView: FC = () => {
   return (
     <div className="absences-view">
       <Absences/>

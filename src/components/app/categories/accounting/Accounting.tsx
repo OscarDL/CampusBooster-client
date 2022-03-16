@@ -1,4 +1,7 @@
-function Accounting() {
+import { FC } from 'react';
+
+
+const Accounting: FC = () => {
   return (
     <div>Accounting</div>
   );

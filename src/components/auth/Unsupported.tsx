@@ -1,7 +1,8 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
 
-function Unsupported() {
+const Unsupported: FC = () => {
   const { t } = useTranslation();
 
   return (

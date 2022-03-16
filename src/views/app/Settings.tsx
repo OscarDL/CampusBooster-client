@@ -1,7 +1,9 @@
+import { FC } from 'react';
+
 import Settings from '../../components/app/settings/Settings';
 
 
-function SettingsView() {
+const SettingsView: FC = () => {
   return (
     <div className="settings-view">
       <Settings/>

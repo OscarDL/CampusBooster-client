@@ -1,4 +1,7 @@
-function Absences() {
+import { FC } from 'react';
+
+
+const Absences: FC = () => {
   return (
     <div>Absences</div>
   );

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { Slide, ToastContainer } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -13,7 +13,7 @@ import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-function App() {
+const App: FC = () => {
   const dispatch = useDispatch();
   const { accounts: [azureData] } = useMsal();
   const { loading, user } = useSelector((state) => state.auth);

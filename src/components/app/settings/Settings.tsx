@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { LogoutButton } from '../../../azure/auth/Buttons';
@@ -6,7 +6,7 @@ import { LogoutButton } from '../../../azure/auth/Buttons';
 import './Settings.css';
 
 
-function Settings() {
+const Settings: FC = () => {
   const { t } = useTranslation();
 
 

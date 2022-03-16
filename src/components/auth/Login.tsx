@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Unsupported from './Unsupported';
@@ -7,7 +7,7 @@ import { LoginButton } from '../../azure/auth/Buttons';
 import './Auth.css';
 
 
-function Login() {
+const Login: FC = () => {
   const { t } = useTranslation();
 
   const [unsupported, setUnsupported] = useState<boolean>();

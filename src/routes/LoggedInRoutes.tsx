@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FC } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import Summary from '../views/app/Summary';
@@ -10,61 +10,39 @@ import Internships from '../views/app/Internships';
 import Accounting from '../views/app/Accounting';
 import Admin from '../views/app/Admin';
 import Settings from '../views/app/Settings';
-
-import MobileDrawer from '../components/app/drawers/MobileDrawer';
-import DesktopDrawer from '../components/app/drawers/DesktopDrawer';
-
-import '../components/app/drawers/Drawers.css';
+import Drawer from '../views/shared/Drawer';
 
 
-function LoggedInRoutes() {
-  const [mobile, setMobile] = useState(document.body.clientWidth <= 768);
+const LoggedInRoutes: FC = () => (
+  <div className="app">
+    <Drawer/>
 
+    <div className="app__content">
+      <Routes>
+        <Route path="/summary" element={<Summary/>}/>
 
-  useEffect(() => {
-    // Since the mobile drawer component from MUI is injected into the DOM,
-    // We can't show / hide it reliably in a clean way with CSS media queries.
-    const chooseDrawer = () => {
-      setMobile(document.body.clientWidth <= 768);
-    };
+        <Route path="/subjects" element={<Subjects/>}/>
 
-    window.addEventListener('resize', chooseDrawer)
+        <Route path="/marks" element={<Marks/>}/>
 
-    return () => window.removeEventListener('resize', chooseDrawer);
-  }, [setMobile]);
+        <Route path="/students" element={<Students/>}/>
 
+        <Route path="/absences" element={<Absences/>}/>
 
-  return (
-    <div className="app">
-      {mobile ? <MobileDrawer/> : <DesktopDrawer/>}
+        <Route path="/internships" element={<Internships/>}/>
 
-      <div className="app__content">
-        <Routes>
-          <Route path="/summary" element={<Summary/>}/>
+        <Route path="/accounting" element={<Accounting/>}/>
 
-          <Route path="/subjects" element={<Subjects/>}/>
+        <Route path="/admin" element={<Admin/>}/>
 
-          <Route path="/marks" element={<Marks/>}/>
+        <Route path="/settings" element={<Settings/>}/>
 
-          <Route path="/students" element={<Students/>}/>
-
-          <Route path="/absences" element={<Absences/>}/>
-
-          <Route path="/internships" element={<Internships/>}/>
-
-          <Route path="/accounting" element={<Accounting/>}/>
-
-          <Route path="/admin" element={<Admin/>}/>
-
-          <Route path="/settings" element={<Settings/>}/>
-
-          {/* Redirect to the home page if the route doesn't exist */}
-          <Route path="*" element={<Navigate replace to="/summary"/>}/>
-        </Routes>
-      </div>
+        {/* Redirect to the home page if the route doesn't exist */}
+        <Route path="*" element={<Navigate replace to="/summary"/>}/>
+      </Routes>
     </div>
-  );
-};
+  </div>
+);
 
 
 export default LoggedInRoutes;

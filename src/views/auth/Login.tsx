@@ -1,7 +1,9 @@
+import { FC } from 'react';
+
 import Login from '../../components/auth/Login';
 
 
-function LoginView() {
+const LoginView: FC = () => {
   return (
     <div className="auth">
       <Login/>

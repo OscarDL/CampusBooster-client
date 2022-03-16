@@ -1,7 +1,9 @@
+import { FC } from 'react';
+
 import Internships from '../../components/app/categories/internships/Internships';
 
 
-function InternshipsView() {
+const InternshipsView: FC = () => {
   return (
     <div className="internships-view">
       <Internships/>

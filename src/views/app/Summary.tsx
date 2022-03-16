@@ -1,7 +1,9 @@
+import { FC } from 'react';
+
 import Summary from '../../components/app/categories/summary/Summary';
 
 
-function SummaryView() {
+const SummaryView: FC = () => {
   return (
     <div className="summary-view">
       <Summary/>

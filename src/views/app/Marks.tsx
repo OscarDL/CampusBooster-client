@@ -1,7 +1,9 @@
+import { FC } from 'react';
+
 import Marks from '../../components/app/categories/marks/Marks';
 
 
-function MarksView() {
+const MarksView: FC = () => {
   return (
     <div className="marks-view">
       <Marks/>

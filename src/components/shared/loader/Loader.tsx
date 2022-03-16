@@ -1,16 +1,19 @@
+import { FC } from 'react';
 import { BeatLoader } from 'react-spinners';
 
 import './Loader.css';
 import { colors } from '../../../shared/utils';
 
 
-function Loader({fullscreen = false}) {
-  return (
-    <div className={'loader ' + (fullscreen ? 'fullscreen' : '')}>
-      <BeatLoader color={colors.loader}/>
-    </div>
-  );
+type Props = {
+  fullscreen?: boolean
 };
+
+const Loader: FC<Props> = ({fullscreen}) => (
+  <div className={'loader ' + (fullscreen ? 'fullscreen' : '')}>
+    <BeatLoader color={colors.loader}/>
+  </div>
+);
 
 
 export default Loader;
