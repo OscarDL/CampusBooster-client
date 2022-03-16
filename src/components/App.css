@@ -220,22 +220,6 @@ a:hover, a:focus {
 }
 
 
-/* Loader */
-
-.loader {
-  width: 100%;
-  height: 100%;
-  flex-grow: 1;
-
-  display: grid;
-  place-items: center;
-}
-.loader.fullscreen {
-  inset: 0;
-  position: fixed;
-}
-
-
 /* Top left logo */
 
 .branding {

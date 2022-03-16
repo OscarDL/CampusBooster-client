@@ -1,7 +1,8 @@
 import { AxiosRequestConfig } from 'axios';
 
 
-export const apiUrl: string = (process.env.NODE_ENV === 'production') ? '/api/v1/' : 'https://localhost:9000/api/v1/';
+const port = process.env.NODE_ENV === 'production' ? '' : ':9000';
+export const apiUrl: string = `https://${window.location.hostname}${port}/api/v1/`;
 
 
 export const axiosConfig: AxiosRequestConfig = {

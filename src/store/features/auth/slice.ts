@@ -4,6 +4,7 @@ import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 import authService from '../../../services/auth';
 import { AzureData, User } from '../../../shared/types/user';
+import { clearAzureLocalStorageData } from '../../../shared/utils';
 
 
 export type AuthState = {
@@ -37,7 +38,7 @@ export const login = createAsyncThunk('auth/login', async (azureData: AzureData,
 
   catch (error: any) {
     const message = error.response?.data.error || 'error';
-    return thunkAPI.rejectWithValue(message);
+    return thunkAPI.rejectWithValue({message, azureData});
   }
 });
 
@@ -77,11 +78,17 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         state.user = payload.user;
       })
-      .addCase(login.rejected, (state, {payload}) => {
+      .addCase(login.rejected, (state, {payload}: {payload: any}) => {
         state.loading = false;
-        state.user = {} as User;
         state.isLoggedIn = false;
-        toast.error(t('login.errors.' + payload));
+        clearAzureLocalStorageData(payload.azureData);
+
+        toast.error(t('login.errors.' + payload.message), {
+          onClose: () => {
+            // Reset to the initial state
+            window.location.pathname = '/login';
+          }
+        });
       });
 
     // User logout process

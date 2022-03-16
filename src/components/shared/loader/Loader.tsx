@@ -1,6 +1,7 @@
 import { BeatLoader } from 'react-spinners';
 
-import { colors } from '../../shared/utils';
+import './Loader.css';
+import { colors } from '../../../shared/utils';
 
 
 function Loader({fullscreen = false}) {

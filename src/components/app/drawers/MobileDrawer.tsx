@@ -1,50 +1,32 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-
-import { Global } from '@emotion/react';
-import { grey } from '@mui/material/colors';
-import { styled } from '@mui/material/styles';
-import { Box, Divider, List, SwipeableDrawer } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { Divider, List, SwipeableDrawer } from '@mui/material';
 
 import NavItem from './NavItem';
+import Puller from '../../shared/puller/Puller';
 import { getLoggedInAuthState, values } from '../../../shared/utils';
 
 
 const drawerHeight = 80; // px
 
-const Puller = styled(Box)(() => ({
-  width: 40,
-  height: 6,
-  borderRadius: 3,
-  margin: '0.5rem auto 0',
-  backgroundColor: grey[300]
-}));
-
 
 function MobileDrawer() {
   const [open, setOpen] = useState(false);
   const { user } = useSelector(getLoggedInAuthState);
-  
-  const showDrawer = () => () => setOpen(true);
-  const hideDrawer = () => () => setOpen(false);
+  useTranslation(); // If this is removed, the drawer is visually glitched on page load.
+
+  const showDrawer = () => setOpen(true);
+  const hideDrawer = () => setOpen(false);
 
 
   return (
     <div className="drawer" id="drawer-mobile">
-      <Global
-        styles={{
-          '.MuiDrawer-root > .MuiPaper-root': {
-            margin: '0 0.5rem',
-            overflow: 'visible'
-          }
-        }}
-      />
-
       <SwipeableDrawer
         open={open}
         anchor="bottom"
-        onOpen={showDrawer()}
-        onClose={hideDrawer()}
+        onOpen={showDrawer}
+        onClose={hideDrawer}
         disableSwipeToOpen={false}
         swipeAreaWidth={drawerHeight}
         ModalProps={{keepMounted: true}}
@@ -55,15 +37,16 @@ function MobileDrawer() {
         >
           <Puller/>
           <p>Swipe up to navigate</p>
-          <Divider style={{transform: 'translateY(2px)'}}/>
         </div>
 
         <List className="drawer">
+          <Divider style={{marginTop: 0}}/>
+
           {values.categories.map(category => (
             <NavItem
               key={category}
               category={category}
-              onClick={hideDrawer()}
+              onClick={hideDrawer}
             />
           ))}
 
@@ -71,7 +54,7 @@ function MobileDrawer() {
 
           <NavItem
             category="settings"
-            onClick={hideDrawer()}
+            onClick={hideDrawer}
             text={`${user.firstName} ${user.lastName}`}
           />
         </List>

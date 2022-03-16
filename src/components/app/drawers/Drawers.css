@@ -75,8 +75,7 @@
   
   visibility: visible;
   background-color: white;
-  border-radius: 8px 0 0 8px;
-  box-shadow: 0 0.5rem 0 0 white, 0 0 0.25rem 0.25rem #0002;
+  border-radius: 1rem 1rem 0 0;
 }
 
 .drawer-mobile__header > p {
@@ -96,8 +95,35 @@
   #drawer-mobile {
     display: flex;
   }
+
   ul.drawer, ul.drawer hr {
     padding: 0;
-    margin: 0.5rem 0;
+    margin: 0 0 0.5rem;
+  }
+
+  .MuiDrawer-root > .MuiPaper-root {
+    margin: 0 1rem;
+    box-shadow: none;
+    overflow: visible;
+  }
+
+  .MuiDrawer-root > .MuiPaper-root::after {
+    left: 0;
+    top: -80px;
+    width: 100%;
+    display: block;
+    position: absolute;
+    height: calc(100% + 80px);
+    /* Drawer height = 80px | change in MobileDrawer.tsx */
+
+    content: '';
+    pointer-events: none;
+    background: transparent;
+    border-radius: 1rem 1rem 0 0;
+  }
+
+  .MuiDrawer-root > .MuiPaper-root::after,
+  .MuiPaper-root[style*="visibility: hidden"] > .drawer-mobile__header {
+    box-shadow: 0 0 0.25rem 0.25rem #0002;
   }
 }
