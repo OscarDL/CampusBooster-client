@@ -11,10 +11,10 @@ import Accounting from '../views/app/Accounting';
 import Admin from '../views/app/Admin';
 import Settings from '../views/app/Settings';
 
-import MobileDrawer from '../components/app/sidebar/MobileDrawerA';
-import DesktopDrawer from '../components/app/sidebar/DesktopDrawer';
+import MobileDrawer from '../components/app/drawers/MobileDrawerA';
+import DesktopDrawer from '../components/app/drawers/DesktopDrawer';
 
-import '../components/app/sidebar/Sidebar.css';
+import '../components/app/drawers/Drawers.css';
 
 
 function LoggedInRoutes() {

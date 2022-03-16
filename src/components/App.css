@@ -424,10 +424,6 @@ body .tippy-content > div {
 
 /* Material-UI custom styling --- adding "body" makes the custom styling higher in priority for CSS */
 
-body .MuiTextField-root .MuiInputLabel-outlined, .MuiInputBase-adornedStart span[class*="material-icons"] {
-  transition: 0.25s;
-}
-
 body .MuiInputLabel-root.Mui-focused,
 body .MuiCheckbox-colorPrimary.Mui-checked,
 body .MuiOutlinedInput-root.Mui-focused .material-icons-outlined {
@@ -556,6 +552,11 @@ body .MuiDataGrid-row > *:focus {
 button, span[class*="material-icons"] {
   user-select: none;
   transition: 0.25s;
+}
+
+button:hover, button:focus, button:active,
+span[class*="material-icons"]:hover, span[class*="material-icons"]:focus, span[class*="material-icons"]:active {
+  color: rgb(var(--accent-color));
 }
 
 

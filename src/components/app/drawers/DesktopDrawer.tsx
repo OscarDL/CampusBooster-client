@@ -1,21 +1,19 @@
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-
 import { styled, CSSObject, Theme } from '@mui/material/styles';
-import { Drawer as MuiDrawer, List, Divider, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Drawer as MuiDrawer, List, Divider } from '@mui/material';
 
+import NavItem from './NavItem';
 import ExpandButton from './ExpandButton';
-import ProfileButton from './ProfileButton';
-import { values } from '../../../shared/utils';
 import { useStateWithCallback } from '../../../shared/hooks';
+import { getLoggedInAuthState, values } from '../../../shared/utils';
 
 
 const drawerWidth = 240;
 
 const drawerTheme = (theme: Theme, expanded: boolean, scrollbarWidth: number): CSSObject => {
   return {
-    width: expanded ? drawerWidth : `calc(${theme.spacing(8)} + ${scrollbarWidth}px + 1px)`,
+    width: expanded ? drawerWidth : `calc(4rem + ${scrollbarWidth}px + 1px)`,
 
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
@@ -50,9 +48,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 
-function SidebarDrawer() {
-  const { t } = useTranslation();
-
+function DesktopDrawer() {
+  const { user } = useSelector(getLoggedInAuthState);
   const [expanded, setExpanded] = useStateWithCallback(
     !localStorage.getItem('hideDrawer')
   );
@@ -71,27 +68,25 @@ function SidebarDrawer() {
 
 
   return (
-    <div className="drawer" id="desktop">
+    <div className="drawer" id="drawer-desktop">
       <Drawer variant="permanent" open={expanded}>
-        <ProfileButton opacity={expanded ? 1 : 0}/>
+        <List>
+          <NavItem
+            category="settings"
+            expanded={expanded}
+            text={`${user.firstName} ${user.lastName}`}
+          />
+        </List>
 
         <Divider/>
 
         <List id="desktop-nav" sx={{overflowX: 'hidden', flexGrow: 1}}>
           {values.categories.map(category => (
-            <Link key={category} to={'/' + category}>
-              <ListItemButton key={category} className="drawer__item" sx={{px: 2.5, minHeight: 48}}>
-                <ListItemIcon className="drawer__icon" sx={{minWidth: 0, justifyContent: 'center'}}>
-                  <span className="material-icons-round">
-                    {t(`${category}.icon`)}
-                  </span>
-                </ListItemIcon>
-
-                <ListItemText className="drawer__text" sx={{ml:3, opacity: expanded ? 1 : 0}}>
-                  {t(`${category}.title`)}
-                </ListItemText>
-              </ListItemButton>
-            </Link>
+            <NavItem
+              key={category}
+              category={category}
+              expanded={expanded}
+            />
           ))}
         </List>
 
@@ -102,4 +97,4 @@ function SidebarDrawer() {
 };
 
 
-export default SidebarDrawer;
+export default DesktopDrawer;

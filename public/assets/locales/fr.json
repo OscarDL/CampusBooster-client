@@ -26,6 +26,7 @@
 
   "settings": {
     "title": "Réglages",
+    "icon": "account_circle",
     "logout": "Se déconnecter",
     "ms_account": "Compte Microsoft"
   },
