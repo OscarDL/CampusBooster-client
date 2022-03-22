@@ -8,7 +8,7 @@ const login = async (azureData: AzureData) => {
   try {
     const loginRequest = {
       email: azureData.username,
-      azureUid: azureData.localAccountId
+      azureId: azureData.localAccountId
     };
     const { data } = await axios.post(apiUrl + 'auth/login', loginRequest, axiosConfig);
 

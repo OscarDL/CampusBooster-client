@@ -16,7 +16,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const App: FC = () => {
   const dispatch = useDispatch();
   const { accounts: [azureData] } = useMsal();
-  const { loading, user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
 
   useEffect(() => {
@@ -28,8 +28,6 @@ const App: FC = () => {
 
   return (
     <div>
-      {loading && <Loader fullscreen/>}
-
       <Router>
         <AuthenticatedTemplate>
           {user ? (

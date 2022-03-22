@@ -6,6 +6,8 @@ export type AzureData = AccountInfo;
 
 export type User = {
   id: number,
+  azureId: string,
+
   lastName: string,
   firstName: string,
   birthday?: number, // timestamp

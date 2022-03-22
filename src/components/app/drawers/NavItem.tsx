@@ -1,23 +1,33 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { ListItemButton, ListItemText } from '@mui/material';
+
+import { setCategory } from '../../../store/features/app/slice';
 
 
 type Props = {
   text?: string,
   category: string,
   expanded?: boolean,
-  onClick?: React.MouseEventHandler<HTMLAnchorElement>
+  hideDrawer?: () => void
 };
 
 
-const NavItem: FC<Props> = ({text, category, expanded = true, onClick = () => null}) => {
+const NavItem: FC<Props> = ({text, category, expanded = true, hideDrawer = () => null}) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+
+  const handleTap = () => {
+    hideDrawer();
+    dispatch(setCategory(category + '.title'));
+  };
+
 
   return (
     <Link
-      onClick={onClick}
+      onClick={handleTap}
       to={'/' + category}
       title={expanded ? '' : t(`${category}.title`)}
     >

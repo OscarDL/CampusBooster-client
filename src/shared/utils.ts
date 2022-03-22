@@ -7,6 +7,10 @@ export const getLoggedInAuthState = (state: RootState) => ({
   user: state.auth.user as User
 });
 
+export const getCategoryTitle = () => (
+  window.location.pathname.replace('/', '').split('/')[0] + '.title'
+);
+
 export const serializeDate = (date: Date | null): number | null => {
   if (!date) return null;
   return Date.parse(date.toString());

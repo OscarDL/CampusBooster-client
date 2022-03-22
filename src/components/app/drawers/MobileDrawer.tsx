@@ -12,9 +12,11 @@ const drawerHeight = 80; // px
 
 
 const MobileDrawer: FC = () => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const { user } = useSelector(getLoggedInAuthState);
-  useTranslation(); // If this is removed, the drawer is visually glitched on page load.
+  const { category } = useSelector(state => state.app);
+
 
   const showDrawer = () => setOpen(true);
   const hideDrawer = () => setOpen(false);
@@ -36,7 +38,7 @@ const MobileDrawer: FC = () => {
           style={{top: -drawerHeight + 'px', height: drawerHeight + 'px'}}
         >
           <Puller/>
-          <p>Swipe up to navigate</p>
+          <p>{t(category)}</p>
         </div>
 
         <List className="drawer">
@@ -46,7 +48,7 @@ const MobileDrawer: FC = () => {
             <NavItem
               key={category}
               category={category}
-              onClick={hideDrawer}
+              hideDrawer={hideDrawer}
             />
           ))}
 
@@ -54,7 +56,7 @@ const MobileDrawer: FC = () => {
 
           <NavItem
             category="settings"
-            onClick={hideDrawer}
+            hideDrawer={hideDrawer}
             text={`${user.firstName} ${user.lastName}`}
           />
         </List>

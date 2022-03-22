@@ -37,12 +37,10 @@ export const LogoutButton: FC<LogoutProps> = ({logoutFromAzure}) => {
 
   const handleAzureLogout = () => {
     if (logoutFromAzure) {
-      localStorage.removeItem('loggedIn');
-
       instance.logoutRedirect()
         .catch(e => {
           console.error(e);
-          toast.error('login.errors.logout');
+          toast.error(t('login.errors.logout'));
         });
     }
   

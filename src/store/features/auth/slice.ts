@@ -8,16 +8,12 @@ import { clearAzureLocalStorageData } from '../../../shared/utils';
 
 
 export type AuthState = {
-  user: User | null,
-  loading: boolean,
-  isLoggedIn: boolean
+  user: User | null
 };
 
 
 const initialState: AuthState = {
-  user: null,
-  loading: false,
-  isLoggedIn: false
+  user: null
 };
 
 
@@ -70,17 +66,10 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     // User login process
     builder
-      .addCase(login.pending, (state) => {
-        state.loading = true;
-      })
       .addCase(login.fulfilled, (state, {payload}) => {
-        state.loading = false;
-        state.isLoggedIn = true;
         state.user = payload.user;
       })
       .addCase(login.rejected, (state, {payload}: {payload: any}) => {
-        state.loading = false;
-        state.isLoggedIn = false;
         clearAzureLocalStorageData(payload.azureData);
 
         toast.error(t('login.errors.' + payload.message), {
