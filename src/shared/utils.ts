@@ -41,6 +41,15 @@ export const values = {
     'fr'
   ],
 
+  roles: {
+    student: 1,
+    professor: 2,
+    fullProfessor: 3,
+    company: 4,
+    administration: 5,
+    campusBoosterAdmin: 6
+  },
+
   categories: [
     'summary',
     'subjects',

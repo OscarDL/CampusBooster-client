@@ -5,9 +5,11 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
 
 import Loader from './shared/loader/Loader';
+import { getCategoryTitle } from '../shared/utils';
 import { login } from '../store/features/auth/slice';
 import LoggedInRoutes from '../routes/LoggedInRoutes';
 import LoggedOutRoutes from '../routes/LoggedOutRoutes';
+import { setCategory } from '../store/features/app/slice';
 
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -22,6 +24,10 @@ const App: FC = () => {
   useEffect(() => {
     if (!user && azureData) {
       dispatch(login(azureData));
+    }
+
+    if (user) {
+      dispatch(setCategory(getCategoryTitle()));
     }
   }, [azureData, user, dispatch]);
 

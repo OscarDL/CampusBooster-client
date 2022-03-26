@@ -96,9 +96,12 @@
     display: flex;
   }
 
-  ul.drawer, ul.drawer hr {
+  ul.drawer {
     padding: 0;
-    margin: 0 0 0.5rem;
+    margin: 0.5rem 0;
+  }
+  ul.drawer hr {
+    margin: 0.5rem 0;
   }
 
   .MuiDrawer-root > .MuiPaper-root {

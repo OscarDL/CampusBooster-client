@@ -2,8 +2,8 @@ import i18next from 'i18next';
 import { AxiosRequestConfig } from 'axios';
 
 
-const port = process.env.NODE_ENV === 'production' ? '' : ':9000';
-export const apiUrl: string = `https://${window.location.hostname}${port}/api/v1/`;
+const port = process.env.NODE_ENV === 'production' ? '' : ':' + process.env.API_PORT;
+export const apiUrl = `https://${window.location.hostname}${port}/api/v1/`;
 
 
 export const axiosConfig: AxiosRequestConfig = {
