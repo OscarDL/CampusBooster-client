@@ -8,46 +8,43 @@ import { clearAzureLocalStorageData } from '../../../shared/utils';
 
 
 export type AuthState = {
-  user: User | null
+  user: User | null,
+  refreshToken: string
 };
 
 
 const initialState: AuthState = {
-  user: null
+  user: null,
+  refreshToken: ''
 };
 
 
 export const login = createAsyncThunk('auth/login', async (azureData: AzureData, thunkAPI) => {
   try {
     const response = await authService.login(azureData);
-    if (!response.success) throw response;
 
     return {
+      ...response,
       user: {
         ...response.user,
         azureData
       }
-    } as {
-      user: User
-    };
+    } as AuthState;
   }
 
   catch (error: any) {
-    const message = error.response?.data.error || 'error';
+    const message = error || 'error';
     return thunkAPI.rejectWithValue({message, azureData});
   }
 });
 
 export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
-    const response = await authService.logout();
-    if (!response.success) throw response;
-
-    return response;
+    return await authService.logout();
   }
 
   catch (error: any) {
-    const message = error.response?.data.error || 'error';
+    const message = error || 'error';
     return thunkAPI.rejectWithValue(message);
   }
 });
@@ -68,6 +65,7 @@ const authSlice = createSlice({
     builder
       .addCase(login.fulfilled, (state, {payload}) => {
         state.user = payload.user;
+        state.refreshToken = payload.refreshToken;
       })
       .addCase(login.rejected, (state, {payload}: {payload: any}) => {
         clearAzureLocalStorageData(payload.azureData);

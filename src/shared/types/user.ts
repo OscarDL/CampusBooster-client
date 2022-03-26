@@ -6,11 +6,10 @@ export type AzureData = AccountInfo;
 
 export type User = {
   id: number,
-  azureId: string,
-
+  email: string,
   lastName: string,
   firstName: string,
-  birthday?: number, // timestamp
+  birthday?: string,
 
   campus?: string, // location of campus (city name)
   schoolYear?: string, // from first to fifth year of master

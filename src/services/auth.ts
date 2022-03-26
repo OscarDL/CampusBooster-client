@@ -7,28 +7,30 @@ import { apiUrl, axiosConfig } from '../shared/api';
 const login = async (azureData: AzureData) => {
   try {
     const loginRequest = {
-      email: azureData.username,
       azureId: azureData.localAccountId
     };
-    const { data } = await axios.post(apiUrl + 'auth/login', loginRequest, axiosConfig);
 
-    return data.success ? data : data?.error;
+    const response = await axios.post(apiUrl + 'auth/login', loginRequest, axiosConfig);
+
+    if (response.statusText !== 'OK') {
+      throw response;
+    }
+
+    return response.data;
   }
 
   catch (error: any) {
-    return error.response?.data?.error || 'error';
+    return error.response.data.message || 'error';
   }
 };
 
 const logout = async () => {
   try {
-    const { data } = await axios.get(apiUrl + 'auth/logout', axiosConfig);
-
-    return data.success ? data : data?.error;
+    return await axios.get(apiUrl + 'auth/logout', axiosConfig);
   }
 
   catch (error: any) {
-    return error.response?.data?.error || 'error';
+    return error.response.data.message || 'error';
   }
 };
 

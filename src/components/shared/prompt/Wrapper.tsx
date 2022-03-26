@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 
 type Props = {
-  children: JSX.Element
+  children: React.ReactNode
 };
 
 const PromptWrapper: FC<Props> = ({children}) => (
