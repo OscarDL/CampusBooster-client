@@ -2,15 +2,20 @@ import { FC } from 'react';
 
 
 type Props = {
-  column: string,
-  children: JSX.Element
+  column?: boolean,
+  children: React.ReactNode
 };
 
-const PromptActions: FC<Props> = ({children, column}) => (
-  <div className={'prompt__actions flexRow ' + (column ? 'column' : '')}>
-    {children}
-  </div>
-);
+
+const PromptActions: FC<Props> = ({children, column}) => {
+  const classes = `prompt__actions flexRow ${column ? 'column' : ''}`.trimEnd();
+
+  return (
+    <div className={classes}>
+      {children}
+    </div>
+  );
+};
 
 
 export default PromptActions;

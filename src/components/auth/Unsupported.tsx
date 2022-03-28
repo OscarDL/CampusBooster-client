@@ -1,15 +1,15 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Prompt, PromptContainer, PromptWrapper } from '../shared/prompt';
+import { Backdrop, DivPrompt, PromptWrapper } from '../shared/prompt';
 
 
 const Unsupported: FC = () => {
   const { t } = useTranslation();
 
   return (
-    <Prompt>
-      <PromptContainer type="div">
+    <Backdrop>
+      <DivPrompt>
         <PromptWrapper>
           <div className="prompt__title">
             <h1>{t('browser.unsupported.title')}</h1>
@@ -32,8 +32,8 @@ const Unsupported: FC = () => {
             </div>
           </div>
         </PromptWrapper>
-      </PromptContainer>
-    </Prompt>
+      </DivPrompt>
+    </Backdrop>
   );
 };
 

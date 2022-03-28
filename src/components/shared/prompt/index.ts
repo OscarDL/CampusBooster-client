@@ -1,7 +1,7 @@
-import Prompt from './Prompt';
+import Backdrop from './Backdrop';
 import PromptActions from './Actions';
-import PromptWrapper from './Wrapper';
-import PromptContainer from './Container';
+import { DivPrompt, FormPrompt } from './Prompt';
+import { PromptWrapper, PromptTitle, PromptContent } from './Wrapper';
 
 
-export { Prompt, PromptActions, PromptWrapper,PromptContainer };
+export { Backdrop, PromptActions, PromptContent, PromptTitle, PromptWrapper, DivPrompt, FormPrompt };

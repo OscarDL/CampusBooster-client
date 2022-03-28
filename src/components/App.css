@@ -128,7 +128,7 @@ button {
 }
 
 .button {
-  padding: 0.4rem 0.8rem !important;
+  padding: 0.5rem 0.75rem !important;
   background-color: rgb(var(--button-bg));
 }
 .button > * {
@@ -352,8 +352,8 @@ a:hover, a:focus {
 
 /* Select dropdown content */
 .rmsc.multi-select .item-renderer {
-  font-size: 0.8rem;
   user-select: none;
+  font-size: 0.75rem;
   
   display: flex;
   align-items: center;
