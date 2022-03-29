@@ -29,7 +29,7 @@
   },
 
   "settings": {
-    "title": "Settings",
+    "title": "Profile & Settings",
     "icon": "account_circle",
     "logout": "Logout",
     "ms_account": "Microsoft account"
@@ -69,6 +69,11 @@
   "accounting": {
     "title": "Accounting",
     "icon": "balance"
+  },
+
+  "tools": {
+    "title": "Tools",
+    "icon": "handyman"
   },
 
   "admin": {

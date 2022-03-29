@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 import authService from '../../../services/auth';
 import { AzureData, User } from '../../../shared/types/user';
-import { clearAzureLocalStorageData } from '../../../shared/utils';
+import { clearAzureLocalStorageData } from '../../../shared/functions';
 
 
 export type AuthState = {

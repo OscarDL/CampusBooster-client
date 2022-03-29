@@ -5,15 +5,16 @@ import { Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useMsal } from '@azure/msal-react';
 
+import { loginRequest } from './config';
 import { logout } from '../../store/features/auth/slice';
-import { clearAzureLocalStorageData } from '../../shared/utils';
+import { clearAzureLocalStorageData } from '../../shared/functions';
 
 
 export const LoginButton: FC = () => {
   const { instance } = useMsal();
 
   const handleAzureLogin = () => {
-    instance.loginRedirect()
+    instance.loginRedirect(loginRequest)
       .catch(e => {
         console.error(e);
         toast.error(t('login.errors.error'));

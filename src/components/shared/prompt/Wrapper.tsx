@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react';
 
-import { handlePromptScrollShadow } from '../../../shared/utils';
+import { handlePromptScrollShadow } from '../../../shared/functions';
 
 
 type Props = {

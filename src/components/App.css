@@ -85,11 +85,6 @@ code {
   max-width: 100%;
 }
 
-.app__content {
-  flex-grow: 1;
-  overflow: auto;
-}
-
 .checkbox {
   display: flex;
   align-items: center;
@@ -126,8 +121,8 @@ hr {
 button {
   border: none;
   cursor: pointer;
+  padding: 0.4rem 0.8rem;
   transition: 0.25s !important;
-  padding: 0.4rem 0.8rem !important;
 }
 
 .button {
@@ -159,67 +154,6 @@ a:hover, a:focus {
   text-decoration: underline;
 }
 */
-
-
-/* Content Header */
-
-.content__header {
-  gap: 1rem;
-  margin: 0 0.66rem;
-  min-height: 3.5rem;
-  padding: 0.75rem 1.25rem;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  
-  border-radius: var(--radius-medium);
-  background-color: rgb(var(--button-bg));
-  box-shadow: 0 0 0.4rem 0.1rem var(--button-bg);
-}
-
-.content__header > h2 {
-  display: flex;
-  align-items: center;
-}
-
-.content__header > .options {
-  gap: 1rem;
-  display: flex;
-}
-.content__header > .options > * {
-  gap: 0.75rem;
-  display: flex;
-  max-height: 2rem;
-  align-items: center;
-}
-.button > .MuiButton-label > .MuiButton-startIcon > [class*="material-icons"] {
-  font-size: 1.5rem;
-}
-
-.content__header .button.icon {
-  height: 2rem;
-  padding: 0 0.33rem !important;
-
-  display: flex;
-  align-items: center;
-}
-.content__header .button.icon > * {
-  color: #333;
-}
-
-.content__header a {
-  color: inherit;
-  text-decoration: none;
-}
-.content__header span[class*="material-icons"] {
-  font-size: 2rem;
-}
-
-.content__header .separation, .MuiInputBase-adornedEnd .separation {
-  border: 1px solid rgb(var(--separation-color));
-  background-color: rgb(var(--separation-color));
-}
 
 
 /* Top left logo */
@@ -436,6 +370,7 @@ body .MuiOutlinedInput-root.Mui-focused fieldset {
 
 body button.MuiButton-root {
   min-width: unset;
+  padding: 0.4rem 0.8rem;
 }
 body button.MuiButton-root.Mui-disabled {
   opacity: 0.5;

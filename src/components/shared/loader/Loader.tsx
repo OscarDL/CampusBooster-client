@@ -1,8 +1,9 @@
 import { FC } from 'react';
-import { BeatLoader } from 'react-spinners';
+import { RotateLoader } from 'react-spinners';
+
+import { colors } from '../../../shared/utils';
 
 import './Loader.css';
-import { colors } from '../../../shared/utils';
 
 
 type Props = {
@@ -11,7 +12,7 @@ type Props = {
 
 const Loader: FC<Props> = ({fullscreen}) => (
   <div className={'loader ' + (fullscreen ? 'fullscreen' : '')}>
-    <BeatLoader color={colors.loader}/>
+    <RotateLoader color={colors.loader}/>
   </div>
 );
 

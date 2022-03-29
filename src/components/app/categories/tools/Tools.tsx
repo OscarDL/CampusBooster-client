@@ -1,13 +1,13 @@
 import { FC } from 'react';
 
 
-const Admin: FC = () => {
+const Tools: FC = () => {
   return (
     <>
-      Admin
+      Tools
     </>
   );
 };
 
 
-export default Admin;
+export default Tools;

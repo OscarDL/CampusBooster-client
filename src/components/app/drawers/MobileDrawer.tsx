@@ -5,7 +5,9 @@ import { Divider, List, SwipeableDrawer } from '@mui/material';
 
 import NavItem from './NavItem';
 import Puller from '../../shared/puller/Puller';
-import { getLoggedInAuthState, values } from '../../../shared/utils';
+
+import { values } from '../../../shared/utils';
+import { getLoggedInAuthState, getUserCategories } from '../../../shared/functions';
 
 
 const drawerHeight = 80; // px
@@ -42,7 +44,9 @@ const MobileDrawer: FC = () => {
         </div>
 
         <List className="drawer">
-          {values.categories.map(category => (
+          <Divider/>
+
+          {getUserCategories(values.categories, user).map(category => (
             <NavItem
               key={category}
               category={category}

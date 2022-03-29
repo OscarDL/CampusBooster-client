@@ -4,8 +4,6 @@ import { useTranslation } from 'react-i18next';
 import './Summary.css';
 
 
-
-
 const Summary: FC = () => {
   const { t } = useTranslation();
 
@@ -16,9 +14,9 @@ const Summary: FC = () => {
 
 
   return (
-    <div className="summary">
+    <>
       <p>Summary</p>
-    </div>
+    </>
   );
 };
 

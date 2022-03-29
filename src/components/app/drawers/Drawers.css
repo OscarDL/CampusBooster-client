@@ -97,8 +97,7 @@
   }
 
   ul.drawer {
-    padding: 0;
-    margin: 0.5rem 0;
+    padding: 0 0 0.5rem;
   }
   ul.drawer hr {
     margin: 0.5rem 0;

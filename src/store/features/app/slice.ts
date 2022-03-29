@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { getCategoryTitle } from '../../../shared/utils';
+import { getCategoryTitle } from '../../../shared/functions';
 
 
 export type AppState = {

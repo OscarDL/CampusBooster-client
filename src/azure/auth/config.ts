@@ -17,7 +17,8 @@ export const msalConfig: Configuration = {
 
 // Scope(s) for ID token to be used at Microsoft identity platform endpoints
 export const loginRequest = {
-  scopes: ['User.Read']
+  scopes: ['User.Read'],
+  prompt: 'select_account'
 };
 
 // Endpoint(s) for Microsoft Graph API services

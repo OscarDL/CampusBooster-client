@@ -2,6 +2,7 @@ import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { LogoutButton } from '../../../azure/auth/Buttons';
+import { ContentBody, ContentHeader } from '../../shared/content';
 
 import './Settings.css';
 
@@ -16,11 +17,16 @@ const Settings: FC = () => {
 
 
   return (
-    <div className="settings">
-      <p>Settings page</p>
-      Logout from website: <LogoutButton/><br/>
-      Logout from Azure: <LogoutButton logoutFromAzure/>
-    </div>
+    <>
+      <ContentHeader>
+        <h2>{t('settings.title')}</h2>
+      </ContentHeader>
+
+      <ContentBody>
+        Logout from website: <LogoutButton/><br/>
+        Logout from Azure: <LogoutButton logoutFromAzure/>
+      </ContentBody>
+    </>
   );
 };
 

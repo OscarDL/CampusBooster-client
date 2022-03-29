@@ -5,8 +5,10 @@ import { Drawer as MuiDrawer, List, Divider } from '@mui/material';
 
 import NavItem from './NavItem';
 import ExpandButton from './ExpandButton';
+
+import { values } from '../../../shared/utils';
 import { useStateWithCallback } from '../../../shared/hooks';
-import { getLoggedInAuthState, values } from '../../../shared/utils';
+import { getLoggedInAuthState, getUserCategories } from '../../../shared/functions';
 
 
 const drawerWidth = 240;
@@ -81,7 +83,7 @@ const DesktopDrawer: FC = () => {
         <Divider/>
 
         <List id="desktop-nav" sx={{overflowX: 'hidden', flexGrow: 1}}>
-          {values.categories.map(category => (
+          {getUserCategories(values.categories, user).map(category => (
             <NavItem
               key={category}
               category={category}
