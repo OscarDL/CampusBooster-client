@@ -4,23 +4,41 @@
   flex-direction: column;
 }
 
+.auth a {
+  text-decoration: none;
+  color: rgb(var(--accent-color));
+}
+.auth a:hover, .auth a:focus, .auth a:active {
+  text-decoration: underline;
+}
 
-/* FORM CONTAINER */
+
+/* Form container */
 
 .auth .prompt__backdrop {
-  background-color: transparent;
+	background: linear-gradient(-45deg, #CD8AED, #BA8FF7, #988DE0, #8F9DF7, #8AB1ED);
+	animation: gradient 10s ease infinite;
+	background-size: 200% 200%;
 }
+
+/* Background gradient loop */
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
 
 .auth .prompt__container {
-  box-shadow: 0 0 1rem 0.33rem rgb(var(--button-bg-darker));
+  background-color: rgba(var(--theme-bg), 0.8);
 }
 
-.auth .prompt__content {
-  gap: 0;
-}
-.auth .prompt__content > * {
-  text-align: center;
-}
 
 .auth .action {
   color: inherit;
@@ -51,7 +69,34 @@
 }
 
 
+.auth #login-logo {
+  width: 10rem;
+  height: 10rem;
+  max-width: 80%;
+  max-height: 80%;
+}
+
+#login-btn {
+  border-radius: var(--radius-medium);
+  background-color: rgb(var(--accent-color));
+  box-shadow: 0 0 0.25rem 0 rgb(var(--accent-color));
+}
+
+#login-btn > span {
+  gap: 0.75rem;
+  display: flex;
+  align-items: center;
+  text-transform: initial;
+}
+
+#login-btn img {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+
 /* Supported browsers */
+
 .browsers {
   gap: 3rem;
   padding: 3rem;

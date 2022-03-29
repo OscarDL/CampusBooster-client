@@ -17,6 +17,10 @@
 
   "login": {
     "title": "Connexion",
+    "microsoft": "Se connecter avec Microsoft",
+
+    "need_help": "Besoin d'aide ?",
+    "contact_us": "Contactez-nous ici",
 
     "errors": {
       "error": "Erreur de connexion.",

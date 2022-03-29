@@ -4,12 +4,12 @@
   flex-direction: column;
   justify-content: space-between;
 
-  width: 90%;
-  height: 90%;
+  width: 80%;
+  height: 80%;
   max-width: 40rem;
   max-height: 40rem;
-  background-color: #fff;
-  border-radius: var(--radius-large);
+  border-radius: var(--radius-medium);
+  background-color: rgb(var(--theme-bg));
 }
 
 .prompt__wrapper {
@@ -88,7 +88,7 @@
 
 .prompt__actions {
   padding: 1.5rem;
-  box-shadow: 0 -0.2rem 0.2rem -0.1rem rgb(var(--button-bg-darker));
+  box-shadow: 0 -0.2rem 0.2rem -0.1rem rgb(var(--separation-color-light));
 }
 
 

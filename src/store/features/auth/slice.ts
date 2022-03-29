@@ -1,4 +1,3 @@
-import { t } from 'i18next';
 import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
@@ -70,7 +69,7 @@ const authSlice = createSlice({
       .addCase(login.rejected, (state, {payload}: {payload: any}) => {
         clearAzureLocalStorageData(payload.azureData);
 
-        toast.error(t('login.errors.' + payload.message), {
+        toast.error(payload.message, {
           onClose: () => {
             // Reset to the initial state
             window.location.pathname = '/login';

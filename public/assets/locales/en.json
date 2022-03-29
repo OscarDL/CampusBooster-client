@@ -17,6 +17,10 @@
 
   "login": {
     "title": "Sign in",
+    "microsoft": "Sign in with Microsoft",
+
+    "need_help": "Need help?",
+    "contact_us": "Contact us here",
 
     "errors": {
       "error": "Could not sign in.",

@@ -11,6 +11,18 @@ export const getCategoryTitle = () => (
   window.location.pathname.replace('/', '').split('/')[0] + '.title'
 );
 
+export const handlePromptScrollShadow = (initialCheck: boolean) => {
+  const prompt = document.querySelector('.prompt__wrapper');
+  if (!prompt) return;
+  
+  const actions = document.querySelector('.prompt__actions') as HTMLElement;
+  // Adding 1 is necessary because display scaling can give decmial undervalues.
+  const isBottom = (prompt.scrollTop + 1) >= prompt.scrollHeight - prompt.clientHeight;
+
+  if (!initialCheck) actions.style.transition = 'box-shadow 0.25s';
+  actions.style.boxShadow = isBottom ? 'none' : '';
+};
+
 export const serializeDate = (date: Date | null): number | null => {
   if (!date) return null;
   return Date.parse(date.toString());

@@ -18,9 +18,9 @@ const login = async (azureData: AzureData) => {
 
     return response.data;
   }
-
+  
   catch (error: any) {
-    return error.response.data.message || 'error';
+    return Promise.reject(error.response.data.message || 'error');
   }
 };
 
@@ -30,7 +30,7 @@ const logout = async () => {
   }
 
   catch (error: any) {
-    return error.response.data.message || 'error';
+    return Promise.reject(error.response.data.message || 'error');
   }
 };
 

@@ -61,6 +61,8 @@ code {
   --header-height: 5rem;
   --mobile-drawer-screen-width: 768px;
 
+  --theme-bg: 255, 255, 255;
+
   --button-bg: 238, 238, 238;
   --select-bg: 250, 250, 250;
   --accent-color: 80, 60, 180;
@@ -125,10 +127,10 @@ button {
   border: none;
   cursor: pointer;
   transition: 0.25s !important;
+  padding: 0.4rem 0.8rem !important;
 }
 
 .button {
-  padding: 0.5rem 0.75rem !important;
   background-color: rgb(var(--button-bg));
 }
 .button > * {

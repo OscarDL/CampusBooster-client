@@ -6,21 +6,23 @@ import { LoginButton } from '../../azure/auth/Buttons';
 import { Backdrop, FormPrompt, PromptActions, PromptContent, PromptTitle, PromptWrapper } from '../shared/prompt';
 
 import './Auth.css';
+import { Divider } from '@mui/material';
 
 
 const Login: FC = () => {
   const { t } = useTranslation();
-
   const [unsupported, setUnsupported] = useState<boolean>();
+
+  const title = `${t('brand')} \u2013 ${t('login.title')}`;
 
 
   useEffect(() => {
-    document.title = `${t('brand')} - ${t('login.title')}`;
+    document.title = title;
 
     import('detect-browser').then(({detect}) => {
       setUnsupported(['edge', 'ie'].includes(detect()?.name ?? 'ie'));
     });
-  }, [t]);
+  }, [title]);
 
 
   const displayLoginPage = (): JSX.Element => {
@@ -32,17 +34,26 @@ const Login: FC = () => {
           <FormPrompt>
             <PromptWrapper>
               <PromptTitle>
-                <h1>{t('brand')} {'\u2013'} {t('login.title')}</h1>
+                <h1>{title}</h1>
               </PromptTitle>
 
               <PromptContent centered>
+                <img id="login-logo" src="/assets/images/logo192.png" alt="logo"/>
+                <Divider/>
                 <LoginButton/>
               </PromptContent>
             </PromptWrapper>
 
-            <PromptActions>
-              <button>test</button>
-              <button>test</button>
+            <PromptActions column>
+              <span style={{margin: '0 auto'}}>
+                {t('login.need_help')}&nbsp;
+                <a
+                  target="_blank" rel="noreferrer"
+                  href="https://www.supinfo.com/contact"
+                >
+                  {t('login.contact_us')}
+                </a>.
+              </span>
             </PromptActions>
           </FormPrompt>
         </Backdrop>

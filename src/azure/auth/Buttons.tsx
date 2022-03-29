@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { t } from 'i18next';
 import { toast } from 'react-toastify';
+import { Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useMsal } from '@azure/msal-react';
 
@@ -20,9 +21,12 @@ export const LoginButton: FC = () => {
   };
 
   return (
-    <button id="azure-login-btn" onClick={handleAzureLogin}>
-      Log in
-    </button>
+    <Button id="login-btn" onClick={handleAzureLogin}>
+      <span>
+        <img src="/assets/vectors/microsoft.svg" alt="office logo"/>
+        {t('login.microsoft')}
+      </span>
+    </Button>
   );
 };
 
@@ -51,7 +55,7 @@ export const LogoutButton: FC<LogoutProps> = ({logoutFromAzure}) => {
   };
 
   return (
-    <button id="azure-logout-btn" onClick={handleAzureLogout}>
+    <button id="logout-btn" onClick={handleAzureLogout}>
       Log out
     </button>
   );
