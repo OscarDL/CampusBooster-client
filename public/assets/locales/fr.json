@@ -31,8 +31,9 @@
   "settings": {
     "title": "Profil et réglages",
     "icon": "account_circle",
-    "logout": "Se déconnecter",
-    "ms_account": "Compte Microsoft"
+    "ms_account": "Compte Microsoft",
+    "logout_website": "Se déconnecter de Campus Booster",
+    "logout_microsoft": "Se déconnecter du compte Microsoft"
   },
 
 

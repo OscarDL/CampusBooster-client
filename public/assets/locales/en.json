@@ -31,8 +31,9 @@
   "settings": {
     "title": "Profile & Settings",
     "icon": "account_circle",
-    "logout": "Logout",
-    "ms_account": "Microsoft account"
+    "ms_account": "Microsoft account",
+    "logout_website": "Sign out from Campus Booster",
+    "logout_microsoft": "Sign out from Microsoft account"
   },
 
 

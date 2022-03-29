@@ -1,0 +1,21 @@
+button.login-btn {
+  border-radius: var(--radius-medium);
+  background-color: rgb(var(--accent-color));
+}
+
+button.login-btn > span {
+  gap: 0.75rem;
+  display: flex;
+  align-items: center;
+  text-transform: initial;
+}
+button.login-btn img {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+
+button.logout-btn {
+  border-radius: var(--radius-medium);
+  background-color: rgb(var(--button-bg));
+}

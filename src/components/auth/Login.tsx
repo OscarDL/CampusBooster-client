@@ -38,7 +38,7 @@ const Login: FC = () => {
               </PromptTitle>
 
               <PromptContent centered>
-                <img id="login-logo" src="/assets/images/logo192.png" alt="logo"/>
+                <img className="login-logo" src="/assets/images/logo192.png" alt="logo"/>
                 <Divider/>
                 <LoginButton/>
               </PromptContent>

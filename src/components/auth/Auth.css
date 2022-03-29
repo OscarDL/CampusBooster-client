@@ -16,9 +16,9 @@
 /* Form container */
 
 .auth .prompt__backdrop {
-	background: linear-gradient(-45deg, #CD8AED, #BA8FF7, #988DE0, #8F9DF7, #8AB1ED);
-	animation: gradient 10s ease infinite;
-	background-size: 200% 200%;
+	background: linear-gradient(-45deg, #BA8FF7, #988DE0, #8F9DF7, #8AB1ED);
+	animation: gradient 30s ease infinite;
+	background-size: 300% 150%;
 }
 
 /* Background gradient loop */
@@ -69,28 +69,11 @@
 }
 
 
-.auth #login-logo {
+.auth .login-logo {
   width: 10rem;
   height: 10rem;
   max-width: 80%;
   max-height: 80%;
-}
-
-#login-btn {
-  border-radius: var(--radius-medium);
-  background-color: rgb(var(--accent-color));
-}
-
-#login-btn > span {
-  gap: 0.75rem;
-  display: flex;
-  align-items: center;
-  text-transform: initial;
-}
-
-#login-btn img {
-  width: 1.5rem;
-  height: 1.5rem;
 }
 
 

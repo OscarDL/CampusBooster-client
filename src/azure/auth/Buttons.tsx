@@ -9,6 +9,8 @@ import { loginRequest } from './config';
 import { logout } from '../../store/features/auth/slice';
 import { clearAzureLocalStorageData } from '../../shared/functions';
 
+import './Buttons.css';
+
 
 export const LoginButton: FC = () => {
   const { instance } = useMsal();
@@ -22,7 +24,7 @@ export const LoginButton: FC = () => {
   };
 
   return (
-    <Button id="login-btn" onClick={handleAzureLogin}>
+    <Button className="login-btn" onClick={handleAzureLogin}>
       <span>
         <img src="/assets/vectors/microsoft.svg" alt="office logo"/>
         {t('login.microsoft')}
@@ -56,8 +58,8 @@ export const LogoutButton: FC<LogoutProps> = ({logoutFromAzure}) => {
   };
 
   return (
-    <button id="logout-btn" onClick={handleAzureLogout}>
-      Log out
-    </button>
+    <Button className="logout-btn" onClick={handleAzureLogout}>
+      {t('settings.logout_' + (logoutFromAzure ? 'microsoft' : 'website'))}
+    </Button>
   );
 };
