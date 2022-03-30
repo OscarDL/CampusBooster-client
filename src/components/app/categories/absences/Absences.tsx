@@ -1,13 +1,21 @@
 import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { ContentBody } from '../../../shared/content';
+import { ContentBody, ContentHeader } from '../../../shared/content';
 
 
 const Absences: FC = () => {
+  const { t } = useTranslation();
+
+
   return (
-    <ContentBody>
-      Absences
-    </ContentBody>
+    <>
+      <ContentHeader title={t('absences.title')}/>
+
+      <ContentBody>
+        Absences
+      </ContentBody>
+    </>
   );
 };
 

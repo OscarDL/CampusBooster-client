@@ -5,7 +5,7 @@ import LoginView from '../views/auth/Login';
 
 
 const LoggedOutRoutes: FC = () => (
-  <div className="app">
+  <div className="app auth">
     <Routes>
       <Route path="/login" element={<LoginView/>}/>
 

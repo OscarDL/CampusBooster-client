@@ -5,7 +5,7 @@ import Login from '../../components/auth/Login';
 
 const LoginView: FC = () => {
   return (
-    <div className="auth">
+    <div className="login">
       <Login/>
     </div>
   );

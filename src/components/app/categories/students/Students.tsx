@@ -1,13 +1,21 @@
 import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { ContentBody } from '../../../shared/content';
+import { ContentBody, ContentHeader } from '../../../shared/content';
 
 
 const Students: FC = () => {
+  const { t } = useTranslation();
+
+
   return (
-    <ContentBody>
-      Students
-    </ContentBody>
+    <>
+      <ContentHeader title={t('students.title')}/>
+
+      <ContentBody>
+        Students
+      </ContentBody>
+    </>
   );
 };
 

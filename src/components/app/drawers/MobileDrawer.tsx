@@ -44,7 +44,7 @@ const MobileDrawer: FC = () => {
         </div>
 
         <List className="drawer">
-          <Divider/>
+          <Divider style={{marginTop: 0}}/>
 
           {getUserCategories(values.categories, user).map(category => (
             <NavItem

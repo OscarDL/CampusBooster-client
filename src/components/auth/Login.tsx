@@ -38,14 +38,14 @@ const Login: FC = () => {
               </PromptTitle>
 
               <PromptContent centered>
-                <img className="login-logo" src="/assets/images/logo192.png" alt="logo"/>
+                <img id="logo" src="/assets/images/logo192.png" alt="logo"/>
                 <Divider/>
                 <LoginButton/>
               </PromptContent>
             </PromptWrapper>
 
             <PromptActions column>
-              <span style={{margin: '0 auto'}}>
+              <span id="contact">
                 {t('login.need_help')}&nbsp;
                 <a
                   target="_blank" rel="noreferrer"

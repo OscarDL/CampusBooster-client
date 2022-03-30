@@ -24,7 +24,7 @@ export const LoginButton: FC = () => {
   };
 
   return (
-    <Button className="login-btn" onClick={handleAzureLogin}>
+    <Button variant="contained" className="login-btn" onClick={handleAzureLogin}>
       <span>
         <img src="/assets/vectors/microsoft.svg" alt="office logo"/>
         {t('login.microsoft')}
@@ -58,8 +58,11 @@ export const LogoutButton: FC<LogoutProps> = ({logoutFromAzure}) => {
   };
 
   return (
-    <Button className="logout-btn" onClick={handleAzureLogout}>
-      {t('settings.logout_' + (logoutFromAzure ? 'microsoft' : 'website'))}
+    <Button variant="text" onClick={handleAzureLogout}>
+      <span>{t('settings.logout.' + (logoutFromAzure ? 'microsoft' : 'website'))}</span>
+      {logoutFromAzure && (
+        <span className="material-icons-round">launch</span>
+      )}
     </Button>
   );
 };

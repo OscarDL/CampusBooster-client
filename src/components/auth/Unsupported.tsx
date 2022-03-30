@@ -1,23 +1,27 @@
 import { FC } from 'react';
+import { Divider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { Backdrop, DivPrompt, PromptWrapper } from '../shared/prompt';
+import { Backdrop, DivPrompt, PromptContent, PromptTitle, PromptWrapper } from '../shared/prompt';
 
 
 const Unsupported: FC = () => {
   const { t } = useTranslation();
 
   return (
-    <Backdrop>
+    <Backdrop className="unsupported">
       <DivPrompt>
         <PromptWrapper>
-          <div className="prompt__title">
+          <PromptTitle>
             <h1>{t('browser.unsupported.title')}</h1>
-          </div>
+          </PromptTitle>
 
-          <div className="prompt__content">
+          <PromptContent centered>
             <p>{t('browser.unsupported.description')}</p>
-            <p style={{marginTop:'30px'}}>{t('browser.unsupported.download')}</p>
+            <Divider/>
+
+            <p>{t('browser.unsupported.download')}</p>
+            <Divider/>
 
             <div className="browsers">
               <a href="https://microsoft.com/edge" aria-label={t('browser.new_edge')}>
@@ -30,7 +34,7 @@ const Unsupported: FC = () => {
                 <img src="/assets/images/browsers/firefox.png" alt="firefox" width="100px" height="100px"/>
               </a>
             </div>
-          </div>
+          </PromptContent>
         </PromptWrapper>
       </DivPrompt>
     </Backdrop>

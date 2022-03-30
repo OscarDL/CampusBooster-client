@@ -5,8 +5,8 @@
   "browser": {
     "unsupported": {
       "title": "Navigateur non supporté",
-      "download": "Vous pouvez télécharger l'un des navigateurs suivants :",
-      "description": "Cette nouvelle version du tableau de bord SDS comporte différentes fonctionnalités supplémentaires, non-fonctionnelles sur ce navigateur."
+      "download": "Veuillez installer l'un des navigateurs ci-dessous :",
+      "description": "Cette nouvelle version du site Campus Booster est déconseillée d'utilisation sur votre navigateur actuel."
     },
     "edge": "Microsoft Edge",
     "chrome": "Google Chrome",
@@ -32,8 +32,11 @@
     "title": "Profil et réglages",
     "icon": "account_circle",
     "ms_account": "Compte Microsoft",
-    "logout_website": "Se déconnecter de Campus Booster",
-    "logout_microsoft": "Se déconnecter du compte Microsoft"
+    "logout": {
+      "title": "Déconnexion",
+      "website": "Se déconnecter de Campus Booster",
+      "microsoft": "Se déconnecter du compte Microsoft"
+    }
   },
 
 

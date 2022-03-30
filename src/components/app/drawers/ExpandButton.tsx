@@ -12,8 +12,8 @@ const ExpandButton: FC<Props> = ({expanded, toggleDrawer}) => {
   return (
     <div className="drawer__expand-btn">
       <Divider/>
-      <IconButton className="drawer__icon" onClick={toggleDrawer} sx={{mx: 1.5, my: 1}}>
-        <span className="material-icons" style={{transform: `rotateZ(${expanded ? -180 : 0}deg)`}}>
+      <IconButton onClick={toggleDrawer} sx={{mx: 1.5, my: 1}}>
+        <span className="material-icons drawer__icon" style={{transform: `rotateZ(${expanded ? -180 : 0}deg)`}}>
           chevron_right
         </span>
       </IconButton>

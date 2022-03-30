@@ -1,7 +1,6 @@
 import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { ContentHeader } from '../../components/shared/content';
 import Admin from '../../components/app/categories/admin/Admin';
 
 
@@ -16,10 +15,6 @@ const AdminView: FC = () => {
 
   return (
     <div className="admin-view">
-      <ContentHeader>
-        <h2>{t('admin.title')}</h2>
-      </ContentHeader>
-
       <Admin/>
     </div>
   );

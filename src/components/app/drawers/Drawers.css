@@ -20,9 +20,11 @@
 
 .drawer__item:hover > *,
 .drawer__item:focus > *,
-.drawer__item.selected {
-  text-decoration: none;
+.drawer .selected > .drawer__item > * {
   color: rgb(var(--accent-color));
+}
+.drawer .selected > .drawer__item {
+  background-color: rgba(var(--accent-color), 0.075);
 }
 
 /* Drawer item elements */
@@ -53,14 +55,10 @@
 
 /* --- Desktop --- */
 
-.drawer__expand-btn {
+.drawer__expand-btn .drawer__icon {
   width: 100%;
   display: flex;
   flex-direction: column;
-}
-.drawer__profile-btn {
-  display: flex;
-  align-items: center;
 }
 
 

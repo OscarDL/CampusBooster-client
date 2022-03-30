@@ -6,6 +6,7 @@ import { initReactI18next } from 'react-i18next';
 import LoadTranslations from 'i18next-http-backend';
 import { PublicClientApplication } from '@azure/msal-browser';
 import LanguageDetector from 'i18next-browser-languagedetector';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { store } from './store/store';
 import { Provider } from 'react-redux';
@@ -13,6 +14,7 @@ import { msalConfig } from './azure/auth/config';
 
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
+import { colors } from './shared/utils';
 
 
 i18next // Translation module
@@ -54,12 +56,38 @@ const loading = {
 const msalInstance = new PublicClientApplication(msalConfig);
 
 
+// Global Material-UI theme value overrides
+const theme = createTheme({
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          letterSpacing: 0,
+          fontSize: '1.2rem',
+          fontFamily: 'inherit',
+          textTransform: 'none',
+          borderRadius: 'var(--radius-small)'
+        }
+      }
+    }
+  },
+  palette: {
+    primary: {
+      main: colors.accent
+    },
+    divider: 'rgb(var(--divider-color))'
+  }
+});
+
+
 ReactDOM.render(
   <React.StrictMode>
     <Suspense fallback={<div style={loading}/>}>
       <Provider store={store}>
         <MsalProvider instance={msalInstance}>
-          <App/>
+          <ThemeProvider theme={theme}>
+            <App/>  
+          </ThemeProvider>
         </MsalProvider>
       </Provider>
     </Suspense>

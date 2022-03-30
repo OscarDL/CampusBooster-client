@@ -1,18 +1,30 @@
 import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { ContentBody } from '../../../shared/content';
+import Dropdown from '../../../shared/dropdown';
 import { LogoutButton } from '../../../../azure/auth/Buttons';
+import { ContentBody, ContentHeader } from '../../../shared/content';
 
 import './Settings.css';
 
 
 const Settings: FC = () => {
+  const { t } = useTranslation();
+
+
   return (
-    <ContentBody>
-      <LogoutButton/>
-      <br/><br/>
-      <LogoutButton logoutFromAzure/>
-    </ContentBody>
+    <>
+      <ContentHeader title={t('settings.title')}>
+        <Dropdown id="logout" title={t('settings.logout.title')}>
+          <LogoutButton/>
+          <LogoutButton logoutFromAzure/>
+        </Dropdown>
+      </ContentHeader>
+
+      <ContentBody>
+        Settings
+      </ContentBody>
+    </>
   );
 };
 

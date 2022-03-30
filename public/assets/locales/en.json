@@ -5,8 +5,8 @@
   "browser": {
     "unsupported": {
       "title": "Unsupported browser",
-      "download": "You can download one of these browsers:",
-      "description": "This second verison of the SDS Dashboard contains various improvements, including new features which are not functional on this browser."
+      "download": "Please install one of the modern browsers below:",
+      "description": "This new version of the Campus Booster website is deprecated for use on your current browser."
     },
     "edge": "Microsoft Edge",
     "chrome": "Google Chrome",
@@ -32,8 +32,11 @@
     "title": "Profile & Settings",
     "icon": "account_circle",
     "ms_account": "Microsoft account",
-    "logout_website": "Sign out from Campus Booster",
-    "logout_microsoft": "Sign out from Microsoft account"
+    "logout": {
+      "title": "Sign out",
+      "website": "Sign out from Campus Booster",
+      "microsoft": "Sign out from Microsoft account"
+    }
   },
 
 

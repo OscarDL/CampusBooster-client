@@ -1,0 +1,109 @@
+/* Dropdown */
+.dropdown {
+  height: 100%;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Trigger area */
+.dropdown__content {
+  height: 100%;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: space-between;
+
+  cursor: pointer;
+  transition: 0.25s;
+  user-select: none;
+  padding: 0 0.5rem;
+  border-radius: var(--radius-small);
+  background-color: rgb(var(--button-bg));
+}
+
+.dropdown__content > span {
+  transition: 0.25s;
+}
+.dropdown__content > .dropdown__title {
+  font-weight: 600;
+  padding: 0 0.25rem 0 0.5rem;
+}
+
+.dropdown__content:hover > span, .dropdown__list.open ~ .dropdown__content {
+  color: rgb(var(--accent-color));
+}
+.dropdown > #admin:not(.open) ~ .dropdown__content {
+  background-color: transparent;
+}
+
+/* Dropdown */
+.dropdown__list {
+  top: 100%;
+  margin: 0;
+  min-width: 100%;
+  padding: 0.33rem;
+  z-index: var(--z-index-dropdown);
+
+  overflow: hidden;
+  list-style: none;
+  position: absolute;
+  visibility: hidden;
+  white-space: nowrap;
+
+  opacity: 0;
+  cursor: default;
+  transition: 0.25s;
+  background-color: #fff;
+  border-radius: var(--radius-medium);
+  box-shadow: 0px 0px 0.8rem 0.2rem rgb(var(--button-bg-darker));
+}
+
+/* Dropdown options list */
+.dropdown__list > li {
+  outline: 0;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.25s;
+  border-radius: var(--radius-small);
+}
+
+.dropdown__list > li:hover {
+  background-color: rgb(var(--button-bg));
+}
+.dropdown__list > li:hover > * {
+  color: rgb(var(--accent-color));
+}
+
+.dropdown__list > li > * {
+  text-decoration: none;
+  color: rgb(var(--text-color));
+  background-color: transparent !important;
+
+  display: flex;
+  justify-content: flex-start;
+
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem 0.75rem;
+}
+
+/* Fix delayed transition on icons */
+.dropdown__list button span[class*="material-icons"] {
+  transition: 0s;
+  margin-left: 0.5rem;
+}
+
+
+/* Opening animation */
+.dropdown__list.open {
+  opacity: 1;
+  visibility: inherit;
+  transform: translateY(6px);
+}
+.dropdown__list.open ~ .dropdown__content > .dropdown__arrow {
+  transform: rotateZ(180deg);
+}

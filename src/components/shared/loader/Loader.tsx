@@ -10,9 +10,10 @@ type Props = {
   fullscreen?: boolean
 };
 
+
 const Loader: FC<Props> = ({fullscreen}) => (
   <div className={'loader ' + (fullscreen ? 'fullscreen' : '')}>
-    <RotateLoader color={colors.loader}/>
+    <RotateLoader color={colors.accent}/>
   </div>
 );
 

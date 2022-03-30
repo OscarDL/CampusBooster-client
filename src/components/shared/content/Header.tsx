@@ -1,10 +1,25 @@
 import { FC } from 'react';
+import { Divider } from '@mui/material';
 
 
-const Header: FC = ({children}) => (
-  <div className="content__header">
-    {children}
-  </div>
+type Props = {
+  title: string,
+  children?: React.ReactNode
+};
+
+
+const Header: FC<Props> = ({children, title}) => (
+  <>
+    <div className="content__header">
+      <h2>{title}</h2>
+
+      <div className="options">
+        {children}
+      </div>
+    </div>
+
+    <Divider/>
+  </>
 );
 
 

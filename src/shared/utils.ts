@@ -1,5 +1,5 @@
 export const colors = {
-  loader: '#3b2f92',
+  accent: '#3b2f92',
   accentRGB: '80, 60, 180'
 };
 

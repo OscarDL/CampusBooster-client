@@ -16,7 +16,7 @@ code {
 }
 
 
-/* --- Custom scrollbar design --- */
+/* ----- Custom scrollbar design ----- */
 
 ::-webkit-scrollbar {
   width: 1rem;
@@ -42,7 +42,7 @@ code {
 }
 
 
-/* --- Global variables --- */
+/* ----- Global variables ----- */
 
 :root {
   --opacity-font: 0.65;
@@ -61,21 +61,27 @@ code {
   --header-height: 5rem;
   --mobile-drawer-screen-width: 768px;
 
+  --text-color: 0, 0, 0;
+
   --theme-bg: 255, 255, 255;
+  --theme-bg-pink: 186, 143, 247;
+  --theme-bg-purp: 152, 141, 224;
+  --theme-bg-blue: 143, 157, 247;
+  --theme-bg-cyan: 138, 177, 237;
+  --theme-bg-gradient: rgb(var(--theme-bg-pink)), rgb(var(--theme-bg-purp)), rgb(var(--theme-bg-blue)), rgb(var(--theme-bg-cyan));
 
   --button-bg: 238, 238, 238;
   --select-bg: 250, 250, 250;
   --accent-color: 80, 60, 180;
-  --button-bg-darker: 221, 221, 221;
-  --separation-color: 170, 170, 170;
+  --divider-color: 224, 224, 224;
+  --button-bg-darker: 220, 220, 220;
   --scrollbar-background: 100, 100, 100;
-  --separation-color-light: 204, 204, 204;
 }
 
 
-/* --- Global custom CSS --- */
+/* ----- Global custom CSS ----- */
 
-/* Layout */
+/* --- Layout --- */
 
 .app {
   display: flex;
@@ -94,9 +100,9 @@ code {
 }
 
 .checkbox * {
-  padding: 0 0.33rem;
   cursor: pointer;
   user-select: none;
+  padding: 0 0.33rem;
   accent-color: rgb(var(--accent-color));
 }
 
@@ -108,15 +114,15 @@ h2 {
   font-size: 1.5rem;
 }
 
-hr {
-  height: 0;
+hr,
+body .MuiDivider-root {
+  height: 1px;
   border: none;
-  border-top: 2px solid #999;
-  border-radius: var(--radius-small);
+  background-color: rgb(var(--divider-color));
 }
 
 
-/* Buttons */
+/* --- Buttons --- */
 
 button {
   border: none;
@@ -144,7 +150,7 @@ button {
 }
 
 
-/* Links */
+/* --- Links --- */
 
 /*
 a {
@@ -156,7 +162,7 @@ a:hover, a:focus {
 */
 
 
-/* Top left logo */
+/* --- Top left logo --- */
 
 .branding {
   padding: 1rem;
@@ -178,7 +184,7 @@ a:hover, a:focus {
 }
 
 
-/* Regular Select */
+/* --- Regular Select --- */
 
 .singleSelect {
   width: 100%;
@@ -211,7 +217,7 @@ a:hover, a:focus {
 }
 
 
-/* Multi select */
+/* --- Multi select --- */
 
 /* Opening animation */
 @keyframes fadeIn {
@@ -319,7 +325,7 @@ a:hover, a:focus {
 }
 
 
-/* Tippy.js --- Tooltip component */
+/* --- Tippy.js - Tooltip component --- */
 
 body [data-tippy-root] {
   /* Fix issue where the pop-up disappears before hovering it */
@@ -342,7 +348,7 @@ body .tippy-content > div {
 }
 
 
-/* Material-UI custom styling --- adding "body" makes the custom styling higher in priority for CSS */
+/* --- Material-UI custom styling - adding "body" makes the custom styling higher in priority for CSS --- */
 
 body .MuiInputLabel-root.Mui-focused,
 body .MuiCheckbox-colorPrimary.Mui-checked,
@@ -387,13 +393,11 @@ body button.MuiButton-root.btnPrimary > .MuiButton-label {
 
 body button.MuiButton-root.btnDismiss {
   color: #f22;
-  text-transform: none;
   background-color: transparent !important;
 }
 
 body button.MuiButton-root.btnSecondary {
   color: black;
-  text-transform: none;
   border: 1px solid black;
   background-color: transparent !important;
 }
@@ -410,7 +414,7 @@ body button .MuiButton-startIcon.MuiButton-iconSizeSmall {
 }
 
 
-/* DataGrid tables */
+/* --- DataGrid tables --- */
 
 .datagrid__footer {
   display: flex;
@@ -458,7 +462,7 @@ body .MuiDataGrid-row > *:focus {
 }
 
 
-/* React switch */
+/* --- React switch --- */
 
 .react-switch-handle {
   box-shadow: none !important;
@@ -468,20 +472,19 @@ body .MuiDataGrid-row > *:focus {
 }
 
 
-/* Miscellaneous */
+/* --- Miscellaneous --- */
 
 button, span[class*="material-icons"] {
   user-select: none;
   transition: 0.25s;
 }
 
-button:hover, button:focus, button:active,
 span[class*="material-icons"]:hover, span[class*="material-icons"]:focus, span[class*="material-icons"]:active {
   color: rgb(var(--accent-color));
 }
 
 
-/* Media queries */
+/* --- Media queries --- */
 
 /* Smartphones */
 @media (max-width: 480px) {
@@ -503,4 +506,4 @@ span[class*="material-icons"]:hover, span[class*="material-icons"]:focus, span[c
 @media (min-width: 1025px) {
 }
 
-/* --- End Global Custom CSS --- */
+/* ----- End Global Custom CSS ----- */
