@@ -1,0 +1,11 @@
+.container {
+  padding: 1rem;
+  border-radius: var(--radius-medium);
+  border: 1px solid rgb(var(--divider-color));
+}
+
+.container .content__header {
+  width: 100%;
+  height: auto;
+  padding: 0.5rem;
+}

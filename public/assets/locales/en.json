@@ -10,8 +10,7 @@
     },
     "edge": "Microsoft Edge",
     "chrome": "Google Chrome",
-    "firefox": "Mozilla Firefox",
-    "new_edge": "New Microsoft Edge"
+    "firefox": "Mozilla Firefox"
   },
 
 
@@ -32,10 +31,21 @@
     "title": "Profile & Settings",
     "icon": "account_circle",
     "ms_account": "Microsoft account",
+
     "logout": {
       "title": "Sign out",
       "website": "Sign out from Campus Booster",
       "microsoft": "Sign out from Microsoft account"
+    },
+
+    "info": {
+      "title": "My information",
+      "first_name": "First name:",
+      "last_name": "Last name:",
+      "email": "Email address:",
+      "birthday": "Birthday:",
+      "campus": "Campus location:",
+      "school_year": "Current year:"
     }
   },
 

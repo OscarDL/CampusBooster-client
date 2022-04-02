@@ -10,8 +10,7 @@
     },
     "edge": "Microsoft Edge",
     "chrome": "Google Chrome",
-    "firefox": "Mozilla Firefox",
-    "new_edge": "Nouveau Microsoft Edge"
+    "firefox": "Mozilla Firefox"
   },
 
 
@@ -32,10 +31,21 @@
     "title": "Profil et réglages",
     "icon": "account_circle",
     "ms_account": "Compte Microsoft",
+
     "logout": {
       "title": "Déconnexion",
       "website": "Se déconnecter de Campus Booster",
       "microsoft": "Se déconnecter du compte Microsoft"
+    },
+
+    "info": {
+      "title": "Mes informations",
+      "first_name": "Prénom :",
+      "last_name": "Nom de famille :",
+      "email": "Adresse email :",
+      "birthday": "Date de naissance :",
+      "campus": "Emplacement du campus :",
+      "school_year": "Année actuelle :"
     }
   },
 

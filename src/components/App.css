@@ -73,9 +73,14 @@ code {
   --button-bg: 238, 238, 238;
   --select-bg: 250, 250, 250;
   --accent-color: 80, 60, 180;
-  --divider-color: 224, 224, 224;
-  --button-bg-darker: 220, 220, 220;
+  --divider-color: 220, 220, 220;
   --scrollbar-background: 100, 100, 100;
+}
+
+:root.dark {
+  /*
+    --theme-bg: 20, 20, 20;
+  */
 }
 
 
@@ -89,6 +94,17 @@ code {
   width: 100vw;
   height: 100vh;
   max-width: 100%;
+}
+
+.flex {
+  gap: 1rem;
+  display: flex;
+}
+.flex-col {
+  flex-direction: column;
+}
+.flex-grow > * {
+  flex-grow: 1;
 }
 
 .checkbox {
@@ -420,7 +436,7 @@ body button .MuiButton-startIcon.MuiButton-iconSizeSmall {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  box-shadow: 0 -0.25rem 0.25rem -0.125rem var(--button-bg-darker);
+  box-shadow: 0 -0.25rem 0.25rem -0.125rem var(--divider-color);
 }
 
 .MuiGridPanel-root { /* Make Grid pop-ups at the top-right */

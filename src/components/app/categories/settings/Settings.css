@@ -1,0 +1,37 @@
+.settings-view .content__body {
+  gap: 1rem;
+  display: flex;
+}
+
+.settings-view .content__body > * {
+  flex-grow: 1;
+}
+
+
+/* Profile container */
+
+.settings-view .profile {
+  gap: 1rem;
+  display: flex;
+}
+
+.settings-view .profile img {
+  padding: 1rem;
+  border-radius: var(--radius-small);
+  background-color: rgb(var(--button-bg));
+
+  width: 10rem;
+  height: 10rem;
+}
+
+.settings-view .profile img ~ * {
+  flex-grow: 1;
+}
+
+.settings-view .profile ul {
+  list-style: none;
+  padding: 1rem 0.5rem;
+}
+.settings-view .profile ul > li:not(:last-child) {
+  margin-bottom: 1rem;
+}

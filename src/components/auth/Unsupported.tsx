@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { Divider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { Backdrop, DivPrompt, PromptContent, PromptTitle, PromptWrapper } from '../shared/prompt';
@@ -18,13 +17,11 @@ const Unsupported: FC = () => {
 
           <PromptContent centered>
             <p>{t('browser.unsupported.description')}</p>
-            <Divider/>
 
             <p>{t('browser.unsupported.download')}</p>
-            <Divider/>
 
             <div className="browsers">
-              <a href="https://microsoft.com/edge" aria-label={t('browser.new_edge')}>
+              <a href="https://microsoft.com/edge" aria-label={t('browser.edge')}>
                 <img src="/assets/images/browsers/edge.png" alt="edge" width="100px" height="100px"/>
               </a>
               <a href="https://google.com/chrome" aria-label={t('browser.chrome')}>

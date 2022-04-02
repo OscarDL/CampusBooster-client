@@ -66,6 +66,9 @@
 
 
 /* Supported browsers */
+.unsupported .prompt__content {
+  gap: 3rem;
+}
 .unsupported .prompt__content > * {
   width: 100%;
   padding: 0 4rem;
@@ -122,7 +125,7 @@
   padding: 0.5rem 0.75rem;
   color: rgb(var(--accent-color));
   border-radius: var(--radius-small);
-  background-color: rgb(var(--button-bg-darker));
+  background-color: rgb(var(--divider-color));
   
   content: attr(aria-label);
 }

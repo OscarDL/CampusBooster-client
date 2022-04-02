@@ -1,3 +1,3 @@
 export type Settings = {
-  lang: string
+  darkTheme: boolean
 };

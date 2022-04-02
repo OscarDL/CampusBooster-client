@@ -1,15 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { getCategoryTitle } from '../../../shared/functions';
+import { Settings } from '../../../shared/types/settings';
+import { getCategoryTitle, getCurrentTheme } from '../../../shared/functions';
 
 
 export type AppState = {
-  category: string
+  category: string,
+  settings: Settings
 };
 
 
 const initialState: AppState = {
-  category: getCategoryTitle()
+  category: getCategoryTitle(),
+  settings: {
+    darkTheme: getCurrentTheme()
+  }
 };
 
 

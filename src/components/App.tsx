@@ -19,8 +19,22 @@ import 'react-toastify/dist/ReactToastify.css';
 const App: FC = () => {
   const dispatch = useDispatch();
   const { accounts: [azureData] } = useMsal();
-  const { user } = useSelector((state) => state.auth);
 
+  const { user } = useSelector((state) => state.auth);
+  const { settings } = useSelector((state) => state.app);
+
+  const darkTheme = settings.darkTheme;
+
+
+  useEffect(() => {
+    const root = document.documentElement;
+
+    if (darkTheme) {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+  }, [darkTheme]);
 
   useEffect(() => {
     if (!user && azureData) {

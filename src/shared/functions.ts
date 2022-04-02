@@ -8,10 +8,22 @@ export const getLoggedInAuthState = (state: RootState) => ({
   user: state.auth.user as User
 });
 
+
 // Retrieve current app section
 export const getCategoryTitle = () => (
   window.location.pathname.replace('/', '').split('/')[0] + '.title'
 );
+
+
+// Retrieve current user theme
+export const getCurrentTheme = () => {
+  if (localStorage.getItem('theme')) {
+    return localStorage.getItem('theme') === 'dark';
+  }
+
+  return window.matchMedia('(prefers-color-scheme: dark)').matches;
+};
+
 
 // Retrieve categories accessible by current user
 export const getUserCategories = (categories: string[], user: User) => {
@@ -49,6 +61,7 @@ export const getUserCategories = (categories: string[], user: User) => {
   };
 };
 
+
 // Hide or show shadow above prompt actions if not scrolled to the bottom
 export const handlePromptScrollShadow = (initialCheck: boolean) => {
   const prompt = document.querySelector('.prompt__wrapper');
@@ -61,6 +74,7 @@ export const handlePromptScrollShadow = (initialCheck: boolean) => {
   if (!initialCheck) actions.style.transition = 'box-shadow 0.25s';
   actions.style.boxShadow = isBottom ? 'none' : '';
 };
+
 
 // Clear local storage values set by Microsoft for Azure login
 export const clearAzureLocalStorageData = (azureData: AzureData) => {
