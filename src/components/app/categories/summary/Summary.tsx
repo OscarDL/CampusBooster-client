@@ -1,22 +1,43 @@
-import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { FC, useEffect, useState } from 'react';
+import Container from '../../../shared/container';
 
+import { getFakeCredits } from '../../../../shared/fake/data';
 import { ContentBody, ContentHeader } from '../../../shared/content';
+
+import ECTS from './ECTS';
+import Loader from '../../../shared/loader';
 
 import './Summary.css';
 
 
 const Summary: FC = () => {
   const { t } = useTranslation();
+  const [subjects, setSubjects] = useState<any[] | null>(null);
+
+
+  useEffect(() => {
+    setTimeout(() => setSubjects(getFakeCredits()), 1000);
+  }, []);
 
 
   return (
     <>
       <ContentHeader title={t('summary.title')}/>
 
-      <ContentBody>
-        Summary
-      </ContentBody>
+      {subjects ? (
+        <ContentBody>
+          <Container>
+            <ECTS subjects={subjects}/>
+          </Container>
+
+          <Container>
+            Infos &amp; actus
+          </Container>
+        </ContentBody>
+      ) : (
+        <Loader fullsize/>
+      )}
     </>
   );
 };

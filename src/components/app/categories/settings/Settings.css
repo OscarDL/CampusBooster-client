@@ -4,7 +4,7 @@
 }
 
 .settings-view .content__body > * {
-  flex-grow: 1;
+  flex: 1 1 0;
 }
 
 

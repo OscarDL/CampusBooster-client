@@ -7,15 +7,20 @@ import './Loader.css';
 
 
 type Props = {
+  fullsize?: boolean,
   fullscreen?: boolean
 };
 
 
-const Loader: FC<Props> = ({fullscreen}) => (
-  <div className={'loader ' + (fullscreen ? 'fullscreen' : '')}>
-    <RotateLoader color={colors.accent}/>
-  </div>
-);
+const Loader: FC<Props> = ({fullsize, fullscreen}) => {
+  const classes = `loader ${fullsize ? 'fullsize' : ''} ${fullscreen ? 'fullscreen' : ''}`.trimEnd();
+
+  return (
+    <div className={classes}>
+      <RotateLoader color={colors.accent}/>
+    </div>
+  );
+};
 
 
 export default Loader;

@@ -1,0 +1,9 @@
+.summary-view .content__body {
+  gap: 1rem;
+  display: flex;
+  align-items: flex-start;
+}
+
+.summary-view .content__body > * {
+  flex: 1 1 0;
+}

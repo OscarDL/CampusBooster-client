@@ -7,6 +7,11 @@
   place-items: center;
 }
 
+.loader.fullsize {
+  inset: 0;
+  position: absolute;
+}
+
 .loader.fullscreen {
   inset: 0;
   position: fixed;
