@@ -1,8 +1,5 @@
-#drawer-desktop {
+.drawer-root {
   display: flex;
-}
-#drawer-mobile {
-  display: none;
 }
 
 /* Drawer links */
@@ -86,44 +83,35 @@
 
 
 /* Smartphones & Tablets */
-@media (max-width: 768px) {
-  #drawer-desktop {
-    display: none;
-  }
-  #drawer-mobile {
-    display: flex;
-  }
+#root ~ .MuiDrawer-root ul.drawer {
+  padding: 0 0 0.5rem;
+}
+#root ~ .MuiDrawer-root ul.drawer hr {
+  margin: 0.5rem 0;
+}
 
-  ul.drawer {
-    padding: 0 0 0.5rem;
-  }
-  ul.drawer hr {
-    margin: 0.5rem 0;
-  }
+#root ~ .MuiDrawer-root > .MuiPaper-root {
+  margin: 0 1rem;
+  box-shadow: none;
+  overflow: visible;
+}
 
-  .MuiDrawer-root > .MuiPaper-root {
-    margin: 0 1rem;
-    box-shadow: none;
-    overflow: visible;
-  }
+#root ~ .MuiDrawer-root > .MuiPaper-root::after {
+  left: 0;
+  top: -80px;
+  width: 100%;
+  display: block;
+  position: absolute;
+  height: calc(100% + 80px);
+  /* Drawer height = 80px | change in MobileDrawer.tsx */
 
-  .MuiDrawer-root > .MuiPaper-root::after {
-    left: 0;
-    top: -80px;
-    width: 100%;
-    display: block;
-    position: absolute;
-    height: calc(100% + 80px);
-    /* Drawer height = 80px | change in MobileDrawer.tsx */
+  content: '';
+  pointer-events: none;
+  background: transparent;
+  border-radius: 1rem 1rem 0 0;
+}
 
-    content: '';
-    pointer-events: none;
-    background: transparent;
-    border-radius: 1rem 1rem 0 0;
-  }
-
-  .MuiDrawer-root > .MuiPaper-root::after,
-  .MuiPaper-root[style*="visibility: hidden"] > .drawer-mobile__header {
-    box-shadow: 0 0 0.25rem 0.25rem #0002;
-  }
+#root ~ .MuiDrawer-root > .MuiPaper-root::after,
+#root ~ .MuiDrawer-root > .MuiPaper-root[style*="visibility: hidden"] > .drawer-mobile__header {
+  box-shadow: 0 0 0.25rem 0.25rem #0002;
 }

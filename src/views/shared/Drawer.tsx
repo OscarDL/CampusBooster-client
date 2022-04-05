@@ -1,20 +1,26 @@
 import { FC, useEffect, useState } from 'react';
 
-import MobileDrawer from '../../components/app/drawers/MobileDrawer';
-import DesktopDrawer from '../../components/app/drawers/DesktopDrawer';
+import SideDrawer from '../../components/app/drawers/SideDrawer';
+import SwipeDrawer from '../../components/app/drawers/SwipeDrawer';
 
 import '../../components/app/drawers/Drawers.css';
 
 
+const isNarrowWidth = () => document.body.clientWidth <= 768;
+const isTouchDevice = () => window.matchMedia('(pointer: coarse)').matches;
+
+
 const Drawer: FC = () => {
-  const [mobile, setMobile] = useState(document.body.clientWidth <= 768);
+  const [mobile, setMobile] = useState(isTouchDevice() && isNarrowWidth());
+  const [collapsed, setCollapsed] = useState(!isTouchDevice() && isNarrowWidth());
 
 
   useEffect(() => {
     // Since the mobile drawer component from MUI is injected into the DOM,
     // We can't show / hide it reliably in a clean way with CSS media queries.
     const chooseDrawer = () => {
-      setMobile(document.body.clientWidth <= 768);
+      setMobile(isTouchDevice() && isNarrowWidth());
+      setCollapsed(!isTouchDevice() && isNarrowWidth());
     };
 
     window.addEventListener('resize', chooseDrawer)
@@ -24,7 +30,7 @@ const Drawer: FC = () => {
 
 
   return (
-    mobile ? <MobileDrawer/> : <DesktopDrawer/>
+    mobile ? <SwipeDrawer/> : <SideDrawer forceCollapse={collapsed}/>
   );
 };
 

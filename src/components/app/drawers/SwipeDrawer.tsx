@@ -3,17 +3,17 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Divider, List, SwipeableDrawer } from '@mui/material';
 
-import NavItem from './NavItem';
-import Puller from '../../shared/puller/Puller';
-
 import { values } from '../../../shared/utils';
 import { getLoggedInAuthState, getUserCategories } from '../../../shared/functions';
+
+import NavItem from './NavItem';
+import Puller from '../../shared/puller/Puller';
 
 
 const drawerHeight = 80; // px
 
 
-const MobileDrawer: FC = () => {
+const SwipeDrawer: FC = () => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const { user } = useSelector(getLoggedInAuthState);
@@ -25,7 +25,7 @@ const MobileDrawer: FC = () => {
 
 
   return (
-    <div className="drawer" id="drawer-mobile">
+    <div className="drawer drawer-root">
       <SwipeableDrawer
         open={open}
         anchor="bottom"
@@ -68,4 +68,4 @@ const MobileDrawer: FC = () => {
 };
 
 
-export default MobileDrawer;
+export default SwipeDrawer;

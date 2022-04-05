@@ -18,6 +18,7 @@ export const muiTheme = createTheme({
       }
     }
   },
+  
   palette: {
     primary: {
       main: colors.accent

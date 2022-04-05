@@ -3,12 +3,12 @@ import { FC, useEffect, useState } from 'react';
 import { styled, CSSObject, Theme } from '@mui/material/styles';
 import { Drawer as MuiDrawer, List, Divider } from '@mui/material';
 
-import NavItem from './NavItem';
-import ExpandButton from './ExpandButton';
-
 import { values } from '../../../shared/utils';
 import { useStateWithCallback } from '../../../shared/hooks';
 import { getLoggedInAuthState, getUserCategories } from '../../../shared/functions';
+
+import NavItem from './NavItem';
+import ExpandButton from './ExpandButton';
 
 
 const drawerWidth = 240;
@@ -50,32 +50,37 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 
-const DesktopDrawer: FC = () => {
+type Props = {
+  forceCollapse: boolean
+}
+
+
+const SideDrawer: FC<Props> = ({forceCollapse}) => {
   const { user } = useSelector(getLoggedInAuthState);
-  const [expanded, setExpanded] = useStateWithCallback(
-    !localStorage.getItem('hideDrawer')
+  const [collapsed, setExpanded] = useStateWithCallback(
+    forceCollapse || !localStorage.getItem('collapseDrawer')
   );
 
 
   const saveDrawer = () => {
-    if (!expanded)
-      localStorage.removeItem('hideDrawer');
+    if (!collapsed)
+      localStorage.removeItem('collapseDrawer');
     else
-      localStorage.setItem('hideDrawer', 'true');
+      localStorage.setItem('collapseDrawer', 'true');
   };
 
   const toggleDrawer = () => {
-    setExpanded(expanded => !expanded, saveDrawer);
+    setExpanded(collapsed => !collapsed, saveDrawer);
   };
 
 
   return (
-    <div className="drawer" id="drawer-desktop">
-      <Drawer variant="permanent" open={expanded}>
+    <div className="drawer drawer-root">
+      <Drawer variant="permanent" open={!collapsed}>
         <List>
           <NavItem
             category="settings"
-            expanded={expanded}
+            collapsed={collapsed}
             text={`${user.firstName} ${user.lastName}`}
           />
         </List>
@@ -87,16 +92,16 @@ const DesktopDrawer: FC = () => {
             <NavItem
               key={category}
               category={category}
-              expanded={expanded}
+              collapsed={collapsed}
             />
           ))}
         </List>
 
-        <ExpandButton expanded={expanded} toggleDrawer={toggleDrawer}/>
+        <ExpandButton expanded={!collapsed} toggleDrawer={toggleDrawer}/>
       </Drawer>
     </div>
   );
 };
 
 
-export default DesktopDrawer;
+export default SideDrawer;

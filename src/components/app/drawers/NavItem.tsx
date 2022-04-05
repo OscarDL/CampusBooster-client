@@ -11,12 +11,12 @@ import { getCategoryTitle } from '../../../shared/functions';
 type Props = {
   text?: string,
   category: string,
-  expanded?: boolean,
+  collapsed?: boolean,
   hideDrawer?: () => void
 };
 
 
-const NavItem: FC<Props> = ({text, category, expanded = true, hideDrawer = () => null}) => {
+const NavItem: FC<Props> = ({text, category, collapsed = false, hideDrawer = () => null}) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const linkRef = useRef<HTMLAnchorElement | null>(null);
@@ -43,7 +43,7 @@ const NavItem: FC<Props> = ({text, category, expanded = true, hideDrawer = () =>
       tabIndex={-1}
       onClick={handleTap}
       to={'/' + category}
-      title={expanded ? '' : t(title)}
+      title={collapsed ? '' : t(title)}
       className={getCategoryTitle() === title ? 'selected' : ''}
     >
       <ListItemButton onClick={handleEnter} key={category} className="drawer__item">
@@ -51,7 +51,7 @@ const NavItem: FC<Props> = ({text, category, expanded = true, hideDrawer = () =>
           {t(icon)}
         </span>
 
-        <ListItemText className="drawer__text" style={{opacity: expanded ? 1 : 0}}>
+        <ListItemText className="drawer__text" style={{opacity: collapsed ? 0 : 1}}>
           {text ?? t(title)}
         </ListItemText>
       </ListItemButton>

@@ -5,5 +5,19 @@
 }
 
 .summary-view .content__body > * {
-  flex: 1 1 0;
+  flex-grow: 1;
+  flex-basis: 0;
+}
+
+
+/* Smartphones & Tablets */
+@media (max-width: 768px) {
+  .summary-view .content__body {
+    flex-direction: column;
+  }
+
+  .summary-view .content__body > * {
+    width: 100%;
+    flex-grow: 0;
+  }
 }

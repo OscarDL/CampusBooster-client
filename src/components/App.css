@@ -90,6 +90,7 @@ code {
 
 .app {
   display: flex;
+  overflow-y: hidden;
 
   width: 100vw;
   height: 100vh;
@@ -512,6 +513,10 @@ span[class*="material-icons"]:hover, span[class*="material-icons"]:focus, span[c
 
 /* Tablets landscape */
 @media (max-width: 768px) {
+  /* We might need to not do that */
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
 }
 
 /* Tablets */

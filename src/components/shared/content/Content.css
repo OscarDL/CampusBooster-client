@@ -7,7 +7,6 @@
 .app__content > div {
   height: 100%;
   display: flex;
-  overflow: auto;
   position: relative;
   flex-direction: column;
 }
@@ -17,7 +16,7 @@
 
 .content__header {
   gap: 1rem;
-  height: 4rem;
+  min-height: 4rem;
   padding: 0.75rem 1rem;
 
   display: flex;
@@ -74,4 +73,17 @@
 .content__body {
   flex-grow: 1;
   padding: 1rem;
+  overflow-y: auto;
+}
+
+
+/* Smartphones & Tablets */
+@media (max-width: 768px) {
+  .content__body {
+    /*
+      Show content above mobile drawer swipe area
+      (+ 1rem gap with 0.25rem drawer box-shadow)
+    */
+    padding-bottom: calc(80px + 0.25rem + 1rem);
+  }
 }
