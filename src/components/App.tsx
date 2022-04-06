@@ -48,7 +48,7 @@ const App: FC = () => {
 
 
   return (
-    <div>
+    <div className="app">
       <Router>
         <AuthenticatedTemplate>
           {user ? (

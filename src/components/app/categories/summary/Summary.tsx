@@ -17,7 +17,8 @@ const Summary: FC = () => {
 
 
   useEffect(() => {
-    setTimeout(() => setSubjects(getFakeCredits()), 1000);
+    const getSubjects = setTimeout(() => setSubjects(getFakeCredits()), 1000);
+    return () => clearTimeout(getSubjects);
   }, []);
 
 

@@ -35,7 +35,7 @@ const LoggedInRoutes: FC = () => {
 
 
   return (
-    <div className="app">
+    <>
       <Drawer/>
 
       <div className="app__content">
@@ -50,7 +50,7 @@ const LoggedInRoutes: FC = () => {
           <Route path="*" element={<Navigate replace to="/summary"/>}/>
         </Routes>
       </div>
-    </div>
+    </>
 );
 };
 

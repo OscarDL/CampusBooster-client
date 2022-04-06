@@ -1,3 +1,8 @@
+.summary-view {
+  /* Workaround for ChartJS not resizing down --- finding a better fix is needed */
+  width: 99%;
+}
+
 .summary-view .content__body {
   gap: 1rem;
   display: flex;
