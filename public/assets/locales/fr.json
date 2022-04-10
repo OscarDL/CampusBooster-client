@@ -40,6 +40,7 @@
 
     "info": {
       "title": "Mes informations",
+      "title_more": "Plus d'informations",
       "first_name": "Prénom :",
       "last_name": "Nom de famille :",
       "email": "Adresse email :",
@@ -51,7 +52,14 @@
 
 
   "summary": {
-    "title": "Résumé"
+    "title": "Résumé",
+
+    "credits": {
+      "title": "Crédits ECTS: {{earned}}/{{required}}",
+      "earned": "Obtenu",
+      "required": "Requis",
+      "total": "Total"
+    }
   },
 
   "marks": {

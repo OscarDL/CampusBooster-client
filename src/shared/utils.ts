@@ -28,5 +28,7 @@ export const values = {
     'accounting',
     'admin',
     'tools'
-  ]
+  ],
+
+  maxMobileWidth: 768
 };

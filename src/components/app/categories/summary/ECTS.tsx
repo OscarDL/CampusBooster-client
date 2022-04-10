@@ -1,6 +1,10 @@
-import { FC, useEffect, useMemo, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { useTranslation } from 'react-i18next';
+import { FC, useEffect, useMemo, useState } from 'react';
+
+import { ContentHeader } from '../../../shared/content';
+import { getDonutChartOptions, getLayoutPosition } from './utils';
+
 
 import { Chart, ArcElement, Tooltip, Legend, LayoutPosition } from 'chart.js';
 Chart.register(ArcElement, Tooltip, Legend);
@@ -13,11 +17,12 @@ type Props = {
 
 const ECTS: FC<Props> = ({subjects}) => {
   const { t } = useTranslation();
-  const [legendPos, setLegendPos] = useState<LayoutPosition>(window.innerWidth > 768 ? 'right' : 'bottom');
+  const [legendPos, setLegendPos] = useState<LayoutPosition>(getLayoutPosition());
 
-  const earnedCredits = subjects.map(sub => sub.earned).reduce((a, b) => a + b);
-  const requiredCredits = subjects.filter(sub => !sub.optional).map(sub => sub.credits).reduce((a, b) => a + b);
-  const totalCredits = subjects.map(sub => sub.credits).reduce((a, b) => a + b);
+  const earned = subjects.map(sub => sub.earned).reduce((a, b) => a + b);
+  const required = subjects.filter(sub => !sub.optional).map(sub => sub.credits).reduce((a, b) => a + b);
+  const total = subjects.map(sub => sub.credits).reduce((a, b) => a + b);
+
 
   const data = useMemo(() => ({
     labels: [
@@ -28,20 +33,20 @@ const ECTS: FC<Props> = ({subjects}) => {
 
     datasets: [{
       data: [
-        earnedCredits,
-        requiredCredits - earnedCredits < 0 ? 0 : requiredCredits - earnedCredits,
-        totalCredits - Math.max(requiredCredits, earnedCredits)
+        earned,
+        required - earned < 0 ? 0 : required - earned,
+        total - Math.max(required, earned)
       ],
       backgroundColor: ['#4d4', '#da2', '#28d'],
       label: t('summary.credits.title'),
     }]
-  }), [earnedCredits, requiredCredits, totalCredits, t]);
+  }), [earned, required, total, t]);
 
 
   useEffect(() => {
     const adaptLayout = (e: UIEvent) => {
       const target = e.target as Window;
-      setLegendPos(target.innerWidth > 768 ? 'right' : 'bottom');
+      setLegendPos(getLayoutPosition(target));
     }
 
     window.addEventListener('resize', adaptLayout);
@@ -51,32 +56,13 @@ const ECTS: FC<Props> = ({subjects}) => {
 
 
   return (
-    <div className="summary-credits">
+    <div className="summary-ects">
+      <ContentHeader title={t('summary.credits.title', {earned, required})}/>
+
       <Doughnut
         data={data}
-
-        height="200"
-
-        options={{
-          cutout: '66%',
-          radius: '90%',
-
-          plugins: {
-            legend: {
-              align: 'center',
-              position: legendPos,
-              onClick: () => null,
-
-              labels: {
-                font: {
-                  size: 16
-                }
-              }
-            },
-
-            title: t('summary.credits.title')
-          }
-        }}
+        height={150}
+        options={getDonutChartOptions(t, legendPos)}
       />
     </div>
   );

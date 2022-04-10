@@ -1,8 +1,3 @@
-.summary-view {
-  /* Workaround for ChartJS not resizing down --- finding a better fix is needed */
-  width: 99%;
-}
-
 .summary-view .content__body {
   gap: 1rem;
   display: flex;
@@ -12,6 +7,13 @@
 .summary-view .content__body > * {
   flex-grow: 1;
   flex-basis: 0;
+}
+
+/* ECTS container */
+.summary-ects {
+  /* Workaround for ChartJS not resizing down */
+  width: 99%;
+  margin: 0 auto;
 }
 
 

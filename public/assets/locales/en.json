@@ -40,6 +40,7 @@
 
     "info": {
       "title": "My information",
+      "title_more": "Additional information",
       "first_name": "First name:",
       "last_name": "Last name:",
       "email": "Email address:",
@@ -52,7 +53,14 @@
 
   "summary": {
     "title": "Summary",
-    "icon": "dashboard"
+    "icon": "dashboard",
+
+    "credits": {
+      "title": "ECTS credits: {{earned}}/{{required}}",
+      "earned": "Earned",
+      "required": "Required",
+      "total": "Total"
+    }
   },
 
   "marks": {

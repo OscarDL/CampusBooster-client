@@ -13,6 +13,7 @@
 .settings-view .profile {
   gap: 1rem;
   display: flex;
+  flex-direction: column;
 }
 
 .settings-view .profile img {
@@ -29,9 +30,20 @@
 }
 
 .settings-view .profile ul {
+  padding: 0.5rem;
   list-style: none;
-  padding: 1rem 0.5rem;
+  margin-top: 0.5rem;
 }
 .settings-view .profile ul > li:not(:last-child) {
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+
+/* Smartphones & Tablets */
+@media (max-width: 768px) {
+  .settings-view .profile img {
+    width: 3rem;
+    height: 3rem;
+    padding: 0.5rem;
+  }
 }

@@ -20,27 +20,33 @@ const Settings: FC<Props> = ({user}) => {
 
   return (
     <Container className="profile">
-      <img src={`https://avatars.dicebear.com/api/avataaars/${user.azureData.localAccountId}.svg`} alt="Avatar"/>
+      <div className="flex">
+        <img src={`https://avatars.dicebear.com/api/avataaars/${user.azureData.localAccountId}.svg`} alt="Avatar"/>
+
+        <div>
+          <ContentHeader title={t('settings.info.title')}/>
+          <ul>
+            <li>
+              {t('settings.info.first_name')}&nbsp;
+              <span style={{fontWeight: 'bolder'}}>{user.firstName}</span>
+            </li>
+
+            <li>
+              {t('settings.info.last_name')}&nbsp;
+              <span style={{fontWeight: 'bolder'}}>{user.lastName}</span>
+            </li>
+
+            <li>
+              {t('settings.info.email')}&nbsp;
+              <span style={{fontWeight: 'bolder'}}>{user.email}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
 
       <div>
-        <ContentHeader title={t('settings.info.title')}/>
-
+        <ContentHeader title={t('settings.info.title_more')}/>
         <ul>
-          <li>
-            {t('settings.info.first_name')}&nbsp;
-            <span style={{fontWeight: 'bolder'}}>{user.firstName}</span>
-          </li>
-
-          <li>
-            {t('settings.info.last_name')}&nbsp;
-            <span style={{fontWeight: 'bolder'}}>{user.lastName}</span>
-          </li>
-
-          <li>
-            {t('settings.info.email')}&nbsp;
-            <span style={{fontWeight: 'bolder'}}>{user.email}</span>
-          </li>
-
           <li>
             {t('settings.info.birthday')}&nbsp;
             <span style={{fontWeight: 'bolder'}}>{user.birthday}</span>
