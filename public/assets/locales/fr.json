@@ -87,7 +87,23 @@
   },
 
   "tools": {
-    "title": "Outils"
+    "title": "Outils",
+
+    "general": {
+      "tab": "Général"
+    },
+
+    "cloud": {
+      "tab": "Cloud"
+    },
+
+    "development": {
+      "tab": "Développement"
+    },
+
+    "security": {
+      "tab": "Securité"
+    }
   },
 
   "admin": {

@@ -52,26 +52,31 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 type Props = {
   forceCollapse: boolean
-}
+};
 
 
 const SideDrawer: FC<Props> = ({forceCollapse}) => {
   const { user } = useSelector(getLoggedInAuthState);
-  const [collapsed, setExpanded] = useStateWithCallback(
+  const [collapsed, setCollapsed] = useStateWithCallback(
     forceCollapse || !localStorage.getItem('collapseDrawer')
   );
 
 
   const saveDrawer = () => {
     if (!collapsed)
-      localStorage.removeItem('collapseDrawer');
+    localStorage.removeItem('collapseDrawer');
     else
-      localStorage.setItem('collapseDrawer', 'true');
+    localStorage.setItem('collapseDrawer', 'true');
   };
 
   const toggleDrawer = () => {
-    setExpanded(collapsed => !collapsed, saveDrawer);
+    setCollapsed(collapsed => !collapsed, saveDrawer);
   };
+
+
+  useEffect(() => {
+    setCollapsed(forceCollapse || !localStorage.getItem('collapseDrawer'));
+  }, [forceCollapse, setCollapsed]);
 
 
   return (
@@ -80,7 +85,7 @@ const SideDrawer: FC<Props> = ({forceCollapse}) => {
         <List>
           <NavItem
             category="settings"
-            collapsed={collapsed}
+            collapsed={forceCollapse || collapsed}
             text={`${user.firstName} ${user.lastName}`}
           />
         </List>

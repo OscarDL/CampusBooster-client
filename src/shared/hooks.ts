@@ -10,8 +10,8 @@ export const useStateWithCallback = <T>(initialState: T | (() => T)): [T, Dispat
   const callbackRef = useRef<Callback<T>>();
 
   const setStateCallback = (newState: SetStateAction<T>, callback: Callback<T> = () => null): void => {
-      callbackRef.current = callback;
-      setState(newState);
+    callbackRef.current = callback;
+    setState(newState);
   };
 
   useEffect(() => {

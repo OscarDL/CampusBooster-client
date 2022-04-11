@@ -218,7 +218,7 @@ a:hover, a:focus {
   color: rgb(var(--accent-color));
   border-radius: var(--radius-small);
   background-color: rgb(var(--select-bg));
-  border: 1px solid rgb(var(--separation-color-light));
+  border: 1px solid rgb(var(--divider-color));
 }
 
 .singleSelect:not(:disabled):hover {
@@ -284,7 +284,7 @@ a:hover, a:focus {
 }
 
 .rmsc__arrow {
-  color: rgb(var(--separation-color));
+  color: rgb(var(--divider-color));
 }
 .rmsc.multi-select button {
   background-color: transparent !important;
@@ -300,7 +300,7 @@ a:hover, a:focus {
 
 .rmsc.multi-select .dropdown-container[aria-disabled="true"], select:disabled {
   opacity: 0.7;
-  border: 1px solid rgb(var(--separation-color-light));
+  border: 1px solid rgb(var(--divider-color));
 }
 .rmsc.multi-select .dropdown-container[aria-disabled="true"] *, select:disabled {
   cursor: no-drop;

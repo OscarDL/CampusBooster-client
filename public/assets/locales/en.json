@@ -95,7 +95,23 @@
 
   "tools": {
     "title": "Tools",
-    "icon": "handyman"
+    "icon": "handyman",
+
+    "general": {
+      "tab": "General"
+    },
+
+    "cloud": {
+      "tab": "Cloud"
+    },
+
+    "development": {
+      "tab": "Development"
+    },
+
+    "security": {
+      "tab": "Security"
+    }
   },
 
   "admin": {

@@ -4,11 +4,11 @@
   display: flex;
   position: relative;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 /* Trigger area */
-div.dropdown__content {
+div.dropdown__header {
   height: 100%;
   display: flex;
   position: relative;
@@ -23,25 +23,25 @@ div.dropdown__content {
   background-color: rgb(var(--button-bg));
 }
 
-.dropdown__content > span {
+.dropdown__header > span {
   transition: 0.25s;
 }
-.dropdown__content > .dropdown__title {
+.dropdown__header > .dropdown__title {
   font-family: inherit;
   font-weight: 600;
   padding: 0 0.25rem 0 0.5rem;
 }
 
-.dropdown__content:hover > span {
+.dropdown__header:hover > span {
   color: rgb(var(--accent-color));
 }
-.dropdown__list.open ~ .dropdown__content {
+.dropdown__content.open ~ .dropdown__header {
   color: rgb(var(--accent-color));
   background-color: rgba(var(--accent-color), 0.075);
 }
 
 /* Dropdown */
-.dropdown__list {
+.dropdown__content {
   top: 100%;
   margin: 0;
   min-width: 100%;
@@ -63,23 +63,25 @@ div.dropdown__content {
 }
 
 /* Dropdown options list */
-.dropdown__list > li {
+.dropdown__content > li {
   outline: 0;
   border: none;
   cursor: pointer;
   font-weight: 600;
+  display: inherit;
   transition: background-color 0.25s;
   border-radius: var(--radius-small);
+  -webkit-tap-highlight-color: transparent;
 }
 
-.dropdown__list > li:hover {
+.dropdown__content > li:hover {
   background-color: rgb(var(--button-bg));
 }
-.dropdown__list > li:hover > * {
+.dropdown__content > li:hover > * {
   color: rgb(var(--accent-color));
 }
 
-.dropdown__list > li > * {
+.dropdown__content > li > * {
   text-decoration: none;
   color: rgb(var(--text-color));
   background-color: transparent !important;
@@ -94,18 +96,18 @@ div.dropdown__content {
 }
 
 /* Fix delayed transition on icons */
-.dropdown__list button span[class*="material-icons"] {
+.dropdown__content button span[class*="material-icons"] {
   transition: 0s;
   margin-left: 0.5rem;
 }
 
 
 /* Opening animation */
-.dropdown__list.open {
+.dropdown__content.open {
   opacity: 1;
   visibility: inherit;
   transform: translateY(6px);
 }
-.dropdown__list.open ~ .dropdown__content > .dropdown__arrow {
+.dropdown__content.open ~ .dropdown__header > .dropdown__arrow {
   transform: rotateZ(180deg);
 }
