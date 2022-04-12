@@ -73,8 +73,8 @@
     "icon": "topic"
   },
 
-  "students": {
-    "title": "Students",
+  "members": {
+    "title": "Members",
     "icon": "school"
   },
 
@@ -98,19 +98,123 @@
     "icon": "handyman",
 
     "general": {
-      "tab": "General"
-    },
-
-    "cloud": {
-      "tab": "Cloud"
+      "tab": "General",
+      "links": [
+        {
+          "title": "SUPINFO",
+          "description": "SUPINFO propose des formations en informatique « orientées métiers » avec un Bachelor of Science (3 ans) et un Master of Science (2 ans).",
+          "img": "supinfo.svg",
+          "url": "https://supinfo.com/"
+        },
+        {
+          "title": "E-parcours",
+          "description": "Agreement and online course.",
+          "img": "eparcours.svg",
+          "url": "https://epitech.fmdata.fr/fmi/webd/eparcours/"
+        },
+        {
+          "title": "Bocal Console",
+          "description": "Intranet Bocal IONIS Education Group.",
+          "img": "epitech.svg",
+          "url": "https://console.bocal.org/"
+        },
+        {
+          "title": "Candidature en ligne",
+          "description": "???",
+          "img": "epitech.svg",
+          "url": "https://epitech.force.com/supinfo/"
+        }
+      ]
     },
 
     "development": {
-      "tab": "Development"
+      "tab": "Development",
+      "links": [
+        {
+          "title": "W3 Schools",
+          "description": "W3Schools is optimized for learning, testing, and training your web developer skils, with tutorials and references.",
+          "img": "w3schools.svg",
+          "url": "https://www.w3schools.com/"
+        },
+        {
+          "title": "JetBrains",
+          "description": "JetBrains is a cutting-edge software vendor specializing in the creation of intelligent development tools.",
+          "img": "jetbrains.svg",
+          "url": "https://jetbrains.com/"
+        },
+        {
+          "title": "Apple Developer",
+          "description": "Join the Apple Developer Program to reach customers around the world on the App Store for iPhone, iPad, Mac and Apple Watch.",
+          "img": "apple.svg",
+          "url": "https://developer.apple.com/"
+        },
+        {
+          "title": "CodinGame",
+          "description": "CodinGame is a challenge-based training platform where you can improve your coding skills with fun exercises.",
+          "img": "codingame.svg",
+          "url": "https://www.codingame.com/"
+        }
+      ]
     },
 
-    "security": {
-      "tab": "Security"
+    "infrastructure": {
+      "tab": "Infrastructure",
+      "links": [
+        {
+          "title": "Azure Portal",
+          "description": "Build, manage, and monitor all your apps in Microsoft Azure Portal. A unified hub built for you, your team and your projects.",
+          "img": "azure.svg",
+          "url": "https://portal.azure.com/"
+        },
+        {
+          "title": "Office",
+          "description": "Collaborate for free with online versions of Microsoft Word, PowerPoint, Excel, and OneNote, right in the cloud.",
+          "img": "office.svg",
+          "url": "https://office.com/"
+        },
+        {
+          "title": "VMware",
+          "description": "Run any operating system on your device with VMware for modern OS virtualization, security & networking.",
+          "img": "vmware.png",
+          "url": "https://console.bocal.org/#/vmware/"
+        },
+        {
+          "title": "Vocareum",
+          "description": "The Vocareum cloud labs - leveraging cloud infrastructure for learners to be a single click away from coding applications.",
+          "img": "vocareum.svg",
+          "url": "https://labs.vocareum.com/"
+        }
+      ]
+    },
+
+    "netsec": {
+      "tab": "Network & Security",
+      "links": [
+        {
+          "title": "Root-me",
+          "description": "Root Me is a platform for everyone to test and improve knowledge in computer security and hacking.",
+          "img": "rootme.svg",
+          "url": "https://root-me.org/"
+        },
+        {
+          "title": "Netacad",
+          "description": "Advanced networking courses that combine technical training and professional skills development.",
+          "img": "netacad.svg",
+          "url": "https://netacad.com/"
+        },
+        {
+          "title": "The Security Blogger",
+          "description": "Start reading the news feed of The Security Blogger right away!",
+          "img": "thesecurityblogger.svg",
+          "url": "https://www.thesecurityblogger.com/"
+        },
+        {
+          "title": "CyberChef",
+          "description": "The Cyber Swiss Army Knife - a web app for encryption, encoding, compression and data analysis.",
+          "img": "cyberchef.svg",
+          "url": "https://gchq.github.io/CyberChef/"
+        }
+      ]
     }
   },
 

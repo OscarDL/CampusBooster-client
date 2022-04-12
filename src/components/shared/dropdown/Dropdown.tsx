@@ -8,11 +8,12 @@ type Props = {
   id: string,
   icon?: string,
   title: string,
-  children: React.ReactNode
+  children: React.ReactNode,
+  align: 'center' | 'flex-end' | 'flex-start'
 };
 
 
-const Dropdown: FC<Props> = ({id, icon, title, children}) => {
+const Dropdown: FC<Props> = ({id, icon, title, children, align}) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const toggleDropdown: React.MouseEventHandler<any> = () => (
@@ -34,10 +35,10 @@ const Dropdown: FC<Props> = ({id, icon, title, children}) => {
 
 
   return (
-    <div className="dropdown" ref={dropdownRef}>
+    <div className="dropdown" ref={dropdownRef} style={{justifyContent: align}}>
       <ul className="dropdown__content" id={id}>
-        {React.Children.map(children, item => (
-          <ButtonBase component="li" onClick={toggleDropdown}>
+        {React.Children.map(children, (item, key) => (
+          <ButtonBase key={key} component="li" onClick={toggleDropdown}>
             {item}
           </ButtonBase>
         ))}

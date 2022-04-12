@@ -62,6 +62,20 @@ export const getUserCategories = (categories: string[], user: User) => {
 };
 
 
+export const getUrlDomain = (url: string): string => {
+  if (url.startsWith('http')) {
+    const https = url.startsWith('https://');
+    url = url.substring(https ? 8 : 7);
+
+    const end = url.includes('/') ? url.indexOf('/') : url.length;
+    return url.substring(0, end);
+  }
+
+  const end = url.endsWith('/') ? url.indexOf('/') : url.length;
+  return url.substring(0, end);
+};
+
+
 // Hide or show shadow above prompt actions if not scrolled to the bottom
 export const handlePromptScrollShadow = (initialCheck: boolean) => {
   const prompt = document.querySelector('.prompt__wrapper');

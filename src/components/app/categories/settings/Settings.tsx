@@ -21,7 +21,7 @@ const Settings: FC = () => {
   return (
     <>
       <ContentHeader title={t('settings.title')}>
-        <Dropdown id="logout" title={t('settings.logout.title')}>
+        <Dropdown id="logout" title={t('settings.logout.title')} align="flex-end">
           <LogoutButton/>
           <LogoutButton logoutFromAzure/>
         </Dropdown>

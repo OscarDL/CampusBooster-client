@@ -70,8 +70,8 @@ code {
   --theme-bg-cyan: 138, 177, 237;
   --theme-bg-gradient: rgb(var(--theme-bg-pink)), rgb(var(--theme-bg-purp)), rgb(var(--theme-bg-blue)), rgb(var(--theme-bg-cyan));
 
-  --button-bg: 238, 238, 238;
-  --select-bg: 250, 250, 250;
+  --card-bg: 248, 248, 248;
+  --button-bg: 240, 240, 240;
   --accent-color: 80, 60, 180;
   --divider-color: 220, 220, 220;
   --scrollbar-background: 100, 100, 100;

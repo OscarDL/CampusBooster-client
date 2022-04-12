@@ -5,7 +5,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import Summary from '../views/app/Summary';
 import Subjects from '../views/app/Subjects';
 import Marks from '../views/app/Marks';
-import Students from '../views/app/Students';
+import Members from '../views/app/Members';
 import Absences from '../views/app/Absences';
 import Internships from '../views/app/Internships';
 import Accounting from '../views/app/Accounting';
@@ -25,7 +25,7 @@ const LoggedInRoutes: FC = () => {
     summary: <Summary/>,
     subjects: <Subjects/>,
     marks: <Marks/>,
-    students: <Students/>,
+    members: <Members/>,
     absences: <Absences/>,
     internships: <Internships/>,
     accounting: <Accounting/>,

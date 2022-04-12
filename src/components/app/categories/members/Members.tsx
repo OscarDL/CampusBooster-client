@@ -4,20 +4,20 @@ import { useTranslation } from 'react-i18next';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 
 
-const Students: FC = () => {
+const Members: FC = () => {
   const { t } = useTranslation();
 
 
   return (
     <>
-      <ContentHeader title={t('students.title')}/>
+      <ContentHeader title={t('members.title')}/>
 
       <ContentBody>
-        Students
+        Members
       </ContentBody>
     </>
   );
 };
 
 
-export default Students;
+export default Members;

@@ -25,7 +25,7 @@ const SwipeDrawer: FC = () => {
 
 
   return (
-    <div className="drawer drawer-root">
+    <div className="drawer drawer-root" id="mobile-drawer">
       <SwipeableDrawer
         open={open}
         anchor="bottom"

@@ -80,7 +80,7 @@
 
 /* Smartphones & Tablets */
 @media (max-width: 768px) {
-  .content__body {
+  #mobile-drawer + .app__content .content__body {
     /*
       Show content above mobile drawer swipe area
       (+ 1rem gap with 0.25rem drawer box-shadow)

@@ -26,7 +26,7 @@ export const LoginButton: FC = () => {
   return (
     <Button variant="contained" className="login-btn" onClick={handleAzureLogin}>
       <span>
-        <img src="/assets/vectors/microsoft.svg" alt="office logo"/>
+        <img src="/assets/images/microsoft.svg" alt="microsoft"/>
         {t('login.microsoft')}
       </span>
     </Button>

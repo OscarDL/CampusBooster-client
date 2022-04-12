@@ -6,10 +6,10 @@ import Tool from '../Tool';
 import { ToolLink } from '../../../../../shared/types/tools';
 
 
-const Development: FC = () => {
+const Security: FC = () => {
   const { t } = useTranslation();
 
-  const links: ToolLink[] = t('tools.development.links', {returnObjects: true});
+  const links: ToolLink[] = t('tools.netsec.links', {returnObjects: true});
 
 
   return (
@@ -19,8 +19,8 @@ const Development: FC = () => {
           img={link.img}
           key={link.url}
           url={link.url}
+          category="netsec"
           title={link.title}
-          category="development"
           description={link.description}
         />
       ))}
@@ -29,4 +29,4 @@ const Development: FC = () => {
 };
 
 
-export default Development;
+export default Security;

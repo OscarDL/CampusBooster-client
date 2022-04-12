@@ -6,10 +6,10 @@ import Tool from '../Tool';
 import { ToolLink } from '../../../../../shared/types/tools';
 
 
-const Development: FC = () => {
+const Infrastructure: FC = () => {
   const { t } = useTranslation();
 
-  const links: ToolLink[] = t('tools.development.links', {returnObjects: true});
+  const links: ToolLink[] = t('tools.infrastructure.links', {returnObjects: true});
 
 
   return (
@@ -20,7 +20,7 @@ const Development: FC = () => {
           key={link.url}
           url={link.url}
           title={link.title}
-          category="development"
+          category="infrastructure"
           description={link.description}
         />
       ))}
@@ -29,4 +29,4 @@ const Development: FC = () => {
 };
 
 
-export default Development;
+export default Infrastructure;

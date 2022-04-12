@@ -3,17 +3,27 @@ import { useTranslation } from 'react-i18next';
 
 import Tool from '../Tool';
 
+import { ToolLink } from '../../../../../shared/types/tools';
+
 
 const General: FC = () => {
   const { t } = useTranslation();
 
+  const links: ToolLink[] = t('tools.general.links', {returnObjects: true});
+
 
   return (
     <>
-      <Tool img="azure.svg" url="https://portal.azure.com" title="Azure 15" description="Lorem ipsum dolor this is a description"/>
-      <Tool img="azure.svg" url="http://portal.azure.com" title="Azure 16" description="Lorem ipsum dolor this is a description"/>
-      <Tool img="azure.svg" url="portal.azure.com" title="Azure 17" description="Lorem ipsum dolor this is a description"/>
-      <Tool img="azure.svg" url="https://portal.azure.com/test/" title="Azure 18" description="Lorem ipsum dolor this is a description"/>
+      {links.map(link => (
+        <Tool
+          img={link.img}
+          key={link.url}
+          url={link.url}
+          title={link.title}
+          category="general"
+          description={link.description}
+        />
+      ))}
     </>
   );
 };

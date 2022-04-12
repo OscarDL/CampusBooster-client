@@ -22,7 +22,7 @@ export const values = {
     'summary',
     'subjects',
     'marks',
-    'students',
+    'members',
     'absences',
     'internships',
     'accounting',

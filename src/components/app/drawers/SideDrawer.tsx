@@ -63,10 +63,11 @@ const SideDrawer: FC<Props> = ({forceCollapse}) => {
 
 
   const saveDrawer = () => {
-    if (!collapsed)
-    localStorage.removeItem('collapseDrawer');
-    else
-    localStorage.setItem('collapseDrawer', 'true');
+    if (!collapsed) {
+      localStorage.removeItem('collapseDrawer');
+    } else {
+      localStorage.setItem('collapseDrawer', 'true');
+    }
   };
 
   const toggleDrawer = () => {

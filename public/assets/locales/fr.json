@@ -70,8 +70,8 @@
     "title": "Matières"
   },
 
-  "students": {
-    "title": "Étudiants"
+  "members": {
+    "title": "Membres"
   },
 
   "absences": {
@@ -93,16 +93,16 @@
       "tab": "Général"
     },
 
-    "cloud": {
-      "tab": "Cloud"
-    },
-
     "development": {
       "tab": "Développement"
     },
 
-    "security": {
-      "tab": "Securité"
+    "infrastructure": {
+      "tab": "Infrastructure"
+    },
+
+    "netsec": {
+      "tab": "Securité & Réseaux"
     }
   },
 
