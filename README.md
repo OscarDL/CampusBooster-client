@@ -4,7 +4,7 @@
 
 ### How to install?
 
-Make sure you have Node.js on your device: [install node.js](https://nodejs.org/en/download)
+Make sure you have Node.js on your device: [install yarn](https://classic.yarnpkg.com/en/docs/install)
 
 After Git clone,
 Go to project command line root
@@ -18,7 +18,7 @@ Run:
 ```shell
 yarn start
 ```
-The project will automatically open as http://localhost:3000
+The project will automatically open as https://localhost:3000
 
 ## CONTACT:
 Campus Booster [Admin](mailto:ulysse.dupont@supinfo.com?subject=[GitHub]%20Source%20Han%20Sans) \
