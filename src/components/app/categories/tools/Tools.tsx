@@ -5,13 +5,12 @@ import { Divider, Tab, Tabs } from '@mui/material';
 
 import { ContentBody, ContentHeader } from '../../../shared/content';
 
+import Dropdown from '../../../shared/dropdown';
+
 import NetSecTab from './tabs/NetSec';
 import GeneralTab from './tabs/General';
 import DevelopmentTab from './tabs/Development';
 import InfrastructureTab from './tabs/Infrastructure';
-
-import Dropdown from '../../../shared/dropdown';
-import Container from '../../../shared/container';
 
 import './Tools.css';
 
@@ -44,6 +43,7 @@ const ToolTabs: FC<TabsProps> = ({t, tab, setTab}) => {
         <Tabs // Material tabs for desktop
           value={tab}
           variant="scrollable"
+          scrollButtons={false}
           onChange={(_, newTab) => setTab(newTab)}
         >
           {tabs.map((tab, i) => <Tab key={i} label={tab.title}/>)}
@@ -74,34 +74,32 @@ const Tools: FC = () => {
       <ContentHeader title={t('tools.title')}/>
 
       <ContentBody>
-        <Container className="tools-container">
-          <ToolTabs t={t} tab={tab} setTab={setTab}/>
-          <Divider/>
+        <ToolTabs t={t} tab={tab} setTab={setTab}/>
+        <Divider/>
 
-          {tab === 0 && (
-            <div className="tools-tab">
-              <GeneralTab/>
-            </div>
-          )}
+        {tab === 0 && (
+          <div className="tools-tab">
+            <GeneralTab/>
+          </div>
+        )}
 
-          {tab === 1 && (
-            <div className="tools-tab">
-              <DevelopmentTab/>
-            </div>
-          )}
+        {tab === 1 && (
+          <div className="tools-tab">
+            <DevelopmentTab/>
+          </div>
+        )}
 
-          {tab === 2 && (
-            <div className="tools-tab">
-              <InfrastructureTab/>
-            </div>
-          )}
+        {tab === 2 && (
+          <div className="tools-tab">
+            <InfrastructureTab/>
+          </div>
+        )}
 
-          {tab === 3 && (
-            <div className="tools-tab">
-              <NetSecTab/>
-            </div>
-          )}
-        </Container>
+        {tab === 3 && (
+          <div className="tools-tab">
+            <NetSecTab/>
+          </div>
+        )}
       </ContentBody>
     </>
   );

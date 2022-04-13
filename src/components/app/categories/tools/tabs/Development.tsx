@@ -14,16 +14,36 @@ const Development: FC = () => {
 
   return (
     <>
-      {links.map(link => (
-        <Tool
-          img={link.img}
-          key={link.url}
-          url={link.url}
-          title={link.title}
-          category="development"
-          description={link.description}
-        />
-      ))}
+    {links.map(link => (
+      <Tool
+        img={link.img}
+        key={link.url}
+        url={link.url}
+        title={link.title}
+        category="development"
+        description={link.description}
+      />
+    ))}
+    {links.map(link => (
+      <Tool
+        img={link.img}
+        key={link.url}
+        url={link.url}
+        title={link.title}
+        category="development"
+        description={link.description}
+      />
+    ))}
+    {links.map(link => (
+      <Tool
+        img={link.img}
+        key={link.url}
+        url={link.url}
+        title={link.title}
+        category="development"
+        description={link.description}
+      />
+    ))}
     </>
   );
 };
