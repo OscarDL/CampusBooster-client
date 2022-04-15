@@ -2,6 +2,13 @@
   "brand": "Campus Booster",
 
 
+  "api": {
+    "error": "An unknown error has occured.",
+    "timeout": "Server connection timed out, please try again.",
+    "network_error": "Failed to connect with the server. Please check your internet connection or contact your campus manager."
+  },
+
+
   "browser": {
     "unsupported": {
       "title": "Unsupported browser",
@@ -26,6 +33,7 @@
       "logout": "Could not sign out."
     }
   },
+
 
   "settings": {
     "title": "Profile & Settings",
@@ -102,7 +110,7 @@
       "links": [
         {
           "title": "SUPINFO",
-          "description": "SUPINFO propose des formations en informatique « orientées métiers » avec un Bachelor of Science (3 ans) et un Master of Science (2 ans).",
+          "description": "SUPINFO propose des formations en informatique « orientées métiers » avec un Bachelor of Science (3 ans) et un Master of Science (5 ans).",
           "img": "supinfo.svg",
           "url": "https://supinfo.com/"
         },

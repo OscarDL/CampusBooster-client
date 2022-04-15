@@ -39,17 +39,6 @@ const ToolTabs: FC<TabsProps> = ({t, tab, setTab}) => {
 
   return (
     <>
-      <div className="tools-tabs">
-        <Tabs // Material tabs for desktop
-          value={tab}
-          variant="scrollable"
-          scrollButtons={false}
-          onChange={(_, newTab) => setTab(newTab)}
-        >
-          {tabs.map((tab, i) => <Tab key={i} label={tab.title}/>)}
-        </Tabs>
-      </div>
-
       <div className="tools-select">
         <Dropdown // Dropdown tabs for mobile
           align="center"
@@ -59,6 +48,17 @@ const ToolTabs: FC<TabsProps> = ({t, tab, setTab}) => {
         >
           {tabs.map((tab, i) => <div key={i} onClick={() => setTab(i)}>{tab.title}</div>)}
         </Dropdown>
+      </div>
+
+      <div className="tools-tabs">
+        <Tabs // Material tabs for desktop
+          value={tab}
+          variant="scrollable"
+          scrollButtons={false}
+          onChange={(_, newTab) => setTab(newTab)}
+        >
+          {tabs.map((tab, i) => <Tab style={{fontWeight: '500'}} key={i} label={tab.title}/>)}
+        </Tabs>
       </div>
     </>
   );
@@ -73,33 +73,14 @@ const Tools: FC = () => {
     <>
       <ContentHeader title={t('tools.title')}/>
 
-      <ContentBody>
-        <ToolTabs t={t} tab={tab} setTab={setTab}/>
-        <Divider/>
+      <ToolTabs t={t} tab={tab} setTab={setTab}/>
+      <Divider/>
 
-        {tab === 0 && (
-          <div className="tools-tab">
-            <GeneralTab/>
-          </div>
-        )}
-
-        {tab === 1 && (
-          <div className="tools-tab">
-            <DevelopmentTab/>
-          </div>
-        )}
-
-        {tab === 2 && (
-          <div className="tools-tab">
-            <InfrastructureTab/>
-          </div>
-        )}
-
-        {tab === 3 && (
-          <div className="tools-tab">
-            <NetSecTab/>
-          </div>
-        )}
+      <ContentBody className="tools-tab">
+        {tab === 0 && <GeneralTab/>}
+        {tab === 1 && <DevelopmentTab/>}
+        {tab === 2 && <InfrastructureTab/>}
+        {tab === 3 && <NetSecTab/>}
       </ContentBody>
     </>
   );

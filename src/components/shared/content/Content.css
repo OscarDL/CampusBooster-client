@@ -2,7 +2,7 @@
 
 .app__content {
   flex-grow: 1;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .app__content > div {
@@ -74,25 +74,14 @@
 .content__body {
   flex-grow: 1;
   padding: 1rem;
-  /* overflow-y: auto; */
+  overflow-y: auto;
 }
 
 
 /* Smartphones & Tablets */
 @media (max-width: 768px) {
   #mobile-drawer + .app__content .content__body {
-    /* Show content above mobile drawer swipe area (+ 0.25rem box-shadow) */
-    padding-bottom: calc(80px + 0.25rem) !important;
-  }
-
-  /*
-    Remove outside spacing on small
-    screens for better use of space
-  */
-  .tools-view .content__body {
-    padding: 0;
-  }
-  .tools-container {
-    border: 0;
+    /* Show content above mobile drawer swipe area (+ 1rem visual gap + 0.25rem box-shadow) */
+    padding-bottom: calc(80px + 1rem + 0.25rem) !important;
   }
 }

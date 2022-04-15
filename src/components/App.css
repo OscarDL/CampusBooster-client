@@ -8,6 +8,9 @@ body {
   font-display: fallback;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
+}
+
+body, button {
   font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 

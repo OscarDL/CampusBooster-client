@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { t } from 'i18next';
 
 import { AzureData } from '../shared/types/user';
 import { apiUrl, axiosConfig } from '../shared/api';
@@ -20,7 +21,7 @@ const login = async (azureData: AzureData) => {
   }
   
   catch (error: any) {
-    return Promise.reject(error.response.data.message || 'error');
+    return Promise.reject(error.response.data || t('api.error'));
   }
 };
 
@@ -30,7 +31,7 @@ const logout = async () => {
   }
 
   catch (error: any) {
-    return Promise.reject(error.response.data.message || 'error');
+    return Promise.reject(error.response.data || t('api.error'));
   }
 };
 

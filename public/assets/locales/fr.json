@@ -2,6 +2,13 @@
   "brand": "Campus Booster",
 
 
+  "api": {
+    "error": "Une erreur inconnue est survenue.",
+    "timeout": "La connexion au serveur a expiré, veuillez réessayer.",
+    "network_error": "La connexion au server a échoué. Vérifiez votre connexion internet ou contactez votre directeur de campus."
+  },
+
+
   "browser": {
     "unsupported": {
       "title": "Navigateur non supporté",
@@ -26,6 +33,7 @@
       "logout": "Erreur de déconnexion."
     }
   },
+
 
   "settings": {
     "title": "Profil et réglages",

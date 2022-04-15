@@ -66,7 +66,7 @@ const authSlice = createSlice({
         state.user = payload.user;
         state.refreshToken = payload.refreshToken;
       })
-      .addCase(login.rejected, (state, {payload}: {payload: any}) => {
+      .addCase(login.rejected, (_, {payload}: {payload: any}) => {
         clearAzureLocalStorageData(payload.azureData);
 
         toast.error(payload.message, {
