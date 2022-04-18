@@ -320,7 +320,7 @@ a:hover, a:focus {
   display: flex;
   align-items: center;
 
-  overflow: hidden;
+  overflow-x: hidden;
   white-space: nowrap;
 }
 .rmsc.multi-select .item-renderer > span {
@@ -506,15 +506,15 @@ span[class*="material-icons"]:hover, span[class*="material-icons"]:focus, span[c
 
 /* --- Media queries --- */
 
-/* Smartphones */
+/* Up to: Smartphones */
 @media (max-width: 480px) {
 }
 
-/* Tablets portrait */
+/* Up to: Tablets (portrait) */
 @media (max-width: 640px) {
 }
 
-/* Tablets landscape */
+/* Up to: Small tablets */
 @media (max-width: 768px) {
   /* We might need to not do that */
   ::-webkit-scrollbar {
@@ -522,7 +522,7 @@ span[class*="material-icons"]:hover, span[class*="material-icons"]:focus, span[c
   }
 }
 
-/* Tablets */
+/* Up to: Tablets (landscape) */
 @media (max-width: 1024px) {
 }
 

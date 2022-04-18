@@ -66,7 +66,7 @@
 }
 
 .tool h2 {
-  overflow: hidden;
+  overflow-x: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   color: rgb(var(--accent-color));
@@ -91,7 +91,7 @@
 }
 
 
-/* Smartphones */
+/* Up to: Smartphones */
 @media (max-width: 480px) {
   .tools-tab {
     display: flex;
@@ -99,7 +99,7 @@
   }
 }
 
-/* Tablets & smartphones */
+/* Up to: Small tablets */
 @media (max-width: 768px) {
   .tools-tabs + hr {
     margin-top: 0;

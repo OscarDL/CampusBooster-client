@@ -109,7 +109,7 @@
 
 .browsers > a::after {
   display: flex;
-  overflow: hidden;
+  overflow-x: hidden;
   width: fit-content;
   white-space: nowrap;
 

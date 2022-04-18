@@ -44,7 +44,7 @@
   margin-left: 1.25rem;
 }
 .drawer__text * {
-  overflow: hidden;
+  overflow-x: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }

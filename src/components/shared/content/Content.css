@@ -26,8 +26,9 @@
 }
 
 .content__header > h2 {
-  display: flex;
-  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .content__header > .options {
@@ -68,6 +69,16 @@
   background-color: rgb(var(--divider-color));
 }
 
+.container .content__header {
+  width: 100%;
+  height: auto;
+  padding: 0.5rem 0;
+  margin-top: -1rem;
+}
+.container .content__header + hr {
+  display: none;
+}
+
 
 /* Content Body */
 
@@ -78,7 +89,14 @@
 }
 
 
-/* Smartphones & Tablets */
+/* Up to: Narrow Smartphones */
+@media (max-width: 420px) {
+  .content__header .dropdown__title {
+    display: none;
+  }
+}
+
+/* Up to: Small tablets */
 @media (max-width: 768px) {
   #mobile-drawer + .app__content .content__body {
     /* Show content above mobile drawer swipe area (+ 1rem visual gap + 0.25rem box-shadow) */

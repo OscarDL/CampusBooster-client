@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { Divider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { User } from '../../../../shared/types/user';
@@ -20,31 +21,33 @@ const Settings: FC<Props> = ({user}) => {
 
   return (
     <Container className="profile">
-      <div className="flex">
-        <img src={`https://avatars.dicebear.com/api/avataaars/${user.azureData.localAccountId}.svg`} alt="Avatar"/>
+      <div className="profile__main-info">
+        <ContentHeader title={t('settings.info.title')}/>
 
-        <div>
-          <ContentHeader title={t('settings.info.title')}/>
+        <div className="flex">
+          <img src={`https://avatars.dicebear.com/api/avataaars/${user.azureData.localAccountId}.svg`} alt="avatar"/>
           <ul>
             <li>
-              {t('settings.info.first_name')}&nbsp;
-              <span style={{fontWeight: 'bolder'}}>{user.firstName}</span>
+              <p>{t('settings.info.first_name')}</p>
+              <span title={user.firstName}>{user.firstName}</span>
             </li>
 
             <li>
-              {t('settings.info.last_name')}&nbsp;
-              <span style={{fontWeight: 'bolder'}}>{user.lastName}</span>
+              <p>{t('settings.info.last_name')}</p>
+              <span title={user.lastName}>{user.lastName}</span>
             </li>
 
             <li>
-              {t('settings.info.email')}&nbsp;
-              <span style={{fontWeight: 'bolder'}}>{user.email}</span>
+              <p>{t('settings.info.email')}</p>
+              <span title={user.email}>{user.email}</span>
             </li>
           </ul>
         </div>
       </div>
 
-      <div>
+      <Divider/>
+
+      <div className="profile__more-info">
         <ContentHeader title={t('settings.info.title_more')}/>
         <ul>
           <li>

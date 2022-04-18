@@ -6,7 +6,7 @@ import { LogoutButton } from '../../../../azure/auth/Buttons';
 import { getLoggedInAuthState } from '../../../../shared/functions';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 
-import Info from './Info';
+import Profile from './Profile';
 import Dropdown from '../../../shared/dropdown';
 
 import './Settings.css';
@@ -28,7 +28,7 @@ const Settings: FC = () => {
       </ContentHeader>
 
       <ContentBody>
-        <Info user={user}/>
+        <Profile user={user}/>
 
         <div className="flex flex-col flex-grow">
           <Container>

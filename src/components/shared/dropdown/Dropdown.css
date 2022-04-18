@@ -48,10 +48,10 @@ div.dropdown__header {
   padding: 0.33rem;
   z-index: var(--z-index-dropdown);
 
-  overflow: hidden;
   list-style: none;
   position: absolute;
   visibility: hidden;
+  overflow-x: hidden;
   white-space: nowrap;
 
   opacity: 0;

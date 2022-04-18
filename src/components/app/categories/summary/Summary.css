@@ -17,7 +17,7 @@
 }
 
 
-/* Smartphones & Tablets */
+/* Up to: Small tablets */
 @media (max-width: 768px) {
   .summary-view .content__body {
     flex-direction: column;

@@ -48,10 +48,10 @@
 
     "info": {
       "title": "My information",
-      "title_more": "Additional information",
+      "title_more": "Additional info",
       "first_name": "First name:",
       "last_name": "Last name:",
-      "email": "Email address:",
+      "email": "Email\u00A0address:",
       "birthday": "Birthday:",
       "campus": "Campus location:",
       "school_year": "Current year:"
@@ -110,19 +110,19 @@
       "links": [
         {
           "title": "SUPINFO",
-          "description": "SUPINFO propose des formations en informatique « orientées métiers » avec un Bachelor of Science (3 ans) et un Master of Science (5 ans).",
+          "description": "SUPINFO offers advanced training in computer science with a Bachelor of Science (3 years) and a Master of Science (5 years) degree.",
           "img": "supinfo.svg",
           "url": "https://supinfo.com/"
         },
         {
           "title": "E-parcours",
-          "description": "Agreement and online course.",
+          "description": "Create and manage your contract requests between SUPINFO and the companies involved in your college education path.",
           "img": "eparcours.svg",
           "url": "https://epitech.fmdata.fr/fmi/webd/eparcours/"
         },
         {
           "title": "Bocal Console",
-          "description": "Intranet Bocal IONIS Education Group.",
+          "description": "Intranet \"Bocal\" from IONIS Education Group.",
           "img": "epitech.svg",
           "url": "https://console.bocal.org/"
         },
@@ -140,7 +140,7 @@
       "links": [
         {
           "title": "W3 Schools",
-          "description": "W3Schools is optimized for learning, testing, and training your web developer skils, with tutorials and references.",
+          "description": "W3Schools is a platform for learning, testing, and training your web developer skils, with tutorials and references.",
           "img": "w3schools.svg",
           "url": "https://www.w3schools.com/"
         },

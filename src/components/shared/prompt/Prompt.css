@@ -52,7 +52,7 @@
   margin: 0 auto;
   color: rgba(var(--accent-color), 204);
 
-  overflow: hidden;
+  overflow-x: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
