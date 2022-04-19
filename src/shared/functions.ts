@@ -1,5 +1,18 @@
-import { AzureData, User } from './types/user';
 import { values } from './utils';
+import { AzureData, User } from './types/user';
+import { SupportedLangs } from './types/settings';
+
+
+// Retrieve languages currently supported in Campus Booster
+export const getCurrentLang = (): SupportedLangs => {
+  const savedLang = localStorage.getItem('lang') as SupportedLangs;
+
+  if (!values.supportedLangs.includes(savedLang)) {
+    return 'en';
+  }
+
+  return savedLang as SupportedLangs;
+};
 
 
 // Allow to retrieve a non-null User in logged-in routes

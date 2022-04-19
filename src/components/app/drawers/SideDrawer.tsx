@@ -85,7 +85,7 @@ const SideDrawer: FC<Props> = ({forceCollapse}) => {
       <Drawer variant="permanent" open={!collapsed}>
         <List>
           <NavItem
-            category="settings"
+            category="profile"
             collapsed={forceCollapse || collapsed}
             text={`${user.firstName} ${user.lastName}`}
           />

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { Settings } from '../../../shared/types/settings';
-import { getCategoryTitle, getCurrentTheme } from '../../../shared/functions';
+import { getCategoryTitle, getCurrentLang, getCurrentTheme } from '../../../shared/functions';
 
 
 export type AppState = {
@@ -13,6 +13,7 @@ export type AppState = {
 const initialState: AppState = {
   category: getCategoryTitle(),
   settings: {
+    lang: getCurrentLang(),
     darkTheme: getCurrentTheme()
   }
 };
@@ -25,10 +26,13 @@ const appSlice = createSlice({
   reducers: {
     setCategory: (state, {payload}) => {
       state.category = payload;
+    },
+    setNewLang: (state, {payload}) => {
+      state.settings.lang = payload;
     }
   }
 });
 
 
-export const { setCategory } = appSlice.actions;
+export const { setCategory, setNewLang } = appSlice.actions;
 export default appSlice.reducer;

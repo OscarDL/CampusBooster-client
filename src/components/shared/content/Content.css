@@ -74,6 +74,7 @@
   height: auto;
   padding: 0.5rem 0;
   margin-top: -1rem;
+  color: rgb(var(--accent-color));
 }
 .container .content__header + hr {
   display: none;

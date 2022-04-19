@@ -1,36 +1,36 @@
-.settings-view .content__body {
+.profile-view .content__body {
   gap: 1rem;
   display: flex;
 }
 
-.settings-view .content__body > * {
+.profile-view .content__body > * {
   flex: 1 1 0;
 }
 
 
-/* Profile container */
+/* --- Profile --- */
 
-.settings-view .profile {
+.profile-view .profile {
   gap: 1rem;
   display: flex;
   flex-direction: column;
 }
 
-.settings-view .profile ul {
+.profile-view .profile ul {
   padding: 0;
   list-style: none;
 }
 
-.settings-view .profile li {
+.profile-view .profile li {
   gap: 0.25rem;
   display: grid;
   grid-auto-flow: column;
   justify-content: flex-start;
 }
-.settings-view .profile li:not(:last-child) {
+.profile-view .profile li:not(:last-child) {
   margin-bottom: 0.75rem;
 }
-.settings-view .profile li > span {
+.profile-view .profile li > span {
   flex-grow: 1;
   font-weight: bold;
   overflow-x: hidden;
@@ -40,11 +40,11 @@
 
 
 /* Main info */
-.settings-view .profile .content__header + hr {
+.profile-view .profile .content__header + hr {
   margin-bottom: 1rem;
 }
 
-.settings-view .profile__main-info img {
+.profile-view .profile__main-info img {
   width: 6rem;
   height: 6rem;
   padding: 0.66rem;
@@ -54,20 +54,30 @@
 }
 
 
+/* --- Settings --- */
+
+
 /* Up to: Smartphones */
 @media (max-width: 480px) {
-  .settings-view .profile__main-info .content__header {
+  /* .profile-view .content__body {
+    padding: 0;
+  }
+  .profile-view .content__body .container {
+    border: none;
+  } */
+
+  .profile-view .profile__main-info .content__header {
     padding-top: 1rem;
     padding-left: 4rem;
   }
-  .settings-view .profile__main-info .content__header + hr {
+  .profile-view .profile__main-info .content__header + hr {
     margin-left: 4rem;
   }
-  .settings-view .profile__main-info ul {
+  .profile-view .profile__main-info ul {
     margin: 1rem 0 0 -4rem;
   }
 
-  .settings-view .profile__main-info img {
+  .profile-view .profile__main-info img {
     width: 3rem;
     height: 3rem;
     padding: 0.33rem;
@@ -77,7 +87,7 @@
 
 /* Up to: Tablets (landscape) */
 @media (max-width: 1024px) {
-  .settings-view .content__body {
+  .profile-view .content__body {
     flex-grow: unset;
     flex-direction: column;
   }

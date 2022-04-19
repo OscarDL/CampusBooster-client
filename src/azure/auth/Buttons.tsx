@@ -59,7 +59,7 @@ export const LogoutButton: FC<LogoutProps> = ({logoutFromAzure}) => {
 
   return (
     <Button variant="text" onClick={handleAzureLogout}>
-      <span>{t('settings.logout.' + (logoutFromAzure ? 'microsoft' : 'website'))}</span>
+      <span>{t('profile.logout.' + (logoutFromAzure ? 'microsoft' : 'website'))}</span>
       {logoutFromAzure && (
         <span className="material-icons-round">launch</span>
       )}

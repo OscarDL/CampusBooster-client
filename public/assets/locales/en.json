@@ -35,7 +35,7 @@
   },
 
 
-  "settings": {
+  "profile": {
     "title": "Profile & Settings",
     "icon": "account_circle",
     "ms_account": "Microsoft account",
@@ -46,7 +46,7 @@
       "microsoft": "Sign out from Microsoft account"
     },
 
-    "info": {
+    "account": {
       "title": "My information",
       "title_more": "Additional info",
       "first_name": "First name:",
@@ -55,6 +55,15 @@
       "birthday": "Birthday:",
       "campus": "Campus location:",
       "school_year": "Current year:"
+    },
+
+    "settings": {
+      "title": "Settings",
+      "lang": {
+        "title": "Choose your language",
+        "en": "English",
+        "fr": "Français"
+      }
     }
   },
 
@@ -125,12 +134,6 @@
           "description": "Intranet \"Bocal\" from IONIS Education Group.",
           "img": "epitech.svg",
           "url": "https://console.bocal.org/"
-        },
-        {
-          "title": "Candidature en ligne",
-          "description": "???",
-          "img": "epitech.svg",
-          "url": "https://epitech.force.com/supinfo/"
         }
       ]
     },
@@ -229,5 +232,7 @@
   "admin": {
     "title": "Administration",
     "icon": "admin_panel_settings"
-  }
+  },
+
+  "dayjs-format": "MMM. DD, YYYY"
 }

@@ -1,13 +1,15 @@
+import { SupportedLangs } from './types/settings';
+
+
 export const colors = {
   accent: '#3b2f92',
   accentRGB: '80, 60, 180'
 };
 
+
+const supportedLangs: SupportedLangs[] = ['en', 'fr'];
 export const values = {
-  languages: [
-    'en',
-    'fr'
-  ],
+  supportedLangs,
 
   roles: {
     student: 1,

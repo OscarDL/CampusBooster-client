@@ -1,5 +1,6 @@
 import i18next from 'i18next';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import React, { Suspense } from 'react';
 import { MsalProvider } from '@azure/msal-react';
 import { initReactI18next } from 'react-i18next';
@@ -9,11 +10,11 @@ import { PublicClientApplication } from '@azure/msal-browser';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 import { store } from './store/store';
-import { Provider } from 'react-redux';
+import { values } from './shared/utils';
+import { muiTheme } from './shared/theme';
 import { msalConfig } from './azure/auth/config';
 
 import App from './components/App';
-import { muiTheme } from './shared/theme';
 import reportWebVitals from './reportWebVitals';
 
 
@@ -31,7 +32,7 @@ i18next // Translation module
       order: ['localStorage', 'navigator']
     },
     fallbackLng: 'en',
-    supportedLngs: ['en', 'fr']
+    supportedLngs: values.supportedLangs
   });
 
 

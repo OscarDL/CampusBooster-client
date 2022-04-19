@@ -57,7 +57,7 @@ const SwipeDrawer: FC = () => {
           <Divider/>
 
           <NavItem
-            category="settings"
+            category="profile"
             hideDrawer={hideDrawer}
             text={`${user.firstName} ${user.lastName}`}
           />

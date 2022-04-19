@@ -29,7 +29,7 @@ div.dropdown__header {
 .dropdown__header > .dropdown__title {
   font-family: inherit;
   font-weight: 600;
-  padding: 0 0.25rem 0 0.5rem;
+  padding: 0 0.4rem 0 0.6rem;
 }
 
 .dropdown__header:hover > span {

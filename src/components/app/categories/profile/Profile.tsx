@@ -6,34 +6,33 @@ import { LogoutButton } from '../../../../azure/auth/Buttons';
 import { getLoggedInAuthState } from '../../../../shared/functions';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 
-import Profile from './Profile';
+import Account from './Account';
+import Settings from './Settings';
 import Dropdown from '../../../shared/dropdown';
-
-import './Settings.css';
 import Container from '../../../shared/container';
 
+import './Profile.css';
 
-const Settings: FC = () => {
+
+const Profile: FC = () => {
   const { t } = useTranslation();
   const { user } = useSelector(getLoggedInAuthState);
 
 
   return (
     <>
-      <ContentHeader title={t('settings.title')}>
-        <Dropdown id="logout" title={t('settings.logout.title')} align="flex-end">
+      <ContentHeader title={t('profile.title')}>
+        <Dropdown id="logout" title={t('profile.logout.title')} align="flex-end">
           <LogoutButton/>
           <LogoutButton logoutFromAzure/>
         </Dropdown>
       </ContentHeader>
 
       <ContentBody>
-        <Profile user={user}/>
+        <Account user={user}/>
 
         <div className="flex flex-col flex-grow">
-          <Container>
-            Category
-          </Container>
+          <Settings/>
 
           <Container>
             Category
@@ -45,4 +44,4 @@ const Settings: FC = () => {
 };
 
 
-export default Settings;
+export default Profile;

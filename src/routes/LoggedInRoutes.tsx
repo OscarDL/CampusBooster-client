@@ -11,7 +11,7 @@ import Internships from '../views/app/Internships';
 import Accounting from '../views/app/Accounting';
 import Admin from '../views/app/Admin';
 import Tools from '../views/app/Tools';
-import Settings from '../views/app/Settings';
+import Profile from '../views/app/Profile';
 import Drawer from '../views/shared/Drawer';
 
 import { getLoggedInAuthState, getUserCategories } from '../shared/functions';
@@ -44,7 +44,7 @@ const LoggedInRoutes: FC = () => {
             <Route key={category} path={'/' + category} element={components[category]}/>
           ))}
 
-          <Route path="/settings" element={<Settings/>}/>
+          <Route path="/profile" element={<Profile/>}/>
 
           {/* Redirect to the home page if the route doesn't exist */}
           <Route path="*" element={<Navigate replace to="/summary"/>}/>
