@@ -6,8 +6,8 @@ import { LogoutButton } from '../../../../azure/auth/Buttons';
 import { getLoggedInAuthState } from '../../../../shared/functions';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 
-import Account from './Account';
-import Settings from './Settings';
+import Account from './categories/Account';
+import Settings from './categories/Settings';
 import Dropdown from '../../../shared/dropdown';
 import Container from '../../../shared/container';
 

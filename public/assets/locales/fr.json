@@ -15,6 +15,7 @@
       "download": "Veuillez installer l'un des navigateurs ci-dessous :",
       "description": "Cette nouvelle version du site Campus Booster est déconseillée d'utilisation sur votre navigateur actuel."
     },
+
     "edge": "Microsoft Edge",
     "chrome": "Google Chrome",
     "firefox": "Mozilla Firefox"
@@ -37,7 +38,6 @@
 
   "profile": {
     "title": "Profil et réglages",
-    "icon": "account_circle",
     "ms_account": "Compte Microsoft",
 
     "logout": {
@@ -59,8 +59,16 @@
 
     "settings": {
       "title": "Réglages",
+
       "lang": {
         "title": "Choix du langage"
+      },
+
+      "theme": {
+        "title": "Choix du thème",
+        "system": "Système",
+        "light": "Clair",
+        "dark": "Sombre"
       }
     }
   },
@@ -106,6 +114,7 @@
 
     "general": {
       "tab": "Général",
+
       "links": [
         {
           "title": "SUPINFO",
@@ -127,6 +136,7 @@
 
     "development": {
       "tab": "Développement",
+
       "links": [
         {
           "title": "W3 Schools",
@@ -153,6 +163,7 @@
 
     "infrastructure": {
       "tab": "Infrastructure",
+
       "links": [
         {
           "title": "Azure Portal",
@@ -179,6 +190,7 @@
 
     "netsec": {
       "tab": "Securité & Réseaux",
+
       "links": [
         {
           "title": "Root-me",

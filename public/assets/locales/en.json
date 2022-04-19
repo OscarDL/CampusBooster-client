@@ -15,6 +15,7 @@
       "download": "Please install one of the modern browsers below:",
       "description": "This new version of the Campus Booster website is deprecated for use on your current browser."
     },
+
     "edge": "Microsoft Edge",
     "chrome": "Google Chrome",
     "firefox": "Mozilla Firefox"
@@ -36,8 +37,8 @@
 
 
   "profile": {
-    "title": "Profile & Settings",
     "icon": "account_circle",
+    "title": "Profile & Settings",
     "ms_account": "Microsoft account",
 
     "logout": {
@@ -59,10 +60,18 @@
 
     "settings": {
       "title": "Settings",
+
       "lang": {
-        "title": "Choose your language",
+        "title": "Language selection",
         "en": "English",
         "fr": "Français"
+      },
+
+      "theme": {
+        "title": "Theme selection",
+        "system": "System",
+        "light": "Light",
+        "dark": "Dark"
       }
     }
   },
@@ -116,6 +125,7 @@
 
     "general": {
       "tab": "General",
+
       "links": [
         {
           "title": "SUPINFO",
@@ -140,6 +150,7 @@
 
     "development": {
       "tab": "Development",
+
       "links": [
         {
           "title": "W3 Schools",
@@ -170,6 +181,7 @@
 
     "infrastructure": {
       "tab": "Infrastructure",
+
       "links": [
         {
           "title": "Azure Portal",
@@ -200,6 +212,7 @@
 
     "netsec": {
       "tab": "Network & Security",
+
       "links": [
         {
           "title": "Root-me",

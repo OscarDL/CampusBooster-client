@@ -14,7 +14,7 @@ const initialState: AppState = {
   category: getCategoryTitle(),
   settings: {
     lang: getCurrentLang(),
-    darkTheme: getCurrentTheme()
+    darkTheme: getCurrentTheme() === 'dark'
   }
 };
 
@@ -29,10 +29,13 @@ const appSlice = createSlice({
     },
     setNewLang: (state, {payload}) => {
       state.settings.lang = payload;
+    },
+    setTheme: (state, {payload}) => {
+      state.settings.darkTheme = getCurrentTheme(payload) === 'dark';
     }
   }
 });
 
 
-export const { setCategory, setNewLang } = appSlice.actions;
+export const { setCategory, setNewLang, setTheme } = appSlice.actions;
 export default appSlice.reducer;

@@ -29,12 +29,18 @@ export const getCategoryTitle = () => (
 
 
 // Retrieve current user theme
-export const getCurrentTheme = () => {
-  if (localStorage.getItem('theme')) {
-    return localStorage.getItem('theme') === 'dark';
-  }
+export const getCurrentTheme = (givenTheme?: string): 'light' | 'dark' => {
+  if (!givenTheme) givenTheme = localStorage.getItem('theme') ?? 'system';
 
-  return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  switch (givenTheme) {
+    case 'light': return 'light';
+    case 'dark': return 'dark';
+
+    default: { // We can leave the 'system' case out as `default` acts the same way.
+      const darkTheme = window.matchMedia('(prefers-color-scheme: dark)');
+      return darkTheme.matches ? 'dark' : 'light';
+    };
+  }
 };
 
 

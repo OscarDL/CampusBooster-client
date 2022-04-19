@@ -3,10 +3,10 @@ import { FC } from 'react';
 import { Divider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { User } from '../../../../shared/types/user';
-import { ContentHeader } from '../../../shared/content';
+import { User } from '../../../../../shared/types/user';
+import { ContentHeader } from '../../../../shared/content';
 
-import Container from '../../../shared/container';
+import Container from '../../../../shared/container';
 
 
 type Props = {

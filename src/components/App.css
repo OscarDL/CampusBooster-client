@@ -229,6 +229,7 @@ body .tippy-content > div {
 
 /* --- Material-UI custom styling - adding "body" makes the custom styling higher in priority for CSS --- */
 
+/* Mui Select header */
 body .select > .MuiInputBase-input {
   transition: 0.25s;
 }
@@ -240,10 +241,7 @@ body .select.Mui-focused {
   background-color: rgba(var(--accent-color), 0.05);
 }
 
-body .MuiSelect-select + input + svg {
-  transition: 0.25s;
-}
-
+/* Mui Select list item */
 body .MuiInputLabel-root.Mui-focused,
 body .MuiCheckbox-colorPrimary.Mui-checked,
 body .MuiOutlinedInput-root.Mui-focused .material-icons-outlined {

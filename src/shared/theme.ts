@@ -16,9 +16,47 @@ export const muiTheme = createTheme({
           borderRadius: 'var(--radius-small)'
         }
       }
+    },
+
+    MuiSelect: {
+      styleOverrides: {
+        icon: {
+          transition: '0.25s'
+        }
+      }
+    },
+
+    MuiMenuItem: {
+      defaultProps: {
+        classes: {
+          root: 'select-item'
+        }
+      },
+
+      styleOverrides: {
+        root: {
+          transition: '0.25s',
+          ':hover': {
+            color: colors.accent
+          },
+          ':focus': {
+            color: colors.accent
+          },
+
+          '&.Mui-selected': {
+            fontWeight: 'bold',
+            color: colors.accent,
+            backgroundColor: `rgba(${colors.accentRGB}, 0.1)`,
+            '&.Mui-focusVisible': {
+              backgroundColor: `rgba(${colors.accentRGB}, 0.1)`
+            }
+          }
+        },
+      }
     }
   },
   
+
   palette: {
     primary: {
       main: colors.accent
