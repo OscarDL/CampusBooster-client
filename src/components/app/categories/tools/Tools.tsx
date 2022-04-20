@@ -33,7 +33,7 @@ const ToolTabs: FC<TabsProps> = ({t, tab, setTab}) => {
     title: t('tools.infrastructure.tab'),
     icon: 'storage'
   }, {
-    title: t('tools.netsec.tab'),
+    title: t('tools.net-sec.tab'),
     icon: 'security'
   }];
 
@@ -57,7 +57,7 @@ const ToolTabs: FC<TabsProps> = ({t, tab, setTab}) => {
           scrollButtons={false}
           onChange={(_, newTab) => setTab(newTab)}
         >
-          {tabs.map((tab, i) => <Tab style={{fontWeight: '500'}} key={i} label={tab.title}/>)}
+          {tabs.map((tab, i) => <Tab key={i} label={tab.title} style={{fontWeight: '500'}}/>)}
         </Tabs>
       </div>
     </>

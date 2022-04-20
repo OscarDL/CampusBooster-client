@@ -46,12 +46,26 @@ export const muiTheme = createTheme({
           '&.Mui-selected': {
             fontWeight: 'bold',
             color: colors.accent,
-            backgroundColor: `rgba(${colors.accentRGB}, 0.1)`,
+            backgroundColor: `rgba(${colors.accentRGB}, 0.075)`,
             '&.Mui-focusVisible': {
-              backgroundColor: `rgba(${colors.accentRGB}, 0.1)`
+              backgroundColor: `rgba(${colors.accentRGB}, 0.075)`
             }
           }
         },
+      }
+    },
+
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          ':hover': {
+            color: colors.accent,
+            backgroundColor: `rgba(${colors.accentRGB}, 0.075)`
+          },
+          ':focus': {
+            color: colors.accent
+          }
+        }
       }
     }
   },

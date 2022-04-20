@@ -31,7 +31,7 @@ const Profile: FC = () => {
       <ContentBody>
         <Account user={user}/>
 
-        <div className="flex flex-col flex-grow">
+        <div className="settings-tasks">
           <Settings/>
 
           <Container>

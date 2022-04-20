@@ -2,6 +2,9 @@ import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
+import { values } from '../shared/utils';
+import { getLoggedInAuthState, getUserCategories } from '../shared/functions';
+
 import Summary from '../views/app/Summary';
 import Subjects from '../views/app/Subjects';
 import Marks from '../views/app/Marks';
@@ -13,9 +16,6 @@ import Admin from '../views/app/Admin';
 import Tools from '../views/app/Tools';
 import Profile from '../views/app/Profile';
 import Drawer from '../views/shared/Drawer';
-
-import { getLoggedInAuthState, getUserCategories } from '../shared/functions';
-import { values } from '../shared/utils';
 
 
 const LoggedInRoutes: FC = () => {

@@ -101,13 +101,15 @@
 
 /* Up to: Small tablets */
 @media (max-width: 768px) {
-  .tools-tabs + hr {
-    margin-top: 0;
-  }
-  .tools-tabs {
-    display: none;
-  }
   .tools-select {
     display: flex;
+  }
+
+  .tools-tabs {
+    height: 0;
+    visibility: hidden;
+  }
+  .tools-tabs button, .tools-tabs .MuiTabs-indicator {
+    transition: 0s !important;
   }
 }

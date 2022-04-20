@@ -4,7 +4,6 @@ import { styled, CSSObject, Theme } from '@mui/material/styles';
 import { Drawer as MuiDrawer, List, Divider } from '@mui/material';
 
 import { values } from '../../../shared/utils';
-import { useStateWithCallback } from '../../../shared/hooks';
 import { getLoggedInAuthState, getUserCategories } from '../../../shared/functions';
 
 import NavItem from './NavItem';
@@ -57,13 +56,11 @@ type Props = {
 
 const SideDrawer: FC<Props> = ({forceCollapse}) => {
   const { user } = useSelector(getLoggedInAuthState);
-  const [collapsed, setCollapsed] = useStateWithCallback(
-    forceCollapse || !localStorage.getItem('collapseDrawer')
-  );
+  const [collapsed, setCollapsed] = useState(forceCollapse || !!localStorage.getItem('collapseDrawer'));
 
 
-  const saveDrawer = () => {
-    if (!collapsed) {
+  const saveDrawerState = () => {
+    if (collapsed) {
       localStorage.removeItem('collapseDrawer');
     } else {
       localStorage.setItem('collapseDrawer', 'true');
@@ -71,12 +68,13 @@ const SideDrawer: FC<Props> = ({forceCollapse}) => {
   };
 
   const toggleDrawer = () => {
-    setCollapsed(collapsed => !collapsed, saveDrawer);
+    saveDrawerState();
+    setCollapsed(collapsed => !collapsed);
   };
 
 
   useEffect(() => {
-    setCollapsed(forceCollapse || !localStorage.getItem('collapseDrawer'));
+    setCollapsed(forceCollapse || !!localStorage.getItem('collapseDrawer'));
   }, [forceCollapse, setCollapsed]);
 
 
@@ -103,7 +101,7 @@ const SideDrawer: FC<Props> = ({forceCollapse}) => {
           ))}
         </List>
 
-        <ExpandButton expanded={!collapsed} toggleDrawer={toggleDrawer}/>
+        <ExpandButton collapsed={collapsed} toggleDrawer={toggleDrawer}/>
       </Drawer>
     </div>
   );

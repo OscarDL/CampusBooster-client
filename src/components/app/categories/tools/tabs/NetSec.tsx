@@ -9,18 +9,18 @@ import { ToolLink } from '../../../../../shared/types/tools';
 const Security: FC = () => {
   const { t } = useTranslation();
 
-  const links: ToolLink[] = t('tools.netsec.links', {returnObjects: true});
+  const links: ToolLink[] = t('tools.net-sec.links', {returnObjects: true});
 
 
   return (
     <>
-      {links.map(link => (
+      {links.map((link, key) => (
         <Tool
+          key={key}
           img={link.img}
-          key={link.url}
           url={link.url}
-          category="netsec"
           title={link.title}
+          category="net-sec"
           description={link.description}
         />
       ))}

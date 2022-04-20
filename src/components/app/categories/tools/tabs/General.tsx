@@ -14,10 +14,10 @@ const General: FC = () => {
 
   return (
     <>
-      {links.map(link => (
+      {links.map((link, key) => (
         <Tool
+          key={key}
           img={link.img}
-          key={link.url}
           url={link.url}
           title={link.title}
           category="general"
