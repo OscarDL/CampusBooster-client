@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { Settings } from '../../../shared/types/settings';
+import { Settings, SupportedLangs, SupportedThemes } from '../../../shared/types/settings';
 import { getCategoryTitle, getCurrentLang, getCurrentTheme } from '../../../shared/functions';
 
 
@@ -24,18 +24,18 @@ const appSlice = createSlice({
   initialState,
 
   reducers: {
-    setCategory: (state, {payload}) => {
+    setCategory: (state, {payload}: {payload: string}) => {
       state.category = payload;
     },
-    setNewLang: (state, {payload}) => {
+    setNewLang: (state, {payload}: {payload: SupportedLangs}) => {
       state.settings.lang = payload;
     },
-    setTheme: (state, {payload}) => {
+    setNewTheme: (state, {payload}: {payload: SupportedThemes}) => {
       state.settings.darkTheme = getCurrentTheme(payload) === 'dark';
     }
   }
 });
 
 
-export const { setCategory, setNewLang, setTheme } = appSlice.actions;
+export const { setCategory, setNewLang, setNewTheme } = appSlice.actions;
 export default appSlice.reducer;

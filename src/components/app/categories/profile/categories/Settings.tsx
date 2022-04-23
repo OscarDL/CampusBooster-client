@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,35 +6,40 @@ import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@m
 
 import { values } from '../../../../../shared/utils';
 import { ContentHeader } from '../../../../shared/content';
-import { setNewLang, setTheme } from '../../../../../store/features/app/slice';
+import { setNewLang, setNewTheme } from '../../../../../store/features/app/slice';
 import { SupportedLangs, SupportedThemes } from '../../../../../shared/types/settings';
 
 import Container from '../../../../shared/container';
+
+
+const getCurrentTheme = (): SupportedThemes => {
+  switch (localStorage.getItem('theme')) {
+    case 'dark': return 'dark';
+    case 'light': return 'light';
+    default: return 'system';
+  };
+};
 
 
 const Settings: FC = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { settings } = useSelector(state => state.app);
+  const [theme, setTheme] = useState<SupportedThemes>(getCurrentTheme());
 
-
-  const getCurrentTheme = (): SupportedThemes => {
-    switch (localStorage.getItem('theme')) {
-      case 'dark': return 'dark';
-      case 'light': return 'light';
-      default: return 'system';
-    };
-  };
 
   const handleChangeLang = (e: SelectChangeEvent<SupportedLangs>) => {
-    const newLang = e.target.value;
+    const newLang = e.target.value as SupportedLangs;
+
     dispatch(setNewLang(newLang));
     i18next.changeLanguage(newLang);
   };
 
   const handleChangeTheme = (e: SelectChangeEvent<SupportedThemes>) => {
-    const theme = e.target.value;
-    dispatch(setTheme(theme));
+    const theme = e.target.value as SupportedThemes;
+
+    setTheme(theme);
+    dispatch(setNewTheme(theme));
     localStorage.setItem('theme', theme);
   };
 
@@ -64,8 +69,8 @@ const Settings: FC = () => {
         <InputLabel>{t('profile.settings.theme.title')}</InputLabel>
 
         <Select
+          value={theme}
           className="select"
-          value={getCurrentTheme()}
           onChange={handleChangeTheme}
           label={t('profile.settings.theme.title')}
         >
