@@ -72,6 +72,32 @@
         "system": "System",
         "light": "Light",
         "dark": "Dark"
+      },
+
+      "links": {
+        "title": "Link visuals",
+        "default": "Default",
+        "bold": "Make bolder",
+        "underline": "Underline",
+        "bold-underline": "Make bolder & underline"
+      }
+    },
+
+    "links": {
+      "title": "Useful links",
+
+      "links": [{
+        "title": "Microsoft Account",
+        "url": "",
+        "light": "Light",
+        "dark": "Dark"
+      }],
+
+      "ms_account": {
+        "title": "Microsoft Account",
+        "url": "",
+        "light": "Light",
+        "dark": "Dark"
       }
     }
   },
@@ -104,9 +130,17 @@
     "icon": "school"
   },
 
-  "absences": {
-    "title": "Absences",
-    "icon": "calendar_month"
+  "calendar": {
+    "title": "Calendar",
+    "icon": "calendar_month",
+
+    "homework": {
+      "title": "Homework"
+    },
+
+    "absences": {
+      "title": "Past absences"
+    }
   },
 
   "internships": {

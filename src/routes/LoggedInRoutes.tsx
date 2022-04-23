@@ -9,7 +9,7 @@ import Summary from '../views/app/Summary';
 import Subjects from '../views/app/Subjects';
 import Marks from '../views/app/Marks';
 import Members from '../views/app/Members';
-import Absences from '../views/app/Absences';
+import Calendar from '../views/app/Calendar';
 import Internships from '../views/app/Internships';
 import Accounting from '../views/app/Accounting';
 import Admin from '../views/app/Admin';
@@ -26,7 +26,7 @@ const LoggedInRoutes: FC = () => {
     subjects: <Subjects/>,
     marks: <Marks/>,
     members: <Members/>,
-    absences: <Absences/>,
+    calendar: <Calendar/>,
     internships: <Internships/>,
     accounting: <Accounting/>,
     admin: <Admin/>,

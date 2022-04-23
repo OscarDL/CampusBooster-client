@@ -1,9 +1,21 @@
 import { values } from './utils';
 import { AzureData, User } from './types/user';
-import { SupportedLangs } from './types/settings';
+import { LinkTypes, SupportedLangs } from './types/settings';
 
 
-// Retrieve languages currently supported in Campus Booster
+/* --- SETTINGS --- */
+
+// Retrieve current user settings from local storage
+export const getLocalStorageSettings = (): any => JSON.parse(localStorage.getItem('settings') || '{}');
+
+// Update user settings in local storage
+export const updateLocalStorageSettings = (key: string, value: any): void => {
+  const settings = getLocalStorageSettings();
+  settings[key] = value;
+  localStorage.setItem('settings', JSON.stringify(settings));
+};
+
+// Retrieve current user language
 export const getCurrentLang = (): SupportedLangs => {
   const savedLang = localStorage.getItem('lang') as SupportedLangs;
 
@@ -12,6 +24,35 @@ export const getCurrentLang = (): SupportedLangs => {
   }
 
   return savedLang as SupportedLangs;
+};
+
+// Retrieve current user theme
+export const getCurrentAppTheme = (givenTheme?: string): 'light' | 'dark' => {
+  const settings = getLocalStorageSettings();
+  if (!givenTheme) givenTheme = settings.theme ?? 'system';
+
+  switch (givenTheme) {
+    case 'light': return 'light';
+    case 'dark': return 'dark';
+
+    default: { // We can leave the 'system' case out as `default` acts the same way.
+      const darkTheme = window.matchMedia('(prefers-color-scheme: dark)');
+      return darkTheme.matches ? 'dark' : 'light';
+    };
+  }
+};
+
+// Retrieve current user link type
+export const getCurrentLinkType = (linkType?: string): LinkTypes => {
+  const settings = getLocalStorageSettings();
+  if (!linkType) linkType = settings.linkType ?? 'default';
+
+  switch (linkType) {
+    case 'bold': return 'bold';
+    case 'underline': return 'underline';
+    case 'bold-underline': return 'bold-underline';
+    default: return 'default';
+  }
 };
 
 
@@ -26,22 +67,6 @@ export const getLoggedInAuthState = (state: RootState) => ({
 export const getCategoryTitle = () => (
   window.location.pathname.replace('/', '').split('/')[0] + '.title'
 );
-
-
-// Retrieve current user theme
-export const getCurrentTheme = (givenTheme?: string): 'light' | 'dark' => {
-  if (!givenTheme) givenTheme = localStorage.getItem('theme') ?? 'system';
-
-  switch (givenTheme) {
-    case 'light': return 'light';
-    case 'dark': return 'dark';
-
-    default: { // We can leave the 'system' case out as `default` acts the same way.
-      const darkTheme = window.matchMedia('(prefers-color-scheme: dark)');
-      return darkTheme.matches ? 'dark' : 'light';
-    };
-  }
-};
 
 
 // Retrieve categories accessible by current user

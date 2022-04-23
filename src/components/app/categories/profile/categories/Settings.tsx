@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,14 +6,18 @@ import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@m
 
 import { values } from '../../../../../shared/utils';
 import { ContentHeader } from '../../../../shared/content';
-import { setNewLang, setNewTheme } from '../../../../../store/features/app/slice';
-import { SupportedLangs, SupportedThemes } from '../../../../../shared/types/settings';
+import { useStateWithCallback } from '../../../../../shared/hooks';
+import { getLocalStorageSettings } from '../../../../../shared/functions';
+import { setNewLang, setDarkTheme, setLinkType } from '../../../../../store/features/app/slice';
+import { LinkTypes, SupportedLangs, SupportedThemes } from '../../../../../shared/types/settings';
 
 import Container from '../../../../shared/container';
 
 
-const getCurrentTheme = (): SupportedThemes => {
-  switch (localStorage.getItem('theme')) {
+const getCurrentSavedTheme = (): SupportedThemes => {
+  const settings = getLocalStorageSettings();
+
+  switch (settings.theme as SupportedThemes) {
     case 'dark': return 'dark';
     case 'light': return 'light';
     default: return 'system';
@@ -25,22 +29,23 @@ const Settings: FC = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { settings } = useSelector(state => state.app);
-  const [theme, setTheme] = useState<SupportedThemes>(getCurrentTheme());
+  const [theme, setTheme] = useStateWithCallback(getCurrentSavedTheme());
 
 
   const handleChangeLang = (e: SelectChangeEvent<SupportedLangs>) => {
     const newLang = e.target.value as SupportedLangs;
-
     dispatch(setNewLang(newLang));
     i18next.changeLanguage(newLang);
   };
 
   const handleChangeTheme = (e: SelectChangeEvent<SupportedThemes>) => {
     const theme = e.target.value as SupportedThemes;
+    setTheme(theme, () => dispatch(setDarkTheme(theme)));
+  };
 
-    setTheme(theme);
-    dispatch(setNewTheme(theme));
-    localStorage.setItem('theme', theme);
+  const handleChangeLinkType = (e: SelectChangeEvent<LinkTypes>) => {
+    const linkType = e.target.value as LinkTypes;
+    dispatch(setLinkType(linkType));
   };
 
 
@@ -82,6 +87,30 @@ const Settings: FC = () => {
           </MenuItem>
           <MenuItem value="dark">
             {t('profile.settings.theme.dark')}
+          </MenuItem>
+        </Select>
+      </FormControl>
+
+      <FormControl sx={{width: '100%', mt: 3}} size="small">
+        <InputLabel>{t('profile.settings.links.title')}</InputLabel>
+
+        <Select
+          className="select"
+          value={settings.linkType}
+          onChange={handleChangeLinkType}
+          label={t('profile.settings.links.title')}
+        >
+          <MenuItem value="default">
+            {t('profile.settings.links.default')}
+          </MenuItem>
+          <MenuItem value="bold">
+            {t('profile.settings.links.bold')}
+          </MenuItem>
+          <MenuItem value="underline">
+            {t('profile.settings.links.underline')}
+          </MenuItem>
+          <MenuItem value="bold-underline">
+            {t('profile.settings.links.bold-underline')}
           </MenuItem>
         </Select>
       </FormControl>

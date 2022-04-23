@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Members from '../../components/app/categories/members/Members';
+import Members from '../../components/app/categories/members';
 
 
 const MembersView: FC = () => {

@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Accounting from '../../components/app/categories/accounting/Accounting';
+import Accounting from '../../components/app/categories/accounting';
 
 
 const AccountingView: FC = () => {

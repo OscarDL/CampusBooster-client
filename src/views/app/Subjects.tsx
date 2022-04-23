@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Subjects from '../../components/app/categories/subjects/Subjects';
+import Subjects from '../../components/app/categories/subjects';
 
 
 const SubjectsView: FC = () => {

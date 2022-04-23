@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Summary from '../../components/app/categories/summary/Summary';
+import Summary from '../../components/app/categories/summary';
 
 
 const SummaryView: FC = () => {

@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Internships from '../../components/app/categories/internships/Internships';
+import Internships from '../../components/app/categories/internships';
 
 
 const InternshipsView: FC = () => {

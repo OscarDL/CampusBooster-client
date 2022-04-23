@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Admin from '../../components/app/categories/admin/Admin';
+import Admin from '../../components/app/categories/admin';
 
 
 const AdminView: FC = () => {

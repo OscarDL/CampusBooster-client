@@ -1,20 +1,19 @@
 .profile-view .content__body {
   gap: 1rem;
-  display: flex;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr 1fr;
 }
 
 .profile-view .content__body > * {
   flex: 1;
-}
-
-
-/* --- Profile --- */
-
-.profile-view .profile {
   gap: 1rem;
   display: flex;
   flex-direction: column;
 }
+
+
+/* --- Profile --- */
 
 .profile-view .profile > :last-child {
   flex-grow: 1;
@@ -60,11 +59,6 @@
 
 /* --- Settings & Tasks --- */
 
-.profile-view .settings-tasks {
-  gap: 1rem;
-  display: flex;
-  flex-direction: column;
-}
 .profile-view .settings-tasks > * {
   flex: 1;
 }

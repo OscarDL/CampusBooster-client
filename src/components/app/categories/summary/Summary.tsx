@@ -5,7 +5,7 @@ import Container from '../../../shared/container';
 import { getFakeCredits } from '../../../../shared/fake/data';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 
-import ECTS from './ECTS';
+import ECTS from './categories/ECTS';
 import Loader from '../../../shared/loader';
 
 import './Summary.css';

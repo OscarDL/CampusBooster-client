@@ -2,8 +2,8 @@ import { Doughnut } from 'react-chartjs-2';
 import { useTranslation } from 'react-i18next';
 import { FC, useEffect, useMemo, useState } from 'react';
 
-import { ContentHeader } from '../../../shared/content';
-import { getDonutChartOptions, getLayoutPosition } from './utils';
+import { ContentHeader } from '../../../../shared/content';
+import { getDonutChartOptions, getLayoutPosition } from '../utils';
 
 
 import { Chart, ArcElement, Tooltip, Legend, LayoutPosition } from 'chart.js';

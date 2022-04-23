@@ -25,7 +25,7 @@ export const values = {
     'subjects',
     'marks',
     'members',
-    'absences',
+    'calendar',
     'internships',
     'accounting',
     'admin',

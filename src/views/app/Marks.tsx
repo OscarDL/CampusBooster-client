@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Marks from '../../components/app/categories/marks/Marks';
+import Marks from '../../components/app/categories/marks';
 
 
 const MarksView: FC = () => {

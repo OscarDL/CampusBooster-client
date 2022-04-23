@@ -6,10 +6,10 @@ import { LogoutButton } from '../../../../azure/auth/Buttons';
 import { getLoggedInAuthState } from '../../../../shared/functions';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 
+import Links from './categories/Links';
 import Account from './categories/Account';
 import Settings from './categories/Settings';
 import Dropdown from '../../../shared/dropdown';
-import Container from '../../../shared/container';
 
 import './Profile.css';
 
@@ -33,10 +33,7 @@ const Profile: FC = () => {
 
         <div className="settings-tasks">
           <Settings/>
-
-          <Container>
-            Category
-          </Container>
+          <Links/>
         </div>
       </ContentBody>
     </>

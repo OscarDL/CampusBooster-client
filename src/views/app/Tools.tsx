@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Tools from '../../components/app/categories/tools/Tools';
+import Tools from '../../components/app/categories/tools';
 
 
 const ToolsView: FC = () => {

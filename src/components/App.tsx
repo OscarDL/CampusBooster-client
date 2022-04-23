@@ -16,6 +16,14 @@ import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 
+const cleanLinkTypeClass = (root: HTMLElement) => {
+  for (let i = 0; i < root.classList.length; i++) {
+    const className = root.classList[i];
+    if (className.startsWith('link-')) root.classList.remove(className);
+  };
+};
+
+
 const App: FC = () => {
   const dispatch = useDispatch();
   const { accounts: [azureData] } = useMsal();
@@ -23,9 +31,21 @@ const App: FC = () => {
   const { user } = useSelector((state) => state.auth);
   const { settings } = useSelector((state) => state.app);
 
-  const darkTheme = settings.darkTheme;
+
+  useEffect(() => {
+    if (!user && azureData) {
+      dispatch(login(azureData));
+    }
+
+    if (user) {
+      dispatch(setCategory(getCategoryTitle()));
+    }
+  }, [azureData, user, dispatch]);
 
 
+  const { darkTheme, linkType } = settings;
+
+  // Keep classes on HTML root element up-to-date
   useEffect(() => {
     const root = document.documentElement;
 
@@ -37,14 +57,11 @@ const App: FC = () => {
   }, [darkTheme]);
 
   useEffect(() => {
-    if (!user && azureData) {
-      dispatch(login(azureData));
-    }
+    const root = document.documentElement;
 
-    if (user) {
-      dispatch(setCategory(getCategoryTitle()));
-    }
-  }, [azureData, user, dispatch]);
+    cleanLinkTypeClass(root);
+    if (linkType !== 'default') root.classList.add('link-' + linkType);
+  }, [linkType]);
 
 
   return (

@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Profile from '../../components/app/categories/profile/Profile';
+import Profile from '../../components/app/categories/profile';
 
 
 const ProfileView: FC = () => {
