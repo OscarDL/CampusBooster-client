@@ -2,31 +2,46 @@
   gap: 1rem;
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: auto 1fr;
+  grid-template: auto / auto 1fr;
 }
 
 .calendar-view .content__body > * {
   flex: 1;
 }
 
-
-#absences-date {
-  padding: 0.6rem 0.8rem;
+.calendar-view .container .content__header {
+  justify-content: flex-start;
 }
-#absences-date + * > button {
-  padding: 0.4rem;
+.calendar-view .container.hide-calendar > .content__header ~ .MuiPickerStaticWrapper-root {
+  display: none;
+}
+
+.calendar-view .container:first-child {
+  padding-bottom: 0;
+}
+.calendar-view .MuiPickerStaticWrapper-root {
+  margin-bottom: 1rem;
+}
+
+#hide-calendar-btn {
+  display: none;
 }
 
 
-/* Up to: Tablets (intermediate) */
-@media (max-width: 900px) {
-  .MuiPickerStaticWrapper-root .PrivatePickersToolbar-root {
-    display: flex !important;
-  }
-
+/* Up to: Tablets (landscape) */
+@media (max-width: 1024px) {
   .calendar-view .content__body {
     flex-grow: unset;
     grid-auto-flow: row;
-    grid-template-columns: none;
+    grid-template: auto 1fr / auto;
+  }
+  #hide-calendar-btn {
+    display: flex;
+  }
+}
+
+@media (min-width: 1025px) {
+  .calendar-view .MuiCalendarPicker-root {
+    min-width: 288px;
   }
 }

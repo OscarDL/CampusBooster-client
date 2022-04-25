@@ -18,6 +18,22 @@ export const muiTheme = createTheme({
       }
     },
 
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          ':hover': {
+            color: colors.accent
+          },
+          ':focus': {
+            color: colors.accent
+          },
+          '> span[class*="material-icons"]': {
+            transition: '0s'
+          }
+        }
+      }
+    },
+
     MuiSelect: {
       styleOverrides: {
         icon: {

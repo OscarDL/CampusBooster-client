@@ -2,7 +2,7 @@ import { SupportedLangs } from './types/settings';
 
 
 export const colors = {
-  accent: '#3b2f92',
+  accent: '#503cb4',
   accentRGB: '80, 60, 180'
 };
 

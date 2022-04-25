@@ -242,7 +242,7 @@ body .tippy-content > div {
 }
 
 
-/* --- Material-UI custom styling - adding "body" makes the custom styling higher in priority for CSS --- */
+/* --- Material-UI custom styling - "body" for higher specificity CSS detection --- */
 
 /* Mui Select header */
 body .select > .MuiInputBase-input {
@@ -263,7 +263,7 @@ body .MuiOutlinedInput-root.Mui-focused .material-icons-outlined {
   color: rgb(var(--accent-color)) !important;
 }
 body div[role="tooltip"] .MuiInputLabel-root.Mui-focused {
-  color: #3f51b5 !important;
+  color: rgb(var(--accent-color)) !important;
 }
 
 /* Mui Calendar Picker */
@@ -278,11 +278,44 @@ body .MuiPickerStaticWrapper-root .MuiCalendarPicker-root {
   margin: unset;
 }
 
-body .PrivateDatePickerToolbar-penIcon {
-  top: 0;
-  left: 1rem;
+body .MuiCalendarPicker-root div[role="presentation"] {
+  max-height: fit-content;
+}
+body .MuiCalendarPicker-root div[role="presentation"] + div {
+  transition: opacity 0s !important;
+}
+body .MuiPickerStaticWrapper-root,
+body .MuiPickerStaticWrapper-root > div > :last-child,
+body .MuiPickerStaticWrapper-root .MuiCalendarPicker-root {
+  width: unset;
+  min-width: 236px;
 }
 
+body .PrivateDatePickerToolbar-penIcon {
+  top: 0 !important;
+  margin-left: 1rem;
+}
+body .PrivateDatePickerToolbar-penIcon:hover,
+body .PrivateDatePickerToolbar-penIcon:focus {
+  color: rgb(var(--accent-color));
+}
+
+body .MuiYearPicker-root {
+  margin: 0;
+  max-width: 288px;
+}
+body .PrivatePickersYear-yearButton {
+  padding: unset;
+}
+body .PrivatePickersSlideTransition-root {
+  min-height: unset;
+}
+
+body .MuiPickersDay-root {
+  padding-top: 1px;
+}
+
+/* Mui Text inputs */
 body .MuiOutlinedInput-root {
   border-radius: var(--radius-small);
 }
@@ -308,17 +341,6 @@ body button.MuiButton-root.Mui-disabled {
 }
 body button.MuiButton-root.Mui-disabled [class*="material-icons"] {
   color: initial;
-}
-
-/* Mui Calendar Picker */
-body .MuiCalendarPicker-root div[role="presentation"] {
-  max-height: fit-content;
-}
-body .MuiPickerStaticWrapper-root,
-body .MuiPickerStaticWrapper-root > div > :last-child,
-body .MuiPickerStaticWrapper-root .MuiCalendarPicker-root {
-  width: unset;
-  min-width: unset;
 }
 
 /* Make primary buttons text bigger */
@@ -433,12 +455,16 @@ span[class*="material-icons"]:hover, span[class*="material-icons"]:focus, span[c
 @media (max-width: 768px) {
   /* We might need to not do that */
   ::-webkit-scrollbar {
-    width: 0px;
+    width: 0;
+    height: 0;
   }
 }
 
 /* Up to: Tablets (landscape) */
 @media (max-width: 1024px) {
+  .MuiPickerStaticWrapper-root .PrivatePickersToolbar-root {
+    display: flex !important;
+  }
 }
 
 /* Laptops & Desktops */

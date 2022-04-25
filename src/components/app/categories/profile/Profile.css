@@ -2,7 +2,7 @@
   gap: 1rem;
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: 1fr 1fr;
+  grid-template: auto / 1fr 1fr;
 }
 
 .profile-view .content__body > * {
@@ -97,6 +97,6 @@
   .profile-view .content__body {
     flex-grow: unset;
     grid-auto-flow: row;
-    grid-template-columns: none;
+    grid-template: 1fr 1fr / auto;
   }
 }
