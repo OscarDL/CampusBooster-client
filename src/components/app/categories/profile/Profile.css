@@ -96,6 +96,7 @@
 @media (max-width: 1024px) {
   .profile-view .content__body {
     flex-grow: unset;
-    flex-direction: column;
+    grid-auto-flow: row;
+    grid-template-columns: none;
   }
 }

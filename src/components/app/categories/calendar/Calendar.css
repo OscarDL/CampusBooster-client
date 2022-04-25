@@ -2,7 +2,7 @@
   gap: 1rem;
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: auto 1fr;
 }
 
 .calendar-view .content__body > * {
@@ -10,10 +10,23 @@
 }
 
 
-/* Up to: Tablets (landscape) */
-@media (max-width: 1024px) {
+#absences-date {
+  padding: 0.6rem 0.8rem;
+}
+#absences-date + * > button {
+  padding: 0.4rem;
+}
+
+
+/* Up to: Tablets (intermediate) */
+@media (max-width: 900px) {
+  .MuiPickerStaticWrapper-root .PrivatePickersToolbar-root {
+    display: flex !important;
+  }
+
   .calendar-view .content__body {
     flex-grow: unset;
-    flex-direction: column;
+    grid-auto-flow: row;
+    grid-template-columns: none;
   }
 }

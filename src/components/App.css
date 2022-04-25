@@ -1,3 +1,47 @@
+/* ----- Global variables ----- */
+
+:root {
+  --opacity-font: 0.65;
+  --opacity-disabled: 0.5;
+
+  --radius-small: 0.33rem;
+  --radius-medium: 0.66rem;
+  --radius-large: 1rem;
+  --radius-round: 50%;
+
+  --z-index-dropdown: 2;
+  --z-index-prompt: 3;
+  --z-index-rmsc: 4;
+  --z-index-mui-tooltip: 5;
+
+  --header-height: 5rem;
+  --mobile-drawer-screen-width: 768px;
+
+  --text-color: 0, 0, 0;
+
+  --theme-bg: 255, 255, 255;
+  --theme-bg-pink: 186, 143, 247;
+  --theme-bg-purp: 152, 141, 224;
+  --theme-bg-blue: 143, 157, 247;
+  --theme-bg-cyan: 138, 177, 237;
+  --theme-bg-gradient: rgb(var(--theme-bg-pink)), rgb(var(--theme-bg-purp)), rgb(var(--theme-bg-blue)), rgb(var(--theme-bg-cyan));
+
+  --card-bg: 248, 248, 248;
+  --button-bg: 240, 240, 240;
+  --accent-color: 80, 60, 180;
+  --divider-color: 220, 220, 220;
+  --scrollbar-background: 100, 100, 100;
+}
+
+:root.dark {
+  /*
+    --theme-bg: 20, 20, 20;
+  */
+}
+
+
+/* ----- Global changes ----- */
+
 * {
   margin: 0;
   box-sizing: border-box;
@@ -42,48 +86,6 @@ code {
 }
 ::-webkit-scrollbar-thumb:hover {
   background-color: rgba(var(--scrollbar-background), 0.75);
-}
-
-
-/* ----- Global variables ----- */
-
-:root {
-  --opacity-font: 0.65;
-  --opacity-disabled: 0.5;
-
-  --radius-small: 0.33rem;
-  --radius-medium: 0.66rem;
-  --radius-large: 1rem;
-  --radius-round: 50%;
-
-  --z-index-dropdown: 2;
-  --z-index-prompt: 3;
-  --z-index-rmsc: 4;
-  --z-index-mui-tooltip: 5;
-
-  --header-height: 5rem;
-  --mobile-drawer-screen-width: 768px;
-
-  --text-color: 0, 0, 0;
-
-  --theme-bg: 255, 255, 255;
-  --theme-bg-pink: 186, 143, 247;
-  --theme-bg-purp: 152, 141, 224;
-  --theme-bg-blue: 143, 157, 247;
-  --theme-bg-cyan: 138, 177, 237;
-  --theme-bg-gradient: rgb(var(--theme-bg-pink)), rgb(var(--theme-bg-purp)), rgb(var(--theme-bg-blue)), rgb(var(--theme-bg-cyan));
-
-  --card-bg: 248, 248, 248;
-  --button-bg: 240, 240, 240;
-  --accent-color: 80, 60, 180;
-  --divider-color: 220, 220, 220;
-  --scrollbar-background: 100, 100, 100;
-}
-
-:root.dark {
-  /*
-    --theme-bg: 20, 20, 20;
-  */
 }
 
 
@@ -264,6 +266,23 @@ body div[role="tooltip"] .MuiInputLabel-root.Mui-focused {
   color: #3f51b5 !important;
 }
 
+/* Mui Calendar Picker */
+body .MuiPickerStaticWrapper-root .PrivatePickersToolbar-root {
+  display: none;
+}
+body .MuiPickerStaticWrapper-root > div {
+  align-items: flex-start;
+}
+body .MuiPickerStaticWrapper-root > div > :last-child,
+body .MuiPickerStaticWrapper-root .MuiCalendarPicker-root {
+  margin: unset;
+}
+
+body .PrivateDatePickerToolbar-penIcon {
+  top: 0;
+  left: 1rem;
+}
+
 body .MuiOutlinedInput-root {
   border-radius: var(--radius-small);
 }
@@ -289,6 +308,17 @@ body button.MuiButton-root.Mui-disabled {
 }
 body button.MuiButton-root.Mui-disabled [class*="material-icons"] {
   color: initial;
+}
+
+/* Mui Calendar Picker */
+body .MuiCalendarPicker-root div[role="presentation"] {
+  max-height: fit-content;
+}
+body .MuiPickerStaticWrapper-root,
+body .MuiPickerStaticWrapper-root > div > :last-child,
+body .MuiPickerStaticWrapper-root .MuiCalendarPicker-root {
+  width: unset;
+  min-width: unset;
 }
 
 /* Make primary buttons text bigger */

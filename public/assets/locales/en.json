@@ -132,6 +132,7 @@
 
   "calendar": {
     "title": "Calendar",
+    "label": "Choose date",
     "icon": "calendar_month",
 
     "homework": {

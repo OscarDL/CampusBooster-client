@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import i18next from 'i18next';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -10,9 +11,10 @@ import { PublicClientApplication } from '@azure/msal-browser';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 import { store } from './store/store';
-import { values } from './shared/utils';
+import { dayjsLocales, values } from './shared/utils';
 import { muiTheme } from './shared/theme';
 import { msalConfig } from './azure/auth/config';
+import { getCurrentLang } from './shared/functions';
 
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
@@ -55,6 +57,10 @@ const loading = {
 
 // Create a new MSAL instance for Azure authentication
 const msalInstance = new PublicClientApplication(msalConfig);
+
+
+// Set dayjs instance locale as current user language
+dayjsLocales[getCurrentLang()]().then((d) => dayjs.locale(d.name));
 
 
 ReactDOM.render(

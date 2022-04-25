@@ -107,6 +107,7 @@
 
   "calendar": {
     "title": "Calendrier",
+    "label": "Choisissez une date",
 
     "homework": {
       "title": "Devoirs à faire"
@@ -236,5 +237,5 @@
     "title": "Administration"
   },
 
-  "dayjs-format": "DD MMM. YYYY"
+  "dayjs-format": "DD MMM YYYY"
 }

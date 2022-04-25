@@ -18,8 +18,8 @@ const Calendar: FC = () => {
       <ContentHeader title={t('calendar.title')}/>
 
       <ContentBody>
-        <Homework/>
         <Absences/>
+        <Homework/>
       </ContentBody>
     </>
   );

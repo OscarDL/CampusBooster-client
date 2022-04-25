@@ -7,6 +7,12 @@ export const colors = {
 };
 
 
+export const dayjsLocales = {
+  en: () => import('dayjs/locale/en'),
+  fr: () => import('dayjs/locale/fr')
+};
+
+
 const supportedLangs: SupportedLangs[] = ['en', 'fr'];
 export const values = {
   supportedLangs,
