@@ -281,9 +281,6 @@ body .MuiPickerStaticWrapper-root .MuiCalendarPicker-root {
 body .MuiCalendarPicker-root div[role="presentation"] {
   max-height: fit-content;
 }
-body .MuiCalendarPicker-root div[role="presentation"] + div {
-  transition: opacity 0s !important;
-}
 body .MuiPickerStaticWrapper-root,
 body .MuiPickerStaticWrapper-root > div > :last-child,
 body .MuiPickerStaticWrapper-root .MuiCalendarPicker-root {
@@ -300,19 +297,19 @@ body .PrivateDatePickerToolbar-penIcon:focus {
   color: rgb(var(--accent-color));
 }
 
+body .MuiPickersDay-root {
+  padding-top: 1px;
+}
 body .MuiYearPicker-root {
   margin: 0;
   max-width: 288px;
 }
+
 body .PrivatePickersYear-yearButton {
   padding: unset;
 }
 body .PrivatePickersSlideTransition-root {
-  min-height: unset;
-}
-
-body .MuiPickersDay-root {
-  padding-top: 1px;
+  padding: 0 4px;
 }
 
 /* Mui Text inputs */

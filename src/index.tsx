@@ -7,14 +7,15 @@ import { MsalProvider } from '@azure/msal-react';
 import { initReactI18next } from 'react-i18next';
 import LoadTranslations from 'i18next-http-backend';
 import { ThemeProvider } from '@mui/material/styles';
+import { PersistGate } from 'redux-persist/integration/react';
 import { PublicClientApplication } from '@azure/msal-browser';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-import { store } from './store/store';
-import { dayjsLocales, values } from './shared/utils';
 import { muiTheme } from './shared/theme';
 import { msalConfig } from './azure/auth/config';
+import { store, persistor } from './store/store';
 import { getCurrentLang } from './shared/functions';
+import { dayjsLocales, values } from './shared/utils';
 
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
@@ -67,11 +68,13 @@ ReactDOM.render(
   <React.StrictMode>
     <Suspense fallback={<div style={loading}/>}>
       <Provider store={store}>
-        <MsalProvider instance={msalInstance}>
-          <ThemeProvider theme={muiTheme}>
-            <App/>  
-          </ThemeProvider>
-        </MsalProvider>
+        <PersistGate persistor={persistor}>
+          <MsalProvider instance={msalInstance}>
+            <ThemeProvider theme={muiTheme}>
+              <App/>  
+            </ThemeProvider>
+          </MsalProvider>
+        </PersistGate>
       </Provider>
     </Suspense>
   </React.StrictMode>,

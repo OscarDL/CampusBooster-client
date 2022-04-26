@@ -26,9 +26,6 @@ export const muiTheme = createTheme({
           },
           ':focus': {
             color: colors.accent
-          },
-          '> span[class*="material-icons"]': {
-            transition: '0s'
           }
         }
       }
