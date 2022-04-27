@@ -60,12 +60,10 @@ const Absences: FC = () => {
   return (
     // StaticDatePicker doesn't have a style attribute, so we can
     // hide it conditionally using CSS and this container's class
-    <Container className={showDatePicker ? '' : 'hide-calendar'}>
+    <Container className={showDatePicker ? 'picker' : 'picker hide'}>
       <ContentHeader title={dayjs(selected).format(t('dayjs-format'))}>
         <IconButton id="hide-calendar-btn" onClick={toggleDatePicker}>
-          <span className="material-icons"
-            style={{transform: `rotateZ(${showDatePicker ? 0 : -180}deg)`}}
-          >
+          <span className="material-icons" style={{transform: `rotateZ(${showDatePicker ? 0 : -180}deg)`}}>
             expand_less
           </span>
         </IconButton>

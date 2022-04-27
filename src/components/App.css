@@ -270,15 +270,9 @@ body div[role="tooltip"] .MuiInputLabel-root.Mui-focused {
 body .MuiPickerStaticWrapper-root .PrivatePickersToolbar-root {
   display: none;
 }
-body .MuiPickerStaticWrapper-root > div {
-  align-items: flex-start;
-}
-body .MuiPickerStaticWrapper-root > div > :last-child,
-body .MuiPickerStaticWrapper-root .MuiCalendarPicker-root {
-  margin: unset;
-}
 
 body .MuiCalendarPicker-root div[role="presentation"] {
+  user-select: none;
   max-height: fit-content;
 }
 body .MuiPickerStaticWrapper-root,
@@ -288,13 +282,11 @@ body .MuiPickerStaticWrapper-root .MuiCalendarPicker-root {
   min-width: 236px;
 }
 
-body .PrivateDatePickerToolbar-penIcon {
-  top: 0 !important;
-  margin-left: 1rem;
+body .MuiCalendarPicker-viewTransitionContainer {
+  overflow-y: hidden;
 }
-body .PrivateDatePickerToolbar-penIcon:hover,
-body .PrivateDatePickerToolbar-penIcon:focus {
-  color: rgb(var(--accent-color));
+body .MuiCalendarPicker-viewTransitionContainer > div > :first-child:not(.MuiYearPicker-root) {
+  padding: 0 4px;
 }
 
 body .MuiPickersDay-root {
@@ -307,9 +299,6 @@ body .MuiYearPicker-root {
 
 body .PrivatePickersYear-yearButton {
   padding: unset;
-}
-body .PrivatePickersSlideTransition-root {
-  padding: 0 4px;
 }
 
 /* Mui Text inputs */

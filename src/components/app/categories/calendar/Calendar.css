@@ -9,8 +9,9 @@
   flex: 1;
 }
 
-.calendar-view .container.hide-calendar > .content__header ~ .MuiPickerStaticWrapper-root {
+.calendar-view .container.picker.hide > .content__header ~ .MuiPickerStaticWrapper-root {
   display: none;
+  justify-content: center;
 }
 
 .calendar-view .container:first-child {
