@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 
 import { ContentBody, ContentHeader } from '../../../shared/content';
 
-import Absences from './categories/Absences';
 import Homework from './categories/Homework';
+import CalendarPicker from './categories/Picker';
 
 import './Calendar.css';
 
@@ -18,7 +18,7 @@ const Calendar: FC = () => {
       <ContentHeader title={t('calendar.title')}/>
 
       <ContentBody>
-        <Absences/>
+        <CalendarPicker/>
         <Homework/>
       </ContentBody>
     </>

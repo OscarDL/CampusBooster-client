@@ -9,9 +9,6 @@
   flex: 1;
 }
 
-.calendar-view .container .content__header {
-  justify-content: flex-start;
-}
 .calendar-view .container.hide-calendar > .content__header ~ .MuiPickerStaticWrapper-root {
   display: none;
 }

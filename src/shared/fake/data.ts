@@ -120,3 +120,37 @@ export const getFakeCredits = () => ([
     earned: 0
   }
 ]);
+
+
+export const getFakeCalendar = () => ({
+  planning: [{
+    course: '4CCNA',
+    type: 'course',
+    dates: [
+      new Date(1647244800000),
+      new Date(1647331200000),
+      new Date(1647417600000)
+    ]
+  }, {
+    course: '4KUBE',
+    type: 'course',
+    dates: [
+      new Date(1647849600000),
+      new Date(1647936000000)
+    ]
+  }, {
+    course: '4ENGL',
+    type: 'exam',
+    dates: [
+      new Date(1648022400000)
+    ]
+  }],
+
+  absences: [{
+    course: '4EDAP',
+    type: 'absence',
+    dates: [
+      new Date(1648710000)
+    ]
+  }]
+});
