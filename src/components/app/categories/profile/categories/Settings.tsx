@@ -8,7 +8,7 @@ import { values } from '../../../../../shared/utils';
 import { ContentHeader } from '../../../../shared/content';
 import { useStateWithCallback } from '../../../../../shared/hooks';
 import { getLocalStorageSettings } from '../../../../../shared/functions';
-import { setNewLang, setDarkTheme, setLinkType } from '../../../../../store/features/app/slice';
+import { setNewLang, setAppTheme, setLinkType } from '../../../../../store/features/app/slice';
 import { LinkTypes, SupportedLangs, SupportedThemes } from '../../../../../shared/types/settings';
 
 import Container from '../../../../shared/container';
@@ -40,7 +40,7 @@ const Settings: FC = () => {
 
   const handleChangeTheme = (e: SelectChangeEvent<SupportedThemes>) => {
     const theme = e.target.value as SupportedThemes;
-    setTheme(theme, () => dispatch(setDarkTheme(theme)));
+    setTheme(theme, () => dispatch(setAppTheme(theme)));
   };
 
   const handleChangeLinkType = (e: SelectChangeEvent<LinkTypes>) => {

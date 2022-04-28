@@ -5,6 +5,6 @@ export type LinkTypes = 'default' | 'bold' | 'underline' | 'bold-underline';
 
 export type Settings = {
   lang: SupportedLangs,
-  linkType: LinkTypes,
-  darkTheme: boolean
+  theme: SupportedThemes,
+  linkType: LinkTypes
 };

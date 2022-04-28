@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { FC, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IconButton, TextField } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -7,12 +7,12 @@ import { StaticDatePicker, LocalizationProvider, PickersDay } from '@mui/x-date-
 
 import { ContentHeader } from '../../../../shared/content';
 import { RenderDay } from '../../../../../shared/types/calendar';
+import { getFakeCalendar } from '../../../../../shared/fake/data';
+import { Course, CourseType } from '../../../../../shared/types/course';
 
 import Container from '../../../../shared/container';
-import { getFakeCalendar } from '../../../../../shared/fake/data';
 
 
-type DateTypes = 'absence' | 'exam' | 'course' | 'entreprise' | 'none';
 const dateColor = {
   absence: 'red',
   exam: 'purple',
@@ -21,10 +21,14 @@ const dateColor = {
   none: 'transparent'
 };
 
+type Props = {
+  setCourses: React.Dispatch<React.SetStateAction<Course[]>>
+};
 
-const Absences: FC = () => {
+
+const Absences: FC<Props> = ({setCourses}) => {
   const { t } = useTranslation();
-  const [dates] = useState(getFakeCalendar());
+  const [calendarData] = useState(getFakeCalendar());
   const [showDatePicker, setShowDatePicker] = useState(true);
   const [selected, setSelected] = useState<dayjs.Dayjs | null>(dayjs());
 
@@ -32,29 +36,43 @@ const Absences: FC = () => {
   const toggleDatePicker = () => setShowDatePicker(showDp => !showDp);
 
   const renderDay: RenderDay = (day, _, props) => {
-    const dayInPlanning = dates.planning.find(date => (
-      date.dates.map(d => new Date(d.setHours(0)).toString()).includes(day.toDate().toString())
+    const dayInPlanning = calendarData.planning.find(date => (
+      date.dates?.map(d => new Date(d.setHours(0)).toString()).includes(day.toDate().toString())
     ));
-    const dayInAbsence = dates.absences.find(date => (
-      date.dates.map(d => new Date(d.setHours(0)).toString()).includes(day.toDate().toString())
+    const dayInAbsence = calendarData.absences.find(date => (
+      date.dates?.map(d => new Date(d.setHours(0)).toString()).includes(day.toDate().toString())
     ));
 
-    const dateType = (): DateTypes => {
-      if (dayInAbsence) return dayInAbsence.type as DateTypes;
-      else if (dayInPlanning) return dayInPlanning.type as DateTypes;
-      return 'none';
+    const courseType = (): CourseType => {
+      if (dayInAbsence) return dayInAbsence.type as CourseType;
+      else if (dayInPlanning) return dayInPlanning.type as CourseType;
+      return '';
     };
 
     return (
       <PickersDay
         day={day}
+        key={day.toString()}
         selected={props.selected}
         onDaySelect={props.onDaySelect}
         outsideCurrentMonth={props.outsideCurrentMonth}
-        style={props.selected ? {} : {backgroundColor: dateColor[dateType()]}}
+        style={props.selected ? {} : {backgroundColor: dateColor[courseType() || 'none']}}
       />
     );
   };
+
+  const handleChangeContent = useCallback((date: dayjs.Dayjs) => {
+    const data = calendarData.planning.filter(course => (
+      course.dates?.map(d => d.getMonth()).includes(date.month())
+    ));
+
+    setCourses(data);
+  }, [calendarData.planning, setCourses]);
+
+
+  useEffect(() => {
+    handleChangeContent(dayjs());
+  }, [handleChangeContent]);
 
 
   return (
@@ -72,10 +90,11 @@ const Absences: FC = () => {
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <StaticDatePicker
           value={selected}
-          onChange={setSelected}
           renderDay={renderDay}
+          onChange={setSelected}
           className="calendar-date-picker"
           displayStaticWrapperAs="desktop"
+          onMonthChange={handleChangeContent}
           maxDate={dayjs(new Date()).add(2, 'year')}
           minDate={dayjs(new Date()).subtract(5, 'year')}
           renderInput={(params) => <TextField {...params}/>}

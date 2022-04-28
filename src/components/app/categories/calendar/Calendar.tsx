@@ -1,6 +1,7 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { Course } from '../../../../shared/types/course';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 
 import Homework from './categories/Homework';
@@ -11,6 +12,7 @@ import './Calendar.css';
 
 const Calendar: FC = () => {
   const { t } = useTranslation();
+  const [courses, setCourses] = useState<Course[]>([]);
 
 
   return (
@@ -18,8 +20,8 @@ const Calendar: FC = () => {
       <ContentHeader title={t('calendar.title')}/>
 
       <ContentBody>
-        <CalendarPicker/>
-        <Homework/>
+        <CalendarPicker setCourses={setCourses}/>
+        <Homework courses={courses}/>
       </ContentBody>
     </>
   );

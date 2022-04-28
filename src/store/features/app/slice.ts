@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { dayjsLocales } from '../../../shared/utils';
 import { LinkTypes, Settings, SupportedLangs, SupportedThemes } from '../../../shared/types/settings';
-import { getCategoryTitle, getCurrentLang, getCurrentLinkType, getCurrentAppTheme, updateLocalStorageSettings } from '../../../shared/functions';
+import { getCategoryTitle, getLocalStorageSettings, updateLocalStorageSettings } from '../../../shared/functions';
 
 
 export type AppState = {
@@ -12,12 +12,14 @@ export type AppState = {
 };
 
 
+const settings = getLocalStorageSettings();
+
 const initialState: AppState = {
   category: getCategoryTitle(),
   settings: {
-    lang: getCurrentLang(),
-    linkType: getCurrentLinkType(),
-    darkTheme: getCurrentAppTheme() === 'dark'
+    lang: settings.lang ?? 'en',
+    theme: settings.theme ?? 'system',
+    linkType: settings.linkType ?? 'default'
   }
 };
 
@@ -44,9 +46,8 @@ const appSlice = createSlice({
     setCategory: (state, {payload}: {payload: string}) => {
       state.category = payload;
     },
-    setDarkTheme: (state, {payload}: {payload: SupportedThemes}) => {
-      const theme = getCurrentAppTheme(payload);
-      state.settings.darkTheme = theme === 'dark';
+    setAppTheme: (state, {payload}: {payload: SupportedThemes}) => {
+      state.settings.theme = payload;
       updateLocalStorageSettings('theme', payload);
     },
     setLinkType: (state, {payload}: {payload: LinkTypes}) => {
@@ -65,5 +66,5 @@ const appSlice = createSlice({
 });
 
 
-export const { setCategory, setDarkTheme, setLinkType } = appSlice.actions;
+export const { setCategory, setAppTheme, setLinkType } = appSlice.actions;
 export default appSlice.reducer;

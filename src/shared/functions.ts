@@ -1,15 +1,15 @@
 import { values } from './utils';
 import { AzureData, User } from './types/user';
-import { LinkTypes, SupportedLangs } from './types/settings';
+import { LinkTypes, Settings, SupportedLangs, SupportedThemes } from './types/settings';
 
 
 /* --- SETTINGS --- */
 
 // Retrieve current user settings from local storage
-export const getLocalStorageSettings = (): any => JSON.parse(localStorage.getItem('settings') || '{}');
+export const getLocalStorageSettings = () => JSON.parse(localStorage.getItem('settings') || '{}');
 
 // Update user settings in local storage
-export const updateLocalStorageSettings = (key: string, value: any): void => {
+export const updateLocalStorageSettings = (key: keyof Settings, value: any): void => {
   const settings = getLocalStorageSettings();
   settings[key] = value;
   localStorage.setItem('settings', JSON.stringify(settings));
@@ -26,22 +26,6 @@ export const getCurrentLang = (): SupportedLangs => {
   return savedLang as SupportedLangs;
 };
 
-// Retrieve current user theme
-export const getCurrentAppTheme = (givenTheme?: string): 'light' | 'dark' => {
-  const settings = getLocalStorageSettings();
-  if (!givenTheme) givenTheme = settings.theme ?? 'system';
-
-  switch (givenTheme) {
-    case 'light': return 'light';
-    case 'dark': return 'dark';
-
-    default: { // We can leave the 'system' case out as `default` acts the same way.
-      const darkTheme = window.matchMedia('(prefers-color-scheme: dark)');
-      return darkTheme.matches ? 'dark' : 'light';
-    };
-  }
-};
-
 // Retrieve current user link type
 export const getCurrentLinkType = (linkType?: string): LinkTypes => {
   const settings = getLocalStorageSettings();
@@ -52,6 +36,31 @@ export const getCurrentLinkType = (linkType?: string): LinkTypes => {
     case 'underline': return 'underline';
     case 'bold-underline': return 'bold-underline';
     default: return 'default';
+  }
+};
+
+// Update current user theme
+export const updateThemeHTML = (theme: SupportedThemes) => {
+  const root = document.documentElement;
+
+  switch (theme) {
+    case 'dark': {
+      root.classList.add('dark');
+      break;
+    }
+
+    case 'light': {
+      root.classList.remove('dark');
+      break;
+    }
+
+    default: {
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        root.classList.add('dark');
+      } else {
+        root.classList.remove('dark');
+      }
+    }
   }
 };
 

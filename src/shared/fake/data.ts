@@ -1,3 +1,6 @@
+import { Course } from '../types/course';
+
+
 export const getFakeCredits = () => ([
   {
     subject: '4KWSP',
@@ -122,33 +125,46 @@ export const getFakeCredits = () => ([
 ]);
 
 
-export const getFakeCalendar = () => ({
+type FakeCalendar = {
+  planning: Course[],
+  absences: Course[]
+};
+
+export const getFakeCalendar = (): FakeCalendar => ({
   planning: [{
-    course: '4CCNA',
+    credits: 4,
+    name: '4CCNA',
     type: 'course',
+    title: 'Cisco Networking Academy',
     dates: [
       new Date(1647244800000),
       new Date(1647331200000),
       new Date(1647417600000)
     ]
   }, {
-    course: '4KUBE',
+    credits: 2,
+    name: '4KUBE',
     type: 'course',
+    title: 'Kubernetes',
     dates: [
       new Date(1647849600000),
       new Date(1647936000000)
     ]
   }, {
-    course: '4ENGL',
+    credits: 3,
+    name: '4ENGL',
     type: 'exam',
+    title: 'English courses',
     dates: [
       new Date(1648022400000)
     ]
   }],
 
   absences: [{
-    course: '4EDAP',
+    credits: 2,
+    name: '4LIAL',
     type: 'absence',
+    title: 'Linear Algebra',
     dates: [
       new Date(1648710000)
     ]
