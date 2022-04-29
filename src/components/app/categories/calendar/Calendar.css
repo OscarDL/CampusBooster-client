@@ -9,11 +9,6 @@
   flex: 1;
 }
 
-.calendar-view .container.picker.hide > .content__header ~ .MuiPickerStaticWrapper-root {
-  display: none;
-  justify-content: center;
-}
-
 .calendar-view .container:first-child {
   padding-bottom: 0;
 }
@@ -26,6 +21,42 @@
 }
 
 
+/* Mui Calendar Picker */
+.calendar-view .MuiPickerStaticWrapper-root .PrivatePickersToolbar-root {
+  display: none;
+}
+
+.calendar-view .MuiCalendarPicker-root div[role="presentation"] {
+  user-select: none;
+  max-height: fit-content;
+}
+.calendar-view .MuiPickerStaticWrapper-root,
+.calendar-view .MuiPickerStaticWrapper-root > div > :last-child,
+.calendar-view .MuiPickerStaticWrapper-root .MuiCalendarPicker-root {
+  width: unset;
+  min-width: 236px;
+}
+
+.calendar-view .MuiCalendarPicker-viewTransitionContainer {
+  overflow-y: hidden;
+}
+.calendar-view .MuiCalendarPicker-viewTransitionContainer > div > :first-child:not(.MuiMonthPicker-root) {
+  padding: 0 4px;
+}
+
+.calendar-view .MuiPickersDay-root {
+  padding-top: 1px;
+}
+.calendar-view .MuiMonthPicker-root {
+  margin: 0;
+  max-width: 288px;
+}
+
+.calendar-view .PrivatePickersYear-yearButton {
+  padding: unset;
+}
+
+
 /* Up to: Tablets (landscape) */
 @media (max-width: 1024px) {
   .calendar-view .content__body {
@@ -33,8 +64,12 @@
     grid-auto-flow: row;
     grid-template: auto 1fr / auto;
   }
+
   #hide-calendar-btn {
     display: flex;
+  }
+  .calendar-view .container.picker.hide > .content__header ~ .MuiPickerStaticWrapper-root {
+    display: none;
   }
 }
 

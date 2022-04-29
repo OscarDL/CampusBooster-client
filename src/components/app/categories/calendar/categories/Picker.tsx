@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
-import { FC, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IconButton, TextField } from '@mui/material';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { StaticDatePicker, LocalizationProvider, PickersDay } from '@mui/x-date-pickers';
 
@@ -53,8 +53,8 @@ const Absences: FC<Props> = ({setCourses}) => {
       <PickersDay
         day={day}
         key={day.toString()}
+        onDaySelect={() => null}
         selected={props.selected}
-        onDaySelect={props.onDaySelect}
         outsideCurrentMonth={props.outsideCurrentMonth}
         style={props.selected ? {} : {backgroundColor: dateColor[courseType() || 'none']}}
       />
@@ -92,6 +92,7 @@ const Absences: FC<Props> = ({setCourses}) => {
           value={selected}
           renderDay={renderDay}
           onChange={setSelected}
+          views={['month', 'day']}
           className="calendar-date-picker"
           displayStaticWrapperAs="desktop"
           onMonthChange={handleChangeContent}

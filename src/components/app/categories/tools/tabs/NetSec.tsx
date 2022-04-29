@@ -6,7 +6,7 @@ import Tool from '../Tool';
 import { ToolLink } from '../../../../../shared/types/tools';
 
 
-const Security: FC = () => {
+const NetSec: FC = () => {
   const { t } = useTranslation();
 
   const links: ToolLink[] = t('tools.net-sec.links', {returnObjects: true});
@@ -29,4 +29,4 @@ const Security: FC = () => {
 };
 
 
-export default Security;
+export default NetSec;

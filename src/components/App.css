@@ -266,41 +266,6 @@ body div[role="tooltip"] .MuiInputLabel-root.Mui-focused {
   color: rgb(var(--accent-color)) !important;
 }
 
-/* Mui Calendar Picker */
-body .MuiPickerStaticWrapper-root .PrivatePickersToolbar-root {
-  display: none;
-}
-
-body .MuiCalendarPicker-root div[role="presentation"] {
-  user-select: none;
-  max-height: fit-content;
-}
-body .MuiPickerStaticWrapper-root,
-body .MuiPickerStaticWrapper-root > div > :last-child,
-body .MuiPickerStaticWrapper-root .MuiCalendarPicker-root {
-  width: unset;
-  min-width: 236px;
-}
-
-body .MuiCalendarPicker-viewTransitionContainer {
-  overflow-y: hidden;
-}
-body .MuiCalendarPicker-viewTransitionContainer > div > :first-child:not(.MuiYearPicker-root) {
-  padding: 0 4px;
-}
-
-body .MuiPickersDay-root {
-  padding-top: 1px;
-}
-body .MuiYearPicker-root {
-  margin: 0;
-  max-width: 288px;
-}
-
-body .PrivatePickersYear-yearButton {
-  padding: unset;
-}
-
 /* Mui Text inputs */
 body .MuiOutlinedInput-root {
   border-radius: var(--radius-small);

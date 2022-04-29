@@ -1,9 +1,10 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { TFunction } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import { Divider, Tab, Tabs } from '@mui/material';
 
 import { ContentBody, ContentHeader } from '../../../shared/content';
+import { DispatchWithCallback, useStateWithCallback } from '../../../../shared/hooks';
 
 import Dropdown from '../../../shared/dropdown';
 
@@ -18,7 +19,12 @@ import './Tools.css';
 type TabsProps = {
   tab: number,
   t: TFunction<'translation'>,
-  setTab: React.Dispatch<React.SetStateAction<number>>
+  setTab: DispatchWithCallback<React.SetStateAction<number>>
+};
+
+type TabDivProps = {
+  tab: number,
+  children: React.ReactNode
 };
 
 
@@ -36,6 +42,14 @@ const ToolTabs: FC<TabsProps> = ({t, tab, setTab}) => {
     title: t('tools.net-sec.tab'),
     icon: 'security'
   }];
+
+  const animateNewTab = (_: any, newTab: any) => {
+    setTab(newTab, () => {
+      const tabElement = document.getElementById('tools-tab-' + newTab);
+      const slideInAnimation = ', 0.33s tab-slide-in-' + (tab > newTab ? 'left' : 'right');
+      if (tabElement) tabElement.style.animation = tabElement.style.animation + slideInAnimation;
+    });
+  };
 
   return (
     <>
@@ -55,7 +69,7 @@ const ToolTabs: FC<TabsProps> = ({t, tab, setTab}) => {
           value={tab}
           variant="scrollable"
           scrollButtons={false}
-          onChange={(_, newTab) => setTab(newTab)}
+          onChange={animateNewTab}
         >
           {tabs.map((tab, i) => <Tab key={i} label={tab.title} style={{fontWeight: '500'}}/>)}
         </Tabs>
@@ -64,10 +78,21 @@ const ToolTabs: FC<TabsProps> = ({t, tab, setTab}) => {
   );
 };
 
+const TabDiv: FC<TabDivProps> = ({children, tab}) => (
+  <div
+    className="tools-tab"
+    id={`tools-tab-${tab}`}
+    // This needs to be inline style
+    style={{animation: '0.05s tab-hidden'}}
+  >
+    {children}
+  </div>
+);
+
 
 const Tools: FC = () => {
   const { t } = useTranslation();
-  const [tab, setTab] = useState(0);
+  const [tab, setTab] = useStateWithCallback(0);
 
   return (
     <>
@@ -76,11 +101,11 @@ const Tools: FC = () => {
       <ToolTabs t={t} tab={tab} setTab={setTab}/>
       <Divider/>
 
-      <ContentBody className="tools-tab">
-        {tab === 0 && <GeneralTab/>}
-        {tab === 1 && <DevelopmentTab/>}
-        {tab === 2 && <InfrastructureTab/>}
-        {tab === 3 && <NetSecTab/>}
+      <ContentBody>
+        {tab === 0 && <TabDiv tab={tab}><GeneralTab/></TabDiv>}
+        {tab === 1 && <TabDiv tab={tab}><DevelopmentTab/></TabDiv>}
+        {tab === 2 && <TabDiv tab={tab}><InfrastructureTab/></TabDiv>}
+        {tab === 3 && <TabDiv tab={tab}><NetSecTab/></TabDiv>}
       </ContentBody>
     </>
   );

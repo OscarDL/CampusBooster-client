@@ -2,7 +2,7 @@ import { SetStateAction, useEffect, useRef, useState } from 'react';
 
 
 type Callback<T> = (value: T) => void;
-type DispatchWithCallback<T> = (value: T, callback?: Callback<T>) => void;
+export type DispatchWithCallback<T> = (value: T, callback?: Callback<T>) => void;
 
 
 export const useStateWithCallback = <T>(initialState: T | (() => T)): [T, DispatchWithCallback<SetStateAction<T>>] => {
