@@ -3,7 +3,8 @@ import { SupportedLangs } from './types/settings';
 
 export const colors = {
   accent: '#503cb4',
-  accentRGB: '80, 60, 180'
+  accentRGB: '80, 60, 180',
+  datePicker: ['course', 'exam', 'absence', 'today']
 };
 
 

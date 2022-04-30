@@ -98,7 +98,7 @@
 }
 
 /* Up to: Small tablets */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   #mobile-drawer + .app__content .content__body {
     /* Show content above mobile drawer swipe area (+ 1rem visual gap + 0.25rem box-shadow) */
     padding-bottom: calc(80px + 1rem + 0.25rem) !important;

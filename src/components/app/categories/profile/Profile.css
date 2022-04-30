@@ -65,7 +65,7 @@
 
 
 /* Up to: Smartphones */
-@media (max-width: 480px) {
+@media (max-width: 479px) {
   /* .profile-view .content__body {
     padding: 0;
   }
@@ -93,7 +93,7 @@
 }
 
 /* Up to: Tablets (landscape) */
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   .profile-view .content__body {
     flex-grow: unset;
     grid-auto-flow: row;

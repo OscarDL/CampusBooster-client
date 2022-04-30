@@ -18,7 +18,7 @@
 
 
 /* Up to: Small tablets */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .summary-view .content__body {
     flex-direction: column;
   }

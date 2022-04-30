@@ -51,7 +51,7 @@ const Account: FC<Props> = ({user}) => {
         <ul>
           <li>
             {t('profile.account.birthday')}&nbsp;
-            <span style={{fontWeight: 'bolder'}}>{dayjs(user.birthday).format(t('dayjs-format'))}</span>
+            <span style={{fontWeight: 'bolder'}}>{dayjs(user.birthday).format(t('global.date-mmm-dd-yyyy'))}</span>
           </li>
 
           <li>

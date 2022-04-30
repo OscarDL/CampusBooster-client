@@ -31,6 +31,16 @@ export const muiTheme = createTheme({
       }
     },
 
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          height: '1px',
+          border: 'none',
+          backgroundColor: 'rgb(var(--divider-color))'
+        }
+      }
+    },
+
     MuiSelect: {
       styleOverrides: {
         icon: {

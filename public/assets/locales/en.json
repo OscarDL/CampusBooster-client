@@ -135,12 +135,19 @@
     "label": "Choose date",
     "icon": "calendar_month",
 
+    "details": {
+      "title": "Details for this month"
+    },
+
     "homework": {
       "title": "Homework"
     },
 
-    "absences": {
-      "title": "Past absences"
+    "colors": {
+      "exam": "Exam",
+      "today": "Today",
+      "course": "Course",
+      "absence": "Absence"
     }
   },
 
@@ -282,5 +289,9 @@
     "icon": "admin_panel_settings"
   },
 
-  "dayjs-format": "MMM. DD, YYYY"
+  "global": {
+    "colon": ":",
+    "date-mmmm-dd": "MMMM DD",
+    "date-mmm-dd-yyyy": "MMM. DD, YYYY"
+  }
 }

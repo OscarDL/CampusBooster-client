@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { Course } from '../../../../shared/types/course';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 
-import Homework from './categories/Homework';
 import CalendarPicker from './categories/Picker';
+import CalendarDetails from './categories/Details';
 
 import './Calendar.css';
 
@@ -21,7 +21,7 @@ const Calendar: FC = () => {
 
       <ContentBody>
         <CalendarPicker setCourses={setCourses}/>
-        <Homework courses={courses}/>
+        <CalendarDetails courses={courses}/>
       </ContentBody>
     </>
   );

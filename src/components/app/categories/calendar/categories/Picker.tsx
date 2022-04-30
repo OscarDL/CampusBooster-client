@@ -1,10 +1,11 @@
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
-import { IconButton, TextField } from '@mui/material';
 import { FC, useCallback, useEffect, useState } from 'react';
+import { Divider, IconButton, TextField } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { StaticDatePicker, LocalizationProvider, PickersDay } from '@mui/x-date-pickers';
 
+import { colors } from '../../../../../shared/utils';
 import { ContentHeader } from '../../../../shared/content';
 import { RenderDay } from '../../../../../shared/types/calendar';
 import { getFakeCalendar } from '../../../../../shared/fake/data';
@@ -13,20 +14,12 @@ import { Course, CourseType } from '../../../../../shared/types/course';
 import Container from '../../../../shared/container';
 
 
-const dateColor = {
-  absence: 'red',
-  exam: 'purple',
-  course: 'skyblue',
-  entreprise: 'blue',
-  none: 'transparent'
-};
-
 type Props = {
   setCourses: React.Dispatch<React.SetStateAction<Course[]>>
 };
 
 
-const Absences: FC<Props> = ({setCourses}) => {
+const Picker: FC<Props> = ({setCourses}) => {
   const { t } = useTranslation();
   const [calendarData] = useState(getFakeCalendar());
   const [showDatePicker, setShowDatePicker] = useState(true);
@@ -48,6 +41,10 @@ const Absences: FC<Props> = ({setCourses}) => {
       else if (dayInPlanning) return dayInPlanning.type as CourseType;
       return '';
     };
+    const dayStyle = {
+      color: courseType() && 'white',
+      backgroundColor: `var(--course-color-${courseType()})`
+    };
 
     return (
       <PickersDay
@@ -55,8 +52,8 @@ const Absences: FC<Props> = ({setCourses}) => {
         key={day.toString()}
         onDaySelect={() => null}
         selected={props.selected}
+        style={props.selected ? {} : dayStyle}
         outsideCurrentMonth={props.outsideCurrentMonth}
-        style={props.selected ? {} : {backgroundColor: dateColor[courseType() || 'none']}}
       />
     );
   };
@@ -71,15 +68,15 @@ const Absences: FC<Props> = ({setCourses}) => {
 
 
   useEffect(() => {
-    handleChangeContent(dayjs());
-  }, [handleChangeContent]);
+    selected && handleChangeContent(selected);
+  }, [handleChangeContent, selected]);
 
 
   return (
     // StaticDatePicker doesn't have a style attribute, so we can
     // hide it conditionally using CSS and this container's class
     <Container className={showDatePicker ? 'picker' : 'picker hide'}>
-      <ContentHeader title={dayjs(selected).format(t('dayjs-format'))}>
+      <ContentHeader title={dayjs(selected).format(t('global.date-mmm-dd-yyyy'))}>
         <IconButton id="hide-calendar-btn" onClick={toggleDatePicker}>
           <span className="material-icons" style={{transform: `rotateZ(${showDatePicker ? 0 : -180}deg)`}}>
             expand_less
@@ -87,13 +84,14 @@ const Absences: FC<Props> = ({setCourses}) => {
         </IconButton>
       </ContentHeader>
 
+      <Divider sx={{mb: '1rem'}}/>
+
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <StaticDatePicker
           value={selected}
           renderDay={renderDay}
           onChange={setSelected}
           views={['month', 'day']}
-          className="calendar-date-picker"
           displayStaticWrapperAs="desktop"
           onMonthChange={handleChangeContent}
           maxDate={dayjs(new Date()).add(2, 'year')}
@@ -101,9 +99,19 @@ const Absences: FC<Props> = ({setCourses}) => {
           renderInput={(params) => <TextField {...params}/>}
         />
       </LocalizationProvider>
+
+      <Divider sx={{mb: '1rem'}}/>
+
+      <div className="picker-legend">
+        {colors.datePicker.map(color => (
+          <div key={color} style={{backgroundColor: `var(--course-color-${color})`}}>
+            {t('calendar.colors.' + color)}
+          </div>
+        ))}
+      </div>
     </Container>
   );
 };
 
 
-export default Absences;
+export default Picker;

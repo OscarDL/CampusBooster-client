@@ -15,7 +15,7 @@
   --z-index-mui-tooltip: 5;
 
   --header-height: 5rem;
-  --mobile-drawer-screen-width: 768px;
+  --mobile-drawer-screen-width: 767px;
 
   --text-color: 0, 0, 0;
 
@@ -134,13 +134,6 @@ code {
 
 h2 {
   font-size: 1.5rem;
-}
-
-hr,
-body .MuiDivider-root {
-  height: 1px;
-  border: none;
-  background-color: rgb(var(--divider-color));
 }
 
 
@@ -395,15 +388,15 @@ span[class*="material-icons"]:hover, span[class*="material-icons"]:focus, span[c
 /* --- Media queries --- */
 
 /* Up to: Smartphones */
-@media (max-width: 480px) {
+@media (max-width: 479px) {
 }
 
 /* Up to: Tablets (portrait) */
-@media (max-width: 640px) {
+@media (max-width: 639px) {
 }
 
 /* Up to: Small tablets */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   /* We might need to not do that */
   ::-webkit-scrollbar {
     width: 0;
@@ -412,14 +405,14 @@ span[class*="material-icons"]:hover, span[class*="material-icons"]:focus, span[c
 }
 
 /* Up to: Tablets (landscape) */
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   .MuiPickerStaticWrapper-root .PrivatePickersToolbar-root {
     display: flex !important;
   }
 }
 
 /* Laptops & Desktops */
-@media (min-width: 1025px) {
+@media (min-width: 1024px) {
 }
 
 /* ----- End Global Custom CSS ----- */

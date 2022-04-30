@@ -1,4 +1,4 @@
-export type CourseType = 'absence' | 'exam' | 'course' | 'entreprise' | '';
+export type CourseType = 'absence' | 'exam' | 'course' | 'today' | '';
 
 export type Course = {
   type: CourseType,

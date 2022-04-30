@@ -166,7 +166,7 @@ export const getFakeCalendar = (): FakeCalendar => ({
     type: 'absence',
     title: 'Linear Algebra',
     dates: [
-      new Date(1648710000)
+      new Date(1648710000000)
     ]
   }]
 });

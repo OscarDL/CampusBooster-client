@@ -109,12 +109,19 @@
     "title": "Calendrier",
     "label": "Choisissez une date",
 
+    "details": {
+      "title": "Détails du mois"
+    },
+
     "homework": {
       "title": "Devoirs à faire"
     },
 
-    "absences": {
-      "title": "Absences passées"
+    "colors": {
+      "exam": "Examen",
+      "course": "Cours",
+      "absence": "Absence",
+      "today": "Aujourd'hui"
     }
   },
 
@@ -237,5 +244,9 @@
     "title": "Administration"
   },
 
-  "dayjs-format": "DD MMM YYYY"
+  "global": {
+    "colon": " :",
+    "date-mmmm-dd": "DD MMMM",
+    "date-mmm-dd-yyyy": "DD MMM YYYY"
+  }
 }
