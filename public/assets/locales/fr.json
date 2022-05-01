@@ -110,11 +110,13 @@
     "label": "Choisissez une date",
 
     "details": {
-      "title": "Détails du mois"
+      "title": "Détails du mois",
+      "none": "Aucun évènement scolaire à afficher."
     },
 
     "homework": {
-      "title": "Devoirs à faire"
+      "title": "Devoirs à faire",
+      "none": "Aucune tâche n'est assignée."
     },
 
     "colors": {

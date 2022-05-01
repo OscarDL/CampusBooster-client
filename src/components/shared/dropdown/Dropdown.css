@@ -20,7 +20,7 @@ div.dropdown__header {
   user-select: none;
   padding: 0 0.5rem;
   border-radius: var(--radius-small);
-  background-color: rgb(var(--button-bg));
+  background-color: rgb(var(--button-bg-darker));
 }
 
 .dropdown__header > span {

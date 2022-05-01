@@ -31,7 +31,7 @@ const Profile: FC = () => {
       <ContentBody>
         <Account user={user}/>
 
-        <div className="settings-tasks">
+        <div className="container-wrapper settings-tasks">
           <Settings/>
           <Links/>
         </div>

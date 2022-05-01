@@ -23,14 +23,19 @@
   display: none;
 }
 
+.calendar-view .content__body .content__header + hr {
+  display: block;
+}
 
-/* Mui Calendar Picker */
+
+/* --- Mui Calendar Picker --- */
+
 .calendar-view .MuiPickerStaticWrapper-root .PrivatePickersToolbar-root {
   display: none;
 }
 
 .calendar-view .MuiCalendarPicker-root > div:first-child {
-  margin-top: 0;
+  margin-top: 3px;
 }
 .calendar-view .MuiCalendarPicker-root div[role="presentation"] {
   user-select: none;
@@ -54,7 +59,7 @@
   padding-top: 1px;
 }
 .calendar-view .MuiMonthPicker-root {
-  margin: 0;
+  margin: 0 0 1rem;
   max-width: var(--max-calendar-picker-width);
 }
 
@@ -63,7 +68,8 @@
 }
 
 
-/* Calendar picker legend */
+/* --- Calendar picker legend --- */
+
 .calendar-view .picker-legend {
   gap: 1rem;
   display: grid;
@@ -81,20 +87,30 @@
 }
 
 
-/* Calendar details for the month */
+/* --- Calendar details for the month --- */
+
 .calendar-view .details__list {
   padding-left: 0;
   list-style: none;
 }
 
+.calendar-view .details__empty {
+  padding: 2rem;
+  display: grid;
+  text-align: center;
+  place-items: center;
+}
+
 .calendar-view .details__item {
   gap: 0.33rem;
-  margin-bottom: 1rem;
   padding-left: 0.66rem;
 
   display: flex;
   position: relative;
   align-items: center;
+}
+.calendar-view .details__item:not(:last-child) {
+  margin-bottom: 1rem;
 }
 .calendar-view .details__item::before {
   left: 0;
@@ -150,6 +166,7 @@
   }
 }
 
+/* Laptops & Desktops */
 @media (min-width: 1024px) {
   .calendar-view .MuiCalendarPicker-root {
     min-width: 288px;

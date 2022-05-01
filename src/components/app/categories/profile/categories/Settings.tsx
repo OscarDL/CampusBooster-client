@@ -34,8 +34,7 @@ const Settings: FC = () => {
 
   const handleChangeLang = (e: SelectChangeEvent<SupportedLangs>) => {
     const newLang = e.target.value as SupportedLangs;
-    dispatch(setNewLang(newLang));
-    i18next.changeLanguage(newLang);
+    i18next.changeLanguage(newLang).then(() => dispatch(setNewLang(newLang)));
   };
 
   const handleChangeTheme = (e: SelectChangeEvent<SupportedThemes>) => {
@@ -53,67 +52,69 @@ const Settings: FC = () => {
     <Container className="settings">
       <ContentHeader title={t('profile.settings.title')}/>
 
-      <FormControl sx={{width: '100%', mt: 1}} size="small">
-        <InputLabel>{t('profile.settings.lang.title')}</InputLabel>
+      <div>
+        <FormControl sx={{width: '100%', mt: 1}} size="small">
+          <InputLabel>{t('profile.settings.lang.title')}</InputLabel>
 
-        <Select
-          className="select"
-          value={settings.lang}
-          onChange={handleChangeLang}
-          label={t('profile.settings.lang.title')}
-        >
-          {values.supportedLangs.map(lang => (
-            <MenuItem key={lang} value={lang}>
-              {t('profile.settings.lang.' + lang)}
+          <Select
+            className="select"
+            value={settings.lang}
+            onChange={handleChangeLang}
+            label={t('profile.settings.lang.title')}
+          >
+            {values.supportedLangs.map(lang => (
+              <MenuItem key={lang} value={lang}>
+                {t('profile.settings.lang.' + lang)}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        <FormControl sx={{width: '100%', mt: 3}} size="small">
+          <InputLabel>{t('profile.settings.theme.title')}</InputLabel>
+
+          <Select
+            value={theme}
+            className="select"
+            onChange={handleChangeTheme}
+            label={t('profile.settings.theme.title')}
+          >
+            <MenuItem value="system">
+              {t('profile.settings.theme.system')}
             </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+            <MenuItem value="light">
+              {t('profile.settings.theme.light')}
+            </MenuItem>
+            <MenuItem value="dark">
+              {t('profile.settings.theme.dark')}
+            </MenuItem>
+          </Select>
+        </FormControl>
 
-      <FormControl sx={{width: '100%', mt: 3}} size="small">
-        <InputLabel>{t('profile.settings.theme.title')}</InputLabel>
+        <FormControl sx={{width: '100%', mt: 3}} size="small">
+          <InputLabel>{t('profile.settings.links.title')}</InputLabel>
 
-        <Select
-          value={theme}
-          className="select"
-          onChange={handleChangeTheme}
-          label={t('profile.settings.theme.title')}
-        >
-          <MenuItem value="system">
-            {t('profile.settings.theme.system')}
-          </MenuItem>
-          <MenuItem value="light">
-            {t('profile.settings.theme.light')}
-          </MenuItem>
-          <MenuItem value="dark">
-            {t('profile.settings.theme.dark')}
-          </MenuItem>
-        </Select>
-      </FormControl>
-
-      <FormControl sx={{width: '100%', mt: 3}} size="small">
-        <InputLabel>{t('profile.settings.links.title')}</InputLabel>
-
-        <Select
-          className="select"
-          value={settings.linkType}
-          onChange={handleChangeLinkType}
-          label={t('profile.settings.links.title')}
-        >
-          <MenuItem value="default">
-            {t('profile.settings.links.default')}
-          </MenuItem>
-          <MenuItem value="bold">
-            {t('profile.settings.links.bold')}
-          </MenuItem>
-          <MenuItem value="underline">
-            {t('profile.settings.links.underline')}
-          </MenuItem>
-          <MenuItem value="bold-underline">
-            {t('profile.settings.links.bold-underline')}
-          </MenuItem>
-        </Select>
-      </FormControl>
+          <Select
+            className="select"
+            value={settings.linkType}
+            onChange={handleChangeLinkType}
+            label={t('profile.settings.links.title')}
+          >
+            <MenuItem value="default">
+              {t('profile.settings.links.default')}
+            </MenuItem>
+            <MenuItem value="bold">
+              {t('profile.settings.links.bold')}
+            </MenuItem>
+            <MenuItem value="underline">
+              {t('profile.settings.links.underline')}
+            </MenuItem>
+            <MenuItem value="bold-underline">
+              {t('profile.settings.links.bold-underline')}
+            </MenuItem>
+          </Select>
+        </FormControl>
+      </div>
     </Container>
   );
 };

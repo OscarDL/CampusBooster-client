@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { Divider } from '@mui/material';
 
 
 type Props = {
@@ -9,17 +8,13 @@ type Props = {
 
 
 const Header: FC<Props> = ({children, title}) => (
-  <>
-    <div className="content__header">
-      <h2>{title}</h2>
+  <div className="content__header">
+    <h2>{title}</h2>
 
-      <div className="options">
-        {children}
-      </div>
+    <div className="options">
+      {children}
     </div>
-
-    <Divider/>
-  </>
+  </div>
 );
 
 

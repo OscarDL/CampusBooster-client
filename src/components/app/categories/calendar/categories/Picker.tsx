@@ -7,19 +7,20 @@ import { StaticDatePicker, LocalizationProvider, PickersDay } from '@mui/x-date-
 
 import { colors } from '../../../../../shared/utils';
 import { ContentHeader } from '../../../../shared/content';
-import { RenderDay } from '../../../../../shared/types/calendar';
 import { getFakeCalendar } from '../../../../../shared/fake/data';
+import { RenderDay, Task } from '../../../../../shared/types/calendar';
 import { Course, CourseType } from '../../../../../shared/types/course';
 
 import Container from '../../../../shared/container';
 
 
 type Props = {
+  setTasks: React.Dispatch<React.SetStateAction<Task[]>>,
   setCourses: React.Dispatch<React.SetStateAction<Course[]>>
 };
 
 
-const Picker: FC<Props> = ({setCourses}) => {
+const Picker: FC<Props> = ({setTasks, setCourses}) => {
   const { t } = useTranslation();
   const [calendarData] = useState(getFakeCalendar());
   const [showDatePicker, setShowDatePicker] = useState(true);
@@ -68,8 +69,10 @@ const Picker: FC<Props> = ({setCourses}) => {
 
 
   useEffect(() => {
+    // Fetch tasks & planning from API
+    setTasks([]);
     selected && handleChangeContent(selected);
-  }, [handleChangeContent, selected]);
+  }, [handleChangeContent, selected, setTasks]);
 
 
   return (

@@ -3,6 +3,7 @@
 .app__content {
   flex-grow: 1;
   overflow: hidden;
+  background-color: rgb(var(--card-bg));
 }
 
 .app__content > div {
@@ -18,7 +19,7 @@
 .content__header {
   gap: 1rem;
   min-height: 4rem;
-  padding: 0.75rem 1rem;
+  padding: 0.8rem 1rem;
 
   display: flex;
   align-items: center;
@@ -84,8 +85,10 @@
 /* Content Body */
 
 .content__body {
-  flex-grow: 1;
   padding: 1rem;
+  margin-top: -1rem;
+
+  flex-grow: 1;
   overflow-y: auto;
 }
 
@@ -102,5 +105,13 @@
   #mobile-drawer + .app__content .content__body {
     /* Show content above mobile drawer swipe area (+ 1rem visual gap + 0.25rem box-shadow) */
     padding-bottom: calc(80px + 1rem + 0.25rem) !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .content__body .container-wrapper {
+    /* Fix box-shadows not showing properly in containers inside */
+    margin: -1rem;
+    padding: 1rem;
   }
 }

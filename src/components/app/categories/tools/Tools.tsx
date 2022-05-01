@@ -1,7 +1,6 @@
 import { FC } from 'react';
-import { TFunction } from 'react-i18next';
-import { useTranslation } from 'react-i18next';
-import { Divider, Tab, Tabs } from '@mui/material';
+import { Tab, Tabs } from '@mui/material';
+import { TFunction, useTranslation } from 'react-i18next';
 
 import { ContentBody, ContentHeader } from '../../../shared/content';
 import { DispatchWithCallback, useStateWithCallback } from '../../../../shared/hooks';
@@ -52,7 +51,7 @@ const ToolTabs: FC<TabsProps> = ({t, tab, setTab}) => {
   };
 
   return (
-    <>
+    <div className="container tools-tabs-container">
       <div className="tools-select">
         <Dropdown // Dropdown tabs for mobile
           align="center"
@@ -74,7 +73,7 @@ const ToolTabs: FC<TabsProps> = ({t, tab, setTab}) => {
           {tabs.map((tab, i) => <Tab key={i} label={tab.title} style={{fontWeight: '500'}}/>)}
         </Tabs>
       </div>
-    </>
+    </div>
   );
 };
 
@@ -97,9 +96,7 @@ const Tools: FC = () => {
   return (
     <>
       <ContentHeader title={t('tools.title')}/>
-
       <ToolTabs t={t} tab={tab} setTab={setTab}/>
-      <Divider/>
 
       <ContentBody>
         {tab === 0 && <TabDiv tab={tab}><GeneralTab/></TabDiv>}

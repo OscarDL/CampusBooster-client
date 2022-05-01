@@ -1,10 +1,15 @@
-import { persistReducer, persistStore } from 'redux-persist';
 import storageSession from 'redux-persist/lib/storage/session';
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { PersistConfig, persistReducer, persistStore } from 'redux-persist';
+import { CombinedState, combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import appReducer from './features/app/slice';
-import authReducer from './features/auth/slice';
+import appReducer, { AppState } from './features/app/slice';
+import authReducer, { AuthState } from './features/auth/slice';
 
+
+type CombinedReducers = {
+  app: AppState,
+  auth: AuthState
+};
 
 const rootReducer = combineReducers({
   app: appReducer,
@@ -12,9 +17,10 @@ const rootReducer = combineReducers({
 });
 
 
-const persistConfig = {
+const persistConfig: PersistConfig<CombinedState<CombinedReducers>, any, any, any> = {
   key: 'root',
-  storage: storageSession
+  storage: storageSession,
+  whitelist: ['auth'] // Only persist auth state
 };
 // Persist user data between page refreshes
 const persistedReducer = persistReducer(persistConfig, rootReducer);

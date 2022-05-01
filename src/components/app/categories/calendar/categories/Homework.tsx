@@ -3,33 +3,33 @@ import { Divider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { ContentHeader } from '../../../../shared/content';
-import { Course } from '../../../../../shared/types/course';
+import { Task } from '../../../../../shared/types/calendar';
 
 import DetailsLine from './DetailsLine';
 import Container from '../../../../shared/container';
 
 
 type Props = {
-  courses: Course[]
+  tasks: Task[]
 };
 
 
-const Details: FC<Props> = ({courses}) => {
+const Homework: FC<Props> = ({tasks}) => {
   const { t } = useTranslation();
 
 
   return (
     <Container className="details">
-      <ContentHeader title={t('calendar.details.title')}/>
+      <ContentHeader title={t('calendar.homework.title')}/>
       <Divider sx={{mb: '1rem'}}/>
 
-      {courses.length > 0 ? (
+      {tasks.length > 0 ? (
         <ul className="details__list">
-          {courses.map((course, key) => <DetailsLine key={key} course={course}/>)}
+          {tasks.map((task, key) => <DetailsLine key={key} course={task.course}/>)}
         </ul>
       ) : (
         <div className="details__empty">
-          <h2>{t('calendar.details.none')}</h2>
+          <h2>{t('calendar.homework.none')}</h2>
         </div>
       )}
     </Container>
@@ -37,4 +37,4 @@ const Details: FC<Props> = ({courses}) => {
 };
 
 
-export default Details;
+export default Homework;

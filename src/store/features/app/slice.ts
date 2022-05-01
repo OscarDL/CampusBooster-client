@@ -12,7 +12,10 @@ export type AppState = {
 };
 
 
-const settings = getLocalStorageSettings();
+const settings = {
+  ...getLocalStorageSettings(),
+  lang: localStorage.getItem('lang')
+};
 
 const initialState: AppState = {
   category: getCategoryTitle(),
@@ -43,24 +46,24 @@ const appSlice = createSlice({
   initialState,
 
   reducers: {
-    setCategory: (state, {payload}: {payload: string}) => {
-      state.category = payload;
+    setCategory: (state, {payload: category}: {payload: string}) => {
+      state.category = category;
     },
-    setAppTheme: (state, {payload}: {payload: SupportedThemes}) => {
-      state.settings.theme = payload;
-      updateLocalStorageSettings('theme', payload);
+    setAppTheme: (state, {payload: theme}: {payload: SupportedThemes}) => {
+      state.settings.theme = theme;
+      updateLocalStorageSettings('theme', theme);
     },
-    setLinkType: (state, {payload}: {payload: LinkTypes}) => {
-      state.settings.linkType = payload;
-      updateLocalStorageSettings('linkType', payload);
+    setLinkType: (state, {payload: linkType}: {payload: LinkTypes}) => {
+      state.settings.linkType = linkType;
+      updateLocalStorageSettings('linkType', linkType);
     }
   },
 
   extraReducers: (builder) => {
     builder
-      .addCase(setNewLang.fulfilled, (state, {payload}) => {
-        dayjs.locale(payload);
-        state.settings.lang = payload;
+      .addCase(setNewLang.fulfilled, (state, {payload: lang}) => {
+        dayjs.locale(lang);
+        state.settings.lang = lang;
       });
   }
 });

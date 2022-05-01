@@ -1,5 +1,34 @@
 .container {
   padding: 1rem;
   border-radius: var(--radius-medium);
-  border: 1px solid rgb(var(--divider-color));
+  background-color: rgb(var(--theme-bg));
+  box-shadow: 0 0 0.5rem 0.05rem rgba(0, 0, 0, 0.05);
+}
+
+.container-wrapper {
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.container-wrapper > .container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.container-wrapper > .container > :last-child {
+  flex-grow: 1;
+}
+
+
+/* Laptops & Desktops */
+@media (min-width: 1024px) {
+  .container-wrapper {
+    overflow: hidden;
+  }
+
+  .container-wrapper > .container {
+    overflow: auto;
+  }
 }

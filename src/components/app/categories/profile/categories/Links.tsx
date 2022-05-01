@@ -15,7 +15,7 @@ const Links: FC = () => {
     <Container className="links">
       <ContentHeader title={t('profile.links.title')}/>
 
-      <div>hello</div>
+      <div>List some useful links here</div>
     </Container>
   );
 };
