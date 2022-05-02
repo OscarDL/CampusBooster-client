@@ -129,6 +129,16 @@ export const getUrlDomain = (url: string): string => {
 };
 
 
+// Hide or show shadow below content header depending on content body scroll
+export const handleHeaderScrollShadow = (): void => {
+  const body = document.querySelector('.app__content > div > .content__body') as HTMLElement;
+  const header = document.querySelector('.app__content > div > .content__header') as HTMLElement;
+  if (!body || !header) return;
+
+  body.scrollTop > 0 ? header.classList.add('elevated') : header.classList.remove('elevated');
+};
+
+
 // Hide or show shadow above prompt actions if not scrolled to the bottom
 export const handlePromptScrollShadow = (initialCheck: boolean) => {
   const prompt = document.querySelector('.prompt__wrapper');

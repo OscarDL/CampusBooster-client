@@ -99,10 +99,10 @@
 }
 
 .prompt__backdrop.animated {
-  animation: backdrop 0.33s;
+  animation: backdrop 0.3s;
 }
 .prompt__container.animated {
-  animation: prompt 0.33s;
+  animation: prompt 0.3s;
 }
 
 

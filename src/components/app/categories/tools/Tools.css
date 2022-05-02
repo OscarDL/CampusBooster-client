@@ -28,16 +28,59 @@
   padding-bottom: 0.33rem;
 }
 
+
+/* --- Tab slide-in animations --- */
+
+@keyframes tab-reveal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes tab-slide-left {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes tab-slide-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+
+/* --- Tools tab --- */
+
 .tools-tab {
   gap: 1rem;
   flex-grow: 0;
   padding: 1rem;
   display: grid;
   overflow-y: auto;
+  animation: 0.05s tab-reveal forwards;
   grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
 }
 
-/* Tool container */
+.tools-tab.tab-slide-left {
+  animation: 0.3s tab-slide-left forwards;
+}
+.tools-tab.tab-slide-right {
+  animation: 0.3s tab-slide-right forwards;
+}
+
+
+/* --- Tool container --- */
+
 .tools-tab .tool {
   cursor: pointer;
   text-decoration: none;
@@ -100,35 +143,6 @@
 }
 .tool:hover p, .tool:focus p {
   color: rgb(var(--accent-color));
-}
-
-
-/* Tab slide-in animations */
-@keyframes tab-hidden {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes tab-slide-in-left {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-@keyframes tab-slide-in-right {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
 }
 
 

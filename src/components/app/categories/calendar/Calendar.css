@@ -11,10 +11,6 @@
   --course-color-today: rgb(var(--accent-color));
 }
 
-.calendar-view .content__body > * {
-  flex: 1;
-}
-
 .calendar-view .picker > .content__header {
   justify-content: center;
 }

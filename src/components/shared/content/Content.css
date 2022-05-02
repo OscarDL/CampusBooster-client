@@ -16,6 +16,15 @@
 
 /* Content Header */
 
+@keyframes header-box-shadow {
+  from {
+    box-shadow: none;
+  }
+  to {
+    box-shadow: 0 0.2rem 0.2rem -0.1rem rgb(var(--divider-color));
+  }
+}
+
 .content__header {
   gap: 1rem;
   min-height: 4rem;
@@ -24,6 +33,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.content__header.elevated {
+  background-color: rgb(var(--card-bg));
+  animation: 0.25s header-box-shadow forwards;
+  z-index: var(--z-index-elevated-content-header);
 }
 
 .content__header > h2 {

@@ -5,15 +5,15 @@
   grid-template: auto / 1fr 1fr;
 }
 
-.profile-view .content__body > * {
+
+/* --- Profile --- */
+
+.profile-view .profile {
   flex: 1;
   gap: 1rem;
   display: flex;
   flex-direction: column;
 }
-
-
-/* --- Profile --- */
 
 .profile-view .profile > :last-child {
   flex-grow: 1;

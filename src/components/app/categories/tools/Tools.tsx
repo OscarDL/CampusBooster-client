@@ -45,8 +45,7 @@ const ToolTabs: FC<TabsProps> = ({t, tab, setTab}) => {
   const animateNewTab = (_: any, newTab: any) => {
     setTab(newTab, () => {
       const tabElement = document.getElementById('tools-tab-' + newTab);
-      const slideInAnimation = ', 0.33s tab-slide-in-' + (tab > newTab ? 'left' : 'right');
-      if (tabElement) tabElement.style.animation = tabElement.style.animation + slideInAnimation;
+      tabElement?.classList.add(`tab-slide-${tab > newTab ? 'left' : 'right'}`);
     });
   };
 
@@ -78,12 +77,7 @@ const ToolTabs: FC<TabsProps> = ({t, tab, setTab}) => {
 };
 
 const TabDiv: FC<TabDivProps> = ({children, tab}) => (
-  <div
-    className="tools-tab"
-    id={`tools-tab-${tab}`}
-    // This needs to be inline style
-    style={{animation: '0.05s tab-hidden'}}
-  >
+  <div className="tools-tab" id={`tools-tab-${tab}`}>
     {children}
   </div>
 );

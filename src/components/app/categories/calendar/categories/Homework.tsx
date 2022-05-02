@@ -25,7 +25,7 @@ const Homework: FC<Props> = ({tasks}) => {
 
       {tasks.length > 0 ? (
         <ul className="details__list">
-          {tasks.map((task, key) => <DetailsLine key={key} course={task.course}/>)}
+          {tasks.map((task, key) => <DetailsLine key={key} course={{...task.course, type: 'today'}}/>)}
         </ul>
       ) : (
         <div className="details__empty">

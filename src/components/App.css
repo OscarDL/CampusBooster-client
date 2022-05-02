@@ -9,10 +9,11 @@
   --radius-large: 1rem;
   --radius-round: 50%;
 
-  --z-index-dropdown: 2;
-  --z-index-prompt: 3;
+  --z-index-elevated-content-header: 2;
+  --z-index-dropdown: 3;
   --z-index-rmsc: 4;
   --z-index-mui-tooltip: 5;
+  --z-index-prompt: 6;
 
   --header-height: 5rem;
   --mobile-drawer-screen-width: 767px;

@@ -1,4 +1,6 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
+
+import { handleHeaderScrollShadow } from '../../../shared/functions';
 
 
 type Props = {
@@ -7,15 +9,21 @@ type Props = {
 };
 
 
-const Header: FC<Props> = ({children, title}) => (
-  <div className="content__header">
-    <h2>{title}</h2>
+const Header: FC<Props> = ({children, title}) => {
+  useEffect(() => {
+    handleHeaderScrollShadow();
+  }, []);
 
-    <div className="options">
-      {children}
+  return (
+    <div className="content__header">
+      <h2>{title}</h2>
+
+      <div className="options">
+        {children}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 
 export default Header;
