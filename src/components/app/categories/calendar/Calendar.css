@@ -6,6 +6,7 @@
 
   --max-calendar-picker-width: 288px;
   --course-color-exam: rgb(80, 160, 20);
+  --course-color-task: rgb(160, 20, 120);
   --course-color-course: rgb(20, 140, 180);
   --course-color-absence: rgb(200, 70, 30);
   --course-color-today: rgb(var(--accent-color));
@@ -99,15 +100,18 @@
 
 .calendar-view .details__item {
   gap: 0.33rem;
+  min-height: 28px;
   padding-left: 0.66rem;
 
   display: flex;
   position: relative;
   align-items: center;
 }
+
 .calendar-view .details__item:not(:last-child) {
   margin-bottom: 1rem;
 }
+
 .calendar-view .details__item::before {
   left: 0;
   top: 50%;
@@ -118,6 +122,7 @@
   transform: translateY(-50%);
   border-radius: var(--radius-large);
 }
+
 .calendar-view .details__item__date {
   flex-shrink: 0;
   font-weight: bold;
@@ -142,6 +147,49 @@
 }
 .calendar-view .details__item.course-color-today .details__item__date {
   color: var(--course-color-today);
+}
+
+.calendar-view .details__item.course-color-task::before {
+  background-color: var(--course-color-task);
+}
+.calendar-view .details__item.course-color-task .details__item__date {
+  color: var(--course-color-task);
+}
+
+/* Action button */
+.calendar-view .details__item__more {
+  flex-grow: 1;
+  justify-self: flex-end;
+}
+.calendar-view .details__item__more > button {
+  float: right;
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+
+
+/* --- Task details --- */
+
+.calendar-view .details__item .prompt__content,
+.calendar-view .details__item .prompt__content .task-dates {
+  justify-content: space-evenly;
+}
+
+.calendar-view .details__item .prompt__content .task-dates {
+  gap: 1rem;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.calendar-view .details__item .prompt__content .task-detail {
+  margin: 5px 0;
+  font-size: 17px;
+}
+.calendar-view .details__item .prompt__content .task-detail > span {
+  font-weight: 600;
+  color: rgb(var(--accent-color));
 }
 
 

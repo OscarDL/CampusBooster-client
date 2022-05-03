@@ -53,6 +53,10 @@
 
 /* --- Desktop --- */
 
+#root .drawer .MuiDrawer-root > .MuiPaper-root {
+  z-index: var(--z-index-desktop-drawer);
+}
+
 .drawer__expand-btn .drawer__icon {
   width: 100%;
   display: flex;

@@ -1,3 +1,4 @@
+import { Task } from '../types/calendar';
 import { Course } from '../types/course';
 
 
@@ -127,7 +128,8 @@ export const getFakeCredits = () => ([
 
 type FakeCalendar = {
   planning: Course[],
-  absences: Course[]
+  absences: Course[],
+  tasks: Task[]
 };
 
 export const getFakeCalendar = (): FakeCalendar => ({
@@ -168,5 +170,29 @@ export const getFakeCalendar = (): FakeCalendar => ({
     dates: [
       new Date(1648710000000)
     ]
+  }],
+
+  tasks: [{
+    course: {
+      credits: 4,
+      name: '4BOSS',
+      type: 'course',
+      title: 'Become a business owner'
+    },
+    title: 'Create a local business',
+    details: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, ducimus laudantium. Officiis quaerat perspiciatis veritatis rem obcaecati facere, esse beatae vel, quisquam a nisi est ducimus natus voluptate. Earum rem ducimus dolore culpa, laboriosam debitis nulla quidem exercitationem fugiat nobis alias, doloremque error! Eum dolorem ad tenetur quis provident libero nihil, eius explicabo, maiores ratione illum error, alias modi saepe asperiores nam deserunt inventore rem aliquam fugiat. Tempore quae perspiciatis fugit veniam, obcaecati, modi eos eaque corrupti laborum libero officia!',
+    dateStart: new Date(1645916400000),
+    dateEnd: new Date(1648504800000)
+  }, {
+    course: {
+      credits: 5,
+      name: '4EDAP',
+      type: 'course',
+      title: 'Analyse exploratoire de données'
+    },
+    title: 'Mini projet',
+    details: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, ducimus laudantium. Officiis quaerat perspiciatis veritatis rem obcaecati facere, esse beatae vel, quisquam a nisi est ducimus natus voluptate. Earum rem ducimus dolore culpa, laboriosam debitis nulla quidem exercitationem fugiat nobis alias, doloremque error! Eum dolorem ad tenetur quis provident libero nihil, eius explicabo, maiores ratione illum error, alias modi saepe asperiores nam deserunt inventore rem aliquam fugiat. Tempore quae perspiciatis fugit veniam, obcaecati, modi eos eaque corrupti laborum libero officia!',
+    dateStart: new Date(1651010400000),
+    dateEnd: new Date(1653429540000)
   }]
 });

@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Course } from '../../../../../shared/types/course';
+import { Course } from '../../../../../../shared/types/course';
 
 
 type Props = {

@@ -114,9 +114,17 @@
       "none": "Aucun évènement scolaire à afficher."
     },
 
-    "homework": {
-      "title": "Devoirs à faire",
-      "none": "Aucune tâche n'est assignée."
+    "tasks": {
+      "for": "Pour le",
+      "title": "Tâches à venir",
+      "none": "Aucune tâche assignée.",
+
+      "details": {
+        "date_start": "Date de début",
+        "date_end": "Date limite",
+        "details": "Détails",
+        "course": "Cours"
+      }
     },
 
     "colors": {
@@ -248,6 +256,7 @@
 
   "global": {
     "colon": " :",
+    "close": "Fermer",
     "date-mmmm-dd": "DD MMMM",
     "date-mmm-dd-yyyy": "DD MMM YYYY"
   }

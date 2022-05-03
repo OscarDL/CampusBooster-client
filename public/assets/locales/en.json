@@ -140,9 +140,17 @@
       "none": "No calendar events to show."
     },
 
-    "homework": {
-      "title": "Homework",
-      "none": "No homework assigned."
+    "tasks": {
+      "for": "For",
+      "title": "Upcoming tasks",
+      "none": "No tasks assigned.",
+
+      "details": {
+        "date_start": "Start date",
+        "date_end": "Deadline",
+        "details": "Details",
+        "course": "Course"
+      }
     },
 
     "colors": {
@@ -293,6 +301,7 @@
 
   "global": {
     "colon": ":",
+    "close": "Close",
     "date-mmmm-dd": "MMMM DD",
     "date-mmm-dd-yyyy": "MMM. DD, YYYY"
   }

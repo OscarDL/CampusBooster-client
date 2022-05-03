@@ -1,19 +1,17 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Backdrop, DivPrompt, PromptContent, PromptTitle, PromptWrapper } from '../shared/prompt';
+import { PromptBackdrop, DivPrompt, PromptContent, PromptTitle, PromptWrapper } from '../shared/prompt';
 
 
 const Unsupported: FC = () => {
   const { t } = useTranslation();
 
   return (
-    <Backdrop className="unsupported">
+    <PromptBackdrop className="unsupported">
       <DivPrompt>
         <PromptWrapper>
-          <PromptTitle>
-            <h1>{t('browser.unsupported.title')}</h1>
-          </PromptTitle>
+          <PromptTitle title={t('browser.unsupported.title')}/>
 
           <PromptContent centered>
             <p>{t('browser.unsupported.description')}</p>
@@ -34,7 +32,7 @@ const Unsupported: FC = () => {
           </PromptContent>
         </PromptWrapper>
       </DivPrompt>
-    </Backdrop>
+    </PromptBackdrop>
   );
 };
 

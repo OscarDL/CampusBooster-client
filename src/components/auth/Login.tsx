@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import Unsupported from './Unsupported';
 import { LoginButton } from '../../azure/auth/Buttons';
-import { Backdrop, FormPrompt, PromptActions, PromptContent, PromptTitle, PromptWrapper } from '../shared/prompt';
+import { PromptBackdrop, FormPrompt, PromptActions, PromptContent, PromptTitle, PromptWrapper } from '../shared/prompt';
 
 import './Auth.css';
 import { Divider } from '@mui/material';
@@ -30,12 +30,10 @@ const Login: FC = () => {
       case true: return <Unsupported/>;
 
       case false: return (
-        <Backdrop>
+        <PromptBackdrop>
           <FormPrompt>
             <PromptWrapper>
-              <PromptTitle>
-                <h1>{title}</h1>
-              </PromptTitle>
+              <PromptTitle title={title}/>
 
               <PromptContent centered>
                 <img id="logo" src="/assets/images/logo192.png" alt="logo"/>
@@ -56,7 +54,7 @@ const Login: FC = () => {
               </span>
             </PromptActions>
           </FormPrompt>
-        </Backdrop>
+        </PromptBackdrop>
       );
 
       default: return <></>;

@@ -60,19 +60,28 @@ const Picker: FC<Props> = ({setTasks, setCourses}) => {
   };
 
   const handleChangeContent = useCallback((date: dayjs.Dayjs) => {
-    const data = calendarData.planning.filter(course => (
+    const courses = calendarData.planning.filter(course => (
       course.dates?.map(d => d.getMonth()).includes(date.month())
     ));
 
-    setCourses(data);
+    setCourses(courses);
   }, [calendarData.planning, setCourses]);
 
 
   useEffect(() => {
     // Fetch tasks & planning from API
-    setTasks([]);
-    selected && handleChangeContent(selected);
-  }, [handleChangeContent, selected, setTasks]);
+    if (selected) {
+      handleChangeContent(selected);
+
+      // Tasks only need to be setup once, not on every month change
+      const tasks = calendarData.tasks.filter(task => {
+        const startsBefore = new Date().getMonth() >= task.dateStart.getMonth();
+        const endsAfter = new Date().getMonth() <= task.dateEnd.getMonth();
+        return startsBefore && endsAfter;
+      });
+      setTasks(tasks);
+    }
+  }, [handleChangeContent, calendarData.tasks, selected, setTasks]);
 
 
   return (

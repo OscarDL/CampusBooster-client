@@ -9,6 +9,7 @@
   --radius-large: 1rem;
   --radius-round: 50%;
 
+  --z-index-desktop-drawer: 1;
   --z-index-elevated-content-header: 2;
   --z-index-dropdown: 3;
   --z-index-rmsc: 4;

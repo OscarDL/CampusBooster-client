@@ -1,3 +1,13 @@
+.prompt__wrapper {
+  gap: 1.5rem;
+  padding: 1.5rem;
+  overflow: hidden auto;
+
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 .prompt__container {
   display: flex;
   position: relative;
@@ -10,16 +20,6 @@
   max-height: 40rem;
   border-radius: var(--radius-medium);
   background-color: rgb(var(--theme-bg));
-}
-
-.prompt__wrapper {
-  gap: 1.5rem;
-  padding: 1.5rem;
-  overflow: hidden auto;
-
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
 }
 
 .prompt__container .flexRow {
@@ -80,7 +80,8 @@
 }
 
 
-/* Pop-up prompt animation */
+/* --- Pop-up prompt animation --- */
+
 @keyframes backdrop {
   from {
     opacity: 0;
@@ -89,6 +90,7 @@
     opacity: 1;
   }
 }
+
 @keyframes prompt {
   from {
     transform: translateY(3rem);
@@ -106,7 +108,8 @@
 }
 
 
-/* Pop-up prompt backdrop */
+/* --- Pop-up prompt backdrop --- */
+
 .prompt__backdrop {
   display: flex;
   position: fixed;

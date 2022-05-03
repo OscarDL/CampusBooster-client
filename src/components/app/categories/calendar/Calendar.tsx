@@ -5,9 +5,9 @@ import { Task } from '../../../../shared/types/calendar';
 import { Course } from '../../../../shared/types/course';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 
-import Homework from './categories/Homework';
-import CalendarPicker from './categories/Picker';
-import CalendarDetails from './categories/Details';
+import Picker from './categories/Picker';
+import TasksList from './categories/tasks/List';
+import DetailsList from './categories/details/List';
 
 import './Calendar.css';
 
@@ -23,11 +23,11 @@ const Calendar: FC = () => {
       <ContentHeader title={t('calendar.title')}/>
 
       <ContentBody>
-        <CalendarPicker setTasks={setTasks} setCourses={setCourses}/>
+        <Picker setTasks={setTasks} setCourses={setCourses}/>
 
-        <div className="container-wrapper details-homework">
-          <CalendarDetails courses={courses}/>
-          <Homework tasks={tasks}/>
+        <div className="container-wrapper details-tasks">
+          <DetailsList courses={courses}/>
+          <TasksList tasks={tasks}/>
         </div>
       </ContentBody>
     </>

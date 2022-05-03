@@ -11,7 +11,7 @@ type FormProps = React.HTMLAttributes<HTMLFormElement> & Props;
 
 
 export const DivPrompt: FC<DivProps> = ({children, animated}) => {
-  const classes = `prompt__container ${animated ? ' animated' : ''}`.trimEnd();
+  const classes = `prompt__container ${animated ? 'animated' : ''}`.trimEnd();
 
   return (
     <form className={classes}>
@@ -21,7 +21,7 @@ export const DivPrompt: FC<DivProps> = ({children, animated}) => {
 };
 
 export const FormPrompt: FC<FormProps> = ({children, animated, onSubmit}) => {
-  const classes = `prompt__container ${animated ? ' animated' : ''}`.trimEnd();
+  const classes = `prompt__container ${animated ? 'animated' : ''}`.trimEnd();
 
   return (
     <form className={classes} onSubmit={onSubmit}>

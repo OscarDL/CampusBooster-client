@@ -2,11 +2,11 @@ import { FC } from 'react';
 import { Divider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { ContentHeader } from '../../../../shared/content';
-import { Course } from '../../../../../shared/types/course';
+import { ContentHeader } from '../../../../../shared/content';
+import { Course } from '../../../../../../shared/types/course';
 
-import DetailsLine from './DetailsLine';
-import Container from '../../../../shared/container';
+import DetailsLine from './Line';
+import Container from '../../../../../shared/container';
 
 
 type Props = {
@@ -14,7 +14,7 @@ type Props = {
 };
 
 
-const Details: FC<Props> = ({courses}) => {
+const DetailsList: FC<Props> = ({courses}) => {
   const { t } = useTranslation();
 
 
@@ -37,4 +37,4 @@ const Details: FC<Props> = ({courses}) => {
 };
 
 
-export default Details;
+export default DetailsList;
