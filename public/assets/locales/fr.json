@@ -111,7 +111,7 @@
 
     "details": {
       "title": "Détails du mois",
-      "none": "Aucun évènement scolaire à afficher."
+      "none": "Aucun évènement scolaire pour {{m}}."
     },
 
     "tasks": {

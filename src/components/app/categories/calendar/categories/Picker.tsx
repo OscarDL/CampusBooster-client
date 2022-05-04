@@ -15,16 +15,17 @@ import Container from '../../../../shared/container';
 
 
 type Props = {
+  date: dayjs.Dayjs | null,
+  setDate: React.Dispatch<React.SetStateAction<dayjs.Dayjs | null>>,
   setTasks: React.Dispatch<React.SetStateAction<Task[]>>,
   setCourses: React.Dispatch<React.SetStateAction<Course[]>>
 };
 
 
-const Picker: FC<Props> = ({setTasks, setCourses}) => {
+const Picker: FC<Props> = ({date, setDate, setTasks, setCourses}) => {
   const { t } = useTranslation();
   const [calendarData] = useState(getFakeCalendar());
   const [showDatePicker, setShowDatePicker] = useState(true);
-  const [selected, setSelected] = useState<dayjs.Dayjs | null>(dayjs());
 
 
   const toggleDatePicker = () => setShowDatePicker(showDp => !showDp);
@@ -64,14 +65,15 @@ const Picker: FC<Props> = ({setTasks, setCourses}) => {
       course.dates?.map(d => d.getMonth()).includes(date.month())
     ));
 
+    setDate(date);
     setCourses(courses);
-  }, [calendarData.planning, setCourses]);
+  }, [calendarData.planning, setDate, setCourses]);
 
 
   useEffect(() => {
     // Fetch tasks & planning from API
-    if (selected) {
-      handleChangeContent(selected);
+    if (date) {
+      handleChangeContent(date);
 
       // Tasks only need to be setup once, not on every month change
       const tasks = calendarData.tasks.filter(task => {
@@ -81,14 +83,14 @@ const Picker: FC<Props> = ({setTasks, setCourses}) => {
       });
       setTasks(tasks);
     }
-  }, [handleChangeContent, calendarData.tasks, selected, setTasks]);
+  }, [handleChangeContent, calendarData.tasks, date, setTasks]);
 
 
   return (
     // StaticDatePicker doesn't have a style attribute, so we can
     // hide it conditionally using CSS and this container's class
     <Container className={showDatePicker ? 'picker' : 'picker hide'}>
-      <ContentHeader title={dayjs(selected).format(t('global.date-mmm-dd-yyyy'))}>
+      <ContentHeader title={dayjs(date).format(t('global.date-mmm-dd-yyyy'))}>
         <IconButton id="hide-calendar-btn" onClick={toggleDatePicker}>
           <span className="material-icons" style={{transform: `rotateZ(${showDatePicker ? 0 : -180}deg)`}}>
             expand_less
@@ -100,9 +102,9 @@ const Picker: FC<Props> = ({setTasks, setCourses}) => {
 
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <StaticDatePicker
-          value={selected}
+          value={date}
+          onChange={setDate}
           renderDay={renderDay}
-          onChange={setSelected}
           views={['month', 'day']}
           displayStaticWrapperAs="desktop"
           onMonthChange={handleChangeContent}

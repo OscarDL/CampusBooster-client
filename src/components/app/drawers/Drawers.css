@@ -81,6 +81,8 @@
 .drawer-mobile__header > p {
   flex-grow: 1;
   padding: 0 1.5rem;
+  font-weight: bold;
+  color: rgb(var(--accent-color));
 
   display: grid;
   place-items: center;

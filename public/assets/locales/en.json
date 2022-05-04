@@ -137,7 +137,7 @@
 
     "details": {
       "title": "Details for this month",
-      "none": "No calendar events to show."
+      "none": "No calendar events for {{m}}."
     },
 
     "tasks": {

@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { FC } from 'react';
 import { Divider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
@@ -10,11 +11,12 @@ import Container from '../../../../../shared/container';
 
 
 type Props = {
-  courses: Course[]
+  courses: Course[],
+  date: dayjs.Dayjs | null
 };
 
 
-const DetailsList: FC<Props> = ({courses}) => {
+const DetailsList: FC<Props> = ({courses, date}) => {
   const { t } = useTranslation();
 
 
@@ -29,7 +31,7 @@ const DetailsList: FC<Props> = ({courses}) => {
         </ul>
       ) : (
         <div className="details__empty">
-          <h2>{t('calendar.details.none')}</h2>
+          <h2>{t('calendar.details.none', {m: dayjs(date).format('MMMM')})}</h2>
         </div>
       )}
     </Container>

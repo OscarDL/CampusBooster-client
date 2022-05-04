@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -16,6 +17,7 @@ const Calendar: FC = () => {
   const { t } = useTranslation();
   const [tasks, setTasks] = useState<Task[]>([]);
   const [courses, setCourses] = useState<Course[]>([]);
+  const [date, setDate] = useState<dayjs.Dayjs | null>(dayjs());
 
 
   return (
@@ -23,10 +25,15 @@ const Calendar: FC = () => {
       <ContentHeader title={t('calendar.title')}/>
 
       <ContentBody>
-        <Picker setTasks={setTasks} setCourses={setCourses}/>
+        <Picker
+          date={date}
+          setDate={setDate}
+          setTasks={setTasks}
+          setCourses={setCourses}
+        />
 
         <div className="container-wrapper details-tasks">
-          <DetailsList courses={courses}/>
+          <DetailsList courses={courses} date={date}/>
           <TasksList tasks={tasks}/>
         </div>
       </ContentBody>

@@ -8,7 +8,6 @@
 .container-wrapper {
   gap: 1rem;
   display: grid;
-  grid-template-rows: 1fr 1fr;
 }
 
 .container-wrapper > .container {
@@ -26,6 +25,7 @@
 @media (min-width: 1024px) {
   .container-wrapper {
     overflow: hidden;
+    grid-template-rows: 1fr 1fr;
   }
 
   .container-wrapper > .container {
