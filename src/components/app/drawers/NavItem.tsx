@@ -1,11 +1,11 @@
 import { FC, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import { ListItemButton, ListItemText } from '@mui/material';
 
 import { setCategory } from '../../../store/features/app/slice';
-import { getCategoryTitle } from '../../../shared/functions';
+import { getCategoryTitle, getLoggedInAuthState } from '../../../shared/functions';
 
 
 type Props = {
@@ -19,6 +19,7 @@ type Props = {
 const NavItem: FC<Props> = ({text, category, collapsed = false, hideDrawer = () => null}) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const { user } = useSelector(getLoggedInAuthState);
   const linkRef = useRef<HTMLAnchorElement | null>(null);
 
   const icon = category + '.icon';
@@ -44,7 +45,7 @@ const NavItem: FC<Props> = ({text, category, collapsed = false, hideDrawer = () 
       onClick={handleTap}
       to={'/' + category}
       title={collapsed ? t(title) : ''}
-      className={getCategoryTitle() === title ? 'selected' : ''}
+      className={getCategoryTitle(user) === title ? 'selected' : ''}
     >
       <ListItemButton onClick={handleEnter} key={category} className="drawer__item">
         <span className="drawer__icon material-icons-round">

@@ -17,14 +17,16 @@ export const dayjsLocales = {
 const supportedLangs: SupportedLangs[] = ['en', 'fr'];
 export const values = {
   supportedLangs,
+  authPersistKey: 'auth-state',
 
   roles: {
-    student: 1,
-    professor: 2,
-    fullProfessor: 3,
-    company: 4,
-    administration: 5,
-    campusBoosterAdmin: 6
+    student: "STUDENT",
+    professor: "PROFESSOR",
+    fullProfessor: "FULL_PROFESSOR",
+    company: "COMPANY",
+    assistant: "ASSISTANT",
+    campusManager: "CAMPUS_MANAGER",
+    campusBoosterAdmin: "CAMPUS_BOOSTER_ADMIN"
   },
 
   categories: [

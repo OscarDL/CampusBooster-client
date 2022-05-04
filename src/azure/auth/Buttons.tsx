@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { useMsal } from '@azure/msal-react';
 
 import { loginRequest } from './config';
+import { values } from '../../shared/utils';
 import { logout } from '../../store/features/auth/slice';
 import { clearAzureLocalStorageData } from '../../shared/functions';
 
@@ -43,6 +44,9 @@ export const LogoutButton: FC<LogoutProps> = ({logoutFromAzure}) => {
   const { instance, accounts: [azureData] } = useMsal();
 
   const handleAzureLogout = () => {
+    // Clear persisted auth state before login
+    sessionStorage.removeItem('persist:' + values.authPersistKey);
+
     if (logoutFromAzure) {
       instance.logoutRedirect()
         .catch(e => {

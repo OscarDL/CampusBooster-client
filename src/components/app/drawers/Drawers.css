@@ -66,6 +66,10 @@
 
 /* --- Mobile --- */
 
+#mobile-drawer > .PrivateSwipeArea-root, #root ~ .MuiDrawer-root {
+  z-index: var(--z-index-mobile-drawer);
+}
+
 .drawer-mobile__header {
   left: 0;
   right: 0;

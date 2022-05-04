@@ -111,7 +111,7 @@
 
     "details": {
       "title": "Détails du mois",
-      "none": "Aucun évènement scolaire pour {{m}}."
+      "none": "Aucun évènement scolaire en {{m}}."
     },
 
     "tasks": {
@@ -145,6 +145,7 @@
 
   "tools": {
     "title": "Outils",
+    "add": "Ajouter un outil",
 
     "general": {
       "tab": "Général",

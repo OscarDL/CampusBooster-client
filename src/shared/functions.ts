@@ -73,9 +73,15 @@ export const getLoggedInAuthState = (state: RootState) => ({
 
 
 // Retrieve current app section
-export const getCategoryTitle = () => (
-  window.location.pathname.replace('/', '').split('/')[0] + '.title'
-);
+export const getCategoryTitle = (user: User) => {
+  const category = window.location.pathname.replace('/', '').split('/')[0];
+
+  if (!getUserCategories(values.categories, user).find(c => c === category)) {
+    return values.categories.find(c => c === 'summary') + '.title';
+  }
+
+  return category + '.title';
+};
 
 
 // Retrieve categories accessible by current user
@@ -84,8 +90,9 @@ export const getUserCategories = (categories: string[], user: User) => {
   const professorForbidden: string[] = ['admin'];
   const fullProfessorForbidden: string[] = ['admin'];
   const companyForbidden: string[] = ['admin'];
-  const adminForbidden: string[] = [];
-  const cbAdminForbidden: string[] = [];
+  const assistantForbidden: string[] = [];
+  const campusManagerForbidden: string[] = [];
+  const campusBoosterAdminForbidden: string[] = [];
 
   switch (user.role) {
     case values.roles.professor: {
@@ -100,12 +107,16 @@ export const getUserCategories = (categories: string[], user: User) => {
       return categories.filter(category => !companyForbidden.includes(category));
     }
 
-    case values.roles.administration: {
-      return categories.filter(category => !adminForbidden.includes(category));
+    case values.roles.assistant: {
+      return categories.filter(category => !assistantForbidden.includes(category));
+    }
+
+    case values.roles.campusManager: {
+      return categories.filter(category => !campusManagerForbidden.includes(category));
     }
 
     case values.roles.campusBoosterAdmin: {
-      return categories.filter(category => !cbAdminForbidden.includes(category));
+      return categories.filter(category => !campusBoosterAdminForbidden.includes(category));
     }
 
     default: {

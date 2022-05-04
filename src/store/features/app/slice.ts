@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { dayjsLocales } from '../../../shared/utils';
 import { LinkTypes, Settings, SupportedLangs, SupportedThemes } from '../../../shared/types/settings';
-import { getCategoryTitle, getLocalStorageSettings, updateLocalStorageSettings } from '../../../shared/functions';
+import { getLocalStorageSettings, updateLocalStorageSettings } from '../../../shared/functions';
 
 
 export type AppState = {
@@ -18,7 +18,7 @@ const settings = {
 };
 
 const initialState: AppState = {
-  category: getCategoryTitle(),
+  category: '',
   settings: {
     lang: settings.lang ?? 'en',
     theme: settings.theme ?? 'system',

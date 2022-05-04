@@ -51,11 +51,13 @@
   height: 100%;
   display: flex;
 }
-.content__header > .options > * {
-  gap: 0.75rem;
-  display: flex;
-  align-items: center;
+
+.content__header > .options > .MuiButton-root.button {
+  font-size: 1rem;
+  padding: 0.25rem 0.75rem;
+  background-color: rgb(var(--button-bg-darker));
 }
+
 .button > .MuiButton-label > .MuiButton-startIcon > [class*="material-icons"] {
   font-size: 1.5rem;
 }
@@ -108,9 +110,16 @@
 
 
 /* Up to: Narrow Smartphones */
-@media (max-width: 420px) {
+@media (max-width: 419px) {
   .content__header .dropdown__title {
     display: none;
+  }
+}
+
+/* Up to: Smartphones */
+@media (max-width: 479px) {
+  .content__header > .options {
+    flex-direction: column;
   }
 }
 

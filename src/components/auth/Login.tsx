@@ -1,12 +1,13 @@
-import { FC, useEffect, useState } from 'react';
+import { Divider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { FC, useEffect, useState } from 'react';
 
-import Unsupported from './Unsupported';
 import { LoginButton } from '../../azure/auth/Buttons';
 import { PromptBackdrop, FormPrompt, PromptActions, PromptContent, PromptTitle, PromptWrapper } from '../shared/prompt';
 
+import Unsupported from './Unsupported';
+
 import './Auth.css';
-import { Divider } from '@mui/material';
 
 
 const Login: FC = () => {

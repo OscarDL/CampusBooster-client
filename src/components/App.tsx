@@ -37,7 +37,7 @@ const App: FC = () => {
     }
 
     if (user) {
-      dispatch(setCategory(getCategoryTitle()));
+      dispatch(setCategory(getCategoryTitle(user)));
     }
   }, [azureData, user, dispatch]);
 

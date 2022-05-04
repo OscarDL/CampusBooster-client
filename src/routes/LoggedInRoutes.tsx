@@ -47,11 +47,11 @@ const LoggedInRoutes: FC = () => {
           <Route path="/profile" element={<Profile/>}/>
 
           {/* Redirect to the home page if the route doesn't exist */}
-          <Route path="*" element={<Navigate replace to="/summary"/>}/>
+          <Route path="*" element={<Navigate replace to="/summary"/>} />
         </Routes>
       </div>
     </>
-);
+  );
 };
 
 

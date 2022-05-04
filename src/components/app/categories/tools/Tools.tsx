@@ -1,7 +1,9 @@
 import { FC } from 'react';
-import { Tab, Tabs } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { Button, Tab, Tabs } from '@mui/material';
 import { TFunction, useTranslation } from 'react-i18next';
 
+import { getLoggedInAuthState } from '../../../../shared/functions';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 import { DispatchWithCallback, useStateWithCallback } from '../../../../shared/hooks';
 
@@ -85,11 +87,25 @@ const TabDiv: FC<TabDivProps> = ({children, tab}) => (
 
 const Tools: FC = () => {
   const { t } = useTranslation();
+  const { user } = useSelector(getLoggedInAuthState);
+
   const [tab, setTab] = useStateWithCallback(0);
+
 
   return (
     <>
-      <ContentHeader title={t('tools.title')}/>
+      <ContentHeader title={t('tools.title')}>
+        {user.role === 'CAMPUS_BOOSTER_ADMIN' && (
+          <Button
+            className="button"
+            onClick={() => null}
+            startIcon={<span className="material-icons">add_circle_outline</span>}
+          >
+            {t('tools.add')}
+          </Button>
+        )}
+      </ContentHeader>
+
       <ToolTabs t={t} tab={tab} setTab={setTab}/>
 
       <ContentBody>
