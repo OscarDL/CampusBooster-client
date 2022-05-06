@@ -33,7 +33,7 @@ const TasksLine: FC<Props> = ({task}) => {
         </Button>
       </span>
 
-      {details && <TaskDetails task={task} setDetails={setDetails}/>}
+      {<TaskDetails task={task} open={!!details} setDetails={setDetails}/>}
     </li>
   );
 };

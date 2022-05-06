@@ -151,16 +151,19 @@ export const handleHeaderScrollShadow = (): void => {
 
 
 // Hide or show shadow above prompt actions if not scrolled to the bottom
-export const handlePromptScrollShadow = (initialCheck: boolean) => {
-  const prompt = document.querySelector('.prompt__wrapper');
+export const handleDialogScrollShadow = (initialCheck: boolean) => {
+  const prompt = document.querySelector('.MuiDialogContent-root');
   if (!prompt) return;
   
-  const actions = document.querySelector('.prompt__actions') as HTMLElement;
+  const title = document.querySelector('.MuiDialogTitle-root') as HTMLElement;
+  const actions = document.querySelector('.MuiDialogActions-root') as HTMLElement;
+  
   // Adding 1 is necessary because display scaling can give decmial undervalues.
   const isBottom = (prompt.scrollTop + 1) >= prompt.scrollHeight - prompt.clientHeight;
+  const isTop = prompt.scrollTop <= 1;
 
-  if (!initialCheck) actions.style.transition = 'box-shadow 0.25s';
   actions.style.boxShadow = isBottom ? 'none' : '';
+  title.style.boxShadow = isTop ? 'none' : '';
 };
 
 

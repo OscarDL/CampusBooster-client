@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Tool from '../Tool';
+import Tool from '../tool/Tool';
 
 import { ToolLink } from '../../../../../shared/types/tools';
 

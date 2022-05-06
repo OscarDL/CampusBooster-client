@@ -1,11 +1,10 @@
 import { toast } from 'react-toastify';
 import { FC, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, styled, TextField } from '@mui/material';
+import { Button, FormControl, InputLabel, MenuItem, Select, styled, TextField } from '@mui/material';
 
-import { ToolLink } from '../../../../shared/types/tools';
-
-import './Tools.css';
+import { ToolCategory, ToolLink } from '../../../../../shared/types/tools';
+import { Dialog, DialogActions, DialogContent, DialogTitle } from '../../../../shared/dialog';
 
 
 type Props = {
@@ -17,14 +16,16 @@ type Props = {
 const Input = styled('input')({display: 'none'});
 
 
-const Tools: FC<Props> = ({open, setOpen}) => {
+const CreateTool: FC<Props> = ({open, setOpen}) => {
   const { t } = useTranslation();
 
   const image = useRef<File>();
-  const [newTool, setNewTool] = useState<ToolLink>({img: '', url: '', title: '', description: ''});
+  const [newTool, setNewTool] = useState<ToolLink>({
+    img: '', url: '', title: '', category: 'general', description: ''
+  });
 
 
-  const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleImageChange = (e: React.FormEvent<HTMLInputElement>) => {
     const result = e.target as HTMLInputElement;
     const file = result.files?.[0];
 
@@ -53,8 +54,8 @@ const Tools: FC<Props> = ({open, setOpen}) => {
       // Then make a (second) request to add the tool in DB
 
       setOpen(false);
-      toast.success(t('tools.new.success'));
-      setNewTool({img: '', url: '', title: '', description: ''});
+      toast.success(t('tools.create.success'));
+      setNewTool({img: '', url: '', title: '', category: 'general', description: ''});
     }
 
     catch (error) {
@@ -65,30 +66,43 @@ const Tools: FC<Props> = ({open, setOpen}) => {
 
   return (
     <Dialog
-      fullWidth
-      open={open}
-      maxWidth="sm"
       onClose={() => setOpen(false)}
+      open={open} fullWidth maxWidth="sm"
     >
-      <DialogTitle>{t('tools.new.title')}</DialogTitle>
+      <DialogTitle>{t('tools.create.title')}</DialogTitle>
 
       <form onSubmit={handleSubmit}>
         <DialogContent>
+          <FormControl>
+            <InputLabel id="demo-select-small">{t('tools.create.category')}</InputLabel>
+            <Select
+              size="small" sx={{mb: 2}}
+              value={newTool.category}
+              labelId="demo-select-small" label={t('tools.create.category')}
+              onChange={e => setNewTool({...newTool, category: e.target.value as ToolCategory})}
+            >
+              <MenuItem value="general">{t('tools.general.tab')}</MenuItem>
+              <MenuItem value="development">{t('tools.development.tab')}</MenuItem>
+              <MenuItem value="infrastructure">{t('tools.infrastructure.tab')}</MenuItem>
+              <MenuItem value="net-sec">{t('tools.net-sec.tab')}</MenuItem>
+            </Select>
+          </FormControl>
+
           <div className="MuiDialogContent-row">
             <TextField
               required
               margin="dense"
               variant="standard"
-              label={t('tools.new.name')}
               value={newTool?.title ?? ''}
+              label={t('tools.create.name')}
               onChange={e => setNewTool({...newTool, title: e.target.value})}
             />
             <TextField
               required
               margin="dense"
               variant="standard"
-              label={t('tools.new.url')}
               value={newTool?.url ?? ''}
+              label={t('tools.create.url')}
               onChange={e => setNewTool({...newTool, url: e.target.value})}
             />
           </div>
@@ -96,9 +110,8 @@ const Tools: FC<Props> = ({open, setOpen}) => {
           <TextField
             sx={{mb: 2}} margin="normal"
             required fullWidth multiline
-            InputLabelProps={{shrink: true}}
-            label={t('tools.new.description')}
             value={newTool?.description ?? ''}
+            label={t('tools.create.description')}
             onChange={e => setNewTool({...newTool, description: e.target.value})}
           />
 
@@ -108,14 +121,14 @@ const Tools: FC<Props> = ({open, setOpen}) => {
                 type="file"
                 accept="image/*"
                 id="contained-button-file"
-                onInput={handleInputChange}
+                onInput={handleImageChange}
               />
               <Button variant="contained" component="span">
-                {t('tools.new.image')}
+                {t('tools.create.image')}
               </Button>
             </label>
 
-            <span>{newTool.img || t('tools.new.no_image')}</span>
+            <span>{newTool.img || t('tools.create.no_image')}</span>
           </div>
         </DialogContent>
 
@@ -124,7 +137,11 @@ const Tools: FC<Props> = ({open, setOpen}) => {
             {t('global.cancel')}
           </Button>
 
-          <Button className="MuiDialogButton-confirm" type="submit">
+          <Button
+            type="submit"
+            className="MuiDialogButton-confirm"
+            disabled={!(newTool.title && newTool.description && newTool.url)}
+          >
             {t('global.confirm')}
           </Button>
         </DialogActions>
@@ -134,4 +151,4 @@ const Tools: FC<Props> = ({open, setOpen}) => {
 };
 
 
-export default Tools;
+export default CreateTool;

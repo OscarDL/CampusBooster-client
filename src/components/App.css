@@ -140,6 +140,12 @@ h2 {
   font-size: 1.5rem;
 }
 
+.text-overflow {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 
 /* --- Links --- */
 
@@ -241,6 +247,15 @@ body .tippy-content > div {
 
 /* --- Material-UI custom styling - "body" for higher specificity CSS detection --- */
 
+/* Mui Dialog title/content padding --- Can't customize from the Mui theming engine for some reason */
+body .MuiDialogTitle-root {
+  transition: box-shadow 0.25s;
+  box-shadow: 0 0.2rem 0.2rem -0.1rem rgb(var(--divider-color));
+}
+body .MuiDialogTitle-root + .MuiDialogContent-root {
+  padding-top: 20px;
+}
+
 /* Mui Select header */
 body .select > .MuiInputBase-input {
   transition: 0.25s;
@@ -285,7 +300,6 @@ body button.MuiButton-root {
 }
 body button.MuiButton-root.Mui-disabled {
   opacity: 0.5;
-  color: white;
 }
 body button.MuiButton-root.Mui-disabled [class*="material-icons"] {
   color: initial;

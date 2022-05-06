@@ -1,6 +1,4 @@
-import { FC, useEffect } from 'react';
-
-import { handlePromptScrollShadow } from '../../../shared/functions';
+import { FC } from 'react';
 
 
 type PropsWrapper = {
@@ -18,18 +16,11 @@ type PropsContent = {
 };
 
 
-export const PromptWrapper: FC<PropsWrapper> = ({children}) => {
-  useEffect(() => {
-    window.addEventListener('resize', () => handlePromptScrollShadow(false));
-    return () => window.removeEventListener('resize', () => handlePromptScrollShadow(false));
-  }, []);
-
-  return (
-    <div className="prompt__wrapper" onScroll={() => handlePromptScrollShadow(false)}>
-      {children}
-    </div>
-  );
-};
+export const PromptWrapper: FC<PropsWrapper> = ({children}) => (
+  <div className="prompt__wrapper">
+    {children}
+  </div>
+);
 
 export const PromptTitle: FC<PropsTitle> = ({children, title}) => (
   <div className="prompt__title">

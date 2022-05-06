@@ -7,9 +7,9 @@ import { getLoggedInAuthState } from '../../../../shared/functions';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 import { DispatchWithCallback, useStateWithCallback } from '../../../../shared/hooks';
 
+import CreateTool from './tool/Create';
 import Dropdown from '../../../shared/dropdown';
 
-import NewTool from './NewTool';
 import NetSecTab from './tabs/NetSec';
 import GeneralTab from './tabs/General';
 import DevelopmentTab from './tabs/Development';
@@ -118,7 +118,7 @@ const Tools: FC = () => {
         {tab === 3 && <TabDiv tab={tab}><NetSecTab/></TabDiv>}
       </ContentBody>
 
-      <NewTool open={open} setOpen={setOpen}/>
+      <CreateTool open={open} setOpen={setOpen}/>
     </>
   );
 };

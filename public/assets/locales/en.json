@@ -176,13 +176,26 @@
     "icon": "handyman",
     "add": "Add tool",
 
-    "new": {
+    "create": {
       "title": "New tool",
       "name": "Tool name",
       "url": "Link (URL)",
+      "category": "Category",
       "image": "Upload image",
       "no_image": "No image selected",
-      "description": "Short description"
+      "description": "Short description",
+      "success": "Tool successfully added."
+    },
+    
+    "update": {
+      "title": "Edit \"{{tool}}\"",
+      "name": "Tool name",
+      "url": "Link (URL)",
+      "category": "Category",
+      "image": "Upload new image",
+      "no_image": "Ignore if unchanged",
+      "description": "Short description",
+      "success": "Tool successfully updated."
     },
 
     "general": {

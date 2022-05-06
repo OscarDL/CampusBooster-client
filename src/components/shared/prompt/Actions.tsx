@@ -1,6 +1,4 @@
-import { FC, useEffect } from 'react';
-
-import { handlePromptScrollShadow } from '../../../shared/functions';
+import { FC } from 'react';
 
 
 type Props = {
@@ -11,11 +9,6 @@ type Props = {
 
 const PromptActions: FC<Props> = ({children, column}) => {
   const classes = `prompt__actions flexRow ${column ? 'column' : ''}`.trimEnd();
-
-  useEffect(() => {
-    handlePromptScrollShadow(true);
-  }, []);
-
 
   return (
     <div className={classes}>

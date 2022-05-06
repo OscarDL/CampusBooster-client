@@ -147,13 +147,26 @@
     "title": "Outils",
     "add": "Ajouter un outil",
 
-    "new": {
+    "create": {
       "title": "Nouvel outil",
       "name": "Nom de l'outil",
       "url": "Lien (URL)",
+      "category": "Catégorie",
       "image": "Téléverser une image",
       "no_image": "Aucune image sélectionnée",
-      "description": "Courte description"
+      "description": "Courte description",
+      "success": "Outil ajouté avec succès."
+    },
+
+    "update": {
+      "title": "Modifier \"{{tool}}\"",
+      "name": "Nom de l'outil",
+      "url": "Lien (URL)",
+      "category": "Catégorie",
+      "image": "Téléverser une nouvelle image",
+      "no_image": "Ignorer si inchangé",
+      "description": "Courte description",
+      "success": "Outil modifié avec succès."
     },
 
     "general": {

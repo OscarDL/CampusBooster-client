@@ -11,7 +11,6 @@ export const muiTheme = createTheme({
         root: {
           letterSpacing: 0,
           // fontSize: '1.2rem',
-          fontFamily: 'inherit',
           textTransform: 'none',
           borderRadius: 'var(--radius-small)'
         }
@@ -70,7 +69,7 @@ export const muiTheme = createTheme({
           flexDirection: 'column',
 
           '> .MuiDialogContent-row': {
-            gap: '2rem',
+            gap: '1rem',
             display: 'flex',
             flexWrap: 'wrap',
             alignItems: 'center'
@@ -86,6 +85,10 @@ export const muiTheme = createTheme({
     MuiDialogActions: {
       styleOverrides: {
         root: {
+          padding: '0.75rem',
+          transition: 'box-shadow 0.25s',
+          boxShadow: '0 -0.2rem 0.2rem -0.1rem rgb(var(--divider-color))',
+
           '.MuiButton-root': {
             fontSize: '1rem'
           },
@@ -101,6 +104,14 @@ export const muiTheme = createTheme({
       styleOverrides: {
         icon: {
           transition: '0.25s'
+        }
+      }
+    },
+
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'inherit'
         }
       }
     },
@@ -155,5 +166,9 @@ export const muiTheme = createTheme({
       main: colors.accent
     },
     divider: 'rgb(var(--divider-color))'
+  },
+
+  typography: {
+    fontFamily: 'inherit'
   }
 });

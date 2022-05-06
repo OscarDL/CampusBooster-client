@@ -82,6 +82,16 @@
 /* --- Tool container --- */
 
 .tools-tab .tool {
+  position: relative;
+}
+.tools-tab .tool > .edit-tool-btn {
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.5rem;
+  position: absolute;
+}
+
+.tools-tab .tool > a {
   cursor: pointer;
   text-decoration: none;
 
@@ -95,7 +105,7 @@
   display: flex;
   justify-content: space-evenly;
 }
-.tools-tab .tool:hover, .tools-tab .tool:focus {
+.tools-tab .tool > a:hover, .tools-tab .tool > a:focus {
   transform: scale(1.01);
   background-color: rgba(var(--accent-color), 0.05);
   box-shadow: 0 0.15rem 0.3rem rgba(0, 0, 0, 0.2);
@@ -127,6 +137,7 @@
   color: rgb(var(--accent-color));
 }
 .tool p {
+  min-height: 66px;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
