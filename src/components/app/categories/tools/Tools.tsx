@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Button, Tab, Tabs } from '@mui/material';
-import { TFunction, useTranslation } from 'react-i18next';
 
 import { getLoggedInAuthState } from '../../../../shared/functions';
 import { ContentBody, ContentHeader } from '../../../shared/content';
@@ -9,6 +9,7 @@ import { DispatchWithCallback, useStateWithCallback } from '../../../../shared/h
 
 import Dropdown from '../../../shared/dropdown';
 
+import NewTool from './NewTool';
 import NetSecTab from './tabs/NetSec';
 import GeneralTab from './tabs/General';
 import DevelopmentTab from './tabs/Development';
@@ -19,7 +20,6 @@ import './Tools.css';
 
 type TabsProps = {
   tab: number,
-  t: TFunction<'translation'>,
   setTab: DispatchWithCallback<React.SetStateAction<number>>
 };
 
@@ -29,7 +29,9 @@ type TabDivProps = {
 };
 
 
-const ToolTabs: FC<TabsProps> = ({t, tab, setTab}) => {
+const ToolTabs: FC<TabsProps> = ({tab, setTab}) => {
+  const { t } = useTranslation();
+
   const tabs = [{
     title: t('tools.general.tab'),
     icon: 'language'
@@ -89,6 +91,7 @@ const Tools: FC = () => {
   const { t } = useTranslation();
   const { user } = useSelector(getLoggedInAuthState);
 
+  const [open, setOpen] = useState(false);
   const [tab, setTab] = useStateWithCallback(0);
 
 
@@ -98,7 +101,7 @@ const Tools: FC = () => {
         {user.role === 'CAMPUS_BOOSTER_ADMIN' && (
           <Button
             className="button"
-            onClick={() => null}
+            onClick={() => setOpen(true)}
             startIcon={<span className="material-icons">add_circle_outline</span>}
           >
             {t('tools.add')}
@@ -106,7 +109,7 @@ const Tools: FC = () => {
         )}
       </ContentHeader>
 
-      <ToolTabs t={t} tab={tab} setTab={setTab}/>
+      <ToolTabs tab={tab} setTab={setTab}/>
 
       <ContentBody>
         {tab === 0 && <TabDiv tab={tab}><GeneralTab/></TabDiv>}
@@ -114,6 +117,8 @@ const Tools: FC = () => {
         {tab === 2 && <TabDiv tab={tab}><InfrastructureTab/></TabDiv>}
         {tab === 3 && <TabDiv tab={tab}><NetSecTab/></TabDiv>}
       </ContentBody>
+
+      <NewTool open={open} setOpen={setOpen}/>
     </>
   );
 };

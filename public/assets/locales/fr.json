@@ -147,6 +147,15 @@
     "title": "Outils",
     "add": "Ajouter un outil",
 
+    "new": {
+      "title": "Nouvel outil",
+      "name": "Nom de l'outil",
+      "url": "Lien (URL)",
+      "image": "Téléverser une image",
+      "no_image": "Aucune image sélectionnée",
+      "description": "Courte description"
+    },
+
     "general": {
       "tab": "Général",
 
@@ -154,17 +163,20 @@
         {
           "title": "SUPINFO",
           "description": "SUPINFO propose des formations en informatique \"orientées métiers\" avec un diplôme \"Bachelor of Science\" (3 ans) et \"Master of Science (5 ans)\".",
-          "img": "supinfo.svg"
+          "img": "supinfo.svg",
+          "url": "https://supinfo.com/"
         },
         {
           "title": "E-parcours",
           "description": "Créez et gérez vos demandes de contrats entre SUPINFO et les entreprises concernées par votre parcours scolaire supérieur.",
-          "img": "eparcours.svg"
+          "img": "eparcours.svg",
+          "url": "https://epitech.fmdata.fr/fmi/webd/eparcours/"
         },
         {
           "title": "Bocal Console",
           "description": "L'intranet \"Bocal\" du groupe d'éducation IONIS.",
-          "img": "epitech.svg"
+          "img": "epitech.svg",
+          "url": "https://console.bocal.org/"
         }
       ]
     },
@@ -176,22 +188,26 @@
         {
           "title": "W3 Schools",
           "description": "W3Schools est une plateforme pour apprendre, tester et former vos compétences de développeur web, avec tutoriels et références.",
-          "img": "w3schools.svg"
+          "img": "w3schools.svg",
+          "url": "https://www.w3schools.com/"
         },
         {
           "title": "JetBrains",
           "description": "JetBrains est un ensemble de logiciels spécialisés dans la création d'outils de développement intelligents.",
-          "img": "jetbrains.svg"
+          "img": "jetbrains.svg",
+          "url": "https://jetbrains.com/"
         },
         {
           "title": "Apple Developer",
           "description": "Rejoignez le programme développeur d'Apple pour toucher des clients du monde entier sur iPhone, iPad, Mac et Apple Watch.",
-          "img": "apple.svg"
+          "img": "apple.svg",
+          "url": "https://developer.apple.com/"
         },
         {
           "title": "CodinGame",
           "description": "CodinGame est une plateforme d'entraînement, avec des exercices où vous pouvez améliorer vos compétences en programmation.",
-          "img": "codingame.svg"
+          "img": "codingame.svg",
+          "url": "https://www.codingame.com/"
         }
       ]
     },
@@ -203,22 +219,26 @@
         {
           "title": "Azure Portal",
           "description": "Créez, gérez et surveillez vos applications avec le portail Microsoft Azure. Un hub conçu pour vous, votre équipe et vos projets.",
-          "img": "azure.svg"
+          "img": "azure.svg",
+          "url": "https://portal.azure.com/"
         },
         {
           "title": "Office",
           "description": "Collaborez gratuitement avec les versions en ligne de Microsoft Word, PowerPoint, Excel et OneNote, directement dans le cloud.",
-          "img": "office.svg"
+          "img": "office.svg",
+          "url": "https://office.com/"
         },
         {
           "title": "VMware",
           "description": "Exécutez différents système d'exploitation sur votre ordinateur avec VMware : virtualisation d'OS modernes, sécurité et mise en réseau.",
-          "img": "vmware.png"
+          "img": "vmware.png",
+          "url": "https://console.bocal.org/#/vmware/"
         },
         {
           "title": "Vocareum",
           "description": "Les laboratoires cloud de Vocareum - exploitez l'infrastructure cloud pour permettre la programmation d'applications en un seul clic.",
-          "img": "vocareum.svg"
+          "img": "vocareum.svg",
+          "url": "https://labs.vocareum.com/"
         }
       ]
     },
@@ -230,22 +250,26 @@
         {
           "title": "Root-me",
           "description": "Root Me est une plateforme permettant à chacun de tester et d'améliorer ses connaissances en matière de sécurité informatique.",
-          "img": "rootme.svg"
+          "img": "rootme.svg",
+          "url": "https://root-me.org/"
         },
         {
           "title": "Netacad",
           "description": "Des cours avancés sur la mise en réseau, qui combinent formation technique et développement des compétences professionnelles.",
-          "img": "netacad.svg"
+          "img": "netacad.svg",
+          "url": "https://netacad.com/"
         },
         {
           "title": "The Security Blogger",
           "description": "Prenez place et lisez le fil d'actualités de The Security Blogger dès maintenant, simplement et gratuitement !",
-          "img": "thesecurityblogger.svg"
+          "img": "thesecurityblogger.svg",
+          "url": "https://www.thesecurityblogger.com/"
         },
         {
           "title": "CyberChef",
           "description": "Le couteau suisse du cyberespace - une application web pour le chiffrage, l'encodage, la compression et l'analyse de données.",
-          "img": "cyberchef.svg"
+          "img": "cyberchef.svg",
+          "url": "https://gchq.github.io/CyberChef/"
         }
       ]
     }
@@ -258,6 +282,8 @@
   "global": {
     "colon": " :",
     "close": "Fermer",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
     "date-mmmm-dd": "DD MMMM",
     "date-mmm-dd-yyyy": "DD MMM YYYY"
   }

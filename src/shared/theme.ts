@@ -10,7 +10,7 @@ export const muiTheme = createTheme({
       styleOverrides: {
         root: {
           letterSpacing: 0,
-          fontSize: '1.2rem',
+          // fontSize: '1.2rem',
           fontFamily: 'inherit',
           textTransform: 'none',
           borderRadius: 'var(--radius-small)'
@@ -24,6 +24,7 @@ export const muiTheme = createTheme({
           ':hover': {
             color: colors.accent
           },
+
           ':focus': {
             color: colors.accent
           }
@@ -37,6 +38,61 @@ export const muiTheme = createTheme({
           height: '1px',
           border: 'none',
           backgroundColor: 'rgb(var(--divider-color))'
+        }
+      }
+    },
+
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          '&.MuiDialog-paper': {
+            borderRadius: 'var(--radius-medium)'
+          }
+        }
+      }
+    },
+
+    MuiDialogTitle: {
+      styleOverrides: {
+        root: {
+          fontSize: '1.5rem',
+          fontWeight: 'bold',
+          color: colors.accent
+        }
+      }
+    },
+
+    MuiDialogContent: {
+      styleOverrides: {
+        root: {
+          gap: '10px',
+          display: 'flex',
+          flexDirection: 'column',
+
+          '> .MuiDialogContent-row': {
+            gap: '2rem',
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignItems: 'center'
+          },
+
+          '> .MuiDialogContent-row > *': {
+            flexGrow: 1
+          }
+        }
+      }
+    },
+
+    MuiDialogActions: {
+      styleOverrides: {
+        root: {
+          '.MuiButton-root': {
+            fontSize: '1rem'
+          },
+
+          '.MuiButton-root.MuiDialogButton-confirm': {
+            fontWeight: 'bold'
+          }
         }
       }
     },

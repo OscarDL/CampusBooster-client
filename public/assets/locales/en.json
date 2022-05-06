@@ -174,7 +174,16 @@
   "tools": {
     "title": "Tools",
     "icon": "handyman",
-    "add": "Add a tool",
+    "add": "Add tool",
+
+    "new": {
+      "title": "New tool",
+      "name": "Tool name",
+      "url": "Link (URL)",
+      "image": "Upload image",
+      "no_image": "No image selected",
+      "description": "Short description"
+    },
 
     "general": {
       "tab": "General",
@@ -303,6 +312,8 @@
   "global": {
     "colon": ":",
     "close": "Close",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
     "date-mmmm-dd": "MMMM DD",
     "date-mmm-dd-yyyy": "MMM. DD, YYYY"
   }
