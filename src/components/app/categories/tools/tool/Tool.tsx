@@ -46,9 +46,11 @@ const Tool: FC<Props> = ({img, url, title, category, description}) => {
         </div>
       </ButtonBase>
 
-      <IconButton className="edit-tool-btn" onClick={() => setOpen(true)}>
-        <span className="material-icons">edit</span>
-      </IconButton>
+      {user.role === values.roles.campusBoosterAdmin && (
+        <IconButton className="edit-tool-btn" onClick={() => setOpen(true)}>
+          <span className="material-icons">edit</span>
+        </IconButton>
+      )}
 
       <UpdateTool tool={{img, url, title, category, description}} open={open} setOpen={setOpen}/>
     </div>

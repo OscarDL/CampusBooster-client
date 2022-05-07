@@ -1,3 +1,7 @@
+button.login-btn {
+  font-size: 1.2rem;
+}
+
 button.login-btn > span {
   gap: 0.75rem;
   display: flex;
