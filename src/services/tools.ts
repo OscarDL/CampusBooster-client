@@ -12,7 +12,6 @@ const getTools = async () => {
       throw response;
     }
 
-    console.log('OK', response.data);
     return response.data;
   }
   

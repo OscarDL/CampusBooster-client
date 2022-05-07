@@ -1,21 +1,20 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Button, Tab, Tabs } from '@mui/material';
 
+import toolsService from '../../../../services/tools';
+import { ToolLink } from '../../../../shared/types/tools';
 import { getLoggedInAuthState } from '../../../../shared/functions';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 import { DispatchWithCallback, useStateWithCallback } from '../../../../shared/hooks';
 
+import ToolTab from './tool/Tab';
 import CreateTool from './tool/Create';
 import Dropdown from '../../../shared/dropdown';
 
-import NetSecTab from './tabs/NetSec';
-import GeneralTab from './tabs/General';
-import DevelopmentTab from './tabs/Development';
-import InfrastructureTab from './tabs/Infrastructure';
-
 import './Tools.css';
+import Loader from '../../../shared/loader';
 
 
 type TabsProps = {
@@ -95,6 +94,14 @@ const Tools: FC = () => {
 
   const [open, setOpen] = useState(false);
   const [tab, setTab] = useStateWithCallback(0);
+  const [tools, setTools] = useState<ToolLink[]>();
+
+
+  useEffect(() => {
+    toolsService.getTools().then(tools => {
+      setTools(tools);
+    });
+  }, []);
 
 
   return (
@@ -114,10 +121,32 @@ const Tools: FC = () => {
       <ToolTabs tab={tab} setTab={setTab}/>
 
       <ContentBody>
-        {tab === 0 && <TabDiv tab={tab}><GeneralTab/></TabDiv>}
-        {tab === 1 && <TabDiv tab={tab}><DevelopmentTab/></TabDiv>}
-        {tab === 2 && <TabDiv tab={tab}><InfrastructureTab/></TabDiv>}
-        {tab === 3 && <TabDiv tab={tab}><NetSecTab/></TabDiv>}
+        {tools ? (
+          <>
+            {tab === 0 && (
+              <TabDiv tab={tab}>
+                <ToolTab tools={tools.filter(tool => tool.category === 'general')}/>
+              </TabDiv>
+            )}
+            {tab === 1 && (
+              <TabDiv tab={tab}>
+                <ToolTab tools={tools.filter(tool => tool.category === 'development')}/>
+              </TabDiv> 
+            )}
+            {tab === 2 && (
+              <TabDiv tab={tab}>
+                <ToolTab tools={tools.filter(tool => tool.category === 'infrastructure')}/>
+              </TabDiv>
+            )}
+            {tab === 3 && (
+              <TabDiv tab={tab}>
+                <ToolTab tools={tools.filter(tool => tool.category === 'net-sec')}/>
+              </TabDiv>
+            )}
+          </>
+        ) : (
+          <Loader fullsize/>
+        )}
       </ContentBody>
 
       <CreateTool open={open} setOpen={setOpen}/>

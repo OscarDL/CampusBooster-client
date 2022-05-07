@@ -31,7 +31,7 @@ const Tool: FC<Props> = ({img, url, title, category, description}) => {
         target="_blank" rel="noreferrer"
       >
         <div className="tool__header">
-          <img src={`/assets/images/tools/${category}/${img}`} alt="logo"/>
+          <img src={img} alt="logo"/>
         </div>
 
         <div className="tool__content">
