@@ -58,7 +58,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-body, button {
+body {
   font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
@@ -165,20 +165,18 @@ h2 {
 button {
   border: none;
   cursor: pointer;
+  user-select: none;
   padding: 0.4rem 0.8rem;
-  transition: 0.25s !important;
+  /* transition: 0.25s !important; */
 }
 
 .button {
+  transition: 0.25s;
   background-color: rgb(var(--button-bg));
 }
-.button > * {
-  transition: 0.25s;
-}
-.button > *:not(span[class*="material-icons"]) {
-  font-weight: 600;
-}
-.button:not(:disabled):hover > * {
+
+.button:not(:disabled):hover,
+.button:not(:disabled):focus-visible {
   color: rgb(var(--accent-color)) !important;
 }
 
@@ -377,7 +375,7 @@ body .MuiDataGrid-columnHeaderWrapper > *:focus-within,
 body .MuiDataGrid-columnHeaderWrapper > *:focus,
 body .MuiDataGrid-row > *:focus-within,
 body .MuiDataGrid-row > *:focus {
-  outline: 0 !important;
+  outline: none !important;
 }
 
 
@@ -393,12 +391,9 @@ body .MuiDataGrid-row > *:focus {
 
 /* --- Miscellaneous --- */
 
-button, span[class*="material-icons"] {
-  user-select: none;
-  transition: 0.25s;
-}
-
-span[class*="material-icons"]:hover, span[class*="material-icons"]:focus, span[class*="material-icons"]:active {
+span[class*="material-icons"]:hover,
+span[class*="material-icons"]:active,
+span[class*="material-icons"]:focus-visible {
   color: rgb(var(--accent-color));
 }
 

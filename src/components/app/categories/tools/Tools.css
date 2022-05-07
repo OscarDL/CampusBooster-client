@@ -105,7 +105,7 @@
   display: flex;
   justify-content: space-evenly;
 }
-.tools-tab .tool > a:hover, .tools-tab .tool > a:focus {
+.tools-tab .tool > a:hover, .tools-tab .tool > a:focus-visible {
   transform: scale(1.01);
   background-color: rgba(var(--accent-color), 0.05);
   box-shadow: 0 0.15rem 0.3rem rgba(0, 0, 0, 0.2);
@@ -130,13 +130,13 @@
   width: calc(80% - 0.5rem);
 }
 
-.tool h2 {
+.tool > a h2 {
   overflow-x: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   color: rgb(var(--accent-color));
 }
-.tool p {
+.tool > a p {
   min-height: 66px;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -149,10 +149,10 @@
   color: rgb(var(--text-color));
 }
 
-.tool:hover h2, .tool:focus h2 {
+.tool > a:hover h2, .tool > a:focus-visible h2 {
   text-decoration: underline;
 }
-.tool:hover p, .tool:focus p {
+.tool > a:hover p, .tool > a:focus-visible p {
   color: rgb(var(--accent-color));
 }
 

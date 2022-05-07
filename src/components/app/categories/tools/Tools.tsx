@@ -73,7 +73,9 @@ const ToolTabs: FC<TabsProps> = ({tab, setTab}) => {
           scrollButtons={false}
           onChange={animateNewTab}
         >
-          {tabs.map((tab, i) => <Tab key={i} label={tab.title} style={{fontWeight: '500'}}/>)}
+          {tabs.map((tab, i) => (
+            <Tab key={i} tabIndex={0} label={tab.title}/>
+          ))}
         </Tabs>
       </div>
     </div>

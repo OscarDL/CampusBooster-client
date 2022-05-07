@@ -8,7 +8,8 @@
   text-decoration: none;
   color: rgb(var(--accent-color));
 }
-.auth a:hover, .auth a:focus, .auth a:active {
+.auth a:hover, .auth a:active, .auth a:focus-visible {
+  outline: none;
   text-decoration: underline;
   color: rgb(var(--accent-color));
 }
@@ -116,8 +117,8 @@
 }
 
 .browsers > a {
-  outline: 0;
   opacity: 0.9;
+  outline: none;
   transition: 0.25s;
 
   width: 6rem;

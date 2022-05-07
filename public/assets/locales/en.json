@@ -186,7 +186,7 @@
       "description": "Short description",
       "success": "Tool successfully added."
     },
-    
+
     "update": {
       "title": "Edit \"{{tool}}\"",
       "name": "Tool name",

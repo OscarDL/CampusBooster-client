@@ -154,7 +154,7 @@
       "category": "Catégorie",
       "image": "Téléverser une image",
       "no_image": "Aucune image sélectionnée",
-      "description": "Courte description",
+      "description": "Courte description (EN)",
       "success": "Outil ajouté avec succès."
     },
 
@@ -165,7 +165,7 @@
       "category": "Catégorie",
       "image": "Téléverser une nouvelle image",
       "no_image": "Ignorer si inchangé",
-      "description": "Courte description",
+      "description": "Courte description (EN)",
       "success": "Outil modifié avec succès."
     },
 

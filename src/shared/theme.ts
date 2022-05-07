@@ -9,8 +9,8 @@ export const muiTheme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
+          fontWeight: 600,
           letterSpacing: 0,
-          // fontSize: '1.2rem',
           textTransform: 'none',
           borderRadius: 'var(--radius-small)'
         }
@@ -23,9 +23,12 @@ export const muiTheme = createTheme({
           ':hover': {
             color: colors.accent
           },
-
-          ':focus': {
+          ':focus-visible': {
             color: colors.accent
+          },
+
+          'span[class*="material-icons"]': {
+            transition: '0.25s'
           }
         }
       }
@@ -74,7 +77,6 @@ export const muiTheme = createTheme({
             flexWrap: 'wrap',
             alignItems: 'center'
           },
-
           '> .MuiDialogContent-row > *': {
             flexGrow: 1
           }
@@ -92,7 +94,6 @@ export const muiTheme = createTheme({
           '.MuiButton-root': {
             fontSize: '1rem'
           },
-
           '.MuiButton-root.MuiDialogButton-confirm': {
             fontWeight: 'bold'
           }
@@ -126,10 +127,11 @@ export const muiTheme = createTheme({
       styleOverrides: {
         root: {
           transition: '0.25s',
+
           ':hover': {
             color: colors.accent
           },
-          ':focus': {
+          ':focus-visible': {
             color: colors.accent
           },
 
@@ -148,11 +150,13 @@ export const muiTheme = createTheme({
     MuiTab: {
       styleOverrides: {
         root: {
+          transition: '0.25s',
+
           ':hover': {
             color: colors.accent,
             backgroundColor: `rgba(${colors.accentRGB}, 0.075)`
           },
-          ':focus': {
+          ':focus-visible': {
             color: colors.accent
           }
         }

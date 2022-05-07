@@ -16,8 +16,12 @@
   text-decoration: none !important;
 }
 
+.drawer .drawer__item span[class*="material-icons"] {
+  transition: 0.25s;
+}
+
 .drawer__item:hover > *,
-.drawer__item:focus > *,
+.drawer__item:focus-visible > *,
 .drawer .selected > .drawer__item > * {
   color: rgb(var(--accent-color));
 }

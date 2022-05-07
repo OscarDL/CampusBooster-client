@@ -32,9 +32,11 @@ div.dropdown__header {
   padding: 0 0.4rem 0 0.6rem;
 }
 
-.dropdown__header:hover > span {
+.dropdown__header:hover > span,
+.dropdown__header:focus-visible > span {
   color: rgb(var(--accent-color));
 }
+
 .dropdown__content.open ~ .dropdown__header {
   color: rgb(var(--accent-color));
   background-color: rgba(var(--accent-color), 0.075);
@@ -64,8 +66,8 @@ div.dropdown__header {
 
 /* Dropdown options list */
 .dropdown__content > li {
-  outline: 0;
   border: none;
+  outline: none;
   cursor: pointer;
   font-weight: 600;
   display: inherit;

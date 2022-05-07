@@ -52,7 +52,8 @@
   display: flex;
 }
 
-.content__header > .options > .MuiButton-root.button {
+.content__header > .options > .button {
+  color: inherit;
   font-size: 1rem;
   padding: 0.25rem 0.75rem;
   background-color: rgb(var(--button-bg-darker));
