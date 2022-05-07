@@ -298,6 +298,7 @@
     "cancel": "Annuler",
     "confirm": "Confirmer",
     "date-mmmm-dd": "DD MMMM",
+    "date-compare": "D-M-YYYY",
     "date-mmm-dd-yyyy": "DD MMM YYYY"
   }
 }

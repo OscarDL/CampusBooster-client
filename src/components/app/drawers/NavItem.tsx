@@ -40,11 +40,9 @@ const NavItem: FC<Props> = ({text, category, collapsed = false, hideDrawer = () 
 
   return (
     <Link
-      ref={linkRef}
-      tabIndex={-1}
-      onClick={handleTap}
-      to={'/' + category}
+      ref={linkRef} tabIndex={-1}
       title={collapsed ? t(title) : ''}
+      onClick={handleTap} to={'/' + category}
       className={getCategoryTitle(user) === title ? 'selected' : ''}
     >
       <ListItemButton onClick={handleEnter} key={category} className="drawer__item">

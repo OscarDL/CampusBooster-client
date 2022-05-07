@@ -1,9 +1,11 @@
 import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
+import { values } from '../../../shared/utils';
 import authService from '../../../services/auth';
 import { AzureData, User } from '../../../shared/types/user';
 import { clearAzureLocalStorageData } from '../../../shared/functions';
+import { AccountInfo } from '@azure/msal-browser';
 
 
 export type AuthState = {
@@ -49,6 +51,14 @@ export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
 });
 
 
+export const clearLoginState = (azureData: AccountInfo) => {
+  clearAzureLocalStorageData(azureData);
+  sessionStorage.removeItem('persist:' + values.authPersistKey);
+
+  window.location.pathname = '/login';
+};
+
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -56,6 +66,14 @@ const authSlice = createSlice({
   reducers: {
     setUser: (state, {payload}) => {
       state.user = payload;
+    },
+
+    setRefreshToken: (state, {payload}) => {
+      state.refreshToken = payload;
+    },
+
+    forceLogout: (state) => {
+      clearLoginState(state.user!.azureData);
     }
   },
 
@@ -67,25 +85,23 @@ const authSlice = createSlice({
         state.refreshToken = payload.refreshToken;
       })
       .addCase(login.rejected, (_, {payload}: {payload: any}) => {
-        clearAzureLocalStorageData(payload.azureData);
-
         toast.error(payload.message, {
           onClose: () => {
-            // Reset to the initial state
-            window.location.pathname = '/login';
+            // Clear persisted auth state before login
+            clearLoginState(payload.azureData);
           }
         });
       });
 
     // User logout process
     builder
-      .addMatcher(isAnyOf(logout.fulfilled, logout.rejected), () => {
-        // Reset to the initial state
-        window.location.pathname = '/login';
+      .addMatcher(isAnyOf(logout.fulfilled, logout.rejected), (state) => {
+        // Clear persisted auth state before login
+        clearLoginState(state.user!.azureData);
       });
   }
 });
 
 
-export const { setUser } = authSlice.actions;
+export const { setUser, setRefreshToken, forceLogout } = authSlice.actions;
 export default authSlice.reducer;

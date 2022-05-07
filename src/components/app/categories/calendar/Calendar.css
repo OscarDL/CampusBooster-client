@@ -52,9 +52,6 @@
   padding: 0 4px;
 }
 
-.calendar-view .MuiPickersDay-root {
-  padding-top: 1px;
-}
 .calendar-view .MuiMonthPicker-root {
   margin: 0 0 1rem;
   max-width: var(--max-calendar-picker-width);

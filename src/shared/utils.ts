@@ -38,7 +38,7 @@ export const values = {
     'internships',
     'accounting',
     'admin',
-    'tools'
+    'tools',
   ],
 
   maxMobileWidth: 768

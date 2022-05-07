@@ -76,7 +76,7 @@ export const getLoggedInAuthState = (state: RootState) => ({
 export const getCategoryTitle = (user: User) => {
   const category = window.location.pathname.replace('/', '').split('/')[0];
 
-  if (!getUserCategories(values.categories, user).find(c => c === category)) {
+  if (!getUserCategories(values.categories, user).find(c => c === category) && category !== 'profile') {
     return values.categories.find(c => c === 'summary') + '.title';
   }
 

@@ -35,10 +35,21 @@ const logout = async () => {
   }
 };
 
+const refreshAccessToken = async (refreshToken: string) => {
+  try {
+    return await axios.post(apiUrl + 'auth/refresh', {refreshToken}, axiosConfig);
+  }
+
+  catch (error: any) {
+    return Promise.reject(error.response.data || t('api.error'));
+  }
+};
+
 
 const authService = {
   login,
-  logout
+  logout,
+  refreshAccessToken
 };
 
 export default authService;
