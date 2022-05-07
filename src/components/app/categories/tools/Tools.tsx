@@ -32,16 +32,16 @@ const ToolTabs: FC<TabsProps> = ({tab, setTab}) => {
   const { t } = useTranslation();
 
   const tabs = [{
-    title: t('tools.general.tab'),
+    title: t('tools.general'),
     icon: 'language'
   }, {
-    title: t('tools.development.tab'),
+    title: t('tools.development'),
     icon: 'terminal'
   }, {
-    title: t('tools.infrastructure.tab'),
+    title: t('tools.infrastructure'),
     icon: 'storage'
   }, {
-    title: t('tools.net-sec.tab'),
+    title: t('tools.net-sec'),
     icon: 'security'
   }];
 

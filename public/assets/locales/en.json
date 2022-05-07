@@ -176,6 +176,11 @@
     "icon": "handyman",
     "add": "Add tool",
 
+    "general": "General",
+    "development": "Development",
+    "infrastructure": "Infrastructure",
+    "net-sec": "Network & Security",
+
     "create": {
       "title": "New tool",
       "name": "Tool name",

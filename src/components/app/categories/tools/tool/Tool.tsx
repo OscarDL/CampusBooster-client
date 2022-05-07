@@ -3,25 +3,23 @@ import { useSelector } from 'react-redux';
 import { ButtonBase, IconButton } from '@mui/material';
 
 import { values } from '../../../../../shared/utils';
-import { ToolCategory } from '../../../../../shared/types/tools';
+import { ToolLink } from '../../../../../shared/types/tools';
 import { getLoggedInAuthState } from '../../../../../shared/functions';
 
 import UpdateTool from './Update';
 
 
 type Props = {
-  img: string,
-  url: string,
-  title: string,
-  description: string,
-  category: ToolCategory
+  tool: ToolLink
 };
 
 
-const Tool: FC<Props> = ({img, url, title, category, description}) => {
+const Tool: FC<Props> = ({tool: {img, url, title, category, description}}) => {
+  const [open, setOpen] = useState(false);
   const { user } = useSelector(getLoggedInAuthState);
 
-  const [open, setOpen] = useState(false);
+  // Image is retrieved in base64 from AWS
+  const imageType = img.slice(img.lastIndexOf('.'));
 
 
   return (
@@ -31,7 +29,7 @@ const Tool: FC<Props> = ({img, url, title, category, description}) => {
         target="_blank" rel="noreferrer"
       >
         <div className="tool__header">
-          <img src={img} alt="logo"/>
+          <img src={`data:image/${imageType};base64,${img}`} alt="logo"/>
         </div>
 
         <div className="tool__content">

@@ -147,6 +147,11 @@
     "title": "Outils",
     "add": "Ajouter un outil",
 
+    "general": "Géneral",
+    "development": "Développement",
+    "infrastructure": "Infrastructure",
+    "net-sec": "Sécurité et Réseaux",
+
     "create": {
       "title": "Nouvel outil",
       "name": "Nom de l'outil",

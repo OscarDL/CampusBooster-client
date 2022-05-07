@@ -14,14 +14,7 @@ const ToolTab: FC<Props> = ({tools}) => {
   return (
     <>
       {tools.map(tool => (
-        <Tool
-          key={tool.id}
-          img={tool.img}
-          url={tool.url}
-          title={tool.title}
-          category={tool.category}
-          description={tool.description}
-        />
+        <Tool key={tool.id} tool={tool}/>
       ))}
     </>
   );
