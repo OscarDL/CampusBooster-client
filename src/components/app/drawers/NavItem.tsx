@@ -1,10 +1,10 @@
 import { FC, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
 import { ListItemButton, ListItemText } from '@mui/material';
 
 import { setCategory } from '../../../store/features/app/slice';
+import { useAppDispatch, useAppSelector } from '../../../store/store';
 import { getCategoryTitle, getLoggedInAuthState } from '../../../shared/functions';
 
 
@@ -18,8 +18,9 @@ type Props = {
 
 const NavItem: FC<Props> = ({text, category, collapsed = false, hideDrawer = () => null}) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const { user } = useSelector(getLoggedInAuthState);
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector(getLoggedInAuthState);
+  
   const linkRef = useRef<HTMLAnchorElement | null>(null);
 
   const icon = category + '.icon';

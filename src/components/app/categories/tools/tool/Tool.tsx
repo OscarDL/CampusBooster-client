@@ -1,25 +1,25 @@
 import { FC, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { ButtonBase, IconButton } from '@mui/material';
 
 import { values } from '../../../../../shared/utils';
-import { ToolLink } from '../../../../../shared/types/tools';
+import { useAppSelector } from '../../../../../store/store';
 import { getLoggedInAuthState } from '../../../../../shared/functions';
+import { ToolLinkBase64Image } from '../../../../../shared/types/tools';
 
 import UpdateTool from './Update';
+import { useTranslation } from 'react-i18next';
 
 
 type Props = {
-  tool: ToolLink
+  tool: ToolLinkBase64Image
 };
 
 
-const Tool: FC<Props> = ({tool: {img, url, title, category, description}}) => {
+const Tool: FC<Props> = ({tool: {img, url, title, category, description, imgBase64}}) => {
+  const { t } = useTranslation();
+  const { user } = useAppSelector(getLoggedInAuthState);
+  
   const [open, setOpen] = useState(false);
-  const { user } = useSelector(getLoggedInAuthState);
-
-  // Image is retrieved in base64 from AWS
-  const imageType = img.slice(img.lastIndexOf('.'));
 
 
   return (
@@ -29,7 +29,7 @@ const Tool: FC<Props> = ({tool: {img, url, title, category, description}}) => {
         target="_blank" rel="noreferrer"
       >
         <div className="tool__header">
-          <img src={`data:image/${imageType};base64,${img}`} alt="logo"/>
+          <img src={imgBase64 || '/assets/images/tools/tool.svg'} alt="logo"/>
         </div>
 
         <div className="tool__content">
@@ -40,7 +40,7 @@ const Tool: FC<Props> = ({tool: {img, url, title, category, description}}) => {
           >
             {title}
           </h2>
-          <p title={description}>{description}</p>
+          <p title={description}>{description || t('tools.no_description')}</p>
         </div>
       </ButtonBase>
 

@@ -1,10 +1,13 @@
 import { toast } from 'react-toastify';
 import { FC, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, FormControl, InputLabel, MenuItem, Select, styled, TextField } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { Box, Button, FormControl, IconButton, InputLabel, MenuItem, Select, styled, TextField } from '@mui/material';
 
+import { useAppDispatch } from '../../../../../store/store';
+import { createTool } from '../../../../../store/features/tools/slice';
 import { ToolCategory, ToolLink } from '../../../../../shared/types/tools';
-import { Dialog, DialogActions, DialogContent, DialogTitle } from '../../../../shared/dialog';
+import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
 
 
 type Props = {
@@ -18,49 +21,57 @@ const Input = styled('input')({display: 'none'});
 
 const CreateTool: FC<Props> = ({open, setOpen}) => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
 
   const image = useRef<File>();
-  const [newTool, setNewTool] = useState<ToolLink>({
+  const [loading, setLoading] = useState(false);
+  const [tool, setTool] = useState<ToolLink>({
     img: '', url: '', title: '', category: 'general', description: ''
   });
 
 
-  const handleImageChange = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleAddImage = (e: React.FormEvent<HTMLInputElement>) => {
     const result = e.target as HTMLInputElement;
     const file = result.files?.[0];
 
     if (!file) {
-      setNewTool({...newTool, img: ''});
+      setTool({...tool, img: ''});
       image.current = undefined;
       return;
     }
 
     image.current = file;
-    setNewTool({...newTool, img: file.name});
+    setTool({...tool, img: file.name});
+  };
+
+  const handleRemoveImage = () => {
+    image.current = undefined;
+    setTool({...tool, img: ''});
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
+
+    const toolData = new FormData();
+    toolData.append('url', tool.url);
+    toolData.append('title', tool.title);
+    toolData.append('category', tool.category);
+    toolData.append('description', tool.description);
+    if (image.current) toolData.append('file', image.current);
 
     try {
-      if (image.current) {
-        const formData = new FormData();
-        formData.append('file', image.current);
-        formData.append('fileName', image.current.name);
-
-        // Upload image to special API route for CDN upload
-      }
-
-      // Then make a (second) request to add the tool in DB
+      await dispatch(createTool(toolData)).unwrap();
 
       setOpen(false);
-      toast.success(t('tools.create.success'));
-      setNewTool({img: '', url: '', title: '', category: 'general', description: ''});
+      toast.success(t('tools.create.success', {tool: tool.title}));
+      setTool({img: '', url: '', title: '', category: 'general', description: ''});
+    }
+    catch (error: any) {
+      toast.error(error);
     }
 
-    catch (error) {
-      toast.error(String(error));
-    }
+    setLoading(false);
   };
 
 
@@ -77,14 +88,14 @@ const CreateTool: FC<Props> = ({open, setOpen}) => {
             <InputLabel id="demo-select-small">{t('tools.create.category')}</InputLabel>
             <Select
               size="small" sx={{mb: 2}}
-              value={newTool.category}
+              value={tool.category}
               labelId="demo-select-small" label={t('tools.create.category')}
-              onChange={e => setNewTool({...newTool, category: e.target.value as ToolCategory})}
+              onChange={e => setTool({...tool, category: e.target.value as ToolCategory})}
             >
-              <MenuItem value="general">{t('tools.general.tab')}</MenuItem>
-              <MenuItem value="development">{t('tools.development.tab')}</MenuItem>
-              <MenuItem value="infrastructure">{t('tools.infrastructure.tab')}</MenuItem>
-              <MenuItem value="net-sec">{t('tools.net-sec.tab')}</MenuItem>
+              <MenuItem value="general">{t('tools.general')}</MenuItem>
+              <MenuItem value="development">{t('tools.development')}</MenuItem>
+              <MenuItem value="infrastructure">{t('tools.infrastructure')}</MenuItem>
+              <MenuItem value="net-sec">{t('tools.net-sec')}</MenuItem>
             </Select>
           </FormControl>
 
@@ -93,42 +104,50 @@ const CreateTool: FC<Props> = ({open, setOpen}) => {
               required
               margin="dense"
               variant="standard"
-              value={newTool?.title ?? ''}
+              value={tool?.title ?? ''}
               label={t('tools.create.name')}
-              onChange={e => setNewTool({...newTool, title: e.target.value})}
+              onChange={e => setTool({...tool, title: e.target.value})}
             />
             <TextField
               required
               margin="dense"
               variant="standard"
-              value={newTool?.url ?? ''}
+              value={tool?.url ?? ''}
               label={t('tools.create.url')}
-              onChange={e => setNewTool({...newTool, url: e.target.value})}
+              onChange={e => setTool({...tool, url: e.target.value})}
             />
           </div>
 
           <TextField
             sx={{mb: 2}} margin="normal"
             required fullWidth multiline
-            value={newTool?.description ?? ''}
+            value={tool?.description ?? ''}
             label={t('tools.create.description')}
-            onChange={e => setNewTool({...newTool, description: e.target.value})}
+            onChange={e => setTool({...tool, description: e.target.value})}
           />
 
           <div className="MuiDialogContent-row">
-            <label htmlFor="contained-button-file" style={{flexGrow: 0}}>
+            <label htmlFor="button-file" style={{flexGrow: 0}}>
               <Input
                 type="file"
+                id="file-btn"
                 accept="image/*"
-                id="contained-button-file"
-                onInput={handleImageChange}
+                onInput={handleAddImage}
               />
               <Button variant="contained" component="span">
                 {t('tools.create.image')}
               </Button>
             </label>
 
-            <span>{newTool.img || t('tools.create.no_image')}</span>
+            <Box sx={{display: 'flex', alignItems: 'center'}}>
+              {tool.img && (
+                <IconButton sx={{p: '6px', mr: 1}} color="error" onClick={handleRemoveImage}>
+                  <CloseIcon/>
+                </IconButton>
+              )}
+
+              <span className="text-overflow">{tool.img || t('tools.create.no_image')}</span>
+            </Box>
           </div>
         </DialogContent>
 
@@ -137,13 +156,12 @@ const CreateTool: FC<Props> = ({open, setOpen}) => {
             {t('global.cancel')}
           </Button>
 
-          <Button
-            type="submit"
-            className="MuiDialogButton-confirm"
-            disabled={!(newTool.title && newTool.description && newTool.url)}
+          <MainDialogButton
+            type="submit" variant="contained" loading={loading}
+            disabled={!(tool.title && tool.description && tool.url)}
           >
             {t('global.confirm')}
-          </Button>
+          </MainDialogButton>
         </DialogActions>
       </form>
     </Dialog>

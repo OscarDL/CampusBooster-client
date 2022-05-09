@@ -1,9 +1,9 @@
-import { useSelector } from 'react-redux';
 import { FC, useEffect, useState } from 'react';
 import { styled, CSSObject, Theme } from '@mui/material/styles';
 import { Drawer as MuiDrawer, List, Divider } from '@mui/material';
 
 import { values } from '../../../shared/utils';
+import { useAppSelector } from '../../../store/store';
 import { getLoggedInAuthState, getUserCategories } from '../../../shared/functions';
 
 import NavItem from './NavItem';
@@ -55,7 +55,8 @@ type Props = {
 
 
 const SideDrawer: FC<Props> = ({forceCollapse}) => {
-  const { user } = useSelector(getLoggedInAuthState);
+  const { user } = useAppSelector(getLoggedInAuthState);
+
   const [collapsed, setCollapsed] = useState(forceCollapse || !!localStorage.getItem('collapseDrawer'));
 
 

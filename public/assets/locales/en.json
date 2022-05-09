@@ -175,6 +175,7 @@
     "title": "Tools",
     "icon": "handyman",
     "add": "Add tool",
+    "no_description": "No description available for this tool.",
 
     "general": "General",
     "development": "Development",
@@ -189,7 +190,7 @@
       "image": "Upload image",
       "no_image": "No image selected",
       "description": "Short description",
-      "success": "Tool successfully added."
+      "success": "Tool \"{{tool}}\" successfully added."
     },
 
     "update": {
@@ -197,10 +198,10 @@
       "name": "Tool name",
       "url": "Link (URL)",
       "category": "Category",
-      "image": "Upload new image",
+      "image": "Change image",
       "no_image": "Ignore if unchanged",
       "description": "Short description",
-      "success": "Tool successfully updated."
+      "success": "Tool \"{{tool}}\" successfully updated."
     }
   },
 

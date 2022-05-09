@@ -15,6 +15,7 @@ export type User = {
   id: number,
   
   email: string,
+  avatar?: string,
   lastName: string,
   firstName: string,
   birthday?: string,

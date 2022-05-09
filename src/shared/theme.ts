@@ -20,13 +20,6 @@ export const muiTheme = createTheme({
     MuiIconButton: {
       styleOverrides: {
         root: {
-          ':hover': {
-            color: colors.accent
-          },
-          ':focus-visible': {
-            color: colors.accent
-          },
-
           'span[class*="material-icons"]': {
             transition: '0.25s'
           }
@@ -87,15 +80,13 @@ export const muiTheme = createTheme({
     MuiDialogActions: {
       styleOverrides: {
         root: {
+          gap: '0.75rem',
           padding: '0.75rem',
           transition: 'box-shadow 0.25s',
           boxShadow: '0 -0.2rem 0.2rem -0.1rem rgb(var(--divider-color))',
 
           '.MuiButton-root': {
             fontSize: '1rem'
-          },
-          '.MuiButton-root.MuiDialogButton-confirm': {
-            fontWeight: 'bold'
           }
         }
       }

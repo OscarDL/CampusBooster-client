@@ -1,12 +1,14 @@
 import copy from 'fast-copy';
 import { toast } from 'react-toastify';
-import isEqual from 'react-fast-compare';
-import { FC, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, FormControl, InputLabel, MenuItem, Select, styled, TextField } from '@mui/material';
+import { Close, Replay } from '@mui/icons-material';
+import { Box, Button, FormControl, IconButton, InputLabel, MenuItem, Select, styled, TextField } from '@mui/material';
 
+import { useAppDispatch } from '../../../../../store/store';
+import { updateTool } from '../../../../../store/features/tools/slice';
 import { ToolCategory, ToolLink } from '../../../../../shared/types/tools';
-import { Dialog, DialogActions, DialogContent, DialogTitle } from '../../../../shared/dialog';
+import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
 
 
 type Props = {
@@ -21,12 +23,14 @@ const Input = styled('input')({display: 'none'});
 
 const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
 
   const image = useRef<File>();
-  const [newTool, setNewTool] = useState<ToolLink>(copy(tool));
+  const [loading, setLoading] = useState(false);
+  const [newTool, setNewTool] = useState(copy(tool));
 
 
-  const handleImageChange = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleAddImage = (e: React.FormEvent<HTMLInputElement>) => {
     const result = e.target as HTMLInputElement;
     const file = result.files?.[0];
 
@@ -40,28 +44,47 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
     setNewTool({...newTool, img: file.name});
   };
 
+  const handleRemoveImage = () => {
+    image.current = undefined;
+    setNewTool({...newTool, img: ''});
+  };
+
+  const handleResetImage = () => {
+    image.current = undefined;
+    setNewTool({...newTool, img: tool.img});
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
+
+    const toolData = new FormData();
+    toolData.append('img', newTool.img);
+    toolData.append('url', newTool.url);
+    toolData.append('title', newTool.title);
+    toolData.append('category', newTool.category);
+    toolData.append('description', newTool.description);
+    if (image.current) toolData.append('file', image.current);
 
     try {
-      if (image.current) {
-        const formData = new FormData();
-        formData.append('file', image.current);
-        formData.append('fileName', image.current.name);
-
-        // Upload image to special API route for CDN upload if necessary
-      }
-
-      // Then make a (second) request to update the tool in DB
+      await dispatch(updateTool({id: tool.id!, toolData})).unwrap();
 
       setOpen(false);
-      toast.success(t('tools.update.success'));
+      toast.success(t('tools.update.success', {tool: tool.title}));
+      setNewTool({img: '', url: '', title: '', category: 'general', description: ''});
+    }
+    catch (error: any) {
+      toast.error(error);
     }
 
-    catch (error) {
-      toast.error(String(error));
-    }
+    setLoading(false);
   };
+
+
+  useEffect(() => {
+    // Reset state on new dialog open
+    if (open) setNewTool(copy(tool));
+  }, [open, tool]);
 
 
   return (
@@ -69,22 +92,22 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
       onClose={() => setOpen(false)}
       open={open} fullWidth maxWidth="sm"
     >
-      <DialogTitle>{t('tools.create.title')}</DialogTitle>
+      <DialogTitle>{t('tools.update.title', {tool: tool.title})}</DialogTitle>
 
       <form onSubmit={handleSubmit}>
         <DialogContent>
           <FormControl>
-            <InputLabel id="demo-select-small">{t('tools.create.category')}</InputLabel>
+            <InputLabel id="demo-select-small">{t('tools.update.category')}</InputLabel>
             <Select
               size="small" sx={{mb: 2}}
               value={newTool.category}
-              labelId="demo-select-small" label={t('tools.create.category')}
+              labelId="demo-select-small" label={t('tools.update.category')}
               onChange={e => setNewTool({...newTool, category: e.target.value as ToolCategory})}
             >
-              <MenuItem value="general">{t('tools.general.tab')}</MenuItem>
-              <MenuItem value="development">{t('tools.development.tab')}</MenuItem>
-              <MenuItem value="infrastructure">{t('tools.infrastructure.tab')}</MenuItem>
-              <MenuItem value="net-sec">{t('tools.net-sec.tab')}</MenuItem>
+              <MenuItem value="general">{t('tools.general')}</MenuItem>
+              <MenuItem value="development">{t('tools.development')}</MenuItem>
+              <MenuItem value="infrastructure">{t('tools.infrastructure')}</MenuItem>
+              <MenuItem value="net-sec">{t('tools.net-sec')}</MenuItem>
             </Select>
           </FormControl>
 
@@ -94,7 +117,7 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
               margin="dense"
               variant="standard"
               value={newTool?.title ?? ''}
-              label={t('tools.create.name')}
+              label={t('tools.update.name')}
               onChange={e => setNewTool({...newTool, title: e.target.value})}
             />
             <TextField
@@ -102,7 +125,7 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
               margin="dense"
               variant="standard"
               value={newTool?.url ?? ''}
-              label={t('tools.create.url')}
+              label={t('tools.update.url')}
               onChange={e => setNewTool({...newTool, url: e.target.value})}
             />
           </div>
@@ -111,24 +134,36 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
             sx={{mb: 2}} margin="normal"
             required fullWidth multiline
             value={newTool?.description ?? ''}
-            label={t('tools.create.description')}
+            label={t('tools.update.description')}
             onChange={e => setNewTool({...newTool, description: e.target.value})}
           />
 
           <div className="MuiDialogContent-row">
-            <label htmlFor="contained-button-file" style={{flexGrow: 0}}>
+            <label htmlFor="file-btn" style={{flexGrow: 0}}>
               <Input
                 type="file"
+                id="file-btn"
                 accept="image/*"
-                id="contained-button-file"
-                onInput={handleImageChange}
+                onInput={handleAddImage}
               />
               <Button variant="contained" component="span">
-                {t('tools.create.image')}
+                {t('tools.update.image')}
               </Button>
             </label>
 
-            <span className="text-overflow">{newTool.img || t('tools.create.no_image')}</span>
+            <Box sx={{display: 'flex', alignItems: 'center', overflow: 'hidden'}}>
+              {tool.img && (
+                <IconButton sx={{p: '6px', mr: 1}} color="error" onClick={handleRemoveImage}>
+                  <Close/>
+                </IconButton>
+              )}
+
+              <IconButton sx={{p: '6px', mr: 1}} onClick={handleResetImage}>
+                <Replay/>
+              </IconButton>
+
+              <span className="text-overflow">{newTool.img || t('tools.update.no_image')}</span>
+            </Box>
           </div>
         </DialogContent>
 
@@ -137,13 +172,12 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
             {t('global.cancel')}
           </Button>
 
-          <Button
-            type="submit"
-            className="MuiDialogButton-confirm"
-            disabled={!(newTool.title && newTool.description && newTool.url) || isEqual(tool, newTool)}
+          <MainDialogButton
+            type="submit" variant="contained" loading={loading}
+            disabled={!(newTool.title && newTool.description && newTool.url)}
           >
             {t('global.confirm')}
-          </Button>
+          </MainDialogButton>
         </DialogActions>
       </form>
     </Dialog>

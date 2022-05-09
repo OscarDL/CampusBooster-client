@@ -39,7 +39,7 @@ type LogoutProps = {
 
 export const LogoutButton: FC<LogoutProps> = ({logoutFromAzure}) => {
   const dispatch = useDispatch();
-  const { instance, accounts: [azureData] } = useMsal();
+  const { instance } = useMsal();
 
   const handleAzureLogout = (): void => {
     if (!logoutFromAzure) {
@@ -47,7 +47,7 @@ export const LogoutButton: FC<LogoutProps> = ({logoutFromAzure}) => {
       return;
     }
 
-    clearLoginState(azureData);
+    clearLoginState();
 
     instance.logoutRedirect().catch(e => {
       console.error(e);

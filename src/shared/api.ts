@@ -1,5 +1,4 @@
 import i18next, { t } from 'i18next';
-import { toast } from 'react-toastify';
 import axios, { AxiosRequestConfig } from 'axios';
 
 import { store } from '../store/store';
@@ -21,13 +20,6 @@ export const axiosConfig: AxiosRequestConfig = {
 };
 
 
-const logoutWithError = (error: string) => {
-  toast.error(error, {
-    onClose: () => store.dispatch(forceLogout())
-  });
-};
-
-
 axios.interceptors.response.use(
   (response) => {
     return response;
@@ -39,12 +31,16 @@ axios.interceptors.response.use(
 
     // Cannot communicate with the server
     if (!error.response) {
-      logoutWithError(t('api.network_error'));
+      store.dispatch(
+        forceLogout(t('api.network_error'))
+      );
     }
 
     // Request timed out
     if (error.response.status === 408) {
-      logoutWithError(t('api.timeout'));
+      store.dispatch(
+        forceLogout(t('api.timeout'))
+      );
     }
 
     // Access token expired

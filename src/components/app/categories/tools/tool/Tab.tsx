@@ -1,12 +1,12 @@
 import { FC } from 'react';
 
-import { ToolLink } from '../../../../../shared/types/tools';
+import { ToolLinkBase64Image } from '../../../../../shared/types/tools';
 
 import Tool from '../tool/Tool';
 
 
 type Props = {
-  tools: ToolLink[]
+  tools: ToolLinkBase64Image[]
 };
 
 

@@ -1,6 +1,5 @@
 import { FC, useEffect } from 'react';
 import { Slide, ToastContainer } from 'react-toastify';
-import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
 
@@ -10,6 +9,7 @@ import LoggedOutRoutes from '../routes/LoggedOutRoutes';
 
 import { login } from '../store/features/auth/slice';
 import { setCategory } from '../store/features/app/slice';
+import { useAppSelector, useAppDispatch } from '../store/store';
 import { getCategoryTitle, updateThemeHTML } from '../shared/functions';
 
 import './App.css';
@@ -25,11 +25,11 @@ const cleanLinkTypeClass = (root: HTMLElement) => {
 
 
 const App: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { accounts: [azureData] } = useMsal();
 
-  const { user } = useSelector(state => state.auth);
-  const { settings } = useSelector(state => state.app);
+  const { user } = useAppSelector(state => state.auth);
+  const { settings } = useAppSelector(state => state.app);
 
   useEffect(() => {
     if (!user && azureData) {

@@ -6,7 +6,7 @@ import { handleDialogScrollShadow } from '../../../shared/functions';
 
 const DialogActions: FC<DialogActionsProps> = ({children, ...props}) => {
   useEffect(() => {
-    handleDialogScrollShadow(true);
+    handleDialogScrollShadow();
   }, []);
 
 

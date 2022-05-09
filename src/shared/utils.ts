@@ -43,3 +43,5 @@ export const values = {
 
   maxMobileWidth: 768
 };
+
+export const localStorageKeysToPersist = ['lang', 'settings'];

@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 
 import { values } from '../../../../../shared/utils';
 import { ContentHeader } from '../../../../shared/content';
 import { useStateWithCallback } from '../../../../../shared/hooks';
 import { getLocalStorageSettings } from '../../../../../shared/functions';
+import { useAppDispatch, useAppSelector } from '../../../../../store/store';
 import { setNewLang, setAppTheme, setLinkType } from '../../../../../store/features/app/slice';
 import { LinkTypes, SupportedLangs, SupportedThemes } from '../../../../../shared/types/settings';
 
@@ -26,9 +26,10 @@ const getCurrentSavedTheme = (): SupportedThemes => {
 
 
 const Settings: FC = () => {
-  const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { settings } = useSelector(state => state.app);
+  const dispatch = useAppDispatch();
+  const { settings } = useAppSelector(state => state.app);
+
   const [theme, setTheme] = useStateWithCallback(getCurrentSavedTheme());
 
 

@@ -8,3 +8,5 @@ export type ToolLink = {
   description: string,
   category: ToolCategory
 };
+
+export type ToolLinkBase64Image = ToolLink & { imgBase64: string };

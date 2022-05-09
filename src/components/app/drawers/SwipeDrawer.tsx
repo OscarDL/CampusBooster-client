@@ -1,9 +1,9 @@
 import { FC, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Divider, List, SwipeableDrawer } from '@mui/material';
 
 import { values } from '../../../shared/utils';
+import { useAppSelector } from '../../../store/store';
 import { getLoggedInAuthState, getUserCategories } from '../../../shared/functions';
 
 import NavItem from './NavItem';
@@ -15,10 +15,10 @@ const drawerHeight = 80; // px
 
 const SwipeDrawer: FC = () => {
   const { t } = useTranslation();
-  const [open, setOpen] = useState(false);
-  const { user } = useSelector(getLoggedInAuthState);
-  const { category } = useSelector(state => state.app);
+  const { user } = useAppSelector(getLoggedInAuthState);
+  const { category } = useAppSelector(state => state.app);
 
+  const [open, setOpen] = useState(false);
 
   const showDrawer = () => setOpen(true);
   const hideDrawer = () => setOpen(false);

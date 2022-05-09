@@ -1,20 +1,19 @@
-import { FC, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { FC, useEffect, useState } from 'react';
 import { Button, Tab, Tabs } from '@mui/material';
 
-import toolsService from '../../../../services/tools';
-import { ToolLink } from '../../../../shared/types/tools';
+import { getTools } from '../../../../store/features/tools/slice';
 import { getLoggedInAuthState } from '../../../../shared/functions';
 import { ContentBody, ContentHeader } from '../../../shared/content';
+import { useAppDispatch, useAppSelector } from '../../../../store/store';
 import { DispatchWithCallback, useStateWithCallback } from '../../../../shared/hooks';
 
 import ToolTab from './tool/Tab';
 import CreateTool from './tool/Create';
+import Loader from '../../../shared/loader';
 import Dropdown from '../../../shared/dropdown';
 
 import './Tools.css';
-import Loader from '../../../shared/loader';
 
 
 type TabsProps = {
@@ -90,18 +89,18 @@ const TabDiv: FC<TabDivProps> = ({children, tab}) => (
 
 const Tools: FC = () => {
   const { t } = useTranslation();
-  const { user } = useSelector(getLoggedInAuthState);
+
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector(getLoggedInAuthState);
+  const { toolsList } = useAppSelector(state => state.tools);
 
   const [open, setOpen] = useState(false);
   const [tab, setTab] = useStateWithCallback(0);
-  const [tools, setTools] = useState<ToolLink[]>();
 
 
   useEffect(() => {
-    toolsService.getTools().then(tools => {
-      setTools(tools);
-    });
-  }, []);
+    if (!toolsList) dispatch(getTools());
+  }, [toolsList, dispatch]);
 
 
   return (
@@ -121,26 +120,26 @@ const Tools: FC = () => {
       <ToolTabs tab={tab} setTab={setTab}/>
 
       <ContentBody>
-        {tools ? (
+        {toolsList ? (
           <>
             {tab === 0 && (
               <TabDiv tab={tab}>
-                <ToolTab tools={tools.filter(tool => tool.category === 'general')}/>
+                <ToolTab tools={toolsList.filter(tool => tool.category === 'general')}/>
               </TabDiv>
             )}
             {tab === 1 && (
               <TabDiv tab={tab}>
-                <ToolTab tools={tools.filter(tool => tool.category === 'development')}/>
+                <ToolTab tools={toolsList.filter(tool => tool.category === 'development')}/>
               </TabDiv> 
             )}
             {tab === 2 && (
               <TabDiv tab={tab}>
-                <ToolTab tools={tools.filter(tool => tool.category === 'infrastructure')}/>
+                <ToolTab tools={toolsList.filter(tool => tool.category === 'infrastructure')}/>
               </TabDiv>
             )}
             {tab === 3 && (
               <TabDiv tab={tab}>
-                <ToolTab tools={tools.filter(tool => tool.category === 'net-sec')}/>
+                <ToolTab tools={toolsList.filter(tool => tool.category === 'net-sec')}/>
               </TabDiv>
             )}
           </>

@@ -146,6 +146,7 @@
   "tools": {
     "title": "Outils",
     "add": "Ajouter un outil",
+    "no_description": "Aucune description disponible pour cet outil.",
 
     "general": "Géneral",
     "development": "Développement",
@@ -160,7 +161,7 @@
       "image": "Téléverser une image",
       "no_image": "Aucune image sélectionnée",
       "description": "Courte description (EN)",
-      "success": "Outil ajouté avec succès."
+      "success": "Outil \"{{tool}}\" ajouté avec succès."
     },
 
     "update": {
@@ -168,10 +169,10 @@
       "name": "Nom de l'outil",
       "url": "Lien (URL)",
       "category": "Catégorie",
-      "image": "Téléverser une nouvelle image",
+      "image": "Changer d'image",
       "no_image": "Ignorer si inchangé",
       "description": "Courte description (EN)",
-      "success": "Outil modifié avec succès."
+      "success": "Outil \"{{tool}}\" modifié avec succès."
     }
   },
 

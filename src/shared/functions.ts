@@ -1,5 +1,6 @@
-import { values } from './utils';
-import { AzureData, User } from './types/user';
+import { User } from './types/user';
+import { RootState } from '../store/store';
+import { localStorageKeysToPersist, values } from './utils';
 import { LinkTypes, Settings, SupportedLangs, SupportedThemes } from './types/settings';
 
 
@@ -151,7 +152,7 @@ export const handleHeaderScrollShadow = (): void => {
 
 
 // Hide or show shadow above prompt actions if not scrolled to the bottom
-export const handleDialogScrollShadow = (initialCheck: boolean) => {
+export const handleDialogScrollShadow = () => {
   const prompt = document.querySelector('.MuiDialogContent-root');
   if (!prompt) return;
   
@@ -168,15 +169,15 @@ export const handleDialogScrollShadow = (initialCheck: boolean) => {
 
 
 // Clear local storage values set by Microsoft for Azure login
-export const clearAzureLocalStorageData = (azureData: AzureData) => {
+export const clearAzureLocalStorageData = () => {
   // In order to logout from the website without logging out from Azure,
   // We have to clear the localStorage keys that Azure sets up on login.
 
   // --- /!\ Do NOT store any data with the key containing the homeAccountId (object ID) /!\ ---
   // If we store the homeAccountId in localStorage, we have to store it as a value, not key. ---
 
-  const localStorageKeys = Object.entries(localStorage).map(x => x[0]);
-  const azureKeys = localStorageKeys.filter(x => x.includes(azureData.homeAccountId));
+  const localStorageKeys = Object.entries(localStorage).map(kv => kv[0]);
+  const azureKeys = localStorageKeys.filter(key => !localStorageKeysToPersist.includes(key));
 
   azureKeys.map(key => localStorage.removeItem(key));
 };

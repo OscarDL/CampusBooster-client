@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
+import { useAppSelector } from '../../../../store/store';
 import { LogoutButton } from '../../../../azure/auth/Buttons';
 import { getLoggedInAuthState } from '../../../../shared/functions';
 import { ContentBody, ContentHeader } from '../../../shared/content';
@@ -16,7 +16,7 @@ import './Profile.css';
 
 const Profile: FC = () => {
   const { t } = useTranslation();
-  const { user } = useSelector(getLoggedInAuthState);
+  const { user } = useAppSelector(getLoggedInAuthState);
 
 
   return (

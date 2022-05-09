@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { values } from '../shared/utils';
+import { useAppSelector } from '../store/store';
 import { getLoggedInAuthState, getUserCategories } from '../shared/functions';
 
 import Summary from '../views/app/Summary';
@@ -19,7 +19,7 @@ import Drawer from '../views/shared/Drawer';
 
 
 const LoggedInRoutes: FC = () => {
-  const { user } = useSelector(getLoggedInAuthState);
+  const { user } = useAppSelector(getLoggedInAuthState);
 
   const components: {[key: string]: JSX.Element} = {
     summary: <Summary/>,

@@ -5,7 +5,6 @@ import { values } from '../../../shared/utils';
 import authService from '../../../services/auth';
 import { AzureData, User } from '../../../shared/types/user';
 import { clearAzureLocalStorageData } from '../../../shared/functions';
-import { AccountInfo } from '@azure/msal-browser';
 
 
 export type AuthState = {
@@ -51,11 +50,17 @@ export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
 });
 
 
-export const clearLoginState = (azureData: AccountInfo) => {
-  clearAzureLocalStorageData(azureData);
+export const clearLoginState = (error?: string) => {
+  clearAzureLocalStorageData();
   sessionStorage.removeItem('persist:' + values.authPersistKey);
 
-  window.location.pathname = '/login';
+  if (error) {
+    toast.error(error, {
+      onClose: () => window.location.pathname = '/login'
+    });
+  } else {
+    window.location.pathname = '/login';
+  }
 };
 
 
@@ -72,8 +77,8 @@ const authSlice = createSlice({
       state.refreshToken = payload;
     },
 
-    forceLogout: (state) => {
-      clearLoginState(state.user!.azureData);
+    forceLogout: (_, {payload}) => {
+      clearLoginState(payload);
     }
   },
 
@@ -84,20 +89,15 @@ const authSlice = createSlice({
         state.user = payload.user;
         state.refreshToken = payload.refreshToken;
       })
-      .addCase(login.rejected, (_, {payload}: {payload: any}) => {
-        toast.error(payload.message, {
-          onClose: () => {
-            // Clear persisted auth state before login
-            clearLoginState(payload.azureData);
-          }
-        });
+      .addCase(login.rejected, (_, {payload}: any) => {
+        clearLoginState(payload.message);
       });
 
     // User logout process
     builder
-      .addMatcher(isAnyOf(logout.fulfilled, logout.rejected), (state) => {
+      .addMatcher(isAnyOf(logout.fulfilled, logout.rejected), () => {
         // Clear persisted auth state before login
-        clearLoginState(state.user!.azureData);
+        clearLoginState();
       });
   }
 });
