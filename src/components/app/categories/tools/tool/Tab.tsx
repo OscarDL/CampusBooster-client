@@ -13,7 +13,7 @@ type Props = {
 const ToolTab: FC<Props> = ({tools}) => {
   return (
     <>
-      {tools.map(tool => (
+      {tools.sort((a, b) => a.title.localeCompare(b.title)).map(tool => (
         <Tool key={tool.id} tool={tool}/>
       ))}
     </>

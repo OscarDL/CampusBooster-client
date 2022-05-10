@@ -170,9 +170,16 @@
       "url": "Lien (URL)",
       "category": "Catégorie",
       "image": "Changer d'image",
-      "no_image": "Ignorer si inchangé",
+      "no_image": "Aucune image sélectionnée",
       "description": "Courte description (EN)",
       "success": "Outil \"{{tool}}\" modifié avec succès."
+    },
+
+    "delete": {
+      "name": "Nom de l'outil",
+      "title": "Supprimer \"{{tool}}\"",
+      "text": "Veuillez entrer le nom de l'outil ci-dessous pour éviter une suppression accidentelle.",
+      "success": "Outil \"{{tool}}\" supprimé avec succès."
     }
   },
 

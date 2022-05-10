@@ -1,4 +1,5 @@
 .loader {
+  inset: 0;
   width: 100%;
   height: 100%;
   flex-grow: 1;
@@ -7,12 +8,14 @@
   place-items: center;
 }
 
-.loader.fullsize {
-  inset: 0;
+.loader.full-size {
   position: absolute;
 }
 
-.loader.fullscreen {
-  inset: 0;
+.loader.full-screen {
   position: fixed;
+}
+
+.loader.click-through {
+  pointer-events: none;
 }

@@ -47,12 +47,26 @@ export const muiTheme = createTheme({
       }
     },
 
+    MuiDialog: {
+      styleOverrides: {
+        root: {
+          inset: 0,
+          position: 'fixed',
+          zIndex: 'var(--z-index-mui-dialog)'
+        }
+      }
+    },
+
     MuiDialogTitle: {
       styleOverrides: {
         root: {
           fontSize: '1.5rem',
           fontWeight: 'bold',
-          color: colors.accent
+          color: colors.accent,
+
+          '+ div.MuiDialogContent-root': {
+            paddingTop: '20px'
+          }
         }
       }
     },

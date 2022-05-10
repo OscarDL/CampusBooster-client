@@ -49,11 +49,24 @@ const updateTool = async (id: number, toolData: FormData) => {
   }
 };
 
+const deleteTool = async (id: number) => {
+  try {
+    const response = await axios.delete(apiUrl + 'tools/' + id, axiosConfig);
+
+    return response.data;
+  }
+  
+  catch (error: any) {
+    return Promise.reject(error.response.data || t('api.error'));
+  }
+};
+
 
 const toolsService = {
   getTools,
   createTool,
-  updateTool
+  updateTool,
+  deleteTool
 };
 
 export default toolsService;

@@ -7,13 +7,18 @@ import './Loader.css';
 
 
 type Props = {
-  fullsize?: boolean,
-  fullscreen?: boolean
+  fullSize?: boolean,
+  fullScreen?: boolean,
+  clickThrough?: boolean
 };
 
 
-const Loader: FC<Props> = ({fullsize, fullscreen}) => {
-  const classes = `loader ${fullsize ? 'fullsize' : ''} ${fullscreen ? 'fullscreen' : ''}`.trimEnd();
+const Loader: FC<Props> = ({fullSize, fullScreen, clickThrough}) => {
+  const classes = ('loader ' +
+                  (fullSize ? 'full-size ' : '') +
+                  (fullScreen ? 'full-screen ' : '') +
+                  (clickThrough ? 'click-through' : ''))
+                  .trimEnd();
 
   return (
     <div className={classes}>

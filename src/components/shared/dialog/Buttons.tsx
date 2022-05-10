@@ -1,11 +1,19 @@
 import { FC, useEffect } from 'react';
-import { Box, Button, ButtonProps, CircularProgress } from '@mui/material';
+import { Box, Button, ButtonProps, CircularProgress, SxProps } from '@mui/material';
 
 import { handleDialogScrollShadow } from '../../../shared/functions';
 
 
 type DialogButtonProps = ButtonProps & {
   loading?: boolean
+};
+
+const circularProgressStyle: SxProps = {
+  top: '50%',
+  left: '50%',
+  marginTop: '-12px',
+  marginLeft: '-12px',
+  position: 'absolute'
 };
 
 
@@ -22,7 +30,7 @@ export const MainDialogButton: FC<DialogButtonProps> = ({children, loading, ...p
       </Button>
 
       {loading && (
-        <CircularProgress size={24} sx={{position: 'absolute', top: '50%', left: '50%', marginTop: '-12px', marginLeft: '-12px'}}/>
+        <CircularProgress size={24} color={props.color} sx={circularProgressStyle}/>
       )}
     </Box>
   );

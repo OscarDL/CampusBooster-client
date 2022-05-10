@@ -1,5 +1,6 @@
 .tools-view .content__body {
   padding: 0;
+  overflow-x: hidden;
 }
 
 .tools-view .tools-tabs-container {
@@ -84,11 +85,14 @@
 .tools-tab .tool {
   position: relative;
 }
-.tools-tab .tool > .edit-tool-btn {
-  top: 0.5rem;
-  right: 0.5rem;
+.tools-tab .tool > .edit-delete-tool {
+  right: 0;
+  bottom: 0;
   padding: 0.5rem;
   position: absolute;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .tools-tab .tool > a {
@@ -147,6 +151,9 @@
   transition: 0.125s;
   text-overflow: ellipsis;
   color: rgb(var(--text-color));
+}
+.tool__admin > a p {
+  padding-right: 2.5rem;
 }
 
 .tool > a:hover h2, .tool > a:focus-visible h2 {

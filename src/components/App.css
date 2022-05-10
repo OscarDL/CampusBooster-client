@@ -16,6 +16,7 @@
   --z-index-mui-tooltip: 5;
   --z-index-mobile-drawer: 6;
   --z-index-prompt: 7;
+  --z-index-mui-dialog: 7;
 
   --header-height: 5rem;
   --mobile-drawer-screen-width: 767px;
@@ -249,9 +250,6 @@ body .tippy-content > div {
 body .MuiDialogTitle-root {
   transition: box-shadow 0.25s;
   box-shadow: 0 0.2rem 0.2rem -0.1rem rgb(var(--divider-color));
-}
-body .MuiDialogTitle-root + .MuiDialogContent-root {
-  padding-top: 20px;
 }
 
 /* Mui Select header */

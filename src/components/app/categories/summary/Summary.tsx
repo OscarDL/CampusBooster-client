@@ -37,7 +37,7 @@ const Summary: FC = () => {
           </Container>
         </ContentBody>
       ) : (
-        <Loader fullsize/>
+        <Loader fullSize/>
       )}
     </>
   );

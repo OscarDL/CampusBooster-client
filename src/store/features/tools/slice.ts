@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 import toolsService from '../../../services/tools';
 import { ToolLinkBase64Image } from '../../../shared/types/tools';
@@ -49,6 +49,17 @@ export const updateTool = createAsyncThunk('tools/updateTool', async ({id, toolD
   }
 });
 
+export const deleteTool = createAsyncThunk('tools/deleteTool', async (id: number, thunkAPI) => {
+  try {
+    return await toolsService.deleteTool(id);
+  }
+
+  catch (error: any) {
+    const message = error || 'error';
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
 
 const toolsSlice = createSlice({
   name: 'tools',
@@ -72,23 +83,33 @@ const toolsSlice = createSlice({
       });
 
     // Create new tool
-    builder
-      .addCase(createTool.fulfilled, (state, {payload}) => {
-        state.toolsList = (state.toolsList ?? []).concat(payload);
-      })
-      .addCase(createTool.rejected, (_, {payload}: any) => {
-        toast.error(payload.message);
-      });
+    builder.addCase(createTool.fulfilled, (state, {payload}) => {
+      state.toolsList = (state.toolsList ?? []).concat(payload);
+    })
 
     // Update existing tool
-    builder
-      .addCase(updateTool.fulfilled, (state, {payload}) => {
-        const toolIndex = state.toolsList?.findIndex(tool => tool.id === payload.id) ?? -1;
-        if (state.toolsList && toolIndex >= 0) state.toolsList[toolIndex] = payload;
-      })
-      .addCase(updateTool.rejected, (_, {payload}: any) => {
+    builder.addCase(updateTool.fulfilled, (state, {payload}) => {
+      if (state.toolsList) {
+        const toolIndex = state.toolsList.findIndex(tool => tool.id === payload.id);
+        state.toolsList[toolIndex] = payload;
+      }
+    })
+
+    // Update existing tool
+    builder.addCase(deleteTool.fulfilled, (state, {payload: id}) => {
+      if (state.toolsList) {
+        const toolIndex = state.toolsList.findIndex(tool => tool.id === id);
+        state.toolsList.splice(toolIndex, 1);
+      }
+    })
+
+    // Show an error message on any of these cases being rejected.
+    builder.addMatcher(
+      isAnyOf(createTool.rejected, updateTool.rejected, deleteTool.rejected),
+      (_, {payload}: any) => {
         toast.error(payload.message);
-      });
+      }
+    );
   }
 });
 

@@ -70,7 +70,7 @@ const App: FC = () => {
             <LoggedInRoutes/>
           ) : (
             // User data is not retrieved from the database yet
-            <Loader fullscreen/>
+            <Loader fullScreen/>
           )}
         </AuthenticatedTemplate>
 

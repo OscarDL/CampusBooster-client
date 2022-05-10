@@ -9,8 +9,8 @@ import { useAppDispatch, useAppSelector } from '../../../../store/store';
 import { DispatchWithCallback, useStateWithCallback } from '../../../../shared/hooks';
 
 import ToolTab from './tool/Tab';
-import CreateTool from './tool/Create';
 import Loader from '../../../shared/loader';
+import CreateTool from './tool/dialogs/Create';
 import Dropdown from '../../../shared/dropdown';
 
 import './Tools.css';
@@ -144,7 +144,7 @@ const Tools: FC = () => {
             )}
           </>
         ) : (
-          <Loader fullsize/>
+          <Loader fullSize clickThrough/>
         )}
       </ContentBody>
 

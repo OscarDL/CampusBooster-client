@@ -202,6 +202,13 @@
       "no_image": "Ignore if unchanged",
       "description": "Short description",
       "success": "Tool \"{{tool}}\" successfully updated."
+    },
+
+    "delete": {
+      "name": "Tool name",
+      "title": "Delete \"{{tool}}\"",
+      "text": "Please type in the name of the tool below to avoid accidental deletion.",
+      "success": "Tool \"{{tool}}\" deleted updated."
     }
   },
 
