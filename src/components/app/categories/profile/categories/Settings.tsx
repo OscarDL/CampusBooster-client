@@ -65,7 +65,8 @@ const Settings: FC = () => {
           >
             {values.supportedLangs.map(lang => (
               <MenuItem key={lang} value={lang}>
-                {t('profile.settings.lang.' + lang)}
+                {t('profile.settings.lang.' + lang) + ' '}
+                {settings.lang !== lang && t('profile.settings.lang.(' + lang + ')')}
               </MenuItem>
             ))}
           </Select>

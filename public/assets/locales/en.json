@@ -64,7 +64,9 @@
       "lang": {
         "title": "Language selection",
         "en": "English",
-        "fr": "Français"
+        "fr": "French",
+        "(en)": "(English)",
+        "(fr)": "(Français)"
       },
 
       "theme": {

@@ -10,7 +10,7 @@ import LoggedOutRoutes from '../routes/LoggedOutRoutes';
 import { login } from '../store/features/auth/slice';
 import { setCategory } from '../store/features/app/slice';
 import { useAppSelector, useAppDispatch } from '../store/store';
-import { getCategoryTitle, updateThemeHTML } from '../shared/functions';
+import { getCategoryTitle, getCurrentTheme } from '../shared/functions';
 
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -31,23 +31,13 @@ const App: FC = () => {
   const { user } = useAppSelector(state => state.auth);
   const { settings } = useAppSelector(state => state.app);
 
-  useEffect(() => {
-    if (!user && azureData) {
-      dispatch(login(azureData));
-    }
-
-    if (user) {
-      dispatch(setCategory(getCategoryTitle(user)));
-    }
-  }, [azureData, user, dispatch]);
-
 
   // Keep classes on HTML root element up-to-date
   useEffect(() => {
-    updateThemeHTML(settings.theme);
+    getCurrentTheme(settings.theme, true);
 
     const browser = window.matchMedia('(prefers-color-scheme: dark)');
-    const updateTheme = (e: MediaQueryListEvent) => updateThemeHTML(e.matches ? 'dark' : 'light');
+    const updateTheme = (e: MediaQueryListEvent) => getCurrentTheme(e.matches ? 'dark' : 'light', true);
 
     if (settings.theme === 'system') browser.addEventListener('change', updateTheme);
     return () => browser.removeEventListener('change', updateTheme);
@@ -60,6 +50,16 @@ const App: FC = () => {
     const linkType = settings.linkType;
     if (linkType !== 'default') root.classList.add('link-' + linkType);
   }, [settings.linkType]);
+
+  useEffect(() => {
+    if (!user && azureData) {
+      dispatch(login(azureData));
+    }
+
+    if (user) {
+      dispatch(setCategory(getCategoryTitle(user)));
+    }
+  }, [azureData, user, dispatch]);
 
 
   return (

@@ -61,7 +61,11 @@
       "title": "Réglages",
 
       "lang": {
-        "title": "Choix du langage"
+        "title": "Choix du langage",
+        "en": "Anglais",
+        "fr": "Français",
+        "(en)": "(English)",
+        "(fr)": "(Français)"
       },
 
       "theme": {

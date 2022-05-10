@@ -41,25 +41,27 @@ export const getCurrentLinkType = (linkType?: string): LinkTypes => {
 };
 
 // Update current user theme
-export const updateThemeHTML = (theme: SupportedThemes) => {
+export const getCurrentTheme = (theme: SupportedThemes, updateHTML?: boolean): ('dark' | 'light') => {
   const root = document.documentElement;
 
   switch (theme) {
     case 'dark': {
-      root.classList.add('dark');
-      break;
+      updateHTML && root.classList.add('dark');
+      return 'dark';
     }
 
     case 'light': {
-      root.classList.remove('dark');
-      break;
+      updateHTML && root.classList.remove('dark');
+      return 'light';
     }
 
     default: {
       if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        root.classList.add('dark');
+        updateHTML && root.classList.add('dark');
+        return 'dark';
       } else {
-        root.classList.remove('dark');
+        updateHTML && root.classList.remove('dark');
+        return 'light';
       }
     }
   }
