@@ -2,8 +2,8 @@ import dayjs from 'dayjs';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { dayjsLocales } from '../../../shared/utils';
-import { LinkTypes, Settings, SupportedLangs, SupportedThemes } from '../../../shared/types/settings';
 import { getLocalStorageSettings, updateLocalStorageSettings } from '../../../shared/functions';
+import { LinkTypes, Settings, SupportedLangs, SupportedThemes } from '../../../shared/types/settings';
 
 
 export type AppState = {
@@ -46,14 +46,14 @@ const appSlice = createSlice({
   initialState,
 
   reducers: {
-    setCategory: (state, {payload: category}: {payload: string}) => {
+    setCategory: (state: AppState, {payload: category}: {payload: string}) => {
       state.category = category;
     },
-    setAppTheme: (state, {payload: theme}: {payload: SupportedThemes}) => {
+    setAppTheme: (state: AppState, {payload: theme}: {payload: SupportedThemes}) => {
       state.settings.theme = theme;
       updateLocalStorageSettings('theme', theme);
     },
-    setLinkType: (state, {payload: linkType}: {payload: LinkTypes}) => {
+    setLinkType: (state: AppState, {payload: linkType}: {payload: LinkTypes}) => {
       state.settings.linkType = linkType;
       updateLocalStorageSettings('linkType', linkType);
     }

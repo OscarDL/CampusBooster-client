@@ -66,7 +66,7 @@ const toolsSlice = createSlice({
   initialState,
 
   reducers: {
-    clearToolsList: (state) => {
+    clearToolsList: (state: ToolsState) => {
       state.toolsList = undefined;
     }
   },
@@ -98,8 +98,7 @@ const toolsSlice = createSlice({
     // Update existing tool
     builder.addCase(deleteTool.fulfilled, (state, {payload: id}) => {
       if (state.toolsList) {
-        const toolIndex = state.toolsList.findIndex(tool => tool.id === id);
-        state.toolsList.splice(toolIndex, 1);
+        state.toolsList = state.toolsList.filter(tool => tool.id !== id);
       }
     })
 

@@ -13,35 +13,32 @@ const login = async (azureData: AzureData) => {
 
     const response = await axios.post(apiUrl + 'auth/login', loginRequest, axiosConfig);
 
-    if (response.statusText !== 'OK') {
-      throw response;
-    }
-
+    if (response.statusText !== 'OK') throw response;
     return response.data;
   }
   
   catch (error: any) {
-    return Promise.reject(error.response.data || t('api.error'));
+    return Promise.reject(error?.response?.data || t('api.error'));
   }
 };
 
 const logout = async () => {
   try {
-    return await axios.get(apiUrl + 'auth/logout', axiosConfig);
+    await axios.get(apiUrl + 'auth/logout', axiosConfig);
   }
 
   catch (error: any) {
-    return Promise.reject(error.response.data || t('api.error'));
+    return Promise.reject(error?.response?.data || t('api.error'));
   }
 };
 
 const refreshAccessToken = async (refreshToken: string) => {
   try {
-    return await axios.post(apiUrl + 'auth/refresh', {refreshToken}, axiosConfig);
+    await axios.post(apiUrl + 'auth/refresh', {refreshToken}, axiosConfig);
   }
 
   catch (error: any) {
-    return Promise.reject(error.response.data || t('api.error'));
+    return Promise.reject(error?.response?.data || t('api.error'));
   }
 };
 

@@ -34,10 +34,10 @@
 
 @keyframes tab-reveal {
   from {
-    opacity: 0;
+    visibility: hidden;
   }
   to {
-    opacity: 1;
+    visibility: visible;
   }
 }
 
@@ -73,10 +73,10 @@
 }
 
 .tools-tab.tab-slide-left {
-  animation: 0.3s tab-slide-left forwards;
+  animation: 0.05s tab-reveal forwards, 0.3s tab-slide-left forwards;
 }
 .tools-tab.tab-slide-right {
-  animation: 0.3s tab-slide-right forwards;
+  animation: 0.05s tab-reveal forwards, 0.3s tab-slide-right forwards;
 }
 
 

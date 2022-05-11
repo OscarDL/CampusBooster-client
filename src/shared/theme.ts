@@ -173,11 +173,17 @@ export const muiTheme = createTheme({
   palette: {
     primary: {
       main: colors.accent
-    },
-    divider: 'rgb(var(--divider-color))'
+    }
   },
 
   typography: {
     fontFamily: 'inherit'
   }
+});
+
+
+export const dataGridTheme = () => ({
+  border: 0,
+  backgroundColor: 'rgb(var(--theme-bg))',
+  boxShadow: '0 0 0.5rem 0.05rem rgba(0, 0, 0, 0.05)'
 });

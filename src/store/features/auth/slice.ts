@@ -69,15 +69,15 @@ const authSlice = createSlice({
   initialState,
 
   reducers: {
-    setUser: (state, {payload}) => {
+    setUser: (state: AuthState, {payload}: {payload: User | null}) => {
       state.user = payload;
     },
 
-    setRefreshToken: (state, {payload}) => {
+    setRefreshToken: (state: AuthState, {payload}: {payload: string}) => {
       state.refreshToken = payload;
     },
 
-    forceLogout: (_, {payload}) => {
+    forceLogout: (_: AuthState, {payload}: {payload: string}) => {
       clearLoginState(payload);
     }
   },
