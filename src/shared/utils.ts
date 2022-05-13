@@ -41,6 +41,16 @@ export const values = {
     'tools',
   ],
 
+  allowedFileTypes: {
+    tools: [
+      'image/png',
+      'image/jpeg',
+      'image/webp',
+      'image/x-icon',
+      'image/svg+xml'
+    ]
+  },
+
   maxMobileWidth: 768
 };
 

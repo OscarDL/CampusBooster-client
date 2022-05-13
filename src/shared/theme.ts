@@ -183,7 +183,54 @@ export const muiTheme = createTheme({
 
 
 export const dataGridTheme = () => ({
+  // DataGrid wrapper
   border: 0,
   backgroundColor: 'rgb(var(--theme-bg))',
-  boxShadow: '0 0 0.5rem 0.05rem rgba(0, 0, 0, 0.05)'
+  boxShadow: '0 0 0.5rem 0.05rem rgba(0, 0, 0, 0.05)',
+
+  // Header component
+  '.MuiDataGrid-customToolbar': {
+    display: 'flex',
+    flexWrap: 'wrap',
+    minHeight: '56px',
+    padding: '0 0.5rem',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderBottom: '1px solid rgb(var(--divider-color))',
+
+    '.MuiDataGrid-customToolbar__info': {
+      fontWeight: 600,
+      fontSize: '1rem',
+      padding: '0 0.5rem',
+
+      '> span': {
+        color: 'rgb(var(--accent-color))'
+      }
+    },
+
+    '.MuiDataGrid-toolbarContainer': {
+      padding: 0,
+      gap: '0.5rem',
+
+      '.MuiButton-root': {
+        padding: '0.4rem'
+      }
+    }
+  },
+
+  // Columns component
+  '.MuiDataGrid-columnHeaders': {},
+
+  // Footer component
+  '.MuiDataGrid-customFooter': {
+    height: '56px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    boxShadow: '0 -0.25rem 0.25rem -0.125rem rgb(var(--divider-color))',
+
+    '> *': {
+      border: 'none'
+    }
+  }
 });

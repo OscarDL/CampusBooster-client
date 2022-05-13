@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import React, { Suspense } from 'react';
 import { MsalProvider } from '@azure/msal-react';
 import { initReactI18next } from 'react-i18next';
+import { LicenseInfo } from '@mui/x-data-grid-pro';
 import LoadTranslations from 'i18next-http-backend';
 import { ThemeProvider } from '@mui/material/styles';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -53,7 +54,7 @@ const loading = {
 
 // Set Material-UI Pro License Key
 // (add "REACT_APP_MUI_KEY" key with the license key value in the ".env" file + uncomment line below)
-// LicenseInfo.setLicenseKey(process.env.REACT_APP_MUI_KEY);
+LicenseInfo.setLicenseKey(process.env.REACT_APP_MUI_KEY ?? '');
 
 
 // Create a new MSAL instance for Azure authentication

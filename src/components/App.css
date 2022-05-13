@@ -33,7 +33,7 @@
   --card-bg: 248, 248, 248;
   --button-bg: 240, 240, 240;
   --accent-color: 80, 60, 180;
-  --divider-color: 220, 220, 220;
+  --divider-color: 224, 224, 224;
   --button-bg-darker: 234, 234, 234;
   --scrollbar-background: 100, 100, 100;
 }
@@ -331,25 +331,14 @@ body button .MuiButton-startIcon.MuiButton-iconSizeSmall {
 
 /* --- DataGrid tables --- */
 
-.datagrid__footer {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  box-shadow: 0 -0.25rem 0.25rem -0.125rem var(--divider-color);
-}
-
-.MuiGridPanel-root { /* Make Grid pop-ups at the top-right */
-  top: 157px !important;
+div[role="tooltip"].MuiDataGrid-panel { /* Make Grid pop-ups at the top-right */
+  top: 130px !important;
   left: unset !important;
-  right: 41px !important;
+  right: 26px !important;
   transform: none !important;
-  z-index: var(--mui-tooltip) !important;
+  z-index: var(--z-index-mui-tooltip) !important;
 }
 
-body .content__header .MuiDataGrid-toolbarContainer {
-  gap: 0.66rem;
-  padding: 0 !important;
-}
 body .MuiDataGrid-toolbarContainer .MuiButton-label { font-family: inherit; }
 body .MuiDataGrid-toolbarContainer .MuiButton-textSizeSmall { font-size: inherit; }
 body .MuiDataGrid-toolbarContainer .MuiButton-iconSizeSmall .MuiSvgIcon-root { font-size: 1.25rem; }
@@ -369,11 +358,11 @@ body .MuiDataGrid-root .MuiDataGrid-columnHeaderTitle {
   font-weight: 600;
 }
 
-body .MuiDataGrid-columnHeaderWrapper > *:focus-within,
-body .MuiDataGrid-columnHeaderWrapper > *:focus,
-body .MuiDataGrid-row > *:focus-within,
-body .MuiDataGrid-row > *:focus {
-  outline: none !important;
+body .MuiDataGrid-root .MuiDataGrid-cell:focus-within,
+body .MuiDataGrid-root .MuiDataGrid-columnHeader:focus-within,
+body .MuiDataGrid-root .MuiDataGrid-cell:focus:not(:focus-visible),
+body .MuiDataGrid-root .MuiDataGrid-columnHeader:focus:not(:focus-visible) {
+  outline: none;
 }
 
 

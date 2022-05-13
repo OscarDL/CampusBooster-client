@@ -1,10 +1,12 @@
 import copy from 'fast-copy';
 import { toast } from 'react-toastify';
+import isEqual from 'react-fast-compare';
 import { useTranslation } from 'react-i18next';
 import { Close, Replay } from '@mui/icons-material';
 import { FC, useEffect, useRef, useState } from 'react';
 import { Box, Button, FormControl, IconButton, InputLabel, MenuItem, Select, styled, TextField } from '@mui/material';
 
+import { values } from '../../../../../../shared/utils';
 import { useAppDispatch } from '../../../../../../store/store';
 import { updateTool } from '../../../../../../store/features/tools/slice';
 import { ToolCategory, ToolLink } from '../../../../../../shared/types/tools';
@@ -149,8 +151,8 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
               <Input
                 type="file"
                 id="file-btn"
-                accept="image/*"
                 onInput={handleAddImage}
+                accept={values.allowedFileTypes.tools.join(', ')}
               />
               <Button variant="contained" component="span">
                 {t('tools.update.image')}
@@ -173,7 +175,9 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
             </IconButton>
           </Box>
 
-          <span className="text-overflow">{newTool.img || t('tools.update.no_image')}</span>
+          <span className="text-overflow" title={newTool.img}>
+            {newTool.img || t('tools.update.no_image')}
+          </span>
         </Box>
       </DialogContent>
 
@@ -184,7 +188,7 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
 
         <MainDialogButton
           type="submit" variant="contained" loading={loading}
-          disabled={!(newTool.title && newTool.description && newTool.url)}
+          disabled={!(newTool.title && newTool.description && newTool.url) || isEqual(tool, newTool)}
         >
           {t('global.confirm')}
         </MainDialogButton>

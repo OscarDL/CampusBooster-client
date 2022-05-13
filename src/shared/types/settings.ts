@@ -6,5 +6,8 @@ export type LinkTypes = 'default' | 'bold' | 'underline' | 'bold-underline';
 export type Settings = {
   lang: SupportedLangs,
   theme: SupportedThemes,
-  linkType: LinkTypes
+  linkType: LinkTypes,
+  dataGrid: {
+    pagination: boolean
+  }
 };

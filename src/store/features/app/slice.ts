@@ -22,7 +22,10 @@ const initialState: AppState = {
   settings: {
     lang: settings.lang ?? 'en',
     theme: settings.theme ?? 'system',
-    linkType: settings.linkType ?? 'default'
+    linkType: settings.linkType ?? 'default',
+    dataGrid: {
+      pagination: false
+    }
   }
 };
 
@@ -56,6 +59,15 @@ const appSlice = createSlice({
     setLinkType: (state: AppState, {payload: linkType}: {payload: LinkTypes}) => {
       state.settings.linkType = linkType;
       updateLocalStorageSettings('linkType', linkType);
+    },
+    setPagination: (state: AppState, {payload}: {payload: boolean}) => {
+      const dataGrid = {
+        ...state.settings.dataGrid,
+        pagination: payload
+      };
+
+      state.settings.dataGrid = dataGrid;
+      updateLocalStorageSettings('dataGrid', dataGrid);
     }
   },
 
@@ -69,5 +81,5 @@ const appSlice = createSlice({
 });
 
 
-export const { setCategory, setAppTheme, setLinkType } = appSlice.actions;
+export const { setCategory, setAppTheme, setLinkType, setPagination } = appSlice.actions;
 export default appSlice.reducer;

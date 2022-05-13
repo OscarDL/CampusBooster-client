@@ -1,17 +1,23 @@
 import { FC } from 'react';
 import { styled } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid';
+
+import {
+  DataGridPro, GridColDef, GridFooter, GridRowsProp,
+  GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton
+} from '@mui/x-data-grid-pro';
 
 import { dataGridTheme } from '../../../../shared/theme';
+import { useAppSelector } from '../../../../store/store';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 
 
-const StyledDataGrid = styled(DataGrid)(dataGridTheme);
+const StyledDataGrid = styled(DataGridPro)(({theme}) => {console.log(theme); return dataGridTheme()});
 
 
 const Accounting: FC = () => {
   const { t } = useTranslation();
+  const { settings } = useAppSelector(state => state.app);
 
 
   const rows: GridRowsProp = [
@@ -32,8 +38,42 @@ const Accounting: FC = () => {
 
       <ContentBody>
         <StyledDataGrid
+          pagination
           rows={rows}
           columns={columns}
+          checkboxSelection
+          disableColumnPinning
+
+          components={{
+            Toolbar: () => (
+              <div className="MuiDataGrid-customToolbar">
+                <div className="MuiDataGrid-customToolbar__info">
+                  test
+                </div>
+
+                <GridToolbarContainer>
+                  <GridToolbarFilterButton/>
+                  <GridToolbarColumnsButton/>
+                  <GridToolbarExport/>
+                </GridToolbarContainer>
+              </div>
+            ),
+
+            Footer: () => (
+              <div className="MuiDataGrid-customFooter">
+                <GridFooter/>
+                <div className="checkbox">
+                  <input
+                    id="pagination"
+                    type="checkbox"
+                    onChange={e => console.log(e)}
+                    checked={settings.dataGrid.pagination}
+                  />
+                  <label htmlFor="pagination">PAGINATION</label>
+                </div>
+              </div>
+            )
+          }}
         />
       </ContentBody>
     </>

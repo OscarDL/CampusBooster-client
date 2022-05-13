@@ -4,6 +4,7 @@ import { FC, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Box, Button, FormControl, IconButton, InputLabel, MenuItem, Select, styled, TextField } from '@mui/material';
 
+import { values } from '../../../../../../shared/utils';
 import { createTool } from '../../../../../../store/features/tools/slice';
 import { ToolCategory, ToolLink } from '../../../../../../shared/types/tools';
 import { useAppDispatch, useAppSelector } from '../../../../../../store/store';
@@ -137,8 +138,8 @@ const CreateTool: FC<Props> = ({open, setOpen}) => {
             <Input
               type="file"
               id="file-btn"
-              accept="image/*"
               onInput={handleAddImage}
+              accept={values.allowedFileTypes.tools.join(', ')}
             />
             <Button variant="contained" component="span">
               {t('tools.update.image')}
@@ -152,7 +153,9 @@ const CreateTool: FC<Props> = ({open, setOpen}) => {
             <Close/>
           </IconButton>
 
-          <span className="text-overflow">{tool.img || t('tools.create.no_image')}</span>
+          <span className="text-overflow" title={tool.img}>
+            {tool.img || t('tools.create.no_image')}
+          </span>
         </Box>
       </DialogContent>
 
