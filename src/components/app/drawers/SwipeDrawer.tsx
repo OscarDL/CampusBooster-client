@@ -2,8 +2,8 @@ import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Divider, List, SwipeableDrawer } from '@mui/material';
 
-import { values } from '../../../shared/utils';
 import { useAppSelector } from '../../../store/store';
+import { categories } from '../../../shared/utils/values';
 import { getLoggedInAuthState, getUserCategories } from '../../../shared/functions';
 
 import NavItem from './NavItem';
@@ -46,7 +46,7 @@ const SwipeDrawer: FC = () => {
         <List className="drawer">
           <Divider style={{marginTop: 0}}/>
 
-          {getUserCategories(values.categories, user).map(category => (
+          {getUserCategories(categories, user).map(category => (
             <NavItem
               key={category}
               category={category}

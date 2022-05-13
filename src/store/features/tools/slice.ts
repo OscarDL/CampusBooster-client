@@ -6,12 +6,12 @@ import { ToolLinkBase64Image } from '../../../shared/types/tools';
 
 
 export type ToolsState = {
-  toolsList?: ToolLinkBase64Image[]
+  toolsList: ToolLinkBase64Image[] | null
 };
 
 
 const initialState: ToolsState = {
-  toolsList: undefined
+  toolsList: null
 };
 
 
@@ -67,7 +67,7 @@ const toolsSlice = createSlice({
 
   reducers: {
     clearToolsList: (state: ToolsState) => {
-      state.toolsList = undefined;
+      state.toolsList = null;
     }
   },
 
@@ -85,7 +85,7 @@ const toolsSlice = createSlice({
     // Create new tool
     builder.addCase(createTool.fulfilled, (state, {payload}) => {
       state.toolsList = (state.toolsList ?? []).concat(payload);
-    })
+    });
 
     // Update existing tool
     builder.addCase(updateTool.fulfilled, (state, {payload}) => {
@@ -93,14 +93,14 @@ const toolsSlice = createSlice({
         const toolIndex = state.toolsList.findIndex(tool => tool.id === payload.id);
         state.toolsList[toolIndex] = payload;
       }
-    })
+    });
 
     // Update existing tool
     builder.addCase(deleteTool.fulfilled, (state, {payload: id}) => {
       if (state.toolsList) {
         state.toolsList = state.toolsList.filter(tool => tool.id !== id);
       }
-    })
+    });
 
     // Show an error message on any of these cases being rejected.
     builder.addMatcher(

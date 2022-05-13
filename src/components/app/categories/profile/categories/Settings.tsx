@@ -3,9 +3,9 @@ import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 
-import { values } from '../../../../../shared/utils';
 import { ContentHeader } from '../../../../shared/content';
 import { useStateWithCallback } from '../../../../../shared/hooks';
+import { supportedLangs } from '../../../../../shared/utils/locales';
 import { getLocalStorageSettings } from '../../../../../shared/functions';
 import { useAppDispatch, useAppSelector } from '../../../../../store/store';
 import { setNewLang, setAppTheme, setLinkType } from '../../../../../store/features/app/slice';
@@ -63,7 +63,7 @@ const Settings: FC = () => {
             onChange={handleChangeLang}
             label={t('profile.settings.lang.title')}
           >
-            {values.supportedLangs.map(lang => (
+            {supportedLangs.map(lang => (
               <MenuItem key={lang} value={lang}>
                 {t('profile.settings.lang.' + lang) + ' '}
                 {settings.lang !== lang && t('profile.settings.lang.(' + lang + ')')}

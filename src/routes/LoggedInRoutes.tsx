@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { values } from '../shared/utils';
 import { useAppSelector } from '../store/store';
+import { categories } from '../shared/utils/values';
 import { getLoggedInAuthState, getUserCategories } from '../shared/functions';
 
 import Summary from '../views/app/Summary';
@@ -40,7 +40,7 @@ const LoggedInRoutes: FC = () => {
 
       <div className="app__content">
         <Routes>
-          {getUserCategories(values.categories, user).map(category => (
+          {getUserCategories(categories, user).map(category => (
             <Route key={category} path={'/' + category} element={components[category]}/>
           ))}
 

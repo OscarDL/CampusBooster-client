@@ -2,8 +2,8 @@ import { FC, useEffect, useState } from 'react';
 import { styled, CSSObject, Theme } from '@mui/material/styles';
 import { Drawer as MuiDrawer, List, Divider } from '@mui/material';
 
-import { values } from '../../../shared/utils';
 import { useAppSelector } from '../../../store/store';
+import { categories } from '../../../shared/utils/values';
 import { getLoggedInAuthState, getUserCategories } from '../../../shared/functions';
 
 import NavItem from './NavItem';
@@ -93,7 +93,7 @@ const SideDrawer: FC<Props> = ({forceCollapse}) => {
         <Divider/>
 
         <List id="desktop-nav" sx={{overflowX: 'hidden', flexGrow: 1}}>
-          {getUserCategories(values.categories, user).map(category => (
+          {getUserCategories(categories, user).map(category => (
             <NavItem
               key={category}
               category={category}

@@ -219,6 +219,10 @@
     "icon": "admin_panel_settings"
   },
 
+  "data_grid": {
+    "pagination": "Pagination"
+  },
+
   "global": {
     "colon": ":",
     "close": "Close",
@@ -226,6 +230,7 @@
     "confirm": "Confirm",
     "date-mmmm-dd": "MMMM DD",
     "date-compare": "D-M-YYYY",
+    "date-mm/dd/yyyy": "MM/DD/YYYY",
     "date-mmm-dd-yyyy": "MMM. DD, YYYY"
   }
 }

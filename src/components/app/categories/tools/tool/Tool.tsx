@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Edit, Delete } from '@mui/icons-material';
 import { Box, ButtonBase, IconButton } from '@mui/material';
 
-import { values } from '../../../../../shared/utils';
+import { roles } from '../../../../../shared/utils/values';
 import { useAppSelector } from '../../../../../store/store';
 import { getLoggedInAuthState } from '../../../../../shared/functions';
 import { ToolLinkBase64Image } from '../../../../../shared/types/tools';
@@ -23,7 +23,7 @@ const Tool: FC<Props> = ({tool}) => {
 
   const [openUpdate, setOpenUpdate] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
-  const isAdmin = user.role === values.roles.campusBoosterAdmin;
+  const isAdmin = user.role === roles.campusBoosterAdmin;
 
 
   return (
@@ -44,7 +44,7 @@ const Tool: FC<Props> = ({tool}) => {
         </div>
       </ButtonBase>
 
-      {user.role === values.roles.campusBoosterAdmin && (
+      {user.role === roles.campusBoosterAdmin && (
         <Box className="edit-delete-tool">
           <IconButton color="primary" onClick={() => setOpenUpdate(true)}>
             <Edit/>

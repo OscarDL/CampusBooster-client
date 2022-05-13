@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { dayjsLocales } from '../../../shared/utils';
+import { dayjsLocales } from '../../../shared/utils/locales';
 import { getLocalStorageSettings, updateLocalStorageSettings } from '../../../shared/functions';
 import { LinkTypes, Settings, SupportedLangs, SupportedThemes } from '../../../shared/types/settings';
 
@@ -52,14 +52,17 @@ const appSlice = createSlice({
     setCategory: (state: AppState, {payload: category}: {payload: string}) => {
       state.category = category;
     },
+
     setAppTheme: (state: AppState, {payload: theme}: {payload: SupportedThemes}) => {
       state.settings.theme = theme;
       updateLocalStorageSettings('theme', theme);
     },
+
     setLinkType: (state: AppState, {payload: linkType}: {payload: LinkTypes}) => {
       state.settings.linkType = linkType;
       updateLocalStorageSettings('linkType', linkType);
     },
+
     setPagination: (state: AppState, {payload}: {payload: boolean}) => {
       const dataGrid = {
         ...state.settings.dataGrid,

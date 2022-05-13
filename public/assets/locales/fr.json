@@ -191,6 +191,10 @@
     "title": "Administration"
   },
 
+  "data_grid": {
+    "pagination": "Pagination"
+  },
+
   "global": {
     "colon": " :",
     "close": "Fermer",
@@ -198,6 +202,7 @@
     "confirm": "Confirmer",
     "date-mmmm-dd": "DD MMMM",
     "date-compare": "D-M-YYYY",
+    "date-mm/dd/yyyy": "DD/MM/YYYY",
     "date-mmm-dd-yyyy": "DD MMM YYYY"
   }
 }

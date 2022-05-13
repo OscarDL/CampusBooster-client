@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material';
 
-import { colors } from './utils';
+import { colors } from './utils/values';
 
 
 // Global Material-UI theme value overrides
@@ -231,6 +231,11 @@ export const dataGridTheme = () => ({
 
     '> *': {
       border: 'none'
+    },
+
+    '#pagination + label': {
+      paddingLeft: '0.5rem',
+      textTransform: 'uppercase'
     }
   }
 });

@@ -6,8 +6,8 @@ import { Close, Replay } from '@mui/icons-material';
 import { FC, useEffect, useRef, useState } from 'react';
 import { Box, Button, FormControl, IconButton, InputLabel, MenuItem, Select, styled, TextField } from '@mui/material';
 
-import { values } from '../../../../../../shared/utils';
 import { useAppDispatch } from '../../../../../../store/store';
+import { allowedFileTypes } from '../../../../../../shared/utils/values';
 import { updateTool } from '../../../../../../store/features/tools/slice';
 import { ToolCategory, ToolLink } from '../../../../../../shared/types/tools';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../../shared/dialog';
@@ -152,7 +152,7 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
                 type="file"
                 id="file-btn"
                 onInput={handleAddImage}
-                accept={values.allowedFileTypes.tools.join(', ')}
+                accept={allowedFileTypes.tools.join(', ')}
               />
               <Button variant="contained" component="span">
                 {t('tools.update.image')}

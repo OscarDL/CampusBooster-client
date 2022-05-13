@@ -3,7 +3,7 @@ import { PersistConfig, persistReducer, persistStore } from 'redux-persist';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { CombinedState, combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import { values } from '../shared/utils';
+import { reduxAuthPersistKey } from '../shared/utils/values';
 
 // Global features
 import appReducer, { AppState } from './features/app/slice';
@@ -11,6 +11,7 @@ import authReducer, { AuthState } from './features/auth/slice';
 
 // Individual features
 import toolsReducer, { ToolsState } from './features/tools/slice';
+import accountingReducer, { AccountingState } from './features/accounting/slice';
 
 
 type CombinedReducers = {
@@ -19,7 +20,8 @@ type CombinedReducers = {
   auth: AuthState,
 
   // Individual features
-  tools: ToolsState
+  tools: ToolsState,
+  accounting: AccountingState
 };
 
 const rootReducer = combineReducers({
@@ -28,12 +30,13 @@ const rootReducer = combineReducers({
   auth: authReducer,
 
   // Individual features
-  tools: toolsReducer
+  tools: toolsReducer,
+  accounting: accountingReducer
 });
 
 
 const persistConfig: PersistConfig<CombinedState<CombinedReducers>, any, any, any> = {
-  key: values.authPersistKey,
+  key: reduxAuthPersistKey,
   storage: storageSession,
   whitelist: ['auth']
 };

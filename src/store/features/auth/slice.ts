@@ -1,9 +1,9 @@
 import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-import { values } from '../../../shared/utils';
 import authService from '../../../services/auth';
 import { AzureData, User } from '../../../shared/types/user';
+import { reduxAuthPersistKey } from '../../../shared/utils/values';
 import { clearAzureLocalStorageData } from '../../../shared/functions';
 
 
@@ -52,7 +52,7 @@ export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
 
 export const clearLoginState = (error?: string) => {
   clearAzureLocalStorageData();
-  sessionStorage.removeItem('persist:' + values.authPersistKey);
+  sessionStorage.removeItem('persist:' + reduxAuthPersistKey);
 
   if (error) {
     toast.error(error, {

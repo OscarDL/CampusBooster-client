@@ -16,7 +16,7 @@ import { muiTheme } from './shared/theme';
 import { msalConfig } from './azure/auth/config';
 import { store, persistor } from './store/store';
 import { getCurrentLang } from './shared/functions';
-import { dayjsLocales, values } from './shared/utils';
+import { dayjsLocales, supportedLangs } from './shared/utils/locales';
 
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
@@ -36,7 +36,7 @@ i18next // Translation module
       order: ['localStorage', 'navigator']
     },
     fallbackLng: 'en',
-    supportedLngs: values.supportedLangs
+    supportedLngs: supportedLangs
   });
 
 

@@ -5,8 +5,8 @@ import { Divider, IconButton, TextField } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { StaticDatePicker, LocalizationProvider, PickersDay } from '@mui/x-date-pickers';
 
-import { colors } from '../../../../../shared/utils';
 import { ContentHeader } from '../../../../shared/content';
+import { colors } from '../../../../../shared/utils/values';
 import { getFakeCalendar } from '../../../../../shared/fake/data';
 import { RenderDay, Task } from '../../../../../shared/types/calendar';
 import { Course, CourseType } from '../../../../../shared/types/course';

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { RotateLoader } from 'react-spinners';
 
-import { colors } from '../../../shared/utils';
+import { colors } from '../../../shared/utils/values';
 
 import './Loader.css';
 

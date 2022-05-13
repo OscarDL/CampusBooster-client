@@ -1,6 +1,7 @@
 import { User } from './types/user';
 import { RootState } from '../store/store';
-import { localStorageKeysToPersist, values } from './utils';
+import { supportedLangs } from './utils/locales';
+import { categories, localStorageKeysToPersist, roles } from './utils/values';
 import { LinkTypes, Settings, SupportedLangs, SupportedThemes } from './types/settings';
 
 
@@ -20,7 +21,7 @@ export const updateLocalStorageSettings = (key: keyof Settings, value: any): voi
 export const getCurrentLang = (): SupportedLangs => {
   const savedLang = localStorage.getItem('lang') as SupportedLangs;
 
-  if (!values.supportedLangs.includes(savedLang)) {
+  if (!supportedLangs.includes(savedLang)) {
     return 'en';
   }
 
@@ -79,8 +80,8 @@ export const getLoggedInAuthState = (state: RootState) => ({
 export const getCategoryTitle = (user: User) => {
   const category = window.location.pathname.replace('/', '').split('/')[0];
 
-  if (!getUserCategories(values.categories, user).find(c => c === category) && category !== 'profile') {
-    return values.categories.find(c => c === 'summary') + '.title';
+  if (!getUserCategories(categories, user).find(c => c === category) && category !== 'profile') {
+    return categories.find(c => c === 'summary') + '.title';
   }
 
   return category + '.title';
@@ -98,27 +99,27 @@ export const getUserCategories = (categories: string[], user: User) => {
   const campusBoosterAdminForbidden: string[] = [];
 
   switch (user.role) {
-    case values.roles.professor: {
+    case roles.professor: {
       return categories.filter(category => !professorForbidden.includes(category));
     }
 
-    case values.roles.fullProfessor: {
+    case roles.fullProfessor: {
       return categories.filter(category => !fullProfessorForbidden.includes(category));
     }
 
-    case values.roles.company: {
+    case roles.company: {
       return categories.filter(category => !companyForbidden.includes(category));
     }
 
-    case values.roles.assistant: {
+    case roles.assistant: {
       return categories.filter(category => !assistantForbidden.includes(category));
     }
 
-    case values.roles.campusManager: {
+    case roles.campusManager: {
       return categories.filter(category => !campusManagerForbidden.includes(category));
     }
 
-    case values.roles.campusBoosterAdmin: {
+    case roles.campusBoosterAdmin: {
       return categories.filter(category => !campusBoosterAdminForbidden.includes(category));
     }
 
