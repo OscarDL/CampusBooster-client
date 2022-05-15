@@ -170,7 +170,39 @@
 
   "accounting": {
     "title": "Accounting",
-    "icon": "balance"
+    "icon": "balance",
+    "add": "Add an entry",
+    "select_user": "Select a user",
+
+    "status": {
+      "title": "Status",
+      "pending": "Pending",
+      "cancelled": "Cancelled",
+      "confirmed": "Confirmed",
+      "processing": "Processing"
+    },
+
+    "data_grid": {
+      "title": "{{count}} operations",
+
+      "columns": {
+        "debit": "Debit",
+        "credit": "Cdédit",
+        "status": "Status",
+        "student_name": "Student",
+        "description": "Description",
+        "date_requested": "Request date",
+        "date_confirmed": "Confirmation date"
+      }
+    },
+
+    "create": {
+      "title": "New balance entry",
+      "description": "Description",
+      "credit": "Credit",
+      "debit": "Debit",
+      "user": "User"
+    }
   },
 
   "tools": {
@@ -228,9 +260,10 @@
     "close": "Close",
     "cancel": "Cancel",
     "confirm": "Confirm",
+    "loading": "Loading",
     "date-mmmm-dd": "MMMM DD",
     "date-compare": "D-M-YYYY",
-    "date-mm/dd/yyyy": "MM/DD/YYYY",
+    "date-mm-dd-yyyy": "MM-DD-YYYY",
     "date-mmm-dd-yyyy": "MMM. DD, YYYY"
   }
 }

@@ -1,22 +1,24 @@
-import { FC, useEffect } from 'react';
-import { LinearProgress, styled } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-
-import {
-  DataGridPro, GridColDef, GridToolbarColumnsButton,
-  GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton
-} from '@mui/x-data-grid-pro';
+import { Button, styled } from '@mui/material';
+import { DataGridPro } from '@mui/x-data-grid-pro';
+import { FC, useEffect, useMemo, useState } from 'react';
 
 import { dataGridTheme } from '../../../../shared/theme';
-import DataGridFooter from '../../../shared/datagrid/Footer';
+import { UserRoles } from '../../../../shared/types/user';
 import { getLoggedInAuthState } from '../../../../shared/functions';
 import { ContentBody, ContentHeader } from '../../../shared/content';
+import { getAccountingColumns } from '../../../../shared/utils/columns';
 import { getMuiDataGridLocale } from '../../../../shared/utils/locales';
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
-import { getUserBalance } from '../../../../store/features/accounting/slice';
+import { DataGridFooter, DataGridHeader } from '../../../shared/datagrid';
+import { clearBalances, getBalances, getUserBalance } from '../../../../store/features/accounting/slice';
+
+import Loader from '../../../shared/loader';
+import CreateBalance from './balance/Create';
 
 
 const StyledDataGrid = styled(DataGridPro)(dataGridTheme);
+export const isAccountingAdmin = (role: UserRoles) => [UserRoles.campusManager, UserRoles.campusBoosterAdmin].includes(role);
 
 
 const Accounting: FC = () => {
@@ -26,25 +28,30 @@ const Accounting: FC = () => {
   const { settings } = useAppSelector(state => state.app);
   const { balances } = useAppSelector(state => state.accounting);
 
-
-  const columns: GridColDef[] = [
-    { field: 'dateRequested', headerName: 'Date requested', width: 150 },
-    { field: 'dateConfirmed', headerName: 'Date confirmed', width: 150 },
-    { field: 'description', headerName: 'Description', width: 300 },
-    { field: 'debit', headerName: 'Debit', width: 100 },
-    { field: 'credit', headerName: 'Credit', width: 100 },
-    { field: 'status', headerName: 'Status', width: 150 }
-  ];
+  const [openCreate, setOpenCreate] = useState(false);
+  const columns = useMemo(() => getAccountingColumns(user), [user]);
 
 
   useEffect(() => {
-    if (!balances) dispatch(getUserBalance(user.id));
-  }, [balances, user.id, dispatch]);
+    if (!balances) {
+      isAccountingAdmin(user.role) ? dispatch(getBalances()) : dispatch(getUserBalance(user.id));
+    }
+  }, [balances, user, dispatch]);
 
 
   return (
     <>
-      <ContentHeader title={t('accounting.title')}/>
+      <ContentHeader title={t('accounting.title')}>
+        {isAccountingAdmin(user.role) && (
+          <Button
+            className="button"
+            onClick={() => setOpenCreate(true)}
+            startIcon={<span className="material-icons">add_circle_outline</span>}
+          >
+            {t('accounting.add')}
+          </Button>
+        )}
+      </ContentHeader>
 
       <ContentBody>
         <StyledDataGrid
@@ -54,20 +61,14 @@ const Accounting: FC = () => {
           pagination={settings.dataGrid.pagination}
 
           components={{
-            LoadingOverlay: LinearProgress,
+            LoadingOverlay: Loader,
 
             Toolbar: () => (
-              <div className="MuiDataGrid-customToolbar">
-                <div className="MuiDataGrid-customToolbar__info">
-                  test
-                </div>
-
-                <GridToolbarContainer>
-                  <GridToolbarFilterButton/>
-                  <GridToolbarColumnsButton/>
-                  <GridToolbarExport/>
-                </GridToolbarContainer>
-              </div>
+              <DataGridHeader
+                refreshData={() => dispatch(clearBalances())}
+                loading={!balances} dataCount={balances?.length}
+                title={t('accounting.data_grid.title', {count: balances?.length})}
+              />
             ),
 
             Footer: () => <DataGridFooter/>
@@ -76,6 +77,8 @@ const Accounting: FC = () => {
           localeText={getMuiDataGridLocale(settings.lang)}
         />
       </ContentBody>
+
+      <CreateBalance open={openCreate} setOpen={setOpenCreate}/>
     </>
   );
 };

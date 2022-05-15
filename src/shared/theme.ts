@@ -9,8 +9,8 @@ export const muiTheme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          fontWeight: 600,
-          letterSpacing: 0,
+          fontWeight: '600',
+          letterSpacing: '0',
           textTransform: 'none',
           borderRadius: 'var(--radius-small)'
         }
@@ -23,6 +23,14 @@ export const muiTheme = createTheme({
           'span[class*="material-icons"]': {
             transition: '0.25s'
           }
+        }
+      }
+    },
+
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          zIndex: 'unset'
         }
       }
     },
@@ -50,7 +58,7 @@ export const muiTheme = createTheme({
     MuiDialog: {
       styleOverrides: {
         root: {
-          inset: 0,
+          inset: '0',
           position: 'fixed',
           zIndex: 'var(--z-index-mui-dialog)'
         }
@@ -85,7 +93,7 @@ export const muiTheme = createTheme({
             alignItems: 'center'
           },
           '> .MuiDialogContent-row > *': {
-            flexGrow: 1
+            flexGrow: '1'
           }
         }
       }
@@ -199,9 +207,11 @@ export const dataGridTheme = () => ({
     borderBottom: '1px solid rgb(var(--divider-color))',
 
     '.MuiDataGrid-customToolbar__info': {
-      fontWeight: 600,
-      fontSize: '1rem',
+      display: 'flex',
+      fontWeight: '600',
+      fontSize: '1.2rem',
       padding: '0 0.5rem',
+      alignItems: 'center',
 
       '> span': {
         color: 'rgb(var(--accent-color))'
@@ -209,12 +219,7 @@ export const dataGridTheme = () => ({
     },
 
     '.MuiDataGrid-toolbarContainer': {
-      padding: 0,
-      gap: '0.5rem',
-
-      '.MuiButton-root': {
-        padding: '0.4rem'
-      }
+      padding: '0'
     }
   },
 

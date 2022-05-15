@@ -1,7 +1,7 @@
-import { User } from './types/user';
 import { RootState } from '../store/store';
+import { User, UserRoles } from './types/user';
 import { supportedLangs } from './utils/locales';
-import { categories, localStorageKeysToPersist, roles } from './utils/values';
+import { categories, localStorageKeysToPersist } from './utils/values';
 import { LinkTypes, Settings, SupportedLangs, SupportedThemes } from './types/settings';
 
 
@@ -99,27 +99,27 @@ export const getUserCategories = (categories: string[], user: User) => {
   const campusBoosterAdminForbidden: string[] = [];
 
   switch (user.role) {
-    case roles.professor: {
+    case UserRoles.professor: {
       return categories.filter(category => !professorForbidden.includes(category));
     }
 
-    case roles.fullProfessor: {
+    case UserRoles.fullProfessor: {
       return categories.filter(category => !fullProfessorForbidden.includes(category));
     }
 
-    case roles.company: {
+    case UserRoles.company: {
       return categories.filter(category => !companyForbidden.includes(category));
     }
 
-    case roles.assistant: {
+    case UserRoles.assistant: {
       return categories.filter(category => !assistantForbidden.includes(category));
     }
 
-    case roles.campusManager: {
+    case UserRoles.campusManager: {
       return categories.filter(category => !campusManagerForbidden.includes(category));
     }
 
-    case roles.campusBoosterAdmin: {
+    case UserRoles.campusBoosterAdmin: {
       return categories.filter(category => !campusBoosterAdminForbidden.includes(category));
     }
 

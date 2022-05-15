@@ -73,7 +73,6 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
 
       setOpen(false);
       toast.success(t('tools.update.success', {tool: tool.title}));
-      setNewTool({img: '', url: '', title: '', category: 'general', description: ''});
     }
     catch (error: any) {
       toast.error(error);
@@ -99,18 +98,16 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
       <DialogTitle>{t('tools.update.title', {tool: tool.title})}</DialogTitle>
 
       <DialogContent>
-        <FormControl>
-          <InputLabel id="demo-select-small">{t('tools.update.category')}</InputLabel>
+        <FormControl sx={{mb: 2}}>
+          <InputLabel id="tool-select-category">{t('tools.update.category')}</InputLabel>
           <Select
-            value={newTool.category}
-            sx={{mb: 2}} size="small"
-            labelId="demo-select-small" label={t('tools.update.category')}
+            size="small" value={newTool.category}
+            labelId="tool-select-category" label={t('tools.update.category')}
             onChange={e => setNewTool({...newTool, category: e.target.value as ToolCategory})}
           >
-            <MenuItem value="general">{t('tools.general')}</MenuItem>
-            <MenuItem value="development">{t('tools.development')}</MenuItem>
-            <MenuItem value="infrastructure">{t('tools.infrastructure')}</MenuItem>
-            <MenuItem value="net-sec">{t('tools.net-sec')}</MenuItem>
+            {Object.keys(ToolCategory).map(category => (
+              <MenuItem value={category}>{t('tools.' + category)}</MenuItem>
+            ))}
           </Select>
         </FormControl>
 
@@ -121,7 +118,7 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
             margin="dense"
             variant="standard"
             name="cb-tool-name"
-            value={newTool?.title ?? ''}
+            value={newTool.title ?? ''}
             label={t('tools.update.name')}
             onChange={e => setNewTool({...newTool, title: e.target.value})}
           />
@@ -130,7 +127,7 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
             margin="dense"
             variant="standard"
             name="cb-tool-url"
-            value={newTool?.url ?? ''}
+            value={newTool.url ?? ''}
             label={t('tools.update.url')}
             onChange={e => setNewTool({...newTool, url: e.target.value})}
           />
@@ -140,7 +137,7 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
           name="cb-tool-description"
           sx={{mb: 2}} margin="normal"
           required fullWidth multiline
-          value={newTool?.description ?? ''}
+          value={newTool.description ?? ''}
           label={t('tools.update.description')}
           onChange={e => setNewTool({...newTool, description: e.target.value})}
         />

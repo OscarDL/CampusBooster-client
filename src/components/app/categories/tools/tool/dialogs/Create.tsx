@@ -6,8 +6,8 @@ import { Box, Button, FormControl, IconButton, InputLabel, MenuItem, Select, sty
 
 import { allowedFileTypes } from '../../../../../../shared/utils/values';
 import { createTool } from '../../../../../../store/features/tools/slice';
-import { ToolCategory, ToolLink } from '../../../../../../shared/types/tools';
 import { useAppDispatch, useAppSelector } from '../../../../../../store/store';
+import { ToolCategory, ToolRequest } from '../../../../../../shared/types/tools';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../../shared/dialog';
 
 
@@ -16,6 +16,9 @@ type Props = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 };
 
+const newToolRequest = () => ({
+  img: '', url: '', title: '', category: ToolCategory.general, description: ''
+});
 
 const Input = styled('input')({display: 'none'});
 
@@ -27,9 +30,7 @@ const CreateTool: FC<Props> = ({open, setOpen}) => {
 
   const image = useRef<File>();
   const [loading, setLoading] = useState(false);
-  const [tool, setTool] = useState<ToolLink>({
-    img: '', url: '', title: '', category: 'general', description: ''
-  });
+  const [tool, setTool] = useState<ToolRequest>(newToolRequest());
 
 
   const handleAddImage = (e: React.FormEvent<HTMLInputElement>) => {
@@ -66,8 +67,8 @@ const CreateTool: FC<Props> = ({open, setOpen}) => {
       await dispatch(createTool(toolData)).unwrap();
 
       setOpen(false);
+      setTool(newToolRequest());
       toast.success(t('tools.create.success', {tool: tool.title}));
-      setTool({img: '', url: '', title: '', category: 'general', description: ''});
     }
     catch (error: any) {
       toast.error(error);
@@ -87,18 +88,16 @@ const CreateTool: FC<Props> = ({open, setOpen}) => {
       <DialogTitle>{t('tools.create.title')}</DialogTitle>
 
       <DialogContent>
-        <FormControl>
-          <InputLabel id="demo-select-small">{t('tools.create.category')}</InputLabel>
+        <FormControl sx={{mb: 2}}>
+          <InputLabel id="tool-select-category">{t('tools.create.category')}</InputLabel>
           <Select
-            size="small" sx={{mb: 2}}
-            value={tool.category}
-            labelId="demo-select-small" label={t('tools.create.category')}
+            size="small" value={tool.category}
+            labelId="tool-select-category" label={t('tools.create.category')}
             onChange={e => setTool({...tool, category: e.target.value as ToolCategory})}
           >
-            <MenuItem value="general">{t('tools.general')}</MenuItem>
-            <MenuItem value="development">{t('tools.development')}</MenuItem>
-            <MenuItem value="infrastructure">{t('tools.infrastructure')}</MenuItem>
-            <MenuItem value="net-sec">{t('tools.net-sec')}</MenuItem>
+            {Object.keys(ToolCategory).map(category => (
+              <MenuItem value={category}>{t('tools.' + category)}</MenuItem>
+            ))}
           </Select>
         </FormControl>
 
@@ -109,7 +108,7 @@ const CreateTool: FC<Props> = ({open, setOpen}) => {
             margin="dense"
             variant="standard"
             name="cb-tool-name"
-            value={tool?.title ?? ''}
+            value={tool.title ?? ''}
             label={t('tools.create.name')}
             onChange={e => setTool({...tool, title: e.target.value})}
           />
@@ -118,7 +117,7 @@ const CreateTool: FC<Props> = ({open, setOpen}) => {
             margin="dense"
             variant="standard"
             name="cb-tool-url"
-            value={tool?.url ?? ''}
+            value={tool.url ?? ''}
             label={t('tools.create.url')}
             onChange={e => setTool({...tool, url: e.target.value})}
           />
@@ -128,7 +127,7 @@ const CreateTool: FC<Props> = ({open, setOpen}) => {
           name="cb-tool-description"
           sx={{mb: 2}} margin="normal"
           required fullWidth multiline
-          value={tool?.description ?? ''}
+          value={tool.description ?? ''}
           label={t('tools.create.description')}
           onChange={e => setTool({...tool, description: e.target.value})}
         />

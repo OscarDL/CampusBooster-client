@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { t } from 'i18next';
 
+import { ToolLink } from '../shared/types/tools';
 import { apiUrl, axiosConfig } from '../shared/api';
 
 
@@ -35,7 +36,7 @@ const createTool = async (toolData: FormData) => {
   }
 };
 
-const updateTool = async (id: number, toolData: FormData) => {
+const updateTool = async (id: ToolLink['id'], toolData: FormData) => {
   try {
     const response = await axios.patch(apiUrl + 'tools/' + id, toolData, axiosFormDataConfig);
     return response.data;
@@ -46,7 +47,7 @@ const updateTool = async (id: number, toolData: FormData) => {
   }
 };
 
-const deleteTool = async (id: number) => {
+const deleteTool = async (id: ToolLink['id']) => {
   try {
     const response = await axios.delete(apiUrl + 'tools/' + id, axiosConfig);
     return response.data;

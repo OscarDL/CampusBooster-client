@@ -56,7 +56,7 @@ const Account: FC<Props> = ({user}) => {
 
           <li>
             {t('profile.account.campus')}&nbsp;
-            <span style={{fontWeight: 'bolder'}}>{user.campus}</span>
+            <span style={{fontWeight: 'bolder'}}>{user.Campus.name}</span>
           </li>
 
           <li>

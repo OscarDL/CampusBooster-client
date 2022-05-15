@@ -2,7 +2,7 @@ import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 import toolsService from '../../../services/tools';
-import { ToolLinkBase64Image } from '../../../shared/types/tools';
+import { ToolLink, ToolLinkBase64Image } from '../../../shared/types/tools';
 
 
 export type ToolsState = {
@@ -37,7 +37,7 @@ export const createTool = createAsyncThunk('tools/createTool', async (toolData: 
   }
 });
 
-type UpdateParams = {id: number, toolData: FormData};
+type UpdateParams = {id: ToolLink['id'], toolData: FormData};
 export const updateTool = createAsyncThunk('tools/updateTool', async ({id, toolData}: UpdateParams, thunkAPI) => {
   try {
     return await toolsService.updateTool(id, toolData);
@@ -49,7 +49,7 @@ export const updateTool = createAsyncThunk('tools/updateTool', async ({id, toolD
   }
 });
 
-export const deleteTool = createAsyncThunk('tools/deleteTool', async (id: number, thunkAPI) => {
+export const deleteTool = createAsyncThunk('tools/deleteTool', async (id: ToolLink['id'], thunkAPI) => {
   try {
     return await toolsService.deleteTool(id);
   }

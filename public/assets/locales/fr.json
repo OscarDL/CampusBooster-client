@@ -144,7 +144,39 @@
   },
 
   "accounting": {
-    "title": "Comptabilité"
+    "title": "Comptabilité",
+    "add": "Ajouter une entrée",
+    "select_user": "Sélectionnez un utilisateur",
+
+    "status": {
+      "title": "Statut",
+      "cancelled": "Annulé",
+      "pending": "En attente",
+      "confirmed": "Confirmé",
+      "processing": "En cours de traitement"
+    },
+
+    "data_grid": {
+      "title": "{{count}} opérations",
+
+      "columns": {
+        "debit": "Débit",
+        "credit": "Crédit",
+        "status": "Statut",
+        "student_name": "Étudiant",
+        "description": "Description",
+        "date_confirmed": "Confirmé le",
+        "date_requested": "Date de demande"
+      }
+    },
+
+    "create": {
+      "title": "Nouvelle entrée de solde",
+      "description": "Description",
+      "user": "Utilisateur",
+      "credit": "Crédit",
+      "debit": "Débit"
+    }
   },
 
   "tools": {
@@ -200,9 +232,10 @@
     "close": "Fermer",
     "cancel": "Annuler",
     "confirm": "Confirmer",
+    "loading": "Chargement",
     "date-mmmm-dd": "DD MMMM",
     "date-compare": "D-M-YYYY",
-    "date-mm/dd/yyyy": "DD/MM/YYYY",
+    "date-mm-dd-yyyy": "DD-MM-YYYY",
     "date-mmm-dd-yyyy": "DD MMM YYYY"
   }
 }

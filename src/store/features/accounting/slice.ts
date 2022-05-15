@@ -4,30 +4,36 @@ import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 import { User } from '../../../shared/types/user';
-import { Balance } from '../../../shared/types/accounting';
+import userService from '../../../services/users';
 import accountingService from '../../../services/accounting';
+import { Balance, BalanceRequest } from '../../../shared/types/accounting';
 
 
 export type AccountingState = {
+  users: User[] | null,
   balances: Balance[] | null,
 };
 
 
 const initialState: AccountingState = {
+  users: null,
   balances: null
 };
 
 
-const setBalanceDates = (balance: Balance) => ({
+const setBalanceDates = (balance: Balance): Balance => ({
   ...balance,
-  dateRequested: dayjs(balance.dateRequested).format(t('global.date-mm/dd/yyyy')),
-  dateConfirmed: dayjs(balance.dateConfirmed).format(t('global.date-mm/dd/yyyy'))
+  studentName: `${balance.User?.firstName} ${balance.User?.lastName}`,
+  dateRequested: dayjs(balance.dateRequested).format(t('global.date-mm-dd-yyyy')),
+  dateConfirmed: balance.dateConfirmed ? dayjs(balance.dateConfirmed).format(t('global.date-mm-dd-yyyy')) : ''
 });
 
 
 export const getBalances = createAsyncThunk('accounting/getBalances', async (_, thunkAPI) => {
   try {
-    return await accountingService.getBalances();
+    const users = await userService.getUsers();
+    const balances = await accountingService.getBalances();
+    return { users, balances };
   }
 
   catch (error: any) {
@@ -47,9 +53,9 @@ export const getUserBalance = createAsyncThunk('accounting/getUserBalance', asyn
   }
 });
 
-export const createBalance = createAsyncThunk('balances/createBalance', async (toolData: FormData, thunkAPI) => {
+export const createBalance = createAsyncThunk('balances/createBalance', async (balance: BalanceRequest, thunkAPI) => {
   try {
-    return await accountingService.createBalance();
+    return await accountingService.createBalance(balance);
   }
 
   catch (error: any) {
@@ -58,10 +64,10 @@ export const createBalance = createAsyncThunk('balances/createBalance', async (t
   }
 });
 
-type UpdateParams = {id: number, toolData: FormData};
-export const updateBalance = createAsyncThunk('tools/updateBalance', async ({id, toolData}: UpdateParams, thunkAPI) => {
+type UpdateParams = {id: Balance['id'], balance: Balance};
+export const updateBalance = createAsyncThunk('tools/updateBalance', async ({id, balance}: UpdateParams, thunkAPI) => {
   try {
-    return await accountingService.updateBalance(id);
+    return await accountingService.updateBalance(balance);
   }
 
   catch (error: any) {
@@ -93,6 +99,18 @@ const accountingSlice = createSlice({
   },
 
   extraReducers: (builder) => {
+    // Retrieve all balances for admins
+    builder.addCase(getBalances.fulfilled, (state, {payload}) => {
+      const balances = payload.balances.map(setBalanceDates);
+      state.balances = balances;
+      state.users = payload.users;
+    })
+
+    builder.addCase(getUserBalance.fulfilled, (state, {payload}) => {
+      const balances = payload.balances.map(setBalanceDates);
+      state.balances = balances;
+    })
+
     // Create new tool
     builder.addCase(createBalance.fulfilled, (state, {payload}) => {
       state.balances = (state.balances ?? []).concat(payload);
@@ -113,24 +131,16 @@ const accountingSlice = createSlice({
       }
     });
 
-    // Retrieve tools
+    // Show an error message on any of these cases being rejected.
     builder
-      .addMatcher(isAnyOf(getBalances.fulfilled, getUserBalance.fulfilled), (state, {payload}) => {
-        const balances = payload.map(setBalanceDates);
-        state.balances = balances;
+    .addMatcher(isAnyOf(createBalance.rejected, updateBalance.rejected, deleteBalance.rejected), (_, {payload}: any) => {
+        toast.error(payload.message);
       })
       .addMatcher(isAnyOf(getBalances.rejected, getUserBalance.rejected), (state, {payload}: any) => {
+        state.users = [];
         state.balances = [];
         toast.error(payload.message);
       });
-
-    // Show an error message on any of these cases being rejected.
-    builder.addMatcher(
-      isAnyOf(createBalance.rejected, updateBalance.rejected, deleteBalance.rejected),
-      (_, {payload}: any) => {
-        toast.error(payload.message);
-      }
-    );
   }
 });
 

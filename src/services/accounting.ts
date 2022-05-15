@@ -2,8 +2,8 @@ import axios from 'axios';
 import { t } from 'i18next';
 
 import { User } from '../shared/types/user';
-import { Balance } from '../shared/types/accounting';
 import { apiUrl, axiosConfig } from '../shared/api';
+import { Balance, BalanceRequest } from '../shared/types/accounting';
 
 
 const getBalances = async () => {
@@ -28,9 +28,9 @@ const getUserBalance = async (id: User['id']) => {
   }
 };
 
-const createBalance = async () => {
+const createBalance = async (balance: BalanceRequest) => {
   try {
-    const response = await axios.post(apiUrl + 'balances', null, axiosConfig);
+    const response = await axios.post(apiUrl + 'balances', balance, axiosConfig);
     return response.data;
   }
   
@@ -39,9 +39,9 @@ const createBalance = async () => {
   }
 };
 
-const updateBalance = async (id: number) => {
+const updateBalance = async (balance: Balance) => {
   try {
-    const response = await axios.patch(apiUrl + 'balances/' + id, null, axiosConfig);
+    const response = await axios.patch(apiUrl + 'balances/' + balance.id, balance, axiosConfig);
     return response.data;
   }
   

@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { FC, useEffect, useState } from 'react';
 import { Button, Tab, Tabs } from '@mui/material';
 
+import { UserRoles } from '../../../../shared/types/user';
 import { getTools } from '../../../../store/features/tools/slice';
 import { getLoggedInAuthState } from '../../../../shared/functions';
 import { ContentBody, ContentHeader } from '../../../shared/content';
@@ -89,7 +90,6 @@ const TabDiv: FC<TabDivProps> = ({children, tab}) => (
 
 const Tools: FC = () => {
   const { t } = useTranslation();
-
   const dispatch = useAppDispatch();
   const { user } = useAppSelector(getLoggedInAuthState);
   const { toolsList } = useAppSelector(state => state.tools);
@@ -106,7 +106,7 @@ const Tools: FC = () => {
   return (
     <>
       <ContentHeader title={t('tools.title')}>
-        {user.role === 'CAMPUS_BOOSTER_ADMIN' && (
+        {user.role === UserRoles.campusBoosterAdmin && (
           <Button
             className="button"
             onClick={() => setOpen(true)}

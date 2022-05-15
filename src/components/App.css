@@ -244,6 +244,27 @@ body .tippy-content > div {
 }
 
 
+/* --- React select component - Single select --- */
+
+body .react-select-component__control {
+  border-width: 2px;
+}
+
+body .react-select-component__menu > * {
+  max-height: 150px;
+}
+
+body .react-select-component__option:hover,
+body .react-select-component__option--is-focused {
+  background-color: rgba(var(--accent-color), 0.2);
+}
+
+body .react-select-component__option--is-selected,
+body .react-select-component__option--is-selected:hover {
+  background-color: rgba(var(--accent-color), 0.8);
+}
+
+
 /* --- Material-UI custom styling - "body" for higher specificity CSS detection --- */
 
 /* Mui Dialog title/content padding --- Can't customize from the Mui theming engine for some reason */

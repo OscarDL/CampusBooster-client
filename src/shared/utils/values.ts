@@ -6,16 +6,6 @@ export const colors = {
 
 export const reduxAuthPersistKey = 'auth-state';
 
-export const roles = {
-  student: "STUDENT",
-  professor: "PROFESSOR",
-  fullProfessor: "FULL_PROFESSOR",
-  company: "COMPANY",
-  assistant: "ASSISTANT",
-  campusManager: "CAMPUS_MANAGER",
-  campusBoosterAdmin: "CAMPUS_BOOSTER_ADMIN"
-};
-
 export const categories = [
   'summary',
   'subjects',
