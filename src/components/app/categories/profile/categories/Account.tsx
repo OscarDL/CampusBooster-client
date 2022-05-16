@@ -51,17 +51,27 @@ const Account: FC<Props> = ({user}) => {
         <ul>
           <li>
             {t('profile.account.birthday')}&nbsp;
-            <span style={{fontWeight: 'bolder'}}>{dayjs(user.birthday).format(t('global.date-mmm-dd-yyyy'))}</span>
+            <span style={{fontWeight: 'bolder'}}>
+              {dayjs(user.birthday).format(t('global.date-mmm-dd-yyyy'))}
+            </span>
           </li>
 
           <li>
             {t('profile.account.campus')}&nbsp;
-            <span style={{fontWeight: 'bolder'}}>{user.Campus.name}</span>
+            <span style={{fontWeight: 'bolder'}}>
+              {user.Campus?.name ?? t('profile.account.no_campus')}
+            </span>
           </li>
 
           <li>
-            {t('profile.account.school_year')}&nbsp;
-            <span style={{fontWeight: 'bolder'}}>{user.schoolYear}</span>
+            {t('profile.account.section')}&nbsp;
+            <span style={{fontWeight: 'bolder'}}>
+              {user.UserHasClassrooms?.[0]?.Classroom?.section ? (
+                t('profile.account.section_text', {count: user.UserHasClassrooms?.[0]?.Classroom?.section})
+              ) : (
+                t('profile.account.no_section')
+              )}
+            </span>
           </li>
         </ul>
       </div>

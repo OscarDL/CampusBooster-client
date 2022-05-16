@@ -27,6 +27,38 @@ export const muiTheme = createTheme({
       }
     },
 
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          '.MuiOutlinedInput-notchedOutline': {
+            borderWidth: '2px',
+            transition: '0.25s',
+            borderRadius: 'var(--radius-small)'
+          },
+          ':hover > fieldset.MuiOutlinedInput-notchedOutline': {
+            borderColor: 'rgba(var(--accent-color), 0.5)'
+          },
+          '&.Mui-focused > fieldset.MuiOutlinedInput-notchedOutline': {
+            borderColor: 'rgb(var(--accent-color))'
+          }
+        }
+      }
+    },
+
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '> .MuiInput-root::before': {
+            transition: '0.25s'
+          },
+          '> .MuiInput-root:hover:not(.Mui-disabled)::before': {
+            borderWidth: '2px',
+            borderColor: 'rgba(var(--accent-color), 0.5)'
+          }
+        }
+      }
+    },
+
     MuiInputLabel: {
       styleOverrides: {
         root: {
@@ -71,6 +103,8 @@ export const muiTheme = createTheme({
           fontSize: '1.5rem',
           fontWeight: 'bold',
           color: colors.accent,
+          transition: 'box-shadow 0.25s',
+          boxShadow: '0 0.2rem 0.2rem -0.1rem rgb(var(--divider-color))',
 
           '+ div.MuiDialogContent-root': {
             paddingTop: '20px'

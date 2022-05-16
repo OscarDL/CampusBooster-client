@@ -246,10 +246,39 @@ body .tippy-content > div {
 
 /* --- React select component - Single select --- */
 
-body .react-select-component__control {
-  border-width: 2px;
+@keyframes react-select-menu {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(-2rem);
+  }
+  70% {
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
+body .react-select-component__control {
+  transition: 0.25s;
+  border-width: 2px;
+  border-radius: var(--radius-small);
+}
+body .react-select-component__control:hover {
+  border-color: rgba(var(--accent-color), 0.5);
+}
+body .react-select-component__control--is-focused {
+  box-shadow: none;
+  border-color: rgb(var(--accent-color)) !important;
+}
+
+body .react-select-component__value-container {
+  padding-left: 10px;
+}
+
+body .react-select-component__menu {
+  animation: 0.25s cubic-bezier(0.4, 0, 0.2, 1) react-select-menu;
+}
 body .react-select-component__menu > * {
   max-height: 150px;
 }
@@ -266,12 +295,6 @@ body .react-select-component__option--is-selected:hover {
 
 
 /* --- Material-UI custom styling - "body" for higher specificity CSS detection --- */
-
-/* Mui Dialog title/content padding --- Can't customize from the Mui theming engine for some reason */
-body .MuiDialogTitle-root {
-  transition: box-shadow 0.25s;
-  box-shadow: 0 0.2rem 0.2rem -0.1rem rgb(var(--divider-color));
-}
 
 /* Mui Select header */
 body .select > .MuiInputBase-input {
@@ -296,21 +319,6 @@ body div[role="tooltip"] .MuiInputLabel-root.Mui-focused {
 }
 
 /* Mui Text inputs */
-body .MuiOutlinedInput-root {
-  border-radius: var(--radius-small);
-}
-body .MuiOutlinedInput-root fieldset {
-  transition: 0.25s;
-  border-width: 2px;
-}
-
-body .MuiOutlinedInput-root:hover fieldset {
-  border-color: rgba(var(--accent-color), 0.5) !important;
-}
-body .MuiOutlinedInput-root.Mui-focused fieldset {
-  border-color: rgb(var(--accent-color)) !important;
-}
-
 body button.MuiButton-root {
   min-width: unset;
   padding: 0.4rem 0.8rem;

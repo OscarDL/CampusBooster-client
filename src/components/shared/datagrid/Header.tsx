@@ -24,7 +24,7 @@ const DataGridHeader: FC<Props> = ({loading, dataCount = -1, refreshData, title}
         </span>
 
         {refreshData && !loading && (
-          <IconButton sx={{ml: 2}} onClick={refreshData}>
+          <IconButton sx={{m: '0 0 -1px 1rem'}} onClick={refreshData}>
             <span className="material-icons">refresh</span>
           </IconButton>
         )}

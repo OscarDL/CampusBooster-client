@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import { t } from 'i18next';
 import { IconButton } from '@mui/material';
 import { Dispatch, SetStateAction } from 'react';
-import { Delete, Edit } from '@mui/icons-material';
+import { DeleteOutlined, EditOutlined } from '@mui/icons-material';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid-pro';
 
 import { User } from '../types/user';
@@ -42,7 +42,7 @@ export const getAccountingColumns = ({user, setOpenUpdate, setOpenDelete, setBal
               setOpenUpdate(true);
             }}
           >
-            <Edit/>
+            <EditOutlined/>
           </IconButton>
           <IconButton
             color="error"
@@ -51,7 +51,7 @@ export const getAccountingColumns = ({user, setOpenUpdate, setOpenDelete, setBal
               setOpenDelete(true);
             }}
           >
-            <Delete/>
+            <DeleteOutlined/>
           </IconButton>
         </div>
       )

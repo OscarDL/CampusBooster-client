@@ -55,7 +55,11 @@
       "email": "Email\u00A0address:",
       "birthday": "Birthday:",
       "campus": "Campus location:",
-      "school_year": "Current year:"
+      "no_campus": "No campus.",
+      "section": "Current section:",
+      "section_text_one": "Year {{count}}",
+      "section_text_other": "Year {{count}}",
+      "no_section": "No section."
     },
 
     "settings": {

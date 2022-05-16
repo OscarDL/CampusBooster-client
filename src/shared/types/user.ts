@@ -1,6 +1,7 @@
 import { AccountInfo } from '@azure/msal-browser';
 
 import { Campus } from './campus';
+import { UserHasClassroom } from './classroom';
 
 
 export type AzureData = AccountInfo;
@@ -27,9 +28,9 @@ export type User = {
   firstName: string,
   birthday?: string,
 
-  Campus: Campus, // campus info
+  Campus?: Campus, // campus info
   campusId: number, // campus id
-  schoolYear?: number, // from year 1 to 5
+  UserHasClassrooms?: UserHasClassroom[],
 
   azureData: AzureData // azure authentication data
 };
