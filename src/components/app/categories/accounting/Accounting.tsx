@@ -5,6 +5,7 @@ import { FC, useEffect, useMemo, useState } from 'react';
 
 import { dataGridTheme } from '../../../../shared/theme';
 import { UserRoles } from '../../../../shared/types/user';
+import { Balance } from '../../../../shared/types/accounting';
 import { getLoggedInAuthState } from '../../../../shared/functions';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 import { getAccountingColumns } from '../../../../shared/utils/columns';
@@ -15,10 +16,14 @@ import { clearBalances, getBalances, getUserBalance } from '../../../../store/fe
 
 import Loader from '../../../shared/loader';
 import CreateBalance from './balance/Create';
+import UpdateBalance from './balance/Update';
+import DeleteBalance from './balance/Delete';
 
 
 const StyledDataGrid = styled(DataGridPro)(dataGridTheme);
-export const isAccountingAdmin = (role: UserRoles) => [UserRoles.campusManager, UserRoles.campusBoosterAdmin].includes(role);
+export const isAccountingAdmin = (role: UserRoles) => (
+  [UserRoles.assistant, UserRoles.campusManager, UserRoles.campusBoosterAdmin].includes(role)
+);
 
 
 const Accounting: FC = () => {
@@ -29,7 +34,13 @@ const Accounting: FC = () => {
   const { balances } = useAppSelector(state => state.accounting);
 
   const [openCreate, setOpenCreate] = useState(false);
-  const columns = useMemo(() => getAccountingColumns(user), [user]);
+  const [openUpdate, setOpenUpdate] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [balance, setBalance] = useState<Balance | null>(null);
+
+  const columns = useMemo(() => getAccountingColumns({
+    user, setOpenUpdate, setOpenDelete, setBalance
+  }), [user]);
 
 
   useEffect(() => {
@@ -55,8 +66,11 @@ const Accounting: FC = () => {
 
       <ContentBody>
         <StyledDataGrid
+          checkboxSelection
+          disableColumnPinning
+          disableSelectionOnClick
+
           loading={!balances}
-          checkboxSelection disableColumnPinning
           rows={balances ?? []} columns={columns}
           pagination={settings.dataGrid.pagination}
 
@@ -79,6 +93,11 @@ const Accounting: FC = () => {
       </ContentBody>
 
       <CreateBalance open={openCreate} setOpen={setOpenCreate}/>
+
+      {balance && <>
+        <UpdateBalance balance={balance} open={openUpdate} setOpen={setOpenUpdate}/>
+        <DeleteBalance balance={balance} open={openDelete} setOpen={setOpenDelete}/>
+      </>}
     </>
   );
 };

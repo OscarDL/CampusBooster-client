@@ -189,6 +189,7 @@
         "debit": "Debit",
         "credit": "Cdédit",
         "status": "Status",
+        "actions": "Actions",
         "student_name": "Student",
         "description": "Description",
         "date_requested": "Request date",
@@ -199,9 +200,30 @@
     "create": {
       "title": "New balance entry",
       "description": "Description",
+      "date_requested": "Request date",
+      "date_confirmed": "Confirmed on",
       "credit": "Credit",
       "debit": "Debit",
-      "user": "User"
+      "user": "User",
+      "success": "Balance entry successfully created."
+    },
+
+    "update": {
+      "title": "Update balance entry",
+      "description": "Description",
+      "date_requested": "Request date",
+      "date_confirmed": "Confirmed on",
+      "credit": "Credit",
+      "debit": "Debit",
+      "user": "User",
+      "success": "Balance entry successfully updated."
+    },
+
+    "delete": {
+      "title": "Delete balance entry",
+      "text": "Please type in the balance entry's description below to avoid accidental deletion.",
+      "description": "Description",
+      "success": "Balance entry successfully deleted."
     }
   },
 

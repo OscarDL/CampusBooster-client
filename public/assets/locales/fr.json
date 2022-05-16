@@ -153,7 +153,7 @@
       "cancelled": "Annulé",
       "pending": "En attente",
       "confirmed": "Confirmé",
-      "processing": "En cours de traitement"
+      "processing": "En traitement"
     },
 
     "data_grid": {
@@ -163,6 +163,7 @@
         "debit": "Débit",
         "credit": "Crédit",
         "status": "Statut",
+        "actions": "Actions",
         "student_name": "Étudiant",
         "description": "Description",
         "date_confirmed": "Confirmé le",
@@ -172,10 +173,31 @@
 
     "create": {
       "title": "Nouvelle entrée de solde",
+      "date_requested": "Date de demande",
+      "date_confirmed": "Confirmée le",
       "description": "Description",
       "user": "Utilisateur",
       "credit": "Crédit",
-      "debit": "Débit"
+      "debit": "Débit",
+      "success": "Entrée de solde créé avec succès."
+    },
+
+    "update": {
+      "title": "Modifier entrée de solde",
+      "date_requested": "Date de demande",
+      "date_confirmed": "Confirmée le",
+      "description": "Description",
+      "user": "Utilisateur",
+      "credit": "Crédit",
+      "debit": "Débit",
+      "success": "Entrée de solde modifiée avec succès."
+    },
+
+    "delete": {
+      "title": "Supprimer entrée de solde",
+      "text": "Veuillez écrire la description de l'entrée ci-dessous pour éviter une suppression accidentelle.",
+      "description": "Description",
+      "success": "Entrée de solde supprimée avec succès."
     }
   },
 

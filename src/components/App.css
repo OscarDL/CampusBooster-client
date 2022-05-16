@@ -338,12 +338,12 @@ body button.MuiButton-root.btnSecondary {
   background-color: transparent !important;
 }
 
-body .MuiInputAdornment-root button[class*="MuiButton"] {
+/* body .MuiInputAdornment-root button[class*="MuiButton"] {
   padding: 0;
   color: unset;
   transform: unset;
   background-color: transparent;
-}
+} */
 
 body button .MuiButton-startIcon.MuiButton-iconSizeSmall {
   margin-left: 0;

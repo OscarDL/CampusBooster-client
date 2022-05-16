@@ -1,5 +1,3 @@
-import dayjs from 'dayjs';
-import { t } from 'i18next';
 import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
@@ -21,11 +19,9 @@ const initialState: AccountingState = {
 };
 
 
-const setBalanceDates = (balance: Balance): Balance => ({
+const setBalanceStudent = (balance: Balance): Balance => ({
   ...balance,
-  studentName: `${balance.User?.firstName} ${balance.User?.lastName}`,
-  dateRequested: dayjs(balance.dateRequested).format(t('global.date-mm-dd-yyyy')),
-  dateConfirmed: balance.dateConfirmed ? dayjs(balance.dateConfirmed).format(t('global.date-mm-dd-yyyy')) : ''
+  studentName: `${balance.User?.firstName} ${balance.User?.lastName}`
 });
 
 
@@ -53,7 +49,7 @@ export const getUserBalance = createAsyncThunk('accounting/getUserBalance', asyn
   }
 });
 
-export const createBalance = createAsyncThunk('balances/createBalance', async (balance: BalanceRequest, thunkAPI) => {
+export const createBalance = createAsyncThunk('accounting/createBalance', async (balance: BalanceRequest, thunkAPI) => {
   try {
     return await accountingService.createBalance(balance);
   }
@@ -64,8 +60,7 @@ export const createBalance = createAsyncThunk('balances/createBalance', async (b
   }
 });
 
-type UpdateParams = {id: Balance['id'], balance: Balance};
-export const updateBalance = createAsyncThunk('tools/updateBalance', async ({id, balance}: UpdateParams, thunkAPI) => {
+export const updateBalance = createAsyncThunk('accounting/updateBalance', async (balance: Balance, thunkAPI) => {
   try {
     return await accountingService.updateBalance(balance);
   }
@@ -76,9 +71,10 @@ export const updateBalance = createAsyncThunk('tools/updateBalance', async ({id,
   }
 });
 
-export const deleteBalance = createAsyncThunk('tools/deleteBalance', async (id: number, thunkAPI) => {
+export const deleteBalance = createAsyncThunk('accounting/deleteBalance', async (id: number, thunkAPI) => {
   try {
-    return await accountingService.deleteBalance(id);
+    await accountingService.deleteBalance(id);
+    return id;
   }
 
   catch (error: any) {
@@ -89,7 +85,7 @@ export const deleteBalance = createAsyncThunk('tools/deleteBalance', async (id: 
 
 
 const accountingSlice = createSlice({
-  name: 'tools',
+  name: 'accounting',
   initialState,
 
   reducers: {
@@ -99,35 +95,36 @@ const accountingSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    // Retrieve all balances for admins
+    // Retrieve all balance entries for admins
     builder.addCase(getBalances.fulfilled, (state, {payload}) => {
-      const balances = payload.balances.map(setBalanceDates);
+      const balances = payload.balances.map(setBalanceStudent);
       state.balances = balances;
       state.users = payload.users;
     })
 
+    // Retrieve all balance entries for specific user
     builder.addCase(getUserBalance.fulfilled, (state, {payload}) => {
-      const balances = payload.balances.map(setBalanceDates);
+      const balances = payload.balances.map(setBalanceStudent);
       state.balances = balances;
     })
 
-    // Create new tool
+    // Create new balance entry
     builder.addCase(createBalance.fulfilled, (state, {payload}) => {
-      state.balances = (state.balances ?? []).concat(payload);
+      state.balances = (state.balances ?? []).concat(setBalanceStudent(payload));
     });
 
-    // Update existing tool
+    // Update existing balance entry
     builder.addCase(updateBalance.fulfilled, (state, {payload}) => {
       if (state.balances) {
-        const toolIndex = state.balances.findIndex(tool => tool.id === payload.id);
-        state.balances[toolIndex] = payload;
+        const balanceIndex = state.balances.findIndex(balance => balance.id === payload.id);
+        state.balances[balanceIndex] = setBalanceStudent(payload);
       }
     });
 
-    // Update existing tool
+    // Delete balance entry
     builder.addCase(deleteBalance.fulfilled, (state, {payload: id}) => {
       if (state.balances) {
-        state.balances = state.balances.filter(tool => tool.id !== id);
+        state.balances = state.balances.filter(balance => balance.id !== id);
       }
     });
 

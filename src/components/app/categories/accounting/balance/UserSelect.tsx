@@ -9,7 +9,7 @@ import { Balance, BalanceRequest } from '../../../../../shared/types/accounting'
 
 type Props = {
   balance: Balance | BalanceRequest,
-  setBalance: React.Dispatch<React.SetStateAction<Balance | BalanceRequest>>
+  setBalance: React.Dispatch<React.SetStateAction<any>>
 };
 
 type Option = {
@@ -49,6 +49,7 @@ const SelectBalanceUser: FC<Props> = ({balance, setBalance}) => {
       classNamePrefix="react-select-component"
       placeholder={t('accounting.select_user')}
       onChange={user => setBalance({...balance, userId: user?.value})}
+      value={userOptions.find(option => option.user.id === balance.userId)}
       formatOptionLabel={option => `${option.label} (${option.user.email})`}
     />
   );

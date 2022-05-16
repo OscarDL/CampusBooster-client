@@ -56,7 +56,7 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
     setNewTool({...newTool, img: tool.img});
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLElement>) => {
+  const handleUpdateTool = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
     setLoading(true);
 
@@ -76,7 +76,7 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
     }
     catch (error: any) {
       toast.error(error);
-    }
+    };
 
     setLoading(false);
   };
@@ -90,7 +90,7 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
 
   return (
     <Dialog
-      onSubmit={handleSubmit}
+      onSubmit={handleUpdateTool}
       components={{Root: 'form'}}
       onClose={() => setOpen(false)}
       open={open} fullWidth maxWidth="sm"
@@ -106,7 +106,9 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
             onChange={e => setNewTool({...newTool, category: e.target.value as ToolCategory})}
           >
             {Object.keys(ToolCategory).map(category => (
-              <MenuItem value={category}>{t('tools.' + category)}</MenuItem>
+              <MenuItem key={category} value={category}>
+                {t('tools.' + category)}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>

@@ -51,7 +51,8 @@ export const updateTool = createAsyncThunk('tools/updateTool', async ({id, toolD
 
 export const deleteTool = createAsyncThunk('tools/deleteTool', async (id: ToolLink['id'], thunkAPI) => {
   try {
-    return await toolsService.deleteTool(id);
+    await toolsService.deleteTool(id);
+    return id;
   }
 
   catch (error: any) {
@@ -95,7 +96,7 @@ const toolsSlice = createSlice({
       }
     });
 
-    // Update existing tool
+    // Delete tool
     builder.addCase(deleteTool.fulfilled, (state, {payload: id}) => {
       if (state.toolsList) {
         state.toolsList = state.toolsList.filter(tool => tool.id !== id);

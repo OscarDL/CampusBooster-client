@@ -34,13 +34,13 @@ const TaskDetails: FC<Props> = ({task, open, setDetails}) => {
               onChange={() => null}
               value={dayjs(task.dateStart)}
               label={t('calendar.tasks.details.date_start')}
-              renderInput={(params) => <TextField {...params} variant="standard" InputProps={{endAdornment: null}} />}
+              renderInput={(params) => <TextField {...params} variant="standard" InputProps={{endAdornment: null}}/>}
             />
             <DatePicker readOnly
               onChange={() => null}
               value={dayjs(task.dateEnd)}
               label={t('calendar.tasks.details.date_end')}
-              renderInput={(params) => <TextField {...params} variant="standard" InputProps={{endAdornment: null}} />}
+              renderInput={(params) => <TextField {...params} variant="standard" InputProps={{endAdornment: null}}/>}
             />
           </div>
         </LocalizationProvider>

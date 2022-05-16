@@ -29,5 +29,6 @@ export type BalanceRequest = {
   userId: User['id'],
   description: string,
   status: BalanceStatus,
-  dateRequested: string | dayjs.Dayjs
+  dateRequested: string | dayjs.Dayjs,
+  dateConfirmed?: string | dayjs.Dayjs
 };
