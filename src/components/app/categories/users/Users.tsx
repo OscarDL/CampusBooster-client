@@ -3,19 +3,18 @@ import { FC, useEffect, useState } from 'react';
 import { Button, Tab, Tabs } from '@mui/material';
 
 import { UserRoles } from '../../../../shared/types/user';
-import { ToolCategory } from '../../../../shared/types/tools';
-import { getTools } from '../../../../store/features/tools/slice';
+import { getUsers } from '../../../../store/features/users/slice';
 import { getLoggedInAuthState } from '../../../../shared/functions';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
 import { DispatchWithCallback, useStateWithCallback } from '../../../../shared/hooks';
 
-import ToolTab from './tool/Tab';
+import UserTab from './Tab';
+import CreateUser from './dialogs/Create';
 import Loader from '../../../shared/loader';
-import CreateTool from './tool/dialogs/Create';
 import Dropdown from '../../../shared/dropdown';
 
-import './Tools.css';
+import './Users.css';
 
 
 type TabsProps = {
@@ -29,27 +28,27 @@ type TabDivProps = {
 };
 
 
-const ToolTabs: FC<TabsProps> = ({tab, setTab}) => {
+const UserTabs: FC<TabsProps> = ({tab, setTab}) => {
   const { t } = useTranslation();
 
-  const tabs = Object.values(ToolCategory).map(category => ({
-    title: t(`tools.${category}.title`),
-    icon: t(`tools.${category}.icon`)
+  const tabs = Object.values(UserRoles).map(role => ({
+    title: t(`users.${role.toLowerCase()}.title__tab`),
+    icon: t(`users.${role.toLowerCase()}.icon`)
   }));
 
   const animateNewTab = (_: any, newTab: any) => {
     setTab(newTab, () => {
-      const tabElement = document.getElementById('tools-tab-' + newTab);
+      const tabElement = document.getElementById('users-tab-' + newTab);
       tabElement?.classList.add(`tab-slide-${tab > newTab ? 'left' : 'right'}`);
     });
   };
 
   return (
-    <div className="container tools-tabs-container">
-      <div className="tools-select">
+    <div className="container users-tabs-container">
+      <div className="users-select">
         <Dropdown // Dropdown tabs for mobile
           align="center"
-          id="tools-select"
+          id="users-select"
           icon={tabs[tab].icon}
           title={tabs[tab].title}
         >
@@ -74,49 +73,49 @@ const ToolTabs: FC<TabsProps> = ({tab, setTab}) => {
 };
 
 const TabDiv: FC<TabDivProps> = ({children, tab}) => (
-  <div className="tools-tab" id={`tools-tab-${tab}`}>
+  <div className="users-tab" id={`users-tab-${tab}`}>
     {children}
   </div>
 );
 
 
-const Tools: FC = () => {
+const Users: FC = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { user } = useAppSelector(getLoggedInAuthState);
-  const { toolsList } = useAppSelector(state => state.tools);
+  const { usersList } = useAppSelector(state => state.users);
 
   const [open, setOpen] = useState(false);
   const [tab, setTab] = useStateWithCallback(0);
 
 
   useEffect(() => {
-    if (!toolsList) dispatch(getTools());
-  }, [toolsList, dispatch]);
+    if (!usersList) dispatch(getUsers());
+  }, [usersList, dispatch]);
 
 
   return (
     <>
-      <ContentHeader title={t('tools.title')}>
+      <ContentHeader title={t('users.title')}>
         {user.role === UserRoles.CampusBoosterAdmin && (
           <Button
             className="button"
             onClick={() => setOpen(true)}
             startIcon={<span className="material-icons">add_circle_outline</span>}
           >
-            {t('tools.add')}
+            {t('users.add')}
           </Button>
         )}
       </ContentHeader>
 
-      <ToolTabs tab={tab} setTab={setTab}/>
+      <UserTabs tab={tab} setTab={setTab}/>
 
       <ContentBody>
-        {toolsList ? (
-          Object.values(ToolCategory).map((category, key) => (
+        {usersList ? (
+          Object.values(UserRoles).map((role, key) => (
             tab === key && (
               <TabDiv key={key} tab={tab}>
-                <ToolTab tools={toolsList.filter(tool => tool.category === category)}/>
+                <UserTab users={usersList.filter(user => user.role === role)}/>
               </TabDiv>
             )
           ))
@@ -125,10 +124,10 @@ const Tools: FC = () => {
         )}
       </ContentBody>
 
-      <CreateTool open={open} setOpen={setOpen}/>
+      <CreateUser open={open} setOpen={setOpen}/>
     </>
   );
 };
 
 
-export default Tools;
+export default Users;

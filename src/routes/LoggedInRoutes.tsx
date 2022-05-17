@@ -8,7 +8,7 @@ import { getLoggedInAuthState, getUserCategories } from '../shared/functions';
 import Summary from '../views/app/Summary';
 import Subjects from '../views/app/Subjects';
 import Marks from '../views/app/Marks';
-import Members from '../views/app/Members';
+import Users from '../views/app/Users';
 import Calendar from '../views/app/Calendar';
 import Internships from '../views/app/Internships';
 import Accounting from '../views/app/Accounting';
@@ -25,7 +25,7 @@ const LoggedInRoutes: FC = () => {
     summary: <Summary/>,
     subjects: <Subjects/>,
     marks: <Marks/>,
-    members: <Members/>,
+    users: <Users/>,
     calendar: <Calendar/>,
     internships: <Internships/>,
     accounting: <Accounting/>,

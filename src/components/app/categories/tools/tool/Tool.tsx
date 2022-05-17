@@ -23,7 +23,7 @@ const Tool: FC<Props> = ({tool}) => {
 
   const [openUpdate, setOpenUpdate] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
-  const isAdmin = user.role === UserRoles.campusBoosterAdmin;
+  const isAdmin = user.role === UserRoles.CampusBoosterAdmin;
 
 
   return (
@@ -44,7 +44,7 @@ const Tool: FC<Props> = ({tool}) => {
         </div>
       </ButtonBase>
 
-      {user.role === UserRoles.campusBoosterAdmin && (
+      {user.role === UserRoles.CampusBoosterAdmin && (
         <Box className="edit-delete-tool">
           <IconButton color="primary" onClick={() => setOpenUpdate(true)}>
             <EditOutlined/>

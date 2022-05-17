@@ -41,7 +41,7 @@ const Picker: FC<Props> = ({date, setDate, setTasks, setCourses}) => {
     const courseType = (): CourseType => {
       if (dayInAbsence) return dayInAbsence.type as CourseType;
       else if (dayInPlanning) return dayInPlanning.type as CourseType;
-      return '';
+      return CourseType.Empty;
     };
     const dayStyle = {
       color: courseType() && 'white',

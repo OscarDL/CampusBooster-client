@@ -3,7 +3,7 @@ import { enUS, frFR } from '@mui/x-data-grid-pro';
 import { SupportedLangs } from '../types/settings';
 
 
-export const supportedLangs: SupportedLangs[] = ['en', 'fr'];
+export const supportedLangs: SupportedLangs[] = Object.values(SupportedLangs);
 
 export const dayjsLocales = {
   en: () => import('dayjs/locale/en'),

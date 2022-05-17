@@ -127,7 +127,8 @@ export const muiTheme = createTheme({
             alignItems: 'center'
           },
           '> .MuiDialogContent-row > *': {
-            flexGrow: '1'
+            flexGrow: '1',
+            minWidth: 'calc((100% - 1rem) / 2)'
           }
         }
       }

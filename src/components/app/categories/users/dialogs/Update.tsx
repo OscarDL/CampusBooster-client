@@ -6,11 +6,11 @@ import { Close, Replay } from '@mui/icons-material';
 import { FC, useEffect, useRef, useState } from 'react';
 import { Box, Button, FormControl, IconButton, InputLabel, MenuItem, Select, styled, TextField } from '@mui/material';
 
-import { useAppDispatch } from '../../../../../../store/store';
-import { allowedFileTypes } from '../../../../../../shared/utils/values';
-import { updateTool } from '../../../../../../store/features/tools/slice';
-import { ToolCategory, ToolLink } from '../../../../../../shared/types/tools';
-import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../../shared/dialog';
+import { useAppDispatch } from '../../../../../store/store';
+import { allowedFileTypes } from '../../../../../shared/utils/values';
+import { updateTool } from '../../../../../store/features/tools/slice';
+import { ToolCategory, ToolLink } from '../../../../../shared/types/tools';
+import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
 
 
 type Props = {
@@ -105,9 +105,9 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
             labelId="tool-select-category" label={t('tools.update.category')}
             onChange={e => setNewTool({...newTool, category: e.target.value as ToolCategory})}
           >
-            {Object.values(ToolCategory).map(category => (
+            {Object.keys(ToolCategory).map(category => (
               <MenuItem key={category} value={category}>
-                {t(`tools.${category}.title`)}
+                {t('tools.' + category)}
               </MenuItem>
             ))}
           </Select>

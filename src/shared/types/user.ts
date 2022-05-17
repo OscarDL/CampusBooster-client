@@ -1,19 +1,19 @@
 import { AccountInfo } from '@azure/msal-browser';
 
 import { Campus } from './campus';
-import { UserHasClassroom } from './classroom';
+import { Classroom, UserHasClassroom } from './classroom';
 
 
 export type AzureData = AccountInfo;
 
 export enum UserRoles {
-  student = 'STUDENT',
-  professor = 'PROFESSOR',
-  fullProfessor = 'FULL_PROFESSOR',
-  company = 'COMPANY',
-  assistant = 'ASSISTANT',
-  campusManager = 'CAMPUS_MANAGER',
-  campusBoosterAdmin = 'CAMPUS_BOOSTER_ADMIN'
+  Student = 'STUDENT',
+  Professor = 'PROFESSOR',
+  FullProfessor = 'FULL_PROFESSOR',
+  Company = 'COMPANY',
+  Assistant = 'ASSISTANT',
+  CampusManager = 'CAMPUS_MANAGER',
+  CampusBoosterAdmin = 'CAMPUS_BOOSTER_ADMIN'
 };
 
 export type User = {
@@ -29,7 +29,7 @@ export type User = {
   birthday?: string,
 
   Campus?: Campus, // campus info
-  campusId: number, // campus id
+  campusId: Campus['id'], // campus id
   UserHasClassrooms?: UserHasClassroom[],
 
   azureData: AzureData // azure authentication data
@@ -37,14 +37,14 @@ export type User = {
 
 export type UserRequest = {
   email: string,
+  personalEmail: string,
+
   role: UserRoles,
   avatar?: string,
   birthday: string,
   lastName: string,
   firstName: string,
 
-  campusId: number, // campus id
-  schoolYear?: number, // from year 1 to 5
-
-  azureData: AzureData // azure authentication data
+  campusId: Campus['id'], // campus id
+  section: Classroom['section'], // year 1 - 5
 };

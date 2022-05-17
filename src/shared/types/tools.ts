@@ -2,7 +2,7 @@ export enum ToolCategory {
   general = 'general',
   development = 'development',
   infrastructure = 'infrastructure',
-  netSec = 'net-sec'
+  netSec = 'net_sec'
 };
 
 export type ToolLink = {

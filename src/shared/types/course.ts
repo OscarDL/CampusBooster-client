@@ -1,4 +1,10 @@
-export type CourseType = 'absence' | 'exam' | 'course' | 'today' | '';
+export enum CourseType {
+  Absence = 'absence',
+  Exam = 'exam',
+  Course = 'course',
+  Today = 'today',
+  Empty = ''
+};
 
 export type Course = {
   type: CourseType,

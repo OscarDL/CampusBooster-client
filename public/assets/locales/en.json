@@ -85,7 +85,7 @@
         "default": "Default",
         "bold": "Make bolder",
         "underline": "Underline",
-        "bold-underline": "Make bolder & underline"
+        "bold_underline": "Make bolder & underline"
       }
     },
 
@@ -129,11 +129,6 @@
   "subjects": {
     "title": "Subjects",
     "icon": "topic"
-  },
-
-  "members": {
-    "title": "Members",
-    "icon": "school"
   },
 
   "calendar": {
@@ -238,10 +233,22 @@
     "add": "Add tool",
     "no_description": "No description available for this tool.",
 
-    "general": "General",
-    "development": "Development",
-    "infrastructure": "Infrastructure",
-    "net-sec": "Network & Security",
+    "general": {
+      "title": "General",
+      "icon": "language"
+    },
+    "development": {
+      "title": "Development",
+      "icon": "terminal"
+    },
+    "infrastructure": {
+      "title": "Infrastructure",
+      "icon": "storage"
+    },
+    "net_sec": {
+      "title": "Network & Security",
+      "icon": "security"
+    },
 
     "create": {
       "title": "New tool",
@@ -270,6 +277,82 @@
       "title": "Delete \"{{tool}}\"",
       "text": "Please type in the name of the tool below to avoid accidental deletion.",
       "success": "Tool \"{{tool}}\" deleted updated."
+    }
+  },
+
+  "users": {
+    "title": "Users",
+    "icon": "school",
+    "add": "New user",
+    "select_campus": "Select a campus",
+
+    "student": {
+      "title__role": "Student",
+      "title__tab": "Students",
+      "icon": "school"
+    },
+    "professor": {
+      "title__role": "Professor",
+      "title__tab": "Professors",
+      "icon": "assignment_ind"
+    },
+    "full_professor": {
+      "title__role": "Full professor",
+      "title__tab": "Full professors",
+      "icon": "cast_for_education"
+    },
+    "company": {
+      "title__role": "Companie",
+      "title__tab": "Companies",
+      "icon": "work"
+    },
+    "assistant": {
+      "title__role": "Assistant",
+      "title__tab": "Assistants",
+      "icon": "support_agent"
+    },
+    "campus_manager": {
+      "title__role": "Campus manager",
+      "title__tab": "Campus managers",
+      "icon": "assignment_ind"
+    },
+    "campus_booster_admin": {
+      "title__role": "Administrator",
+      "title__tab": "Administrators",
+      "icon": "manage_accounts"
+    },
+
+    "create": {
+      "title": "Nouvel utilisateur",
+      "role": "Role",
+      "campus": "Campus",
+      "section": "Section",
+      "birthday": "Birthday",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "email": "Email address (SUPINFO)",
+      "personal_email": "Personal email address",
+      "success": "User {{user}} successfully created."
+    },
+
+    "update": {
+      "title": "Modifier {{user}}",
+      "role": "Role",
+      "campus": "Campus",
+      "section": "Section",
+      "birthday": "Birthday",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "email": "Email address (SUPINFO)",
+      "personal_email": "Personal email address",
+      "success": "User {{user}} successfully updated."
+    },
+
+    "delete": {
+      "title": "Delete {{user}}",
+      "text": "Please type in the name of the user below to avoid accidental deletion.",
+      "email": "Email address (SUPINFO)",
+      "success": "User {{user}} successfully deleted."
     }
   },
 

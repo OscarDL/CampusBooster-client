@@ -19,16 +19,16 @@ type Option = {
 };
 
 
-const SelectBalanceUser: FC<Props> = ({balance, setBalance}) => {
+const BalanceUserPicker: FC<Props> = ({balance, setBalance}) => {
   const { t } = useTranslation();
-  const { users } = useAppSelector(state => state.accounting);
+  const { usersList } = useAppSelector(state => state.users);
 
   const [userOptions, setUserOptions] = useState<Option[]>([]);
 
 
   useEffect(() => {
-    if (users) {
-      const userOptions: Option[] = users.map(user => ({
+    if (usersList) {
+      const userOptions: Option[] = usersList.map(user => ({
         user: user,
         value: user.id,
         label: `${user.firstName} ${user.lastName}`
@@ -36,15 +36,15 @@ const SelectBalanceUser: FC<Props> = ({balance, setBalance}) => {
 
       setUserOptions(userOptions);
     }
-  }, [users]);
+  }, [usersList]);
 
 
   return (
     <Select
       isSearchable
-      isLoading={!users}
-      isDisabled={!users}
       options={userOptions}
+      isLoading={!usersList}
+      isDisabled={!usersList}
       className="react-select-component"
       classNamePrefix="react-select-component"
       placeholder={t('accounting.select_user')}
@@ -56,4 +56,4 @@ const SelectBalanceUser: FC<Props> = ({balance, setBalance}) => {
 };
 
 
-export default SelectBalanceUser;
+export default BalanceUserPicker;

@@ -84,7 +84,7 @@
         "default": "Par défaut",
         "bold": "Plus gras",
         "underline": "Soulignés",
-        "bold-underline": "Plus gras et soulignés"
+        "bold_underline": "Plus gras et soulignés"
       }
     }
   },
@@ -107,10 +107,6 @@
 
   "subjects": {
     "title": "Matières"
-  },
-
-  "members": {
-    "title": "Membres"
   },
 
   "calendar": {
@@ -211,10 +207,18 @@
     "add": "Ajouter un outil",
     "no_description": "Aucune description disponible pour cet outil.",
 
-    "general": "Géneral",
-    "development": "Développement",
-    "infrastructure": "Infrastructure",
-    "net-sec": "Sécurité et Réseaux",
+    "general": {
+      "title": "Général"
+    },
+    "development": {
+      "title": "Développement"
+    },
+    "infrastructure": {
+      "title": "Infrastructure"
+    },
+    "net_sec": {
+      "title": "Sécurité et Réseaux"
+    },
 
     "create": {
       "title": "Nouvel outil",
@@ -243,6 +247,72 @@
       "title": "Supprimer \"{{tool}}\"",
       "text": "Veuillez entrer le nom de l'outil ci-dessous pour éviter une suppression accidentelle.",
       "success": "Outil \"{{tool}}\" supprimé avec succès."
+    }
+  },
+
+  "users": {
+    "title": "Utilisateurs",
+    "add": "Nouvel utilisateur",
+    "select_campus": "Sélectionnez un campus",
+
+    "student": {
+      "title__role": "Étudiant",
+      "title__tab": "Étudiants"
+    },
+    "professor": {
+      "title__role": "Professeur",
+      "title__tab": "Professeurs"
+    },
+    "full_professor": {
+      "title__role": "Full professeur",
+      "title__tab": "Full professeurs"
+    },
+    "company": {
+      "title__role": "Entreprise",
+      "title__tab": "Entreprises"
+    },
+    "assistant": {
+      "title__role": "Assistant",
+      "title__tab": "Assistants"
+    },
+    "campus_manager": {
+      "title__role": "Campus manager",
+      "title__tab": "Campus managers"
+    },
+    "campus_booster_admin": {
+      "title__role": "Administrateur",
+      "title__tab": "Administrateurs"
+    },
+
+    "create": {
+      "role": "Rôle",
+      "campus": "Campus",
+      "section": "Section",
+      "birthday": "Date de naissance",
+      "first_name": "Prénom",
+      "last_name": "Nom",
+      "email": "Adresse email (SUPINFO)",
+      "personal_email": "Adresse email personelle",
+      "success": "Utilisateur {{user}} créé avec succès."
+    },
+
+    "update": {
+      "role": "Rôle",
+      "campus": "Campus",
+      "section": "Section",
+      "birthday": "Date de naissance",
+      "first_name": "Prénom",
+      "last_name": "Nom",
+      "email": "Adresse email (SUPINFO)",
+      "personal_email": "Adresse email personelle",
+      "success": "Utilisateur {{user}} modifié avec succès."
+    },
+
+    "delete": {
+      "title": "Supprimer {{user}}",
+      "text": "Veuillez entrer le nom de l'utilisateur ci-dessous pour éviter une suppression accidentelle.",
+      "email": "Adresse email (SUPINFO)",
+      "success": "Utilisateur {{user}} supprimé avec succès."
     }
   },
 

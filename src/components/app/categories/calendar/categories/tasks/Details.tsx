@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, TextField, Typography } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 
 import { Task } from '../../../../../../shared/types/calendar';
@@ -29,7 +29,7 @@ const TaskDetails: FC<Props> = ({task, open, setDetails}) => {
 
       <DialogContent>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <div className="MuiDialogContent-row">
+          <Box className="MuiDialogContent-row">
             <DatePicker readOnly
               onChange={() => null}
               value={dayjs(task.dateStart)}
@@ -42,7 +42,7 @@ const TaskDetails: FC<Props> = ({task, open, setDetails}) => {
               label={t('calendar.tasks.details.date_end')}
               renderInput={(params) => <TextField {...params} variant="standard" InputProps={{endAdornment: null}}/>}
             />
-          </div>
+          </Box>
         </LocalizationProvider>
 
         <Typography sx={{mt: 2}}>

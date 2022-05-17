@@ -35,7 +35,7 @@ export const login = createAsyncThunk('auth/login', async (azureData: AzureData,
   catch (error: any) {
     const message = error || 'error';
     return thunkAPI.rejectWithValue({message, azureData});
-  }
+  };
 });
 
 export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
@@ -46,7 +46,7 @@ export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   catch (error: any) {
     const message = error || 'error';
     return thunkAPI.rejectWithValue(message);
-  }
+  };
 });
 
 

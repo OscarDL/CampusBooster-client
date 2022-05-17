@@ -12,7 +12,7 @@ import { updateBalance } from '../../../../../store/features/accounting/slice';
 import { Balance, BalanceStatus } from '../../../../../shared/types/accounting';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
 
-import SelectBalanceUser from './UserSelect';
+import BalanceUserPicker from './UserPicker';
 
 
 type Props = {
@@ -71,10 +71,10 @@ const UpdateBalance: FC<Props> = ({balance, open, setOpen}) => {
       <DialogTitle>{t('accounting.update.title')}</DialogTitle>
 
       <DialogContent>
-        <SelectBalanceUser balance={newBalance} setBalance={setNewBalance}/>
+        <BalanceUserPicker balance={newBalance} setBalance={setNewBalance}/>
 
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <Box className="MuiDialogContent-row" sx={{mt: 1}}>
+          <Box className="MuiDialogContent-row" sx={{mt: 2}}>
             <DatePicker
               label={t('accounting.update.date_requested')}
               value={newBalance.dateRequested ? dayjs(newBalance.dateRequested) : null}

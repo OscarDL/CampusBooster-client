@@ -10,7 +10,7 @@ export const categories = [
   'summary',
   'subjects',
   'marks',
-  'members',
+  'users',
   'calendar',
   'internships',
   'accounting',

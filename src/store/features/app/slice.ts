@@ -40,7 +40,7 @@ export const setNewLang = createAsyncThunk('app/setNewLang', async (lang: Suppor
   catch (error: any) {
     const message = error || 'error';
     return thunkAPI.rejectWithValue(message);
-  }
+  };
 });
 
 

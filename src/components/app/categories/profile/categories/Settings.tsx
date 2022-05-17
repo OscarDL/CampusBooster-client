@@ -18,9 +18,9 @@ const getCurrentSavedTheme = (): SupportedThemes => {
   const settings = getLocalStorageSettings();
 
   switch (settings.theme as SupportedThemes) {
-    case 'dark': return 'dark';
-    case 'light': return 'light';
-    default: return 'system';
+    case 'light': return SupportedThemes.Light;
+    case 'dark': return SupportedThemes.Dark;
+    default: return SupportedThemes.System;
   };
 };
 
@@ -81,15 +81,11 @@ const Settings: FC = () => {
             onChange={handleChangeTheme}
             label={t('profile.settings.theme.title')}
           >
-            <MenuItem value="system">
-              {t('profile.settings.theme.system')}
-            </MenuItem>
-            <MenuItem value="light">
-              {t('profile.settings.theme.light')}
-            </MenuItem>
-            <MenuItem value="dark">
-              {t('profile.settings.theme.dark')}
-            </MenuItem>
+            {Object.values(SupportedThemes).map(theme => (
+              <MenuItem value={theme}>
+                {t('profile.settings.theme.' + theme)}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
 
@@ -102,18 +98,11 @@ const Settings: FC = () => {
             onChange={handleChangeLinkType}
             label={t('profile.settings.links.title')}
           >
-            <MenuItem value="default">
-              {t('profile.settings.links.default')}
-            </MenuItem>
-            <MenuItem value="bold">
-              {t('profile.settings.links.bold')}
-            </MenuItem>
-            <MenuItem value="underline">
-              {t('profile.settings.links.underline')}
-            </MenuItem>
-            <MenuItem value="bold-underline">
-              {t('profile.settings.links.bold-underline')}
-            </MenuItem>
+            {Object.values(LinkTypes).map(linkType => (
+              <MenuItem key={linkType} value={linkType}>
+                {t('profile.settings.links.' + linkType)}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </div>

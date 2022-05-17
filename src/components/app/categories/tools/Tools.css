@@ -8,9 +8,6 @@
   margin: 0 1rem 1rem;
 }
 
-.tools-tabs + hr {
-  margin: -1px 0 1rem;
-}
 .tools-tabs .MuiTabScrollButton-root.Mui-disabled {
   opacity: 0.5;
 }
@@ -27,36 +24,6 @@
 .tools-select .dropdown__header {
   padding-top: 0.33rem;
   padding-bottom: 0.33rem;
-}
-
-
-/* --- Tab slide-in animations --- */
-
-@keyframes tab-reveal {
-  from {
-    visibility: hidden;
-  }
-  to {
-    visibility: visible;
-  }
-}
-
-@keyframes tab-slide-left {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-@keyframes tab-slide-right {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
 }
 
 
@@ -188,5 +155,9 @@
   }
   .tools-tabs button, .tools-tabs .MuiTabs-indicator {
     transition: 0s !important;
+  }
+
+  .tools-tab {
+    animation: none;
   }
 }

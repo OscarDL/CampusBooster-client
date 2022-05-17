@@ -1,20 +1,19 @@
 import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
+import { store } from '../../store';
+import { getUsers } from '../users/slice';
 import { User } from '../../../shared/types/user';
-import userService from '../../../services/users';
 import accountingService from '../../../services/accounting';
 import { Balance, BalanceRequest } from '../../../shared/types/accounting';
 
 
 export type AccountingState = {
-  users: User[] | null,
   balances: Balance[] | null,
 };
 
 
 const initialState: AccountingState = {
-  users: null,
   balances: null
 };
 
@@ -27,15 +26,17 @@ const setBalanceStudent = (balance: Balance): Balance => ({
 
 export const getBalances = createAsyncThunk('accounting/getBalances', async (_, thunkAPI) => {
   try {
-    const users = await userService.getUsers();
-    const balances = await accountingService.getBalances();
-    return { users, balances };
+    if (!store.getState().users.usersList) {
+      await store.dispatch(getUsers());
+    }
+
+    return await accountingService.getBalances();
   }
 
   catch (error: any) {
     const message = error || 'error';
     return thunkAPI.rejectWithValue(message);
-  }
+  };
 });
 
 export const getUserBalance = createAsyncThunk('accounting/getUserBalance', async (id: User['id'], thunkAPI) => {
@@ -46,7 +47,7 @@ export const getUserBalance = createAsyncThunk('accounting/getUserBalance', asyn
   catch (error: any) {
     const message = error || 'error';
     return thunkAPI.rejectWithValue(message);
-  }
+  };
 });
 
 export const createBalance = createAsyncThunk('accounting/createBalance', async (balance: BalanceRequest, thunkAPI) => {
@@ -57,7 +58,7 @@ export const createBalance = createAsyncThunk('accounting/createBalance', async 
   catch (error: any) {
     const message = error || 'error';
     return thunkAPI.rejectWithValue(message);
-  }
+  };
 });
 
 export const updateBalance = createAsyncThunk('accounting/updateBalance', async (balance: Balance, thunkAPI) => {
@@ -68,7 +69,7 @@ export const updateBalance = createAsyncThunk('accounting/updateBalance', async 
   catch (error: any) {
     const message = error || 'error';
     return thunkAPI.rejectWithValue(message);
-  }
+  };
 });
 
 export const deleteBalance = createAsyncThunk('accounting/deleteBalance', async (id: number, thunkAPI) => {
@@ -80,7 +81,7 @@ export const deleteBalance = createAsyncThunk('accounting/deleteBalance', async 
   catch (error: any) {
     const message = error || 'error';
     return thunkAPI.rejectWithValue(message);
-  }
+  };
 });
 
 
@@ -97,16 +98,15 @@ const accountingSlice = createSlice({
   extraReducers: (builder) => {
     // Retrieve all balance entries for admins
     builder.addCase(getBalances.fulfilled, (state, {payload}) => {
-      const balances = payload.balances.map(setBalanceStudent);
+      const balances = payload.map(setBalanceStudent);
       state.balances = balances;
-      state.users = payload.users;
-    })
+    });
 
     // Retrieve all balance entries for specific user
     builder.addCase(getUserBalance.fulfilled, (state, {payload}) => {
-      const balances = payload.balances.map(setBalanceStudent);
+      const balances = payload.map(setBalanceStudent);
       state.balances = balances;
-    })
+    });
 
     // Create new balance entry
     builder.addCase(createBalance.fulfilled, (state, {payload}) => {
@@ -134,7 +134,6 @@ const accountingSlice = createSlice({
         toast.error(payload.message);
       })
       .addMatcher(isAnyOf(getBalances.rejected, getUserBalance.rejected), (state, {payload}: any) => {
-        state.users = [];
         state.balances = [];
         toast.error(payload.message);
       });

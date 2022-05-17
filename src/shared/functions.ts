@@ -22,7 +22,7 @@ export const getCurrentLang = (): SupportedLangs => {
   const savedLang = localStorage.getItem('lang') as SupportedLangs;
 
   if (!supportedLangs.includes(savedLang)) {
-    return 'en';
+    return SupportedLangs.English;
   }
 
   return savedLang as SupportedLangs;
@@ -31,13 +31,13 @@ export const getCurrentLang = (): SupportedLangs => {
 // Retrieve current user link type
 export const getCurrentLinkType = (linkType?: string): LinkTypes => {
   const settings = getLocalStorageSettings();
-  if (!linkType) linkType = settings.linkType ?? 'default';
+  if (!linkType) linkType = settings.linkType ?? LinkTypes.Default;
 
   switch (linkType) {
-    case 'bold': return 'bold';
-    case 'underline': return 'underline';
-    case 'bold-underline': return 'bold-underline';
-    default: return 'default';
+    case 'bold': return LinkTypes.Bold;
+    case 'underline': return LinkTypes.Underline;
+    case 'bold_underline': return LinkTypes.BoldUnderline;
+    default: return LinkTypes.Default;
   }
 };
 
@@ -99,27 +99,27 @@ export const getUserCategories = (categories: string[], user: User) => {
   const campusBoosterAdminForbidden: string[] = [];
 
   switch (user.role) {
-    case UserRoles.professor: {
+    case UserRoles.Professor: {
       return categories.filter(category => !professorForbidden.includes(category));
     }
 
-    case UserRoles.fullProfessor: {
+    case UserRoles.FullProfessor: {
       return categories.filter(category => !fullProfessorForbidden.includes(category));
     }
 
-    case UserRoles.company: {
+    case UserRoles.Company: {
       return categories.filter(category => !companyForbidden.includes(category));
     }
 
-    case UserRoles.assistant: {
+    case UserRoles.Assistant: {
       return categories.filter(category => !assistantForbidden.includes(category));
     }
 
-    case UserRoles.campusManager: {
+    case UserRoles.CampusManager: {
       return categories.filter(category => !campusManagerForbidden.includes(category));
     }
 
-    case UserRoles.campusBoosterAdmin: {
+    case UserRoles.CampusBoosterAdmin: {
       return categories.filter(category => !campusBoosterAdminForbidden.includes(category));
     }
 

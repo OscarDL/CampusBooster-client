@@ -151,12 +151,12 @@ h2 {
 /* --- Links --- */
 
 :root.link-bold a *:not([class*="material-icons"]),
-:root.link-bold-underline a *:not([class*="material-icons"]) {
+:root.link-bold_underline a *:not([class*="material-icons"]) {
   font-weight: bold;
 }
 
 :root.link-underline a *:not([class*="material-icons"]),
-:root.link-bold-underline a *:not([class*="material-icons"]) {
+:root.link-bold_underline a *:not([class*="material-icons"]) {
   text-decoration: underline;
 }
 
@@ -241,6 +241,36 @@ body .tippy-content > div {
   gap: 0.33rem;
   display: flex;
   flex-direction: column;
+}
+
+
+/* --- Tab slide-in animations --- */
+
+@keyframes tab-reveal {
+  from {
+    visibility: hidden;
+  }
+  to {
+    visibility: visible;
+  }
+}
+
+@keyframes tab-slide-left {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes tab-slide-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 

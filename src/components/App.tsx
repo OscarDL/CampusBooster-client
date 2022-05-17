@@ -8,6 +8,7 @@ import LoggedInRoutes from '../routes/LoggedInRoutes';
 import LoggedOutRoutes from '../routes/LoggedOutRoutes';
 
 import { login } from '../store/features/auth/slice';
+import { LinkTypes, SupportedThemes } from '../shared/types/settings';
 import { setCategory } from '../store/features/app/slice';
 import { useAppSelector, useAppDispatch } from '../store/store';
 import { getCategoryTitle, getCurrentTheme } from '../shared/functions';
@@ -37,9 +38,9 @@ const App: FC = () => {
     getCurrentTheme(settings.theme, true);
 
     const browser = window.matchMedia('(prefers-color-scheme: dark)');
-    const updateTheme = (e: MediaQueryListEvent) => getCurrentTheme(e.matches ? 'dark' : 'light', true);
+    const updateTheme = (e: MediaQueryListEvent) => getCurrentTheme(SupportedThemes[e.matches ? 'Dark' : 'Light'], true);
 
-    if (settings.theme === 'system') browser.addEventListener('change', updateTheme);
+    if (settings.theme === SupportedThemes.System) browser.addEventListener('change', updateTheme);
     return () => browser.removeEventListener('change', updateTheme);
   }, [settings.theme]);
 
@@ -48,7 +49,7 @@ const App: FC = () => {
     cleanLinkTypeClass(root);
 
     const linkType = settings.linkType;
-    if (linkType !== 'default') root.classList.add('link-' + linkType);
+    if (linkType !== LinkTypes.Default) root.classList.add('link-' + linkType);
   }, [settings.linkType]);
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 import { Task } from '../types/calendar';
-import { Course } from '../types/course';
+import { Course, CourseType } from '../types/course';
 
 
 export const getFakeCredits = () => ([
@@ -136,7 +136,7 @@ export const getFakeCalendar = (): FakeCalendar => ({
   planning: [{
     credits: 4,
     name: '4CCNA',
-    type: 'course',
+    type: CourseType.Course,
     title: 'Cisco Networking Academy',
     dates: [
       new Date(1647244800000),
@@ -146,7 +146,7 @@ export const getFakeCalendar = (): FakeCalendar => ({
   }, {
     credits: 2,
     name: '4KUBE',
-    type: 'course',
+    type: CourseType.Course,
     title: 'Kubernetes',
     dates: [
       new Date(1647849600000),
@@ -155,7 +155,7 @@ export const getFakeCalendar = (): FakeCalendar => ({
   }, {
     credits: 3,
     name: '4ENGL',
-    type: 'exam',
+    type: CourseType.Exam,
     title: 'English courses',
     dates: [
       new Date(1648022400000)
@@ -165,7 +165,7 @@ export const getFakeCalendar = (): FakeCalendar => ({
   absences: [{
     credits: 2,
     name: '4LIAL',
-    type: 'absence',
+    type: CourseType.Absence,
     title: 'Linear Algebra',
     dates: [
       new Date(1648710000000)
@@ -176,7 +176,7 @@ export const getFakeCalendar = (): FakeCalendar => ({
     course: {
       credits: 4,
       name: '4BOSS',
-      type: 'course',
+      type: CourseType.Course,
       title: 'Become a business owner'
     },
     title: 'Create a local business',
@@ -187,7 +187,7 @@ export const getFakeCalendar = (): FakeCalendar => ({
     course: {
       credits: 5,
       name: '4EDAP',
-      type: 'course',
+      type: CourseType.Course,
       title: 'Analyse exploratoire de données'
     },
     title: 'Mini projet',

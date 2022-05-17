@@ -23,7 +23,7 @@ export const getTools = createAsyncThunk('tools/getTools', async (_, thunkAPI) =
   catch (error: any) {
     const message = error || 'error';
     return thunkAPI.rejectWithValue(message);
-  }
+  };
 });
 
 export const createTool = createAsyncThunk('tools/createTool', async (toolData: FormData, thunkAPI) => {
@@ -34,7 +34,7 @@ export const createTool = createAsyncThunk('tools/createTool', async (toolData: 
   catch (error: any) {
     const message = error || 'error';
     return thunkAPI.rejectWithValue(message);
-  }
+  };
 });
 
 type UpdateParams = {id: ToolLink['id'], toolData: FormData};
@@ -46,7 +46,7 @@ export const updateTool = createAsyncThunk('tools/updateTool', async ({id, toolD
   catch (error: any) {
     const message = error || 'error';
     return thunkAPI.rejectWithValue(message);
-  }
+  };
 });
 
 export const deleteTool = createAsyncThunk('tools/deleteTool', async (id: ToolLink['id'], thunkAPI) => {
@@ -58,7 +58,7 @@ export const deleteTool = createAsyncThunk('tools/deleteTool', async (id: ToolLi
   catch (error: any) {
     const message = error || 'error';
     return thunkAPI.rejectWithValue(message);
-  }
+  };
 });
 
 

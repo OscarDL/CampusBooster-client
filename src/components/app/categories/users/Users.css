@@ -1,0 +1,79 @@
+.users-view .content__body {
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.users-view .users-tabs-container {
+  padding: 0;
+  margin: 0 1rem 1rem;
+}
+
+.users-tabs .MuiTabScrollButton-root.Mui-disabled {
+  opacity: 0.5;
+}
+
+.users-tabs .MuiTabs-root {
+  border-radius: var(--radius-medium);
+}
+
+.users-select {
+  display: none;
+  padding: 1rem 0;
+  justify-content: center;  
+}
+.users-select .dropdown__header {
+  padding-top: 0.33rem;
+  padding-bottom: 0.33rem;
+}
+
+
+/* --- Users tab --- */
+
+.users-tab {
+  gap: 1rem;
+  flex-grow: 0;
+  padding: 1rem;
+  display: grid;
+  overflow-y: auto;
+  animation: 0.05s tab-reveal forwards;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+}
+
+.users-tab.tab-slide-left {
+  animation: 0.05s tab-reveal forwards, 0.3s tab-slide-left forwards;
+}
+.users-tab.tab-slide-right {
+  animation: 0.05s tab-reveal forwards, 0.3s tab-slide-right forwards;
+}
+
+
+/* Up to: Smartphones */
+@media (max-width: 479px) {
+  .users-tab {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Up to: Small tablets */
+@media (max-width: 767px) {
+  @keyframes tab-slide-in-left {}
+
+  @keyframes tab-slide-in-right {}
+
+  .users-select {
+    display: flex;
+  }
+
+  .users-tabs {
+    height: 0;
+    visibility: hidden;
+  }
+  .users-tabs button, .users-tabs .MuiTabs-indicator {
+    transition: 0s !important;
+  }
+
+  .users-tab {
+    animation: none;
+  }
+}

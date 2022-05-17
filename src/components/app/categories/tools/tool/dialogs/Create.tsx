@@ -16,7 +16,7 @@ type Props = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 };
 
-const newToolRequest = () => ({
+const newToolRequest = (): ToolRequest => ({
   img: '', url: '', title: '', category: ToolCategory.general, description: ''
 });
 
@@ -30,7 +30,7 @@ const CreateTool: FC<Props> = ({open, setOpen}) => {
 
   const image = useRef<File>();
   const [loading, setLoading] = useState(false);
-  const [tool, setTool] = useState<ToolRequest>(newToolRequest());
+  const [tool, setTool] = useState(newToolRequest());
 
 
   const handleAddImage = (e: React.FormEvent<HTMLInputElement>) => {
@@ -95,15 +95,15 @@ const CreateTool: FC<Props> = ({open, setOpen}) => {
             labelId="tool-select-category" label={t('tools.create.category')}
             onChange={e => setTool({...tool, category: e.target.value as ToolCategory})}
           >
-            {Object.keys(ToolCategory).map(category => (
+            {Object.values(ToolCategory).map(category => (
               <MenuItem key={category} value={category}>
-                {t('tools.' + category)}
+                {t(`tools.${category}.title`)}
               </MenuItem>
             ))}
           </Select>
         </FormControl>
 
-        <div className="MuiDialogContent-row">
+        <Box className="MuiDialogContent-row">
           <TextField
             required
             autoFocus
@@ -123,7 +123,7 @@ const CreateTool: FC<Props> = ({open, setOpen}) => {
             label={t('tools.create.url')}
             onChange={e => setTool({...tool, url: e.target.value})}
           />
-        </div>
+        </Box>
 
         <TextField
           name="cb-tool-description"

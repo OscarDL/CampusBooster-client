@@ -22,7 +22,7 @@ import DeleteBalance from './balance/Delete';
 
 const StyledDataGrid = styled(DataGridPro)(dataGridTheme);
 export const isAccountingAdmin = (role: UserRoles) => (
-  [UserRoles.assistant, UserRoles.campusManager, UserRoles.campusBoosterAdmin].includes(role)
+  [UserRoles.Assistant, UserRoles.CampusManager, UserRoles.CampusBoosterAdmin].includes(role)
 );
 
 
