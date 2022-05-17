@@ -242,13 +242,17 @@ export const dataGridTheme = () => ({
 
     '.MuiDataGrid-customToolbar__info': {
       display: 'flex',
+      padding: '0.5rem',
       fontWeight: '600',
       fontSize: '1.2rem',
-      padding: '0 0.5rem',
       alignItems: 'center',
 
       '> span': {
-        color: 'rgb(var(--accent-color))'
+        color: 'rgb(var(--accent-color))',
+
+        '+ button': {
+          margin: '0 0 -1px 1rem'
+        }
       }
     },
 

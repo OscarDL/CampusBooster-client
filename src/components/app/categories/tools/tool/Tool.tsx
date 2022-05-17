@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Edit, Delete } from '@mui/icons-material';
 import { Box, ButtonBase, IconButton } from '@mui/material';
+import { EditOutlined, DeleteOutlined } from '@mui/icons-material';
 
 import { useAppSelector } from '../../../../../store/store';
 import { UserRoles } from '../../../../../shared/types/user';
@@ -47,11 +47,11 @@ const Tool: FC<Props> = ({tool}) => {
       {user.role === UserRoles.campusBoosterAdmin && (
         <Box className="edit-delete-tool">
           <IconButton color="primary" onClick={() => setOpenUpdate(true)}>
-            <Edit/>
+            <EditOutlined/>
           </IconButton>
 
           <IconButton color="error" onClick={() => setOpenDelete(true)}>
-            <Delete/>
+            <DeleteOutlined/>
           </IconButton>
         </Box>
       )}

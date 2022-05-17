@@ -187,7 +187,8 @@
     },
 
     "data_grid": {
-      "title": "{{count}} operations",
+      "title_one": "{{count}} entry",
+      "title_other": "{{count}} entries",
 
       "columns": {
         "debit": "Debit",

@@ -6,13 +6,12 @@ import { GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, Grid
 
 type Props = {
   loading: boolean,
-  dataCount?: number,
   refreshData?: () => any,
   title: string | ReactFragment,
 };
 
 
-const DataGridHeader: FC<Props> = ({loading, dataCount = -1, refreshData, title}) => {
+const DataGridHeader: FC<Props> = ({loading, refreshData, title}) => {
   const { t } = useTranslation();
 
 
@@ -24,7 +23,7 @@ const DataGridHeader: FC<Props> = ({loading, dataCount = -1, refreshData, title}
         </span>
 
         {refreshData && !loading && (
-          <IconButton sx={{m: '0 0 -1px 1rem'}} onClick={refreshData}>
+          <IconButton onClick={refreshData}>
             <span className="material-icons">refresh</span>
           </IconButton>
         )}

@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Button, styled } from '@mui/material';
-import { DataGridPro } from '@mui/x-data-grid-pro';
 import { FC, useEffect, useMemo, useState } from 'react';
+import { DataGridPro, useGridApiRef } from '@mui/x-data-grid-pro';
 
 import { dataGridTheme } from '../../../../shared/theme';
 import { UserRoles } from '../../../../shared/types/user';
@@ -28,6 +28,7 @@ export const isAccountingAdmin = (role: UserRoles) => (
 
 const Accounting: FC = () => {
   const { t } = useTranslation();
+  const apiRef = useGridApiRef();
   const dispatch = useAppDispatch();
   const { user } = useAppSelector(getLoggedInAuthState);
   const { settings } = useAppSelector(state => state.app);
@@ -66,6 +67,7 @@ const Accounting: FC = () => {
 
       <ContentBody>
         <StyledDataGrid
+          apiRef={apiRef}
           checkboxSelection
           disableColumnPinning
           disableSelectionOnClick
@@ -79,9 +81,8 @@ const Accounting: FC = () => {
 
             Toolbar: () => (
               <DataGridHeader
-                refreshData={() => dispatch(clearBalances())}
-                loading={!balances} dataCount={balances?.length}
-                title={t('accounting.data_grid.title', {count: balances?.length})}
+                loading={!balances} refreshData={() => dispatch(clearBalances())}
+                title={t('accounting.data_grid.title', {count: apiRef.current.getVisibleRowModels().size})}
               />
             ),
 
