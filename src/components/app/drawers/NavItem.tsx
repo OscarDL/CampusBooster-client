@@ -47,7 +47,7 @@ const NavItem: FC<Props> = ({text, category, collapsed = false, hideDrawer = () 
       className={getCategoryTitle(user) === title ? 'selected' : ''}
     >
       <ListItemButton onClick={handleEnter} key={category} className="drawer__item">
-        <span className="drawer__icon material-icons-round">
+        <span className="drawer__icon material-icons-outlined">
           {t(icon)}
         </span>
 

@@ -2,6 +2,7 @@ import axios from 'axios';
 import { t } from 'i18next';
 
 import { apiUrl, axiosConfig } from '../shared/api';
+import { Classroom } from '../shared/types/classroom';
 import { User, UserRequest } from '../shared/types/user';
 
 
@@ -38,9 +39,9 @@ const createUser = async (user: UserRequest) => {
   }
 };
 
-const updateUser = async (user: User) => {
+const updateUser = async (user: UserRequest) => {
   try {
-    const response = await axios.patch(apiUrl + 'users/' + user.id, user, axiosConfig);
+    const response = await axios.patch(apiUrl + 'users/' + user.id!, user, axiosConfig);
     return response.data;
   }
   
@@ -61,12 +62,37 @@ const deleteUser = async (id: User['id']) => {
 };
 
 
+const addUserToClassroom = async (id: User['id'], classrooms: (Classroom['id'])[]) => {
+  try {
+    const response = await axios.post(apiUrl + `users/${id}/addClassrooms`, classrooms, axiosConfig);
+    return response.data;
+  }
+  
+  catch (error: any) {
+    return Promise.reject(error?.response?.data || t('api.error'));
+  }
+};
+
+const removeUserFromClassroom = async (id: User['id'], classrooms: (Classroom['id'])[]) => {
+  try {
+    const response = await axios.post(apiUrl + `users/${id}/removeClassrooms`, classrooms, axiosConfig);
+    return response.data;
+  }
+  
+  catch (error: any) {
+    return Promise.reject(error?.response?.data || t('api.error'));
+  }
+};
+
+
 const userService = {
   getUsers,
   getUserById,
   createUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  addUserToClassroom,
+  removeUserFromClassroom
 };
 
 export default userService;

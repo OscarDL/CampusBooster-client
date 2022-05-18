@@ -1,106 +1,70 @@
+import { Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { FC, useEffect, useState } from 'react';
-import { Button, Tab, Tabs } from '@mui/material';
+import { useGridApiRef } from '@mui/x-data-grid-pro';
+import { FC, useEffect, useMemo, useState } from 'react';
 
-import { UserRoles } from '../../../../shared/types/user';
-import { getUsers } from '../../../../store/features/users/slice';
-import { getLoggedInAuthState } from '../../../../shared/functions';
+import { useStateWithCallback } from '../../../../shared/hooks';
+import { User, UserRoles } from '../../../../shared/types/user';
+import { getUsersColumns } from '../../../../shared/utils/columns';
 import { ContentBody, ContentHeader } from '../../../shared/content';
+import { getMuiDataGridLocale } from '../../../../shared/utils/locales';
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
-import { DispatchWithCallback, useStateWithCallback } from '../../../../shared/hooks';
+import { clearUsersList, getUsers } from '../../../../store/features/users/slice';
+import { getLoggedInAuthState, userHasAdminRights } from '../../../../shared/functions';
+import { DataGridFooter, DataGridHeader, StyledDataGrid } from '../../../shared/datagrid';
 
-import UserTab from './Tab';
+import UserTabs from './Tabs';
 import CreateUser from './dialogs/Create';
+import UpdateUser from './dialogs/Update';
+import DeleteUser from './dialogs/Delete';
 import Loader from '../../../shared/loader';
-import Dropdown from '../../../shared/dropdown';
 
 import './Users.css';
 
 
-type TabsProps = {
-  tab: number,
-  setTab: DispatchWithCallback<React.SetStateAction<number>>
+const getUserTab = (user: User, tab: number) => {
+  if (tab === 0) { // Show all users
+    return true;
+  }
+  return user.role === Object.values(UserRoles).at(tab - 1);
 };
-
-type TabDivProps = {
-  tab: number,
-  children: React.ReactNode
-};
-
-
-const UserTabs: FC<TabsProps> = ({tab, setTab}) => {
-  const { t } = useTranslation();
-
-  const tabs = Object.values(UserRoles).map(role => ({
-    title: t(`users.${role.toLowerCase()}.title__tab`),
-    icon: t(`users.${role.toLowerCase()}.icon`)
-  }));
-
-  const animateNewTab = (_: any, newTab: any) => {
-    setTab(newTab, () => {
-      const tabElement = document.getElementById('users-tab-' + newTab);
-      tabElement?.classList.add(`tab-slide-${tab > newTab ? 'left' : 'right'}`);
-    });
-  };
-
-  return (
-    <div className="container users-tabs-container">
-      <div className="users-select">
-        <Dropdown // Dropdown tabs for mobile
-          align="center"
-          id="users-select"
-          icon={tabs[tab].icon}
-          title={tabs[tab].title}
-        >
-          {tabs.map((tab, i) => <div key={i} onClick={() => setTab(i)}>{tab.title}</div>)}
-        </Dropdown>
-      </div>
-
-      <div className="tools-tabs">
-        <Tabs // Material tabs for desktop
-          value={tab}
-          variant="scrollable"
-          scrollButtons="auto"
-          onChange={animateNewTab}
-        >
-          {tabs.map((tab, i) => (
-            <Tab key={i} tabIndex={0} label={tab.title}/>
-          ))}
-        </Tabs>
-      </div>
-    </div>
-  );
-};
-
-const TabDiv: FC<TabDivProps> = ({children, tab}) => (
-  <div className="users-tab" id={`users-tab-${tab}`}>
-    {children}
-  </div>
-);
 
 
 const Users: FC = () => {
   const { t } = useTranslation();
+  const apiRef = useGridApiRef();
   const dispatch = useAppDispatch();
   const { user } = useAppSelector(getLoggedInAuthState);
+  const { settings } = useAppSelector(state => state.app);
   const { usersList } = useAppSelector(state => state.users);
 
-  const [open, setOpen] = useState(false);
   const [tab, setTab] = useStateWithCallback(0);
+  const [openCreate, setOpenCreate] = useState(false);
+  const [openUpdate, setOpenUpdate] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+
+  const columns = useMemo(() => (
+    getUsersColumns({user, setOpenUpdate, setOpenDelete, setSelectedRow: setSelectedUser})
+  ), [user]);
 
 
   useEffect(() => {
     if (!usersList) dispatch(getUsers());
   }, [usersList, dispatch]);
 
+  useEffect(() => {
+    apiRef.current.setColumnVisibility('role', tab === 0);
+  }, [apiRef, tab]);
+
 
   return (
     <>
       <ContentHeader title={t('users.title')}>
-        {user.role === UserRoles.CampusBoosterAdmin && (
+        {userHasAdminRights(user.role) && (
           <Button
             className="button"
-            onClick={() => setOpen(true)}
+            onClick={() => setOpenCreate(true)}
             startIcon={<span className="material-icons">add_circle_outline</span>}
           >
             {t('users.add')}
@@ -111,20 +75,40 @@ const Users: FC = () => {
       <UserTabs tab={tab} setTab={setTab}/>
 
       <ContentBody>
-        {usersList ? (
-          Object.values(UserRoles).map((role, key) => (
-            tab === key && (
-              <TabDiv key={key} tab={tab}>
-                <UserTab users={usersList.filter(user => user.role === role)}/>
-              </TabDiv>
-            )
-          ))
-        ) : (
-          <Loader fullSize clickThrough/>
-        )}
+        <StyledDataGrid
+          apiRef={apiRef}
+          checkboxSelection
+          disableColumnPinning
+          disableSelectionOnClick
+
+          columns={columns}
+          loading={!usersList}
+          pagination={settings.dataGrid.pagination}
+          rows={(usersList ?? []).filter(user => getUserTab(user, tab))}
+
+          components={{
+            LoadingOverlay: Loader,
+
+            Toolbar: () => (
+              <DataGridHeader
+                loading={!usersList} refreshData={() => dispatch(clearUsersList())}
+                title={t('users.fields.title', {count: apiRef.current.getVisibleRowModels().size})}
+              />
+            ),
+
+            Footer: () => <DataGridFooter/>
+          }}
+
+          localeText={getMuiDataGridLocale(settings.lang)}
+        />
       </ContentBody>
 
-      <CreateUser open={open} setOpen={setOpen}/>
+      <CreateUser open={openCreate} setOpen={setOpenCreate}/>
+
+      {selectedUser && <>
+        <UpdateUser user={selectedUser} open={openUpdate} setOpen={setOpenUpdate}/>
+        <DeleteUser user={selectedUser} open={openDelete} setOpen={setOpenDelete}/>
+      </>}
     </>
   );
 };

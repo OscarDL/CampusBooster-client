@@ -88,7 +88,9 @@ div.dropdown__header {
   color: rgb(var(--text-color));
   background-color: transparent !important;
 
+  gap: 1rem;
   display: flex;
+  align-items: center;
   justify-content: flex-start;
 
   width: 100%;

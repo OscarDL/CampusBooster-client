@@ -16,7 +16,7 @@ type Props = {
 };
 
 
-const CreateTool: FC<Props> = ({tool, open, setOpen}) => {
+const DeleteTool: FC<Props> = ({tool, open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
@@ -86,4 +86,4 @@ const CreateTool: FC<Props> = ({tool, open, setOpen}) => {
 };
 
 
-export default CreateTool;
+export default DeleteTool;

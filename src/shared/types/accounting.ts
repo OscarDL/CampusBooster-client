@@ -24,6 +24,7 @@ export type Balance = {
 };
 
 export type BalanceRequest = {
+  id?: number,
   debit: number,
   credit: number,
   userId: User['id'],

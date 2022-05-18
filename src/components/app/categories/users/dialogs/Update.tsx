@@ -1,78 +1,74 @@
-import copy from 'fast-copy';
+import dayjs from 'dayjs';
+import { FC, useEffect, useState } from 'react';
+import ReactSelect from 'react-select';
 import { toast } from 'react-toastify';
-import isEqual from 'react-fast-compare';
 import { useTranslation } from 'react-i18next';
-import { Close, Replay } from '@mui/icons-material';
-import { FC, useEffect, useRef, useState } from 'react';
-import { Box, Button, FormControl, IconButton, InputLabel, MenuItem, Select, styled, TextField } from '@mui/material';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
 
-import { useAppDispatch } from '../../../../../store/store';
-import { allowedFileTypes } from '../../../../../shared/utils/values';
-import { updateTool } from '../../../../../store/features/tools/slice';
-import { ToolCategory, ToolLink } from '../../../../../shared/types/tools';
+import { updateUser } from '../../../../../store/features/users/slice';
+import { useAppDispatch, useAppSelector } from '../../../../../store/store';
+import { User, UserRequest, UserRoles } from '../../../../../shared/types/user';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
+
+import UserCampusPicker from './CampusPicker';
+import UserClassroomPicker from './ClassroomPicker';
 
 
 type Props = {
+  user: User,
   open: boolean,
-  tool: ToolLink,
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 };
 
 
-const Input = styled('input')({display: 'none'});
+const newUserRequest = (user: User): UserRequest => ({
+  id: user.id, firstName: user.firstName, lastName: user.lastName,
+  birthday: user.birthday, personalEmail: user.personalEmail, role: user.role,
+  classrooms: (user.UserHasClassrooms ?? [])?.map(classroom => classroom.classroomId), campusId: user.campusId
+});
 
 
-const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
+const UpdateUser: FC<Props> = ({user, open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const { usersList } = useAppSelector(state => state.users);
 
-  const image = useRef<File>();
   const [loading, setLoading] = useState(false);
-  const [newTool, setNewTool] = useState(copy(tool));
+  const [newUser, setNewUser] = useState(newUserRequest(user));
+  const userFullName = `${user.firstName} ${user.lastName}`;
 
 
-  const handleAddImage = (e: React.FormEvent<HTMLInputElement>) => {
-    const result = e.target as HTMLInputElement;
-    const file = result.files?.[0];
+  const handleChangeRole = (e: SelectChangeEvent<UserRoles>) => {
+    const role = e.target.value as UserRoles;
 
-    if (!file) {
-      setNewTool({...newTool, img: ''});
-      image.current = undefined;
-      return;
+    let campusId = newUser.campusId;
+    let classrooms = newUser.classrooms;
+
+    if (role !== UserRoles.Student) {
+      classrooms = [];
+
+      if (role === UserRoles.CampusBoosterAdmin) {
+        campusId = undefined;
+      }
     }
 
-    image.current = file;
-    setNewTool({...newTool, img: file.name});
+    setNewUser({...newUser, role, campusId, classrooms});
   };
 
-  const handleRemoveImage = () => {
-    image.current = undefined;
-    setNewTool({...newTool, img: ''});
-  };
-
-  const handleResetImage = () => {
-    image.current = undefined;
-    setNewTool({...newTool, img: tool.img});
-  };
-
-  const handleUpdateTool = async (e: React.FormEvent<HTMLElement>) => {
+  const handleUpdateUser = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
     setLoading(true);
 
-    const toolData = new FormData();
-    toolData.append('img', newTool.img);
-    toolData.append('url', newTool.url);
-    toolData.append('title', newTool.title);
-    toolData.append('category', newTool.category);
-    toolData.append('description', newTool.description);
-    if (image.current) toolData.append('file', image.current);
-
     try {
-      await dispatch(updateTool({id: tool.id!, toolData})).unwrap();
+      const res = await dispatch(updateUser(newUser)).unwrap();
+      // manage added and removed classrooms from user
 
       setOpen(false);
-      toast.success(t('tools.update.success', {tool: tool.title}));
+      toast.success(t('users.fields.success' + (res.isNew ? '_new' : ''), {
+        user: `${user.firstName} ${user.lastName}`
+      }));
     }
     catch (error: any) {
       toast.error(error);
@@ -84,34 +80,54 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
 
   useEffect(() => {
     // Reset state on new dialog open
-    if (open) setNewTool(copy(tool));
-  }, [open, tool]);
+    if (open) setNewUser(newUserRequest(user));
+  }, [user, open]);
 
 
   return (
     <Dialog
-      onSubmit={handleUpdateTool}
+      onSubmit={handleUpdateUser}
       components={{Root: 'form'}}
       onClose={() => setOpen(false)}
       open={open} fullWidth maxWidth="sm"
     >
-      <DialogTitle>{t('tools.update.title', {tool: tool.title})}</DialogTitle>
+      <DialogTitle>{t('users.update.title', {user: userFullName})}</DialogTitle>
 
       <DialogContent>
-        <FormControl sx={{mb: 2}}>
-          <InputLabel id="tool-select-category">{t('tools.update.category')}</InputLabel>
-          <Select
-            size="small" value={newTool.category}
-            labelId="tool-select-category" label={t('tools.update.category')}
-            onChange={e => setNewTool({...newTool, category: e.target.value as ToolCategory})}
-          >
-            {Object.keys(ToolCategory).map(category => (
-              <MenuItem key={category} value={category}>
-                {t('tools.' + category)}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <Box className="MuiDialogContent-row">
+          <FormControl>
+            <InputLabel id="user-select-role">{t('users.fields.role')}</InputLabel>
+            <Select
+              onChange={e => handleChangeRole(e)}
+              size="small" value={user.role}
+              labelId="user-select-role" label={t('users.fields.role')}
+            >
+              {Object.values(UserRoles).map(role => (
+                <MenuItem key={role} value={role}>
+                  {t(`users.${role.toLowerCase()}.title_role`)}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
+
+        <Box sx={{my: 2}}>
+          {user.role === UserRoles.CampusBoosterAdmin ? (
+            // We have to do it this way because for some reason, setting the value
+            // to undefined doesn't refresh the value shown in the component's view
+            <ReactSelect isDisabled
+              className="react-select-component"
+              placeholder={t('users.select_campus')}
+              classNamePrefix="react-select-component"
+            />
+          ) : (
+            <UserCampusPicker user={newUser} setUser={setNewUser}/>
+          )}
+        </Box>
+
+        <Box sx={{mb: 2}}>
+          <UserClassroomPicker user={newUser} setUser={setNewUser}/>
+        </Box>
 
         <Box className="MuiDialogContent-row">
           <TextField
@@ -119,64 +135,40 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
             autoFocus
             margin="dense"
             variant="standard"
-            name="cb-tool-name"
-            value={newTool.title ?? ''}
-            label={t('tools.update.name')}
-            onChange={e => setNewTool({...newTool, title: e.target.value})}
+            value={user.firstName}
+            name="cb-user-firstname"
+            label={t('users.fields.first_name')}
+            onChange={e => setNewUser({...newUser, firstName: e.target.value})}
           />
           <TextField
             required
             margin="dense"
             variant="standard"
-            name="cb-tool-url"
-            value={newTool.url ?? ''}
-            label={t('tools.update.url')}
-            onChange={e => setNewTool({...newTool, url: e.target.value})}
+            value={user.lastName}
+            name="cb-user-lastname"
+            label={t('users.fields.last_name')}
+            onChange={e => setNewUser({...newUser, lastName: e.target.value})}
           />
         </Box>
 
-        <TextField
-          name="cb-tool-description"
-          sx={{mb: 2}} margin="normal"
-          required fullWidth multiline
-          value={newTool.description ?? ''}
-          label={t('tools.update.description')}
-          onChange={e => setNewTool({...newTool, description: e.target.value})}
-        />
-
-        <Box sx={{display: 'grid', gap: '10px'}}>
-          <Box sx={{display: 'flex', alignItems: 'center'}}>
-            <label htmlFor="file-btn">
-              <Input
-                type="file"
-                id="file-btn"
-                onInput={handleAddImage}
-                accept={allowedFileTypes.tools.join(', ')}
-              />
-              <Button variant="contained" component="span">
-                {t('tools.update.image')}
-              </Button>
-            </label>
-
-            <IconButton
-              sx={{p: '6px', ml: 2}} color="error"
-              disabled={!newTool.img} onClick={handleRemoveImage}
-            >
-              <Close/>
-            </IconButton>
-
-            <IconButton
-              sx={{p: '6px', ml: 1}}
-              onClick={handleResetImage}
-              disabled={tool.img === newTool.img}
-            >
-              <Replay/>
-            </IconButton>
-          </Box>
-
-          <span className="text-overflow" title={newTool.img}>
-            {newTool.img || t('tools.update.no_image')}
-          </span>
+        <Box className="MuiDialogContent-row">
+          <TextField
+            required
+            margin="dense"
+            variant="standard"
+            value={user.personalEmail}
+            name="cb-user-personal-email"
+            label={t('users.fields.personal_email')}
+            onChange={e => setNewUser({...newUser, personalEmail: e.target.value})}
+          />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label={t('users.fields.birthday')}
+              value={user.birthday ? dayjs(user.birthday) : null}
+              renderInput={(params) => <TextField {...params} sx={{mt: 1, mb: 0.5}} required variant="standard"/>}
+              onChange={date => setNewUser({...newUser, birthday: date?.isValid() ? dayjs(date).toISOString() : ''})}
+            />
+          </LocalizationProvider>
         </Box>
       </DialogContent>
 
@@ -187,7 +179,7 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
 
         <MainDialogButton
           type="submit" variant="contained" loading={loading}
-          disabled={!(newTool.title && newTool.description && newTool.url) || isEqual(tool, newTool)}
+          disabled={!usersList || !(user.firstName && user.lastName && user.personalEmail && user.birthday && user.campusId)}
         >
           {t('global.confirm')}
         </MainDialogButton>
@@ -197,4 +189,4 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
 };
 
 
-export default UpdateTool;
+export default UpdateUser;

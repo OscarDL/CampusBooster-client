@@ -1,5 +1,5 @@
 .users-view .content__body {
-  padding: 0;
+  padding: 1rem;
   overflow-x: hidden;
 }
 
@@ -28,16 +28,6 @@
 
 
 /* --- Users tab --- */
-
-.users-tab {
-  gap: 1rem;
-  flex-grow: 0;
-  padding: 1rem;
-  display: grid;
-  overflow-y: auto;
-  animation: 0.05s tab-reveal forwards;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-}
 
 .users-tab.tab-slide-left {
   animation: 0.05s tab-reveal forwards, 0.3s tab-slide-left forwards;

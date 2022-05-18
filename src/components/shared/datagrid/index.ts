@@ -1,5 +1,6 @@
 import DataGridFooter from './Footer';
 import DataGridHeader from './Header';
+import StyledDataGrid from './DataGrid';
 
 
-export { DataGridFooter, DataGridHeader };
+export { DataGridFooter, DataGridHeader, StyledDataGrid };

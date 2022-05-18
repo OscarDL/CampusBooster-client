@@ -1,10 +1,10 @@
-import Select from 'react-select';
+import ReactSelect from 'react-select';
 import { useTranslation } from 'react-i18next';
 import React, { FC, useEffect, useState } from 'react';
 
-import { useAppSelector } from '../../../../../store/store';
 import { Campus } from '../../../../../shared/types/campus';
-import { User, UserRequest } from '../../../../../shared/types/user';
+import { useAppSelector } from '../../../../../store/store';
+import { User, UserRequest, UserRoles } from '../../../../../shared/types/user';
 
 
 type Props = {
@@ -19,7 +19,7 @@ type Option = {
 };
 
 
-const BalanceUserPicker: FC<Props> = ({user, setUser}) => {
+const UserCampusPicker: FC<Props> = ({user, setUser}) => {
   const { t } = useTranslation();
   const { campusList } = useAppSelector(state => state.users);
 
@@ -29,7 +29,7 @@ const BalanceUserPicker: FC<Props> = ({user, setUser}) => {
   useEffect(() => {
     if (campusList) {
       const campusOptions: Option[] = campusList.map(campus => ({
-        campus: campus,
+        campus,
         value: campus.id,
         label: campus.name
       }));
@@ -40,19 +40,19 @@ const BalanceUserPicker: FC<Props> = ({user, setUser}) => {
 
 
   return (
-    <Select
+    <ReactSelect
       isSearchable
       options={campusOptions}
       isLoading={!campusList}
-      isDisabled={!campusList}
       className="react-select-component"
       placeholder={t('users.select_campus')}
       classNamePrefix="react-select-component"
       onChange={campus => setUser({...user, campusId: campus?.value})}
+      isDisabled={!campusList || user.role === UserRoles.CampusBoosterAdmin}
       value={campusOptions.find(option => option.campus.id === user.campusId)}
     />
   );
 };
 
 
-export default BalanceUserPicker;
+export default UserCampusPicker;

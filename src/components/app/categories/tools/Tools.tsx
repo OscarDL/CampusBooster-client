@@ -1,83 +1,21 @@
+import { Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { FC, useEffect, useState } from 'react';
-import { Button, Tab, Tabs } from '@mui/material';
 
 import { UserRoles } from '../../../../shared/types/user';
 import { ToolCategory } from '../../../../shared/types/tools';
+import { useStateWithCallback } from '../../../../shared/hooks';
 import { getTools } from '../../../../store/features/tools/slice';
 import { getLoggedInAuthState } from '../../../../shared/functions';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
-import { DispatchWithCallback, useStateWithCallback } from '../../../../shared/hooks';
 
+import ToolTabs from './Tabs';
 import ToolTab from './tool/Tab';
 import Loader from '../../../shared/loader';
 import CreateTool from './tool/dialogs/Create';
-import Dropdown from '../../../shared/dropdown';
 
 import './Tools.css';
-
-
-type TabsProps = {
-  tab: number,
-  setTab: DispatchWithCallback<React.SetStateAction<number>>
-};
-
-type TabDivProps = {
-  tab: number,
-  children: React.ReactNode
-};
-
-
-const ToolTabs: FC<TabsProps> = ({tab, setTab}) => {
-  const { t } = useTranslation();
-
-  const tabs = Object.values(ToolCategory).map(category => ({
-    title: t(`tools.${category}.title`),
-    icon: t(`tools.${category}.icon`)
-  }));
-
-  const animateNewTab = (_: any, newTab: any) => {
-    setTab(newTab, () => {
-      const tabElement = document.getElementById('tools-tab-' + newTab);
-      tabElement?.classList.add(`tab-slide-${tab > newTab ? 'left' : 'right'}`);
-    });
-  };
-
-  return (
-    <div className="container tools-tabs-container">
-      <div className="tools-select">
-        <Dropdown // Dropdown tabs for mobile
-          align="center"
-          id="tools-select"
-          icon={tabs[tab].icon}
-          title={tabs[tab].title}
-        >
-          {tabs.map((tab, i) => <div key={i} onClick={() => setTab(i)}>{tab.title}</div>)}
-        </Dropdown>
-      </div>
-
-      <div className="tools-tabs">
-        <Tabs // Material tabs for desktop
-          value={tab}
-          variant="scrollable"
-          scrollButtons="auto"
-          onChange={animateNewTab}
-        >
-          {tabs.map((tab, i) => (
-            <Tab key={i} tabIndex={0} label={tab.title}/>
-          ))}
-        </Tabs>
-      </div>
-    </div>
-  );
-};
-
-const TabDiv: FC<TabDivProps> = ({children, tab}) => (
-  <div className="tools-tab" id={`tools-tab-${tab}`}>
-    {children}
-  </div>
-);
 
 
 const Tools: FC = () => {
@@ -115,9 +53,9 @@ const Tools: FC = () => {
         {toolsList ? (
           Object.values(ToolCategory).map((category, key) => (
             tab === key && (
-              <TabDiv key={key} tab={tab}>
+              <div key={tab} className="tools-tab" id={`tools-tab-${tab}`}>
                 <ToolTab tools={toolsList.filter(tool => tool.category === category)}/>
-              </TabDiv>
+              </div>
             )
           ))
         ) : (

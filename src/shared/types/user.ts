@@ -26,25 +26,25 @@ export type User = {
   avatar?: string,
   lastName: string,
   firstName: string,
-  birthday?: string,
+  birthday: string,
+  personalEmail: string,
 
   Campus?: Campus, // campus info
-  campusId: Campus['id'], // campus id
-  UserHasClassrooms?: UserHasClassroom[],
+  campusId?: Campus['id'], // campus id
+  UserHasClassrooms?: UserHasClassroom[], // user classrooms
 
   azureData: AzureData // azure authentication data
 };
 
 export type UserRequest = {
-  email: string,
-  personalEmail: string,
-
+  id?: User['id'],
   role: UserRoles,
   avatar?: string,
   birthday: string,
   lastName: string,
   firstName: string,
+  personalEmail: string,
 
-  campusId: Campus['id'], // campus id
-  section: Classroom['section'], // year 1 - 5
+  campusId?: Campus['id'], // campus id
+  classrooms: (Classroom['id'])[], // classrooms
 };

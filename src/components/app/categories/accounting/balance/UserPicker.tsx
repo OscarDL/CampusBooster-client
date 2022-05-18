@@ -1,4 +1,4 @@
-import Select from 'react-select';
+import ReactSelect from 'react-select';
 import { useTranslation } from 'react-i18next';
 import React, { FC, useEffect, useState } from 'react';
 
@@ -29,7 +29,7 @@ const BalanceUserPicker: FC<Props> = ({balance, setBalance}) => {
   useEffect(() => {
     if (usersList) {
       const userOptions: Option[] = usersList.map(user => ({
-        user: user,
+        user,
         value: user.id,
         label: `${user.firstName} ${user.lastName}`
       }));
@@ -40,7 +40,7 @@ const BalanceUserPicker: FC<Props> = ({balance, setBalance}) => {
 
 
   return (
-    <Select
+    <ReactSelect
       isSearchable
       options={userOptions}
       isLoading={!usersList}

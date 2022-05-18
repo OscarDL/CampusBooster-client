@@ -15,6 +15,7 @@ export type ToolLink = {
 };
 
 export type ToolRequest = {
+  id?: number,
   img: string,
   url: string,
   title: string,

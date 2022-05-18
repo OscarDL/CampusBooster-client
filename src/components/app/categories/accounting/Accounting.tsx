@@ -1,29 +1,21 @@
+import { Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { Button, styled } from '@mui/material';
+import { useGridApiRef } from '@mui/x-data-grid-pro';
 import { FC, useEffect, useMemo, useState } from 'react';
-import { DataGridPro, useGridApiRef } from '@mui/x-data-grid-pro';
 
-import { dataGridTheme } from '../../../../shared/theme';
-import { UserRoles } from '../../../../shared/types/user';
 import { Balance } from '../../../../shared/types/accounting';
-import { getLoggedInAuthState } from '../../../../shared/functions';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 import { getAccountingColumns } from '../../../../shared/utils/columns';
 import { getMuiDataGridLocale } from '../../../../shared/utils/locales';
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
-import { DataGridFooter, DataGridHeader } from '../../../shared/datagrid';
+import { getLoggedInAuthState, userHasAdminRights } from '../../../../shared/functions';
+import { DataGridFooter, DataGridHeader, StyledDataGrid } from '../../../shared/datagrid';
 import { clearBalances, getBalances, getUserBalance } from '../../../../store/features/accounting/slice';
 
 import Loader from '../../../shared/loader';
 import CreateBalance from './balance/Create';
 import UpdateBalance from './balance/Update';
 import DeleteBalance from './balance/Delete';
-
-
-const StyledDataGrid = styled(DataGridPro)(dataGridTheme);
-export const isAccountingAdmin = (role: UserRoles) => (
-  [UserRoles.Assistant, UserRoles.CampusManager, UserRoles.CampusBoosterAdmin].includes(role)
-);
 
 
 const Accounting: FC = () => {
@@ -37,24 +29,28 @@ const Accounting: FC = () => {
   const [openCreate, setOpenCreate] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
-  const [balance, setBalance] = useState<Balance | null>(null);
+  const [selectedBalance, setSelectedBalance] = useState<Balance | null>(null);
 
-  const columns = useMemo(() => getAccountingColumns({
-    user, setOpenUpdate, setOpenDelete, setBalance
-  }), [user]);
+  const isAdmin = useMemo(() => (
+    userHasAdminRights(user.role)
+  ), [user.role]);
+
+  const columns = useMemo(() => (
+    getAccountingColumns({user, setOpenUpdate, setOpenDelete, setSelectedRow: setSelectedBalance})
+  ), [user]);
 
 
   useEffect(() => {
     if (!balances) {
-      isAccountingAdmin(user.role) ? dispatch(getBalances()) : dispatch(getUserBalance(user.id));
+      isAdmin ? dispatch(getBalances()) : dispatch(getUserBalance(user.id));
     }
-  }, [balances, user, dispatch]);
+  }, [balances, isAdmin, user.id, dispatch]);
 
 
   return (
     <>
       <ContentHeader title={t('accounting.title')}>
-        {isAccountingAdmin(user.role) && (
+        {isAdmin && (
           <Button
             className="button"
             onClick={() => setOpenCreate(true)}
@@ -95,9 +91,9 @@ const Accounting: FC = () => {
 
       <CreateBalance open={openCreate} setOpen={setOpenCreate}/>
 
-      {balance && <>
-        <UpdateBalance balance={balance} open={openUpdate} setOpen={setOpenUpdate}/>
-        <DeleteBalance balance={balance} open={openDelete} setOpen={setOpenDelete}/>
+      {selectedBalance && <>
+        <UpdateBalance balance={selectedBalance} open={openUpdate} setOpen={setOpenUpdate}/>
+        <DeleteBalance balance={selectedBalance} open={openDelete} setOpen={setOpenDelete}/>
       </>}
     </>
   );

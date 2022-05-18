@@ -4,8 +4,16 @@ import { Campus } from './campus';
 
 export type Classroom = {
   id: number,
+  name: string,
   section: number,
-  campusId: Campus['id']
+  campusId?: Campus['id']
+};
+
+export type ClassroomRequest = {
+  id?: number,
+  name: string,
+  section: number,
+  campusId?: Campus['id']
 };
 
 export type UserHasClassroom = {

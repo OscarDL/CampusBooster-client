@@ -164,7 +164,7 @@
 
   "internships": {
     "title": "Internships",
-    "icon": "work"
+    "icon": "work_outline"
   },
 
   "accounting": {
@@ -285,73 +285,77 @@
     "icon": "school",
     "add": "New user",
     "select_campus": "Select a campus",
+    "select_classroom": "Select a classroom",
 
+    "tab_all": {
+      "title": "All users",
+      "icon": "face"
+    },
     "student": {
-      "title__role": "Student",
-      "title__tab": "Students",
+      "title_role": "Student",
+      "title_tab": "Students",
       "icon": "school"
     },
     "professor": {
-      "title__role": "Professor",
-      "title__tab": "Professors",
+      "title_role": "Professor",
+      "title_tab": "Professors",
       "icon": "assignment_ind"
     },
     "full_professor": {
-      "title__role": "Full professor",
-      "title__tab": "Full professors",
+      "title_role": "Full professor",
+      "title_tab": "Full professors",
       "icon": "cast_for_education"
     },
     "company": {
-      "title__role": "Companie",
-      "title__tab": "Companies",
-      "icon": "work"
+      "title_role": "Company",
+      "title_tab": "Companies",
+      "icon": "work_outline"
     },
     "assistant": {
-      "title__role": "Assistant",
-      "title__tab": "Assistants",
+      "title_role": "Assistant",
+      "title_tab": "Assistants",
       "icon": "support_agent"
     },
     "campus_manager": {
-      "title__role": "Campus manager",
-      "title__tab": "Campus managers",
+      "title_role": "Campus manager",
+      "title_tab": "Campus managers",
       "icon": "assignment_ind"
     },
     "campus_booster_admin": {
-      "title__role": "Administrator",
-      "title__tab": "Administrators",
+      "title_role": "Administrator",
+      "title_tab": "Administrators",
       "icon": "manage_accounts"
     },
 
-    "create": {
-      "title": "Nouvel utilisateur",
+    "fields": {
+      "title_one": "{{count}} user",
+      "title_other": "{{count}} users",
       "role": "Role",
-      "campus": "Campus",
-      "section": "Section",
-      "birthday": "Birthday",
       "first_name": "First name",
       "last_name": "Last name",
+      "campus": "Campus",
+      "classrooms": "Classrooms",
+      "birthday": "Birthday",
+      "actions": "Actions",
       "email": "Email address (SUPINFO)",
-      "personal_email": "Personal email address",
-      "success": "User {{user}} successfully created."
+      "personal_email": "Personal email address"
+    },
+
+    "create": {
+      "title": "New user",
+      "success": "User {{user}} successfully created.\nUser already exists in Azure AD and was linked automatically.",
+      "success_new": "User {{user}} successfully created.\nAzure account automatically created as it did not exist in the AD."
     },
 
     "update": {
-      "title": "Modifier {{user}}",
-      "role": "Role",
-      "campus": "Campus",
-      "section": "Section",
-      "birthday": "Birthday",
-      "first_name": "First name",
-      "last_name": "Last name",
-      "email": "Email address (SUPINFO)",
-      "personal_email": "Personal email address",
+      "title": "Edit \"{{user}}\"",
       "success": "User {{user}} successfully updated."
     },
 
     "delete": {
-      "title": "Delete {{user}}",
+      "title": "Delete \"{{user}}\"",
       "text": "Please type in the name of the user below to avoid accidental deletion.",
-      "email": "Email address (SUPINFO)",
+      "name": "Full name",
       "success": "User {{user}} successfully deleted."
     }
   },

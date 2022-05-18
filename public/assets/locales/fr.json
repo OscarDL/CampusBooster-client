@@ -254,64 +254,69 @@
     "title": "Utilisateurs",
     "add": "Nouvel utilisateur",
     "select_campus": "Sélectionnez un campus",
+    "select_classroom": "Sélectionnez une classe",
 
+    "tab_all": {
+      "title": "Tous"
+    },
     "student": {
-      "title__role": "Étudiant",
-      "title__tab": "Étudiants"
+      "title_role": "Étudiant",
+      "title_tab": "Étudiants"
     },
     "professor": {
-      "title__role": "Professeur",
-      "title__tab": "Professeurs"
+      "title_role": "Professeur",
+      "title_tab": "Professeurs"
     },
     "full_professor": {
-      "title__role": "Full professeur",
-      "title__tab": "Full professeurs"
+      "title_role": "Full professeur",
+      "title_tab": "Full professeurs"
     },
     "company": {
-      "title__role": "Entreprise",
-      "title__tab": "Entreprises"
+      "title_role": "Entreprise",
+      "title_tab": "Entreprises"
     },
     "assistant": {
-      "title__role": "Assistant",
-      "title__tab": "Assistants"
+      "title_role": "Assistant",
+      "title_tab": "Assistants"
     },
     "campus_manager": {
-      "title__role": "Campus manager",
-      "title__tab": "Campus managers"
+      "title_role": "Campus manager",
+      "title_tab": "Campus managers"
     },
     "campus_booster_admin": {
-      "title__role": "Administrateur",
-      "title__tab": "Administrateurs"
+      "title_role": "Administrateur",
+      "title_tab": "Administrateurs"
+    },
+
+    "fields": {
+      "title_one": "{{count}} utilisateur",
+      "title_other": "{{count}} utilisateurs",
+      "role": "Rôle",
+      "first_name": "Prénom",
+      "last_name": "Nom",
+      "campus": "Campus",
+      "classrooms": "Classes",
+      "actions": "Actions",
+      "birthday": "Date de naissance",
+      "email": "Adresse mail (SUPINFO)",
+      "personal_email": "Adresse mail personelle"
     },
 
     "create": {
-      "role": "Rôle",
-      "campus": "Campus",
-      "section": "Section",
-      "birthday": "Date de naissance",
-      "first_name": "Prénom",
-      "last_name": "Nom",
-      "email": "Adresse email (SUPINFO)",
-      "personal_email": "Adresse email personelle",
-      "success": "Utilisateur {{user}} créé avec succès."
+      "title": "Nouvel utilisateur",
+      "success": "Utilisateur {{user}} créé avec succès.\nL'utilisateur existe déjà dans l'AD Azure et a été lié automatiquement.",
+      "success_new": "User {{user}} successfully created.\nCompte Azure créé automatiquement car il n'existait pas dans l'AD."
     },
 
     "update": {
-      "role": "Rôle",
-      "campus": "Campus",
-      "section": "Section",
-      "birthday": "Date de naissance",
-      "first_name": "Prénom",
-      "last_name": "Nom",
-      "email": "Adresse email (SUPINFO)",
-      "personal_email": "Adresse email personelle",
+      "title": "Modifier \"{{user}}\"",
       "success": "Utilisateur {{user}} modifié avec succès."
     },
 
     "delete": {
-      "title": "Supprimer {{user}}",
+      "title": "Supprimer \"{{user}}\"",
       "text": "Veuillez entrer le nom de l'utilisateur ci-dessous pour éviter une suppression accidentelle.",
-      "email": "Adresse email (SUPINFO)",
+      "name": "Nom complet",
       "success": "Utilisateur {{user}} supprimé avec succès."
     }
   },

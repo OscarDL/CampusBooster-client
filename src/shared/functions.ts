@@ -78,7 +78,7 @@ export const getLoggedInAuthState = (state: RootState) => ({
 
 // Retrieve current app section
 export const getCategoryTitle = (user: User) => {
-  const category = window.location.pathname.replace('/', '').split('/')[0];
+  const category = window.location.pathname.replace('/', '').split('/').at(0);
 
   if (!getUserCategories(categories, user).find(c => c === category) && category !== 'profile') {
     return categories.find(c => c === 'summary') + '.title';
@@ -184,3 +184,9 @@ export const clearAzureLocalStorageData = () => {
 
   azureKeys.map(key => localStorage.removeItem(key));
 };
+
+
+// Check if user role is included in these administrative / management roles
+export const userHasAdminRights = (role: UserRoles) => (
+  [UserRoles.Assistant, UserRoles.CampusManager, UserRoles.CampusBoosterAdmin].includes(role)
+);
