@@ -41,7 +41,7 @@ export const getUsers = createAsyncThunk('users/getUsers', async (_, thunkAPI) =
 export const createUser = createAsyncThunk('users/createUser', async (user: UserRequest, thunkAPI) => {
   try {
     const { isNew, user: createdUser } = await usersService.createUser(user);
-    const newUser = await usersService.addUserToClassroom(createdUser.id, user.classrooms);
+    const newUser = await usersService.addUserToClassrooms(createdUser.id, user.classrooms);
 
     return { user: newUser, isNew };
   }
@@ -52,10 +52,24 @@ export const createUser = createAsyncThunk('users/createUser', async (user: User
   }
 });
 
-export const updateUser = createAsyncThunk('users/updateUser', async (user: UserRequest, thunkAPI) => {
+type UpdateRequest = {
+  user: UserRequest,
+  addClassrooms: (Classroom['id'])[],
+  removeClassrooms: (Classroom['id'])[]
+};
+export const updateUser = createAsyncThunk('users/updateUser', async (request: UpdateRequest, thunkAPI) => {
   try {
-    return await usersService.updateUser(user);
-    // Update user classrooms
+    let response = await usersService.updateUser(request.user);
+
+    if (request.addClassrooms.length > 0) {
+      response = await usersService.addUserToClassrooms(request.user.id!, request.addClassrooms);
+    }
+
+    if (request.removeClassrooms.length > 0) {
+      response = await usersService.removeUserFromClassrooms(request.user.id!, request.removeClassrooms);
+    }
+
+    return response;
   }
 
   catch (error: any) {
@@ -69,7 +83,7 @@ export const deleteUser = createAsyncThunk('users/deleteUser', async (user: User
     await usersService.deleteUser(user.id);
 
     const classrooms = user.UserHasClassrooms?.map(classroom => classroom.id);
-    if (classrooms) await usersService.removeUserFromClassroom(user.id, classrooms);
+    if (classrooms) await usersService.removeUserFromClassrooms(user.id, classrooms);
 
     return user.id;
   }
@@ -115,7 +129,10 @@ const usersSlice = createSlice({
     builder.addCase(updateUser.fulfilled, (state, {payload}) => {
       if (state.usersList) {
         const userIndex = state.usersList.findIndex(user => user.id === payload.id);
-        state.usersList[userIndex] = payload;
+        state.usersList[userIndex] = {
+          ...state.usersList[userIndex],
+          ...payload
+        };
       }
     });
 

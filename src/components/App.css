@@ -393,13 +393,14 @@ body button .MuiButton-startIcon.MuiButton-iconSizeSmall {
 
 /* --- DataGrid tables --- */
 
-div[role="tooltip"].MuiDataGrid-panel { /* Make Grid pop-ups at the top-right */
+/* Make Grid pop-ups at the top-right */
+/* div[role="tooltip"].MuiDataGrid-panel {
   top: 130px !important;
   left: unset !important;
   right: 26px !important;
   transform: none !important;
   z-index: var(--z-index-mui-tooltip) !important;
-}
+} */
 
 body .MuiDataGrid-toolbarContainer .MuiButton-label { font-family: inherit; }
 body .MuiDataGrid-toolbarContainer .MuiButton-textSizeSmall { font-size: inherit; }

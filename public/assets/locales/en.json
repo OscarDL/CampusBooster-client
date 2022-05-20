@@ -336,9 +336,9 @@
       "campus": "Campus",
       "classrooms": "Classrooms",
       "birthday": "Birthday",
-      "actions": "Actions",
       "email": "Email address (SUPINFO)",
-      "personal_email": "Personal email address"
+      "personal_email": "Personal email address",
+      "actions": "Actions"
     },
 
     "create": {

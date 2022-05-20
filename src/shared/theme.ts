@@ -258,7 +258,8 @@ export const dataGridTheme = () => ({
     },
 
     '.MuiDataGrid-toolbarContainer': {
-      padding: '0'
+      padding: '0',
+      flexWrap: 'wrap'
     }
   },
 

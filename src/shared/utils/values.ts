@@ -31,3 +31,5 @@ export const allowedFileTypes = {
 export const maxMobileWidth = 768;
 
 export const localStorageKeysToPersist = ['lang', 'settings'];
+
+export const azureDomainName = process.env.REACT_APP_AZURE_DOMAIN_NAME ?? '';

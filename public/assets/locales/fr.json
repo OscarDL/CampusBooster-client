@@ -296,10 +296,10 @@
       "last_name": "Nom",
       "campus": "Campus",
       "classrooms": "Classes",
-      "actions": "Actions",
       "birthday": "Date de naissance",
       "email": "Adresse mail (SUPINFO)",
-      "personal_email": "Adresse mail personelle"
+      "personal_email": "Adresse mail personelle",
+      "actions": "Actions"
     },
 
     "create": {

@@ -1,12 +1,13 @@
 import dayjs from 'dayjs';
-import { FC, useState } from 'react';
-import ReactSelect from 'react-select';
 import { toast } from 'react-toastify';
+import ReactSelect from 'react-select';
+import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
+import { Box, Button, FormControl, InputAdornment, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
 
+import { azureDomainName } from '../../../../../shared/utils/values';
 import { createUser } from '../../../../../store/features/users/slice';
 import { UserRequest, UserRoles } from '../../../../../shared/types/user';
 import { useAppDispatch, useAppSelector } from '../../../../../store/store';
@@ -22,9 +23,13 @@ type Props = {
 };
 
 const newUserRequest = (): UserRequest => ({
-  firstName: '', lastName: '', personalEmail: '', birthday: '',
+  firstName: '', lastName: '', email: '', personalEmail: '', birthday: '',
   campusId: undefined, classrooms: [], role: UserRoles.Student
 });
+
+export const userEmailMatchesError = (email: string) => (
+  email.includes('@') || email.includes(' ')
+);
 
 
 const CreateUser: FC<Props> = ({open, setOpen}) => {
@@ -35,6 +40,15 @@ const CreateUser: FC<Props> = ({open, setOpen}) => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(newUserRequest());
 
+
+  const formIsComplete = () => (
+    user.firstName &&
+    user.lastName &&
+    user.birthday &&
+    !userEmailMatchesError(user.email) &&
+    (user.role === UserRoles.Student ? user.personalEmail : true) &&
+    (user.role !== UserRoles.CampusBoosterAdmin ? user.campusId : true)
+  );
 
   const handleChangeRole = (e: SelectChangeEvent<UserRoles>) => {
     const role = e.target.value as UserRoles;
@@ -58,11 +72,15 @@ const CreateUser: FC<Props> = ({open, setOpen}) => {
     setLoading(true);
 
     try {
-      const res = await dispatch(createUser(user)).unwrap();
+      const newUser = {
+        ...user,
+        email: `${user.email}@${azureDomainName}`
+      };
+      const res = await dispatch(createUser(newUser)).unwrap();
 
       setOpen(false);
       setUser(newUserRequest());
-      toast.success(t('users.fields.success' + (res.isNew ? '_new' : ''), {
+      toast.success(t('users.create.success' + (res.isNew ? '_new' : ''), {
         user: `${user.firstName} ${user.lastName}`
       }));
     }
@@ -84,22 +102,20 @@ const CreateUser: FC<Props> = ({open, setOpen}) => {
       <DialogTitle>{t('users.create.title')}</DialogTitle>
 
       <DialogContent>
-        <Box className="MuiDialogContent-row">
-          <FormControl>
-            <InputLabel id="user-select-role">{t('users.fields.role')}</InputLabel>
-            <Select
-              onChange={e => handleChangeRole(e)}
-              size="small" value={user.role}
-              labelId="user-select-role" label={t('users.fields.role')}
-            >
-              {Object.values(UserRoles).map(role => (
-                <MenuItem key={role} value={role}>
-                  {t(`users.${role.toLowerCase()}.title_role`)}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
+        <FormControl>
+          <InputLabel id="user-select-role">{t('users.fields.role')}</InputLabel>
+          <Select
+            onChange={handleChangeRole}
+            size="small" value={user.role}
+            labelId="user-select-role" label={t('users.fields.role')}
+          >
+            {Object.values(UserRoles).map(role => (
+              <MenuItem key={role} value={role}>
+                {t(`users.${role.toLowerCase()}.title_role`)}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
 
         <Box sx={{my: 2}}>
           {user.role === UserRoles.CampusBoosterAdmin ? (
@@ -141,14 +157,30 @@ const CreateUser: FC<Props> = ({open, setOpen}) => {
           />
         </Box>
 
+        <TextField
+          required
+          margin="dense"
+          variant="standard"
+          value={user.email}
+          placeholder="john.doe"
+          name="cb-user-personal-email"
+          error={userEmailMatchesError(user.email)}
+          onChange={e => setUser({...user, email: e.target.value})}
+          label={t('users.fields.email')} InputLabelProps={{shrink: true}}
+          InputProps={{
+            autoComplete: Date.now().toString(), // requires a unique value to be disabled
+            endAdornment: <InputAdornment position="end">{'@' + azureDomainName}</InputAdornment>
+          }}
+        />
+
         <Box className="MuiDialogContent-row">
           <TextField
-            required
             margin="dense"
             variant="standard"
             value={user.personalEmail}
             name="cb-user-personal-email"
             label={t('users.fields.personal_email')}
+            required={user.role === UserRoles.Student}
             onChange={e => setUser({...user, personalEmail: e.target.value})}
           />
           <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -156,7 +188,7 @@ const CreateUser: FC<Props> = ({open, setOpen}) => {
               label={t('users.fields.birthday')}
               value={user.birthday ? dayjs(user.birthday) : null}
               onChange={date => setUser({...user, birthday: date?.isValid() ? dayjs(date).toISOString() : ''})}
-              renderInput={(params) => <TextField {...params} sx={{mt: 1, mb: 0.5}} required variant="standard"/>}
+              renderInput={(params) => <TextField {...params} required variant="standard" sx={{mt: 1, mb: 0.5}}/>}
             />
           </LocalizationProvider>
         </Box>
@@ -169,7 +201,7 @@ const CreateUser: FC<Props> = ({open, setOpen}) => {
 
         <MainDialogButton
           type="submit" variant="contained" loading={loading}
-          disabled={!usersList || !(user.firstName && user.lastName && user.personalEmail && user.birthday && user.campusId)}
+          disabled={!usersList || !user.email || !formIsComplete()}
         >
           {t('global.confirm')}
         </MainDialogButton>

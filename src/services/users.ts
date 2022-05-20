@@ -62,9 +62,9 @@ const deleteUser = async (id: User['id']) => {
 };
 
 
-const addUserToClassroom = async (id: User['id'], classrooms: (Classroom['id'])[]) => {
+const addUserToClassrooms = async (id: User['id'], classrooms: (Classroom['id'])[]) => {
   try {
-    const response = await axios.post(apiUrl + `users/${id}/addClassrooms`, classrooms, axiosConfig);
+    const response = await axios.post(apiUrl + `users/${id}/classrooms/add`, {classrooms}, axiosConfig);
     return response.data;
   }
   
@@ -73,9 +73,9 @@ const addUserToClassroom = async (id: User['id'], classrooms: (Classroom['id'])[
   }
 };
 
-const removeUserFromClassroom = async (id: User['id'], classrooms: (Classroom['id'])[]) => {
+const removeUserFromClassrooms = async (id: User['id'], classrooms: (Classroom['id'])[]) => {
   try {
-    const response = await axios.post(apiUrl + `users/${id}/removeClassrooms`, classrooms, axiosConfig);
+    const response = await axios.post(apiUrl + `users/${id}/classrooms/remove`, {classrooms}, axiosConfig);
     return response.data;
   }
   
@@ -91,8 +91,8 @@ const userService = {
   createUser,
   updateUser,
   deleteUser,
-  addUserToClassroom,
-  removeUserFromClassroom
+  addUserToClassrooms,
+  removeUserFromClassrooms
 };
 
 export default userService;

@@ -43,6 +43,8 @@ export type UserRequest = {
   birthday: string,
   lastName: string,
   firstName: string,
+
+  email: string,
   personalEmail: string,
 
   campusId?: Campus['id'], // campus id

@@ -37,8 +37,11 @@ export const createTool = createAsyncThunk('tools/createTool', async (toolData: 
   };
 });
 
-type UpdateParams = {id: ToolLink['id'], toolData: FormData};
-export const updateTool = createAsyncThunk('tools/updateTool', async ({id, toolData}: UpdateParams, thunkAPI) => {
+type UpdateRequest = {
+  id: ToolLink['id'],
+  toolData: FormData
+};
+export const updateTool = createAsyncThunk('tools/updateTool', async ({id, toolData}: UpdateRequest, thunkAPI) => {
   try {
     return await toolsService.updateTool(id, toolData);
   }
