@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-import toolsService from '../../../services/tools';
+import toolService from '../../../services/tools';
 import { ToolLink, ToolLinkBase64Image } from '../../../shared/types/tools';
 
 
@@ -17,7 +17,7 @@ const initialState: ToolsState = {
 
 export const getTools = createAsyncThunk('tools/getTools', async (_, thunkAPI) => {
   try {
-    return await toolsService.getTools();
+    return await toolService.getTools();
   }
 
   catch (error: any) {
@@ -28,7 +28,7 @@ export const getTools = createAsyncThunk('tools/getTools', async (_, thunkAPI) =
 
 export const createTool = createAsyncThunk('tools/createTool', async (toolData: FormData, thunkAPI) => {
   try {
-    return await toolsService.createTool(toolData);
+    return await toolService.createTool(toolData);
   }
 
   catch (error: any) {
@@ -43,7 +43,7 @@ type UpdateRequest = {
 };
 export const updateTool = createAsyncThunk('tools/updateTool', async ({id, toolData}: UpdateRequest, thunkAPI) => {
   try {
-    return await toolsService.updateTool(id, toolData);
+    return await toolService.updateTool(id, toolData);
   }
 
   catch (error: any) {
@@ -54,7 +54,7 @@ export const updateTool = createAsyncThunk('tools/updateTool', async ({id, toolD
 
 export const deleteTool = createAsyncThunk('tools/deleteTool', async (id: ToolLink['id'], thunkAPI) => {
   try {
-    await toolsService.deleteTool(id);
+    await toolService.deleteTool(id);
     return id;
   }
 

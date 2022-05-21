@@ -10,7 +10,7 @@ const getCampus = async () => {
     const response = await axios.get(apiUrl + 'campus', axiosConfig);
     return response.data;
   }
-  
+
   catch (error: any) {
     return Promise.reject(error?.response?.data || t('api.error'));
   }
@@ -21,7 +21,7 @@ const getCampusById = async (id: Campus['id']) => {
     const response = await axios.get(apiUrl + 'campus/' + id, axiosConfig);
     return response.data;
   }
-  
+
   catch (error: any) {
     return Promise.reject(error?.response?.data || t('api.error'));
   }
@@ -32,7 +32,7 @@ const createCampus = async (campus: CampusRequest) => {
     const response = await axios.post(apiUrl + 'campus', campus, axiosConfig);
     return response.data;
   }
-  
+
   catch (error: any) {
     return Promise.reject(error?.response?.data || t('api.error'));
   }
@@ -43,7 +43,7 @@ const updateCampus = async (campus: Campus) => {
     const response = await axios.patch(apiUrl + 'campus/' + campus.id, campus, axiosConfig);
     return response.data;
   }
-  
+
   catch (error: any) {
     return Promise.reject(error?.response?.data || t('api.error'));
   }
@@ -54,14 +54,14 @@ const deleteCampus = async (id: Campus['id']) => {
     const response = await axios.delete(apiUrl + 'campus/' + id, axiosConfig);
     return response.data;
   }
-  
+
   catch (error: any) {
     return Promise.reject(error?.response?.data || t('api.error'));
   }
 };
 
 
-const userService = {
+const campusService = {
   getCampus,
   getCampusById,
   createCampus,
@@ -69,4 +69,4 @@ const userService = {
   deleteCampus
 };
 
-export default userService;
+export default campusService;

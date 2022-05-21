@@ -11,7 +11,7 @@ const getBalances = async () => {
     const response = await axios.get(apiUrl + 'balances', axiosConfig);
     return response.data;
   }
-  
+
   catch (error: any) {
     return Promise.reject(error?.response?.data || t('api.error'));
   }
@@ -22,7 +22,7 @@ const getUserBalance = async (id: User['id']) => {
     const response = await axios.get(apiUrl + 'balances/user/' + id, axiosConfig);
     return response.data;
   }
-  
+
   catch (error: any) {
     return Promise.reject(error?.response?.data || t('api.error'));
   }
@@ -33,7 +33,7 @@ const createBalance = async (balance: BalanceRequest) => {
     const response = await axios.post(apiUrl + 'balances', balance, axiosConfig);
     return response.data;
   }
-  
+
   catch (error: any) {
     return Promise.reject(error?.response?.data || t('api.error'));
   }
@@ -44,7 +44,7 @@ const updateBalance = async (balance: Balance) => {
     const response = await axios.patch(apiUrl + 'balances/' + balance.id, balance, axiosConfig);
     return response.data;
   }
-  
+
   catch (error: any) {
     return Promise.reject(error?.response?.data || t('api.error'));
   }
@@ -55,7 +55,7 @@ const deleteBalance = async (id: Balance['id']) => {
     const response = await axios.delete(apiUrl + 'balances/' + id, axiosConfig);
     return response.data;
   }
-  
+
   catch (error: any) {
     return Promise.reject(error?.response?.data || t('api.error'));
   }

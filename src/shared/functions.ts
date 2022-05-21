@@ -76,7 +76,7 @@ export const getLoggedInAuthState = (state: RootState) => ({
 });
 
 
-// Retrieve current app section
+// Retrieve current app category
 export const getCategoryTitle = (user: User) => {
   const category = window.location.pathname.replace('/', '').split('/').at(0);
 
@@ -90,10 +90,10 @@ export const getCategoryTitle = (user: User) => {
 
 // Retrieve categories accessible by current user
 export const getUserCategories = (categories: string[], user: User) => {
-  const studentForbidden: string[] = ['admin'];
-  const professorForbidden: string[] = ['admin'];
-  const fullProfessorForbidden: string[] = ['admin'];
-  const companyForbidden: string[] = ['admin'];
+  const studentForbidden: string[] = ['admin', 'users'];
+  const professorForbidden: string[] = ['admin', 'users'];
+  const fullProfessorForbidden: string[] = ['admin', 'users'];
+  const companyForbidden: string[] = ['admin', 'users'];
   const assistantForbidden: string[] = [];
   const campusManagerForbidden: string[] = [];
   const campusBoosterAdminForbidden: string[] = [];

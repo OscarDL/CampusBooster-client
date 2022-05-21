@@ -11,7 +11,7 @@ const getUsers = async () => {
     const response = await axios.get(apiUrl + 'users', axiosConfig);
     return response.data;
   }
-  
+
   catch (error: any) {
     return Promise.reject(error?.response?.data || t('api.error'));
   }
@@ -22,7 +22,7 @@ const getUserById = async (id: User['id']) => {
     const response = await axios.get(apiUrl + 'users/' + id, axiosConfig);
     return response.data;
   }
-  
+
   catch (error: any) {
     return Promise.reject(error?.response?.data || t('api.error'));
   }
@@ -33,7 +33,7 @@ const createUser = async (user: UserRequest) => {
     const response = await axios.post(apiUrl + 'users', user, axiosConfig);
     return response.data;
   }
-  
+
   catch (error: any) {
     return Promise.reject(error?.response?.data || t('api.error'));
   }
@@ -44,7 +44,18 @@ const updateUser = async (user: UserRequest) => {
     const response = await axios.patch(apiUrl + 'users/' + user.id!, user, axiosConfig);
     return response.data;
   }
-  
+
+  catch (error: any) {
+    return Promise.reject(error?.response?.data || t('api.error'));
+  }
+};
+
+const activateUser = async (userId: User['id']) => {
+  try {
+    const response = await axios.patch(apiUrl + `users/${userId}/activate`, null, axiosConfig);
+    return response.data;
+  }
+
   catch (error: any) {
     return Promise.reject(error?.response?.data || t('api.error'));
   }
@@ -55,7 +66,7 @@ const deleteUser = async (id: User['id']) => {
     const response = await axios.delete(apiUrl + 'users/' + id, axiosConfig);
     return response.data;
   }
-  
+
   catch (error: any) {
     return Promise.reject(error?.response?.data || t('api.error'));
   }
@@ -90,6 +101,7 @@ const userService = {
   getUserById,
   createUser,
   updateUser,
+  activateUser,
   deleteUser,
   addUserToClassrooms,
   removeUserFromClassrooms

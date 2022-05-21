@@ -5,9 +5,9 @@ import { Campus } from '../../../shared/types/campus';
 import { Classroom } from '../../../shared/types/classroom';
 import { User, UserRequest } from '../../../shared/types/user';
 
-import usersService from '../../../services/users';
+import userService from '../../../services/users';
 import campusService from '../../../services/campus';
-import classroomsService from '../../../services/classrooms';
+import classroomService from '../../../services/classrooms';
 
 
 export type UsersState = {
@@ -26,9 +26,9 @@ const initialState: UsersState = {
 
 export const getUsers = createAsyncThunk('users/getUsers', async (_, thunkAPI) => {
   try {
-    const users = await usersService.getUsers();
+    const users = await userService.getUsers();
     const campus = await campusService.getCampus();
-    const classrooms = await classroomsService.getClassrooms();
+    const classrooms = await classroomService.getClassrooms();
     return { users, campus, classrooms };
   }
 
@@ -40,10 +40,10 @@ export const getUsers = createAsyncThunk('users/getUsers', async (_, thunkAPI) =
 
 export const createUser = createAsyncThunk('users/createUser', async (user: UserRequest, thunkAPI) => {
   try {
-    const { isNew, user: createdUser } = await usersService.createUser(user);
+    const { isNew, user: createdUser } = await userService.createUser(user);
 
     if (user.classrooms.length > 0) {
-      const newUser = await usersService.addUserToClassrooms(createdUser.id, user.classrooms);
+      const newUser = await userService.addUserToClassrooms(createdUser.id, user.classrooms);
       return { user: newUser, isNew };
     }
 
@@ -63,14 +63,14 @@ type UpdateRequest = {
 };
 export const updateUser = createAsyncThunk('users/updateUser', async (request: UpdateRequest, thunkAPI) => {
   try {
-    let response = await usersService.updateUser(request.user);
+    let response = await userService.updateUser(request.user);
 
     if (request.addClassrooms.length > 0) {
-      response = await usersService.addUserToClassrooms(request.user.id!, request.addClassrooms);
+      response = await userService.addUserToClassrooms(request.user.id!, request.addClassrooms);
     }
 
     if (request.removeClassrooms.length > 0) {
-      response = await usersService.removeUserFromClassrooms(request.user.id!, request.removeClassrooms);
+      response = await userService.removeUserFromClassrooms(request.user.id!, request.removeClassrooms);
     }
 
     return response;
@@ -84,10 +84,10 @@ export const updateUser = createAsyncThunk('users/updateUser', async (request: U
 
 export const deleteUser = createAsyncThunk('users/deleteUser', async (user: User, thunkAPI) => {
   try {
-    await usersService.deleteUser(user.id);
+    await userService.deleteUser(user.id);
 
     const classrooms = (user.UserHasClassrooms ?? []).map(classroom => classroom.classroomId);
-    if (classrooms.length > 0) await usersService.removeUserFromClassrooms(user.id, classrooms);
+    if (classrooms.length > 0) await userService.removeUserFromClassrooms(user.id, classrooms);
 
     return user.id;
   }

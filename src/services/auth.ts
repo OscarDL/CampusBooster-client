@@ -16,7 +16,7 @@ const login = async (azureData: AzureData) => {
     if (response.statusText !== 'OK') throw response;
     return response.data;
   }
-  
+
   catch (error: any) {
     return Promise.reject(error?.response?.data || t('api.error'));
   }

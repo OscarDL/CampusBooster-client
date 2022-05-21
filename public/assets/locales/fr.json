@@ -55,10 +55,10 @@
       "birthday": "Date de naissance :",
       "campus": "Emplacement du campus :",
       "no_campus": "Pas de campus.",
-      "section": "Section actuelle :",
-      "section_text_one": "{{count}}ère année",
-      "section_text_other": "{{count}}e année",
-      "no_section": "Pas de section."
+      "promotion": "Promotion actuelle :",
+      "promotion_text_one": "{{count}}ère année",
+      "promotion_text_other": "{{count}}e année",
+      "no_promotion": "Pas de promotion."
     },
 
     "settings": {

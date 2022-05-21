@@ -25,7 +25,6 @@
 }
 
 .profile-view .profile li {
-  gap: 0.25rem;
   display: grid;
   grid-auto-flow: column;
   justify-content: flex-start;

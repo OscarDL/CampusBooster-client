@@ -20,7 +20,7 @@ export type User = {
   id: number,
   role: UserRoles,
   active: boolean,
-  validated: boolean,
+  banned: boolean,
   
   email: string,
   avatar?: string,

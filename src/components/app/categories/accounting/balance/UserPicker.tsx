@@ -2,8 +2,8 @@ import ReactSelect from 'react-select';
 import { useTranslation } from 'react-i18next';
 import React, { FC, useEffect, useState } from 'react';
 
-import { User } from '../../../../../shared/types/user';
 import { useAppSelector } from '../../../../../store/store';
+import { User, UserRoles } from '../../../../../shared/types/user';
 import { Balance, BalanceRequest } from '../../../../../shared/types/accounting';
 
 
@@ -28,11 +28,13 @@ const BalanceUserPicker: FC<Props> = ({balance, setBalance}) => {
 
   useEffect(() => {
     if (usersList) {
-      const userOptions: Option[] = usersList.map(user => ({
-        user,
-        value: user.id,
-        label: `${user.firstName} ${user.lastName}`
-      }));
+      const userOptions: Option[] = usersList
+        .filter(user => user.role === UserRoles.Student)
+        .map(user => ({
+          user,
+          value: user.id,
+          label: `${user.firstName} ${user.lastName}`
+        }));
 
       setUserOptions(userOptions);
     }

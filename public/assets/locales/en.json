@@ -56,10 +56,10 @@
       "birthday": "Birthday:",
       "campus": "Campus location:",
       "no_campus": "No campus.",
-      "section": "Current section:",
-      "section_text_one": "Year {{count}}",
-      "section_text_other": "Year {{count}}",
-      "no_section": "No section."
+      "promotion": "Current promotion:",
+      "promotion_text_one": "Year {{count}}",
+      "promotion_text_other": "Year {{count}}",
+      "no_promotion": "No promotion."
     },
 
     "settings": {

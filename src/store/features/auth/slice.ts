@@ -2,6 +2,7 @@ import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 import authService from '../../../services/auth';
+import userService from '../../../services/users';
 import { AzureData, User } from '../../../shared/types/user';
 import { reduxAuthPersistKey } from '../../../shared/utils/values';
 import { clearAzureLocalStorageData } from '../../../shared/functions';
@@ -23,10 +24,16 @@ export const login = createAsyncThunk('auth/login', async (azureData: AzureData,
   try {
     const response = await authService.login(azureData);
 
+    if (!response.user.active) {
+      const test = await userService.activateUser(response.user.id);
+      console.log(test);
+    }
+
     return {
       ...response,
       user: {
         ...response.user,
+        active: true,
         azureData
       }
     } as AuthState;

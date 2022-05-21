@@ -28,17 +28,17 @@ const Account: FC<Props> = ({user}) => {
           <ul>
             <li>
               <p>{t('profile.account.first_name')}</p>
-              <span title={user.firstName}>{user.firstName}</span>
+              <span>&nbsp;{user.firstName}</span>
             </li>
 
             <li>
               <p>{t('profile.account.last_name')}</p>
-              <span title={user.lastName}>{user.lastName}</span>
+              <span>&nbsp;{user.lastName}</span>
             </li>
 
             <li>
               <p>{t('profile.account.email')}</p>
-              <span title={user.email}>{user.email}</span>
+              <span title={user.email}>&nbsp;{user.email}</span>
             </li>
           </ul>
         </div>
@@ -50,26 +50,22 @@ const Account: FC<Props> = ({user}) => {
         <ContentHeader title={t('profile.account.title_more')}/>
         <ul>
           <li>
-            {t('profile.account.birthday')}&nbsp;
-            <span style={{fontWeight: 'bolder'}}>
-              {dayjs(user.birthday).format(t('global.date-mmm-dd-yyyy'))}
-            </span>
+            <p>{t('profile.account.birthday')}</p>
+            <span>&nbsp;{dayjs(user.birthday).format(t('global.date-mmm-dd-yyyy'))}</span>
           </li>
 
           <li>
-            {t('profile.account.campus')}&nbsp;
-            <span style={{fontWeight: 'bolder'}}>
-              {user.Campus?.name ?? t('profile.account.no_campus')}
-            </span>
+            <p>{t('profile.account.campus')}</p>
+            <span>&nbsp;{user.Campus?.name ?? t('profile.account.no_campus')}</span>
           </li>
 
           <li>
-            {t('profile.account.section')}&nbsp;
-            <span style={{fontWeight: 'bolder'}}>
-              {user.UserHasClassrooms?.[0]?.Classroom?.section ? (
-                t('profile.account.section_text', {count: user.UserHasClassrooms?.[0]?.Classroom?.section})
+            <p>{t('profile.account.promotion')}</p>
+            <span>&nbsp;
+              {user.UserHasClassrooms?.[0]?.Classroom?.promotion ? (
+                t('profile.account.promotion_text', {count: user.UserHasClassrooms?.[0]?.Classroom?.promotion})
               ) : (
-                t('profile.account.no_section')
+                t('profile.account.no_promotion')
               )}
             </span>
           </li>

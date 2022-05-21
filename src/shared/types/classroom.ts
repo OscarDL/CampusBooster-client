@@ -5,14 +5,14 @@ import { Campus } from './campus';
 export type Classroom = {
   id: number,
   name: string,
-  section: number,
+  promotion: number,
   campusId?: Campus['id']
 };
 
 export type ClassroomRequest = {
   id?: number,
   name: string,
-  section: number,
+  promotion: number,
   campusId?: Campus['id']
 };
 
