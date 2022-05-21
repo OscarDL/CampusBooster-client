@@ -7,7 +7,7 @@ import { GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, Grid
 type Props = {
   loading: boolean,
   refreshData?: () => any,
-  title: string | ReactFragment,
+  title: string | ReactFragment
 };
 
 

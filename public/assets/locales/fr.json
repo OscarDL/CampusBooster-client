@@ -304,20 +304,20 @@
 
     "create": {
       "title": "Nouvel utilisateur",
-      "success": "Utilisateur {{user}} créé avec succès.\nL'utilisateur existe déjà dans l'AD Azure et a été lié automatiquement.",
-      "success_new": "User {{user}} successfully created.\nCompte Azure créé automatiquement car il n'existait pas dans l'AD."
+      "success": "Utilisateur \"{{user}}\" créé avec succès.\nL'utilisateur existe déjà dans l'AD Azure et a été lié automatiquement.",
+      "success_new": "Utilisateur \"{{user}}\" créé avec succès.\nCompte créé automatiquement dans l'AD Azure."
     },
 
     "update": {
       "title": "Modifier \"{{user}}\"",
-      "success": "Utilisateur {{user}} modifié avec succès."
+      "success": "Utilisateur \"{{user}}\" modifié avec succès."
     },
 
     "delete": {
       "title": "Supprimer \"{{user}}\"",
       "text": "Veuillez entrer le nom de l'utilisateur ci-dessous pour éviter une suppression accidentelle.",
       "name": "Nom complet",
-      "success": "Utilisateur {{user}} supprimé avec succès."
+      "success": "Utilisateur \"{{user}}\" supprimé avec succès."
     }
   },
 

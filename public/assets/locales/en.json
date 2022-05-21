@@ -344,7 +344,7 @@
     "create": {
       "title": "New user",
       "success": "User {{user}} successfully created.\nUser already exists in Azure AD and was linked automatically.",
-      "success_new": "User {{user}} successfully created.\nAzure account automatically created as it did not exist in the AD."
+      "success_new": "User {{user}} successfully created.\nAccount automatically created in the Azure AD."
     },
 
     "update": {

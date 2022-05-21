@@ -41,9 +41,13 @@ export const getUsers = createAsyncThunk('users/getUsers', async (_, thunkAPI) =
 export const createUser = createAsyncThunk('users/createUser', async (user: UserRequest, thunkAPI) => {
   try {
     const { isNew, user: createdUser } = await usersService.createUser(user);
-    const newUser = await usersService.addUserToClassrooms(createdUser.id, user.classrooms);
 
-    return { user: newUser, isNew };
+    if (user.classrooms.length > 0) {
+      const newUser = await usersService.addUserToClassrooms(createdUser.id, user.classrooms);
+      return { user: newUser, isNew };
+    }
+
+    return { user: createdUser, isNew };
   }
 
   catch (error: any) {
@@ -82,8 +86,8 @@ export const deleteUser = createAsyncThunk('users/deleteUser', async (user: User
   try {
     await usersService.deleteUser(user.id);
 
-    const classrooms = user.UserHasClassrooms?.map(classroom => classroom.id);
-    if (classrooms) await usersService.removeUserFromClassrooms(user.id, classrooms);
+    const classrooms = (user.UserHasClassrooms ?? []).map(classroom => classroom.classroomId);
+    if (classrooms.length > 0) await usersService.removeUserFromClassrooms(user.id, classrooms);
 
     return user.id;
   }
@@ -129,10 +133,7 @@ const usersSlice = createSlice({
     builder.addCase(updateUser.fulfilled, (state, {payload}) => {
       if (state.usersList) {
         const userIndex = state.usersList.findIndex(user => user.id === payload.id);
-        state.usersList[userIndex] = {
-          ...state.usersList[userIndex],
-          ...payload
-        };
+        state.usersList[userIndex] = payload;
       }
     });
 
