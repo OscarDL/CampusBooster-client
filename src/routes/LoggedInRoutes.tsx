@@ -7,9 +7,10 @@ import { getLoggedInAuthState, getUserCategories } from '../shared/functions';
 
 import Summary from '../views/app/Summary';
 import Subjects from '../views/app/Subjects';
-import Marks from '../views/app/Marks';
+import Grades from '../views/app/Grades';
 import Users from '../views/app/Users';
-import Calendar from '../views/app/Calendar';
+import Planning from '../views/app/Planning';
+import Absences from '../views/app/Absences';
 import Internships from '../views/app/Internships';
 import Accounting from '../views/app/Accounting';
 import Admin from '../views/app/Admin';
@@ -24,9 +25,10 @@ const LoggedInRoutes: FC = () => {
   const components: {[key: string]: JSX.Element} = {
     summary: <Summary/>,
     subjects: <Subjects/>,
-    marks: <Marks/>,
+    grades: <Grades/>,
     users: <Users/>,
-    calendar: <Calendar/>,
+    planning: <Planning/>,
+    absences: <Absences/>,
     internships: <Internships/>,
     accounting: <Accounting/>,
     admin: <Admin/>,

@@ -5,18 +5,18 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 
-import { Task } from '../../../../../../shared/types/calendar';
+import { FakeProject } from '../../../../../../shared/types/course';
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '../../../../../shared/dialog';
 
 
 type Props = {
-  task: Task,
   open: boolean,
-  setDetails: React.Dispatch<React.SetStateAction<Task | undefined>>
+  project: FakeProject,
+  setDetails: React.Dispatch<React.SetStateAction<FakeProject | undefined>>
 };
 
 
-const TaskDetails: FC<Props> = ({task, open, setDetails}) => {
+const ProjectDetails: FC<Props> = ({open, project, setDetails}) => {
   const { t } = useTranslation();
 
 
@@ -25,28 +25,28 @@ const TaskDetails: FC<Props> = ({task, open, setDetails}) => {
       fullWidth open={open} maxWidth="sm"
       onClose={() => setDetails(undefined)}
     >
-      <DialogTitle>{task.course.name} - {task.title}</DialogTitle>
+      <DialogTitle>{project.course.name} - {project.title}</DialogTitle>
 
       <DialogContent>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <Box className="MuiDialogContent-row">
             <DatePicker readOnly
               onChange={() => null}
-              value={dayjs(task.dateStart)}
-              label={t('calendar.tasks.details.date_start')}
+              value={dayjs(project.dateStart)}
+              label={t('planning.projects.details.date_start')}
               renderInput={(params) => <TextField {...params} variant="standard" InputProps={{endAdornment: null}}/>}
             />
             <DatePicker readOnly
               onChange={() => null}
-              value={dayjs(task.dateEnd)}
-              label={t('calendar.tasks.details.date_end')}
+              value={dayjs(project.dateEnd)}
+              label={t('planning.projects.details.date_end')}
               renderInput={(params) => <TextField {...params} variant="standard" InputProps={{endAdornment: null}}/>}
             />
           </Box>
         </LocalizationProvider>
 
         <Typography sx={{mt: 2}}>
-          {task.details}
+          {project.details}
         </Typography>
       </DialogContent>
 
@@ -58,4 +58,4 @@ const TaskDetails: FC<Props> = ({task, open, setDetails}) => {
 };
 
 
-export default TaskDetails;
+export default ProjectDetails;

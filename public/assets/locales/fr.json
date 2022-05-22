@@ -101,7 +101,7 @@
     }
   },
 
-  "marks": {
+  "grades": {
     "title": "Notes"
   },
 
@@ -109,8 +109,8 @@
     "title": "Matières"
   },
 
-  "calendar": {
-    "title": "Calendrier",
+  "planning": {
+    "title": "Planning",
     "label": "Choisissez une date",
 
     "details": {
@@ -118,10 +118,10 @@
       "none": "Aucun évènement scolaire en {{m}}."
     },
 
-    "tasks": {
+    "projects": {
       "for": "Pour le",
-      "title": "Tâches à venir",
-      "none": "Aucune tâche assignée.",
+      "title": "Projets assignés",
+      "none": "Aucun projet assigné.",
 
       "details": {
         "date_start": "Date de début",
@@ -134,9 +134,13 @@
     "colors": {
       "exam": "Examen",
       "course": "Cours",
-      "absence": "Absence",
+      "oral": "Soutenance",
       "today": "Aujourd'hui"
     }
+  },
+
+  "absences": {
+    "title": "Absences"
   },
 
   "internships": {
@@ -338,6 +342,6 @@
     "date-mmmm-dd": "DD MMMM",
     "date-compare": "D-M-YYYY",
     "date-mm-dd-yyyy": "DD-MM-YYYY",
-    "date-mmm-dd-yyyy": "DD MMM YYYY"
+    "date-mmm-d-yyyy": "D MMM YYYY"
   }
 }

@@ -4,14 +4,14 @@ import { Divider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { ContentHeader } from '../../../../../shared/content';
-import { Course } from '../../../../../../shared/types/course';
+import { FakeCourse } from '../../../../../../shared/types/course';
 
 import DetailsLine from './Line';
 import Container from '../../../../../shared/container';
 
 
 type Props = {
-  courses: Course[],
+  courses: FakeCourse[],
   date: dayjs.Dayjs | null
 };
 
@@ -22,7 +22,7 @@ const DetailsList: FC<Props> = ({courses, date}) => {
 
   return (
     <Container className="details">
-      <ContentHeader title={t('calendar.details.title')}/>
+      <ContentHeader title={t('planning.details.title')}/>
       <Divider sx={{mb: '1rem'}}/>
 
       {courses.length > 0 ? (
@@ -31,7 +31,7 @@ const DetailsList: FC<Props> = ({courses, date}) => {
         </ul>
       ) : (
         <div className="details__empty">
-          <h2>{t('calendar.details.none', {m: dayjs(date).format('MMMM')})}</h2>
+          <h2>{t('planning.details.none', {m: dayjs(date).format('MMMM')})}</h2>
         </div>
       )}
     </Container>

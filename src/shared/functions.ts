@@ -92,11 +92,11 @@ export const getCategoryTitle = (user: User) => {
 export const getUserCategories = (categories: string[], user: User) => {
   const studentForbidden: string[] = ['admin', 'users'];
   const professorForbidden: string[] = ['admin', 'users'];
-  const fullProfessorForbidden: string[] = ['admin', 'users'];
-  const companyForbidden: string[] = ['admin', 'users'];
-  const assistantForbidden: string[] = [];
-  const campusManagerForbidden: string[] = [];
-  const campusBoosterAdminForbidden: string[] = [];
+  const fullProfessorForbidden: string[] = ['admin', 'users', 'planning'];
+  const companyForbidden: string[] = ['admin', 'users', 'planning'];
+  const assistantForbidden: string[] = ['planning'];
+  const campusManagerForbidden: string[] = ['planning'];
+  const campusBoosterAdminForbidden: string[] = ['planning'];
 
   switch (user.role) {
     case UserRoles.Professor: {

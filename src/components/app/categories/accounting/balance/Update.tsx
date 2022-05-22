@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import copy from 'fast-copy';
 import { toast } from 'react-toastify';
+import isEqual from 'react-fast-compare';
 import { useTranslation } from 'react-i18next';
 import { FC, useEffect, useState } from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -144,8 +145,8 @@ const UpdateBalance: FC<Props> = ({balance, open, setOpen}) => {
         </Button>
 
         <MainDialogButton
-          type="submit" variant="contained"
-          loading={loading} disabled={!newBalance.description}
+          type="submit" variant="contained" loading={loading}
+          disabled={!newBalance.description || isEqual(balance, newBalance)}
         >
           {t('global.confirm')}
         </MainDialogButton>

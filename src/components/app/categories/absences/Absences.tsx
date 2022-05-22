@@ -4,20 +4,20 @@ import { useTranslation } from 'react-i18next';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 
 
-const Marks: FC = () => {
+const Absences: FC = () => {
   const { t } = useTranslation();
 
 
   return (
     <>
-      <ContentHeader title={t('marks.title')}/>
+      <ContentHeader title={t('absences.title')}/>
 
       <ContentBody>
-        Marks
+        Absences
       </ContentBody>
     </>
   );
 };
 
 
-export default Marks;
+export default Absences;

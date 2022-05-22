@@ -1,5 +1,4 @@
-import { Task } from '../types/calendar';
-import { Course, CourseType } from '../types/course';
+import { CourseType, FakeCourse, FakeProject } from '../types/course';
 
 
 export const getFakeCredits = () => ([
@@ -127,13 +126,12 @@ export const getFakeCredits = () => ([
 
 
 type FakeCalendar = {
-  planning: Course[],
-  absences: Course[],
-  tasks: Task[]
+  courses: FakeCourse[],
+  projects: FakeProject[]
 };
 
 export const getFakeCalendar = (): FakeCalendar => ({
-  planning: [{
+  courses: [{
     credits: 4,
     name: '4CCNA',
     type: CourseType.Course,
@@ -155,24 +153,22 @@ export const getFakeCalendar = (): FakeCalendar => ({
   }, {
     credits: 3,
     name: '4ENGL',
-    type: CourseType.Exam,
+    type: CourseType.Oral,
     title: 'English courses',
     dates: [
       new Date(1648022400000)
     ]
-  }],
-
-  absences: [{
+  }, {
     credits: 2,
     name: '4LIAL',
-    type: CourseType.Absence,
+    type: CourseType.Exam,
     title: 'Linear Algebra',
     dates: [
       new Date(1648710000000)
     ]
   }],
 
-  tasks: [{
+  projects: [{
     course: {
       credits: 4,
       name: '4BOSS',
@@ -193,6 +189,6 @@ export const getFakeCalendar = (): FakeCalendar => ({
     title: 'Mini projet',
     details: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, ducimus laudantium. Officiis quaerat perspiciatis veritatis rem obcaecati facere, esse beatae vel, quisquam a nisi est ducimus natus voluptate. Earum rem ducimus dolore culpa, laboriosam debitis nulla quidem exercitationem fugiat nobis alias, doloremque error! Eum dolorem ad tenetur quis provident libero nihil, eius explicabo, maiores ratione illum error, alias modi saepe asperiores nam deserunt inventore rem aliquam fugiat. Tempore quae perspiciatis fugit veniam, obcaecati, modi eos eaque corrupti laborum libero officia!',
     dateStart: new Date(1651010400000),
-    dateEnd: new Date(1653429540000)
+    dateEnd: new Date(1656885540000)
   }]
 });

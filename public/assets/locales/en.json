@@ -121,8 +121,8 @@
     }
   },
 
-  "marks": {
-    "title": "Marks",
+  "grades": {
+    "title": "Grades",
     "icon": "task"
   },
 
@@ -131,20 +131,20 @@
     "icon": "topic"
   },
 
-  "calendar": {
-    "title": "Calendar",
+  "planning": {
+    "title": "Planning",
     "label": "Choose date",
     "icon": "calendar_month",
 
     "details": {
       "title": "Details for this month",
-      "none": "No calendar events in {{m}}."
+      "none": "No school events in {{m}}."
     },
 
-    "tasks": {
+    "projects": {
       "for": "For",
-      "title": "Upcoming tasks",
-      "none": "No tasks assigned.",
+      "title": "Assigned projects",
+      "none": "No projects assigned.",
 
       "details": {
         "date_start": "Start date",
@@ -156,10 +156,15 @@
 
     "colors": {
       "exam": "Exam",
+      "oral": "Oral",
       "today": "Today",
-      "course": "Course",
-      "absence": "Absence"
+      "course": "Course"
     }
+  },
+
+  "absences": {
+    "title": "Absences",
+    "icon": "event_busy"
   },
 
   "internships": {
@@ -378,6 +383,6 @@
     "date-mmmm-dd": "MMMM DD",
     "date-compare": "D-M-YYYY",
     "date-mm-dd-yyyy": "MM-DD-YYYY",
-    "date-mmm-dd-yyyy": "MMM. DD, YYYY"
+    "date-mmm-d-yyyy": "MMM. D, YYYY"
   }
 }

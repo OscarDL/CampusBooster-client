@@ -1,7 +1,7 @@
 export const colors = {
   accent: '#503cb4',
   accentRGB: '80, 60, 180',
-  datePicker: ['course', 'exam', 'absence', 'today']
+  calendarPicker: ['course', 'exam', 'oral', 'today']
 };
 
 export const reduxAuthPersistKey = 'auth-state';
@@ -9,9 +9,10 @@ export const reduxAuthPersistKey = 'auth-state';
 export const categories = [
   'summary',
   'subjects',
-  'marks',
+  'grades',
   'users',
-  'calendar',
+  'planning',
+  'absences',
   'internships',
   'accounting',
   'admin',

@@ -56,9 +56,9 @@
 }
 
 
-/* --- Settings & Tasks --- */
+/* --- Settings & Useful links --- */
 
-.profile-view .settings-tasks > * {
+.profile-view .settings-links > * {
   flex: 1;
 }
 

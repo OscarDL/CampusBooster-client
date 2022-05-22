@@ -1,5 +1,6 @@
 import { User } from './user';
 import { Campus } from './campus';
+import { Course } from './course';
 
 
 export type Classroom = {
@@ -14,6 +15,16 @@ export type ClassroomRequest = {
   name: string,
   promotion: number,
   campusId?: Campus['id']
+};
+
+export type ClassroomHasCourse = {
+  id: number,
+  activated: boolean,
+  courseId: Course['id'],
+  classroomId: Classroom['id'],
+
+  Course: Course,
+  Classroom: Classroom
 };
 
 export type UserHasClassroom = {

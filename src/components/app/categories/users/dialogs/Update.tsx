@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { toast } from 'react-toastify';
 import ReactSelect from 'react-select';
+import isEqual from 'react-fast-compare';
 import { useTranslation } from 'react-i18next';
 import { FC, useEffect, useState } from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -45,7 +46,7 @@ const UpdateUser: FC<Props> = ({user, open, setOpen}) => {
     newUser.firstName &&
     newUser.lastName &&
     newUser.birthday &&
-    !userEmailMatchesError(newUser.email) &&
+    newUser.email && !userEmailMatchesError(newUser.email) &&
     (newUser.role === UserRoles.Student ? newUser.personalEmail : true) &&
     (newUser.role !== UserRoles.CampusBoosterAdmin ? newUser.campusId : true)
   );
@@ -213,7 +214,7 @@ const UpdateUser: FC<Props> = ({user, open, setOpen}) => {
 
         <MainDialogButton
           type="submit" variant="contained" loading={loading}
-          disabled={!usersList || !newUser.email || !formIsComplete()}
+          disabled={!usersList || !formIsComplete() || isEqual(newUserRequest(user), newUser)}
         >
           {t('global.confirm')}
         </MainDialogButton>
