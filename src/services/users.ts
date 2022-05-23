@@ -52,7 +52,7 @@ const updateUser = async (user: UserRequest) => {
 
 const activateUser = async (userId: User['id']) => {
   try {
-    const response = await axios.patch(apiUrl + `users/${userId}/activate`, null, axiosConfig);
+    const response = await axios.patch(apiUrl + `users/${userId}/activate`, {}, axiosConfig);
     return response.data;
   }
 

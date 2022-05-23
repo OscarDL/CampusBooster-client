@@ -8,8 +8,8 @@ export const reduxAuthPersistKey = 'auth-state';
 
 export const categories = [
   'summary',
-  'subjects',
   'grades',
+  'subjects',
   'users',
   'planning',
   'absences',
