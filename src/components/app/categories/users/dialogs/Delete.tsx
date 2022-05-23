@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { FC, useEffect, useState } from 'react';
-import { Button, TextField } from '@mui/material';
+import { Button, Checkbox, FormControlLabel, FormGroup, TextField } from '@mui/material';
 
 import { User } from '../../../../../shared/types/user';
 import { useAppDispatch } from '../../../../../store/store';
@@ -22,6 +22,7 @@ const DeleteUser: FC<Props> = ({user, open, setOpen}) => {
 
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
+  const [deleteInAD, setDeleteInAD] = useState(false);
   const userFullName = `${user.firstName} ${user.lastName}`;
 
 
@@ -30,7 +31,7 @@ const DeleteUser: FC<Props> = ({user, open, setOpen}) => {
     setLoading(true);
 
     try {
-      await dispatch(deleteUser(user)).unwrap();
+      await dispatch(deleteUser({user, deleteInAD})).unwrap();
 
       setName('');
       setOpen(false);
@@ -68,6 +69,13 @@ const DeleteUser: FC<Props> = ({user, open, setOpen}) => {
           margin="dense" variant="standard"
           onChange={e => setName(e.target.value)}
         />
+
+        <FormGroup>
+          <FormControlLabel
+            label={t('users.delete.azure')}
+            control={<Checkbox checked={deleteInAD} onChange={e => setDeleteInAD(e.target.checked)}/>}
+          />
+        </FormGroup>
       </DialogContent>
 
       <DialogActions>

@@ -82,7 +82,7 @@ const Settings: FC = () => {
             label={t('profile.settings.theme.title')}
           >
             {Object.values(SupportedThemes).map(theme => (
-              <MenuItem value={theme}>
+              <MenuItem key={theme} value={theme}>
                 {t('profile.settings.theme.' + theme)}
               </MenuItem>
             ))}

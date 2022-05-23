@@ -7,6 +7,7 @@ import { User } from '../../../../../shared/types/user';
 import { ContentHeader } from '../../../../shared/content';
 
 import Container from '../../../../shared/container';
+import { toast } from 'react-toastify';
 
 
 type Props = {
@@ -16,6 +17,16 @@ type Props = {
 
 const Account: FC<Props> = ({user}) => {
   const { t } = useTranslation();
+
+  const copyEmailToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(user.email);
+      toast.info(t('profile.account.email_copy.success'));
+    }
+    catch (error) {
+      toast.error(t('profile.account.email_copy.error'));
+    }
+  };
 
 
   return (
@@ -36,7 +47,7 @@ const Account: FC<Props> = ({user}) => {
               <span>&nbsp;{user.lastName}</span>
             </li>
 
-            <li>
+            <li onClick={copyEmailToClipboard} style={{cursor: 'pointer'}}>
               <p>{t('profile.account.email')}</p>
               <span title={user.email}>&nbsp;{user.email}</span>
             </li>

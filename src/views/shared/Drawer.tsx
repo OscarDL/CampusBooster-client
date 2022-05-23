@@ -8,8 +8,8 @@ import SwipeDrawer from '../../components/app/drawers/SwipeDrawer';
 import '../../components/app/drawers/Drawers.css';
 
 
-const isNarrowWidth = () => document.body.clientWidth <= maxMobileWidth;
-const isTouchDevice = () => window.matchMedia('(pointer: coarse)').matches;
+export const isNarrowWidth = () => document.body.clientWidth <= maxMobileWidth;
+export const isTouchDevice = () => window.matchMedia('(pointer: coarse)').matches;
 
 
 const Drawer: FC = () => {

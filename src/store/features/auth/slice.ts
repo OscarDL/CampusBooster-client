@@ -25,8 +25,7 @@ export const login = createAsyncThunk('auth/login', async (azureData: AzureData,
     const response = await authService.login(azureData);
 
     if (!response.user.active) {
-      const test = await userService.activateUser(response.user.id);
-      console.log(test);
+      await userService.activateUser(response.user.id);
     }
 
     return {

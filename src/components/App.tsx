@@ -3,15 +3,16 @@ import { Slide, ToastContainer } from 'react-toastify';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
 
+import { login } from '../store/features/auth/slice';
+import { isTouchDevice } from '../views/shared/Drawer';
+import { setCategory } from '../store/features/app/slice';
+import { useAppSelector, useAppDispatch } from '../store/store';
+import { LinkTypes, SupportedThemes } from '../shared/types/settings';
+import { getCategoryTitle, getCurrentTheme } from '../shared/functions';
+
 import Loader from './shared/loader/Loader';
 import LoggedInRoutes from '../routes/LoggedInRoutes';
 import LoggedOutRoutes from '../routes/LoggedOutRoutes';
-
-import { login } from '../store/features/auth/slice';
-import { LinkTypes, SupportedThemes } from '../shared/types/settings';
-import { setCategory } from '../store/features/app/slice';
-import { useAppSelector, useAppDispatch } from '../store/store';
-import { getCategoryTitle, getCurrentTheme } from '../shared/functions';
 
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -81,9 +82,8 @@ const App: FC = () => {
       </Router>
 
       <ToastContainer
-        theme="colored"
-        autoClose={3000}
-        transition={Slide}
+        theme="colored" autoClose={3000} transition={Slide}
+        position={isTouchDevice() ? 'top-center' : 'top-right'}
       />
     </div>
   );

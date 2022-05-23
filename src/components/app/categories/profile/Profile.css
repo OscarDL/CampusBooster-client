@@ -40,7 +40,6 @@
   text-overflow: ellipsis;
 }
 
-
 /* Main info */
 .profile-view .profile .content__header + hr {
   margin-bottom: 1rem;
@@ -56,10 +55,38 @@
 }
 
 
-/* --- Settings & Useful links --- */
+/* --- Credits progress --- */
 
-.profile-view .settings-links > * {
-  flex: 1;
+.profile-view .credits {
+  /* Workaround for ChartJS not resizing down */
+  /* width: 99%; */
+  /* margin: 0 auto; */
+}
+
+
+/* --- Useful links --- */
+
+.profile-view .links ul {
+  /* padding: 0; */
+  /* list-style: disc; */
+}
+
+.profile-view .links li {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: flex-start;
+}
+.profile-view .links li:not(:last-child) {
+  margin-bottom: 0.75rem;
+}
+
+.profile-view .links li > a {
+  font-weight: 500;
+  text-decoration: none;
+}
+.profile-view .links li > a:hover,
+.profile-view .links li > a:focus {
+  text-decoration: underline;
 }
 
 

@@ -35,12 +35,23 @@ export const muiTheme = createTheme({
             transition: '0.25s',
             borderRadius: 'var(--radius-small)'
           },
+
           ':hover > fieldset.MuiOutlinedInput-notchedOutline': {
             borderColor: 'rgba(var(--accent-color), 0.5)'
           },
+
           '&.Mui-focused > fieldset.MuiOutlinedInput-notchedOutline': {
             borderColor: 'rgb(var(--accent-color))'
           }
+        }
+      }
+    },
+
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          zIndex: 'unset',
+          fontWeight: '500'
         }
       }
     },
@@ -55,14 +66,6 @@ export const muiTheme = createTheme({
             borderWidth: '2px',
             borderColor: 'rgba(var(--accent-color), 0.5)'
           }
-        }
-      }
-    },
-
-    MuiInputLabel: {
-      styleOverrides: {
-        root: {
-          zIndex: 'unset'
         }
       }
     },

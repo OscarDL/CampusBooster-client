@@ -13,7 +13,7 @@ const Admin: FC = () => {
       <ContentHeader title={t('admin.title')}/>
 
       <ContentBody>
-        Admin
+        Admin : user ban list, manage planning for each class, etc
       </ContentBody>
     </>
   );

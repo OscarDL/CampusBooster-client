@@ -5,7 +5,6 @@ import { useAppSelector } from '../store/store';
 import { categories } from '../shared/utils/values';
 import { getLoggedInAuthState, getUserCategories } from '../shared/functions';
 
-import Summary from '../views/app/Summary';
 import Subjects from '../views/app/Subjects';
 import Grades from '../views/app/Grades';
 import Users from '../views/app/Users';
@@ -23,7 +22,6 @@ const LoggedInRoutes: FC = () => {
   const { user } = useAppSelector(getLoggedInAuthState);
 
   const components: {[key: string]: JSX.Element} = {
-    summary: <Summary/>,
     subjects: <Subjects/>,
     grades: <Grades/>,
     users: <Users/>,
@@ -49,7 +47,7 @@ const LoggedInRoutes: FC = () => {
           <Route path="/profile" element={<Profile/>}/>
 
           {/* Redirect to the home page if the route doesn't exist */}
-          <Route path="*" element={<Navigate replace to="/summary"/>} />
+          <Route path="*" element={<Navigate replace to="/grades"/>} />
         </Routes>
       </div>
     </>

@@ -59,7 +59,19 @@
       "promotion": "Current promotion:",
       "promotion_text_one": "Year {{count}}",
       "promotion_text_other": "Year {{count}}",
-      "no_promotion": "No promotion."
+      "no_promotion": "No promotion.",
+
+      "email_copy": {
+        "success": "Email address was copied to your clipbaord.",
+        "error": "Error copying email address to the clipboard."
+      }
+    },
+
+    "credits": {
+      "title": "ECTS credits: {{earned}}/{{required}}",
+      "earned": "Earned",
+      "required": "Required",
+      "bonus": "Bonus"
     },
 
     "settings": {
@@ -92,19 +104,12 @@
     "links": {
       "title": "Useful links",
 
-      "links": [{
-        "title": "Microsoft Account",
-        "url": "",
-        "light": "Light",
-        "dark": "Dark"
-      }],
-
-      "ms_account": {
-        "title": "Microsoft Account",
-        "url": "",
-        "light": "Light",
-        "dark": "Dark"
-      }
+      "list": [
+        {
+          "title": "Microsoft Account",
+          "url": "https://myaccount.microsoft.com"
+        }
+      ]
     }
   },
 
@@ -361,6 +366,7 @@
       "title": "Delete \"{{user}}\"",
       "text": "Please type in the name of the user below to avoid accidental deletion.",
       "name": "Full name",
+      "azure": "Delete user from Azure AD",
       "success": "User {{user}} successfully deleted."
     }
   },

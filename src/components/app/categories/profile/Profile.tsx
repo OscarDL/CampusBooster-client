@@ -2,11 +2,13 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useAppSelector } from '../../../../store/store';
+import { UserRoles } from '../../../../shared/types/user';
 import { LogoutButton } from '../../../../azure/auth/Buttons';
 import { getLoggedInAuthState } from '../../../../shared/functions';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 
 import Links from './categories/Links';
+import Credits from './categories/Credits';
 import Account from './categories/Account';
 import Settings from './categories/Settings';
 import Dropdown from '../../../shared/dropdown';
@@ -29,9 +31,16 @@ const Profile: FC = () => {
       </ContentHeader>
 
       <ContentBody>
-        <Account user={user}/>
+        {user.role === UserRoles.Student ? (
+          <div className="container-wrapper">
+            <Account user={user}/>
+            <Credits/>
+          </div>
+        ) : (
+          <Account user={user}/>
+        )}
 
-        <div className="container-wrapper settings-links">
+        <div className="container-wrapper">
           <Settings/>
           <Links/>
         </div>

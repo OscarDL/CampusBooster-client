@@ -61,8 +61,10 @@ const activateUser = async (userId: User['id']) => {
   }
 };
 
-const deleteUser = async (id: User['id']) => {
+const deleteUser = async (id: User['id'], deleteInAD: boolean) => {
   try {
+    if (deleteInAD) await axios.delete(apiUrl + 'users/azure/' + id, axiosConfig);
+
     const response = await axios.delete(apiUrl + 'users/' + id, axiosConfig);
     return response.data;
   }

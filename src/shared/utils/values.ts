@@ -7,7 +7,6 @@ export const colors = {
 export const reduxAuthPersistKey = 'auth-state';
 
 export const categories = [
-  'summary',
   'grades',
   'subjects',
   'users',

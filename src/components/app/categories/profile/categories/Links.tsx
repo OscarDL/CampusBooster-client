@@ -10,12 +10,20 @@ import Container from '../../../../shared/container';
 const Links: FC = () => {
   const { t } = useTranslation();
 
+  const links = t('profile.links.list', {returnObjects: true}) as any[];
+
 
   return (
     <Container className="links">
       <ContentHeader title={t('profile.links.title')}/>
 
-      <div>List some useful links here</div>
+      <ul>
+        {links?.map(link => (
+          <li key={link.url}>
+            <a href={link.url} target="_blank" rel="noreferrer">{link.title}</a>
+          </li>
+        ))}
+      </ul>
     </Container>
   );
 };

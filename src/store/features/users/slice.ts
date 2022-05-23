@@ -29,6 +29,7 @@ export const getUsers = createAsyncThunk('users/getUsers', async (_, thunkAPI) =
     const users = await userService.getUsers();
     const campus = await campusService.getCampus();
     const classrooms = await classroomService.getClassrooms();
+
     return { users, campus, classrooms };
   }
 
@@ -63,17 +64,15 @@ type UpdateRequest = {
 };
 export const updateUser = createAsyncThunk('users/updateUser', async (request: UpdateRequest, thunkAPI) => {
   try {
-    let response = await userService.updateUser(request.user);
-
     if (request.addClassrooms.length > 0) {
-      response = await userService.addUserToClassrooms(request.user.id!, request.addClassrooms);
+      await userService.addUserToClassrooms(request.user.id!, request.addClassrooms);
     }
 
     if (request.removeClassrooms.length > 0) {
-      response = await userService.removeUserFromClassrooms(request.user.id!, request.removeClassrooms);
+      await userService.removeUserFromClassrooms(request.user.id!, request.removeClassrooms);
     }
 
-    return response;
+    return await userService.updateUser(request.user);
   }
 
   catch (error: any) {
@@ -82,13 +81,10 @@ export const updateUser = createAsyncThunk('users/updateUser', async (request: U
   }
 });
 
-export const deleteUser = createAsyncThunk('users/deleteUser', async (user: User, thunkAPI) => {
+type DeleteRequest = {user: User, deleteInAD: boolean};
+export const deleteUser = createAsyncThunk('users/deleteUser', async ({user, deleteInAD}: DeleteRequest, thunkAPI) => {
   try {
-    await userService.deleteUser(user.id);
-
-    const classrooms = (user.UserHasClassrooms ?? []).map(classroom => classroom.classroomId);
-    if (classrooms.length > 0) await userService.removeUserFromClassrooms(user.id, classrooms);
-
+    await userService.deleteUser(user.id, deleteInAD);
     return user.id;
   }
 

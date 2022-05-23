@@ -51,14 +51,26 @@
       "title_more": "Infos supplémentaires",
       "first_name": "Prénom :",
       "last_name": "Nom de famille :",
-      "email": "Adresse\u00A0email :",
+      "email": "Adresse mail :",
       "birthday": "Date de naissance :",
       "campus": "Emplacement du campus :",
       "no_campus": "Pas de campus.",
       "promotion": "Promotion actuelle :",
       "promotion_text_one": "{{count}}ère année",
       "promotion_text_other": "{{count}}e année",
-      "no_promotion": "Pas de promotion."
+      "no_promotion": "Pas de promotion.",
+
+      "email_copy": {
+        "success": "Adresse mail copiée dans votre presse-papier.",
+        "error": "Erreur de copie de l'adresse mail."
+      }
+    },
+
+    "credits": {
+      "title": "Crédits ECTS: {{earned}}/{{required}}",
+      "earned": "Obtenu",
+      "required": "Requis",
+      "bonus": "Bonus"
     },
 
     "settings": {
@@ -86,6 +98,17 @@
         "underline": "Soulignés",
         "bold_underline": "Plus gras et soulignés"
       }
+    },
+
+    "links": {
+      "title": "Liens utiles",
+
+      "list": [
+        {
+          "title": "Compte Microsoft",
+          "url": "https://myaccount.microsoft.com"
+        }
+      ]
     }
   },
 
@@ -321,6 +344,7 @@
       "title": "Supprimer \"{{user}}\"",
       "text": "Veuillez entrer le nom de l'utilisateur ci-dessous pour éviter une suppression accidentelle.",
       "name": "Nom complet",
+      "azure": "Supprimer l'utilisateur de l'AD Azure",
       "success": "Utilisateur \"{{user}}\" supprimé avec succès."
     }
   },
