@@ -2,13 +2,13 @@ import axios from 'axios';
 import { t } from 'i18next';
 
 import { User } from '../shared/types/user';
-import { apiUrl, axiosConfig } from '../shared/api';
+import { apiUrl, getAxiosConfig } from '../shared/api';
 import { Planning, PlanningRequest } from '../shared/types/planning';
 
 
 const getPlanning = async () => {
   try {
-    const response = await axios.get(apiUrl + 'plannings', axiosConfig);
+    const response = await axios.get(apiUrl + 'plannings', getAxiosConfig());
     return response.data;
   }
 
@@ -19,7 +19,7 @@ const getPlanning = async () => {
 
 const getUserPlanning = async (id: User['id']) => {
   try {
-    const response = await axios.get(apiUrl + 'plannings/user/' + id, axiosConfig);
+    const response = await axios.get(apiUrl + 'plannings/user/' + id, getAxiosConfig());
     return response.data;
   }
 
@@ -30,7 +30,7 @@ const getUserPlanning = async (id: User['id']) => {
 
 const createPlanningEntry = async (planning: PlanningRequest) => {
   try {
-    const response = await axios.post(apiUrl + 'plannings', planning, axiosConfig);
+    const response = await axios.post(apiUrl + 'plannings', planning, getAxiosConfig());
     return response.data;
   }
 
@@ -41,7 +41,7 @@ const createPlanningEntry = async (planning: PlanningRequest) => {
 
 const updatePlanningEntry = async (planning: Planning) => {
   try {
-    const response = await axios.patch(apiUrl + 'plannings/' + planning.id, planning, axiosConfig);
+    const response = await axios.patch(apiUrl + 'plannings/' + planning.id, planning, getAxiosConfig());
     return response.data;
   }
 
@@ -52,7 +52,7 @@ const updatePlanningEntry = async (planning: Planning) => {
 
 const deletePlanningEntry = async (id: Planning['id']) => {
   try {
-    const response = await axios.delete(apiUrl + 'plannings/' + id, axiosConfig);
+    const response = await axios.delete(apiUrl + 'plannings/' + id, getAxiosConfig());
     return response.data;
   }
 

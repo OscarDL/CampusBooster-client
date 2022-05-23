@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { t } from 'i18next';
 
-import { apiUrl, axiosConfig } from '../shared/api';
+import { apiUrl, getAxiosConfig } from '../shared/api';
 import { Classroom, ClassroomRequest } from '../shared/types/classroom';
 
 
 const getClassrooms = async () => {
   try {
-    const response = await axios.get(apiUrl + 'classrooms', axiosConfig);
+    const response = await axios.get(apiUrl + 'classrooms', getAxiosConfig());
     return response.data;
   }
 
@@ -18,7 +18,7 @@ const getClassrooms = async () => {
 
 const getClassroomById = async (id: Classroom['id']) => {
   try {
-    const response = await axios.get(apiUrl + 'classrooms/' + id, axiosConfig);
+    const response = await axios.get(apiUrl + 'classrooms/' + id, getAxiosConfig());
     return response.data;
   }
 
@@ -29,7 +29,7 @@ const getClassroomById = async (id: Classroom['id']) => {
 
 const createClassroom = async (classroom: ClassroomRequest) => {
   try {
-    const response = await axios.post(apiUrl + 'classrooms', classroom, axiosConfig);
+    const response = await axios.post(apiUrl + 'classrooms', classroom, getAxiosConfig());
     return response.data;
   }
 
@@ -40,7 +40,7 @@ const createClassroom = async (classroom: ClassroomRequest) => {
 
 const updateClassroom = async (classroom: Classroom) => {
   try {
-    const response = await axios.patch(apiUrl + 'classrooms/' + classroom.id, classroom, axiosConfig);
+    const response = await axios.patch(apiUrl + 'classrooms/' + classroom.id, classroom, getAxiosConfig());
     return response.data;
   }
 
@@ -51,7 +51,7 @@ const updateClassroom = async (classroom: Classroom) => {
 
 const deleteClassroom = async (id: Classroom['id']) => {
   try {
-    const response = await axios.delete(apiUrl + 'classrooms/' + id, axiosConfig);
+    const response = await axios.delete(apiUrl + 'classrooms/' + id, getAxiosConfig());
     return response.data;
   }
 

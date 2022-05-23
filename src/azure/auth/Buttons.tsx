@@ -47,7 +47,7 @@ export const LogoutButton: FC<LogoutProps> = ({logoutFromAzure}) => {
       return;
     }
 
-    clearLoginState();
+    clearLoginState(true);
 
     instance.logoutRedirect().catch(e => {
       console.error(e);

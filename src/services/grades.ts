@@ -3,12 +3,12 @@ import { t } from 'i18next';
 
 import { User } from '../shared/types/user';
 import { apiUrl, getAxiosConfig } from '../shared/api';
-import { Balance, BalanceRequest } from '../shared/types/accounting';
+import { Grade, GradeRequest } from '../shared/types/grades';
 
 
-const getBalances = async () => {
+const getGrades = async () => {
   try {
-    const response = await axios.get(apiUrl + 'balances', getAxiosConfig());
+    const response = await axios.get(apiUrl + 'grades', getAxiosConfig());
     return response.data;
   }
 
@@ -17,9 +17,9 @@ const getBalances = async () => {
   }
 };
 
-const getUserBalance = async (id: User['id']) => {
+const getUserGrades = async (id: User['id']) => {
   try {
-    const response = await axios.get(apiUrl + 'balances/user/' + id, getAxiosConfig());
+    const response = await axios.get(apiUrl + 'grades/user/' + id, getAxiosConfig());
     return response.data;
   }
 
@@ -28,9 +28,9 @@ const getUserBalance = async (id: User['id']) => {
   }
 };
 
-const createBalance = async (balance: BalanceRequest) => {
+const createGrade = async (grade: GradeRequest) => {
   try {
-    const response = await axios.post(apiUrl + 'balances', balance, getAxiosConfig());
+    const response = await axios.post(apiUrl + 'grades', grade, getAxiosConfig());
     return response.data;
   }
 
@@ -39,9 +39,9 @@ const createBalance = async (balance: BalanceRequest) => {
   }
 };
 
-const updateBalance = async (balance: Balance) => {
+const updateGrade = async (grade: Grade) => {
   try {
-    const response = await axios.patch(apiUrl + 'balances/' + balance.id, balance, getAxiosConfig());
+    const response = await axios.patch(apiUrl + 'grades/' + grade.id, grade, getAxiosConfig());
     return response.data;
   }
 
@@ -50,9 +50,9 @@ const updateBalance = async (balance: Balance) => {
   }
 };
 
-const deleteBalance = async (id: Balance['id']) => {
+const deleteGrade = async (id: Grade['id']) => {
   try {
-    const response = await axios.delete(apiUrl + 'balances/' + id, getAxiosConfig());
+    const response = await axios.delete(apiUrl + 'grades/' + id, getAxiosConfig());
     return response.data;
   }
 
@@ -63,11 +63,11 @@ const deleteBalance = async (id: Balance['id']) => {
 
 
 const accountingService = {
-  getBalances,
-  getUserBalance,
-  createBalance,
-  updateBalance,
-  deleteBalance
+  getGrades,
+  getUserGrades,
+  createGrade,
+  updateGrade,
+  deleteGrade
 };
 
 export default accountingService;

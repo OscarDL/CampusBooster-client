@@ -129,3 +129,35 @@ export const getUsersColumns = ({user, setOpenUpdate, setOpenDelete, setSelected
     ...getEditDeleteColumn({user, columnPrefix, setOpenUpdate, setOpenDelete, setSelectedRow})
   ];
 };
+
+
+export const getGradesColumns = ({user, setOpenUpdate, setOpenDelete, setSelectedRow}: BaseProps): GridColDef[] => {
+  const columnPrefix = 'grades.fields.';
+
+  const userColumn = userHasAdminRights(user.role) ? (
+    [{ field: 'studentName', headerName: t(columnPrefix + 'student_name'), width: 200 }]
+  ) : (
+    []
+  );
+
+
+  return [
+    ...userColumn,
+    {
+      field: 'classroom', headerName: t(columnPrefix + 'classroom'), width: 150,
+      renderCell: ({row}) => row?.Course?.name ?? 'Temp course name'
+    },
+    {
+      field: 'grade', headerName: t(columnPrefix + 'grade'), width: 150,
+      renderCell: ({row}) => `${row.grade}/${row.max}`
+    },
+    {
+      field: 'comment', headerName: t(columnPrefix + 'comment'), width: 300
+    },
+    {
+      field: 'teacher', headerName: t(columnPrefix + 'teacher'), width: 200, hide: true,
+      renderCell: ({row}) => `${row?.Teacher?.User?.firstName} ${row?.Teacher?.User?.lastName}`
+    },
+    ...getEditDeleteColumn({user, columnPrefix, setOpenUpdate, setOpenDelete, setSelectedRow})
+  ];
+};

@@ -1,13 +1,11 @@
 {
   "brand": "Campus Booster",
 
-
   "api": {
     "error": "An unknown error has occured.",
     "timeout": "Server connection timed out, please try again.",
     "network_error": "Failed to connect with the server. Please check your internet connection or contact your campus manager."
   },
-
 
   "browser": {
     "unsupported": {
@@ -21,7 +19,6 @@
     "firefox": "Mozilla Firefox"
   },
 
-
   "login": {
     "title": "Sign in",
     "microsoft": "Sign in with Microsoft",
@@ -34,7 +31,6 @@
       "logout": "Could not sign out."
     }
   },
-
 
   "profile": {
     "icon": "account_circle",
@@ -110,19 +106,6 @@
           "url": "https://myaccount.microsoft.com"
         }
       ]
-    }
-  },
-
-
-  "summary": {
-    "title": "Summary",
-    "icon": "dashboard",
-
-    "credits": {
-      "title": "ECTS credits: {{earned}}/{{required}}",
-      "earned": "Earned",
-      "required": "Required",
-      "total": "Total"
     }
   },
 

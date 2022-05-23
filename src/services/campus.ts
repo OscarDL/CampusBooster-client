@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { t } from 'i18next';
 
-import { apiUrl, axiosConfig } from '../shared/api';
+import { apiUrl, getAxiosConfig } from '../shared/api';
 import { Campus, CampusRequest } from '../shared/types/campus';
 
 
 const getCampus = async () => {
   try {
-    const response = await axios.get(apiUrl + 'campus', axiosConfig);
+    const response = await axios.get(apiUrl + 'campus', getAxiosConfig());
     return response.data;
   }
 
@@ -18,7 +18,7 @@ const getCampus = async () => {
 
 const getCampusById = async (id: Campus['id']) => {
   try {
-    const response = await axios.get(apiUrl + 'campus/' + id, axiosConfig);
+    const response = await axios.get(apiUrl + 'campus/' + id, getAxiosConfig());
     return response.data;
   }
 
@@ -29,7 +29,7 @@ const getCampusById = async (id: Campus['id']) => {
 
 const createCampus = async (campus: CampusRequest) => {
   try {
-    const response = await axios.post(apiUrl + 'campus', campus, axiosConfig);
+    const response = await axios.post(apiUrl + 'campus', campus, getAxiosConfig());
     return response.data;
   }
 
@@ -40,7 +40,7 @@ const createCampus = async (campus: CampusRequest) => {
 
 const updateCampus = async (campus: Campus) => {
   try {
-    const response = await axios.patch(apiUrl + 'campus/' + campus.id, campus, axiosConfig);
+    const response = await axios.patch(apiUrl + 'campus/' + campus.id, campus, getAxiosConfig());
     return response.data;
   }
 
@@ -51,7 +51,7 @@ const updateCampus = async (campus: Campus) => {
 
 const deleteCampus = async (id: Campus['id']) => {
   try {
-    const response = await axios.delete(apiUrl + 'campus/' + id, axiosConfig);
+    const response = await axios.delete(apiUrl + 'campus/' + id, getAxiosConfig());
     return response.data;
   }
 

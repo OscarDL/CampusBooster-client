@@ -2,7 +2,7 @@ import axios from 'axios';
 import { t } from 'i18next';
 
 import { AzureData } from '../shared/types/user';
-import { apiUrl, axiosConfig } from '../shared/api';
+import { apiUrl, getAxiosConfig } from '../shared/api';
 
 
 const login = async (azureData: AzureData) => {
@@ -11,7 +11,7 @@ const login = async (azureData: AzureData) => {
       azureId: azureData.localAccountId
     };
 
-    const response = await axios.post(apiUrl + 'auth/login', loginRequest, axiosConfig);
+    const response = await axios.post(apiUrl + 'auth/login', loginRequest, getAxiosConfig());
 
     if (response.statusText !== 'OK') throw response;
     return response.data;
@@ -24,7 +24,7 @@ const login = async (azureData: AzureData) => {
 
 const logout = async () => {
   try {
-    await axios.get(apiUrl + 'auth/logout', axiosConfig);
+    await axios.get(apiUrl + 'auth/logout', getAxiosConfig());
   }
 
   catch (error: any) {
@@ -34,7 +34,7 @@ const logout = async () => {
 
 const refreshAccessToken = async (refreshToken: string) => {
   try {
-    await axios.post(apiUrl + 'auth/refresh', {refreshToken}, axiosConfig);
+    await axios.post(apiUrl + 'auth/refresh', {refreshToken}, getAxiosConfig());
   }
 
   catch (error: any) {

@@ -1,14 +1,14 @@
 import axios from 'axios';
 import { t } from 'i18next';
 
-import { apiUrl, axiosConfig } from '../shared/api';
 import { Classroom } from '../shared/types/classroom';
+import { apiUrl, getAxiosConfig } from '../shared/api';
 import { User, UserRequest } from '../shared/types/user';
 
 
 const getUsers = async () => {
   try {
-    const response = await axios.get(apiUrl + 'users', axiosConfig);
+    const response = await axios.get(apiUrl + 'users', getAxiosConfig());
     return response.data;
   }
 
@@ -19,7 +19,7 @@ const getUsers = async () => {
 
 const getUserById = async (id: User['id']) => {
   try {
-    const response = await axios.get(apiUrl + 'users/' + id, axiosConfig);
+    const response = await axios.get(apiUrl + 'users/' + id, getAxiosConfig());
     return response.data;
   }
 
@@ -30,7 +30,7 @@ const getUserById = async (id: User['id']) => {
 
 const createUser = async (user: UserRequest) => {
   try {
-    const response = await axios.post(apiUrl + 'users', user, axiosConfig);
+    const response = await axios.post(apiUrl + 'users', user, getAxiosConfig());
     return response.data;
   }
 
@@ -41,7 +41,7 @@ const createUser = async (user: UserRequest) => {
 
 const updateUser = async (user: UserRequest) => {
   try {
-    const response = await axios.patch(apiUrl + 'users/' + user.id!, user, axiosConfig);
+    const response = await axios.patch(apiUrl + 'users/' + user.id!, user, getAxiosConfig());
     return response.data;
   }
 
@@ -52,7 +52,7 @@ const updateUser = async (user: UserRequest) => {
 
 const activateUser = async (userId: User['id']) => {
   try {
-    const response = await axios.patch(apiUrl + `users/${userId}/activate`, {}, axiosConfig);
+    const response = await axios.patch(apiUrl + `users/${userId}/activate`, {}, getAxiosConfig());
     return response.data;
   }
 
@@ -63,9 +63,9 @@ const activateUser = async (userId: User['id']) => {
 
 const deleteUser = async (id: User['id'], deleteInAD: boolean) => {
   try {
-    if (deleteInAD) await axios.delete(apiUrl + 'users/azure/' + id, axiosConfig);
+    if (deleteInAD) await axios.delete(apiUrl + 'users/azure/' + id, getAxiosConfig());
 
-    const response = await axios.delete(apiUrl + 'users/' + id, axiosConfig);
+    const response = await axios.delete(apiUrl + 'users/' + id, getAxiosConfig());
     return response.data;
   }
 
@@ -77,7 +77,7 @@ const deleteUser = async (id: User['id'], deleteInAD: boolean) => {
 
 const addUserToClassrooms = async (id: User['id'], classrooms: (Classroom['id'])[]) => {
   try {
-    const response = await axios.post(apiUrl + `users/${id}/classrooms/add`, {classrooms}, axiosConfig);
+    const response = await axios.post(apiUrl + `users/${id}/classrooms/add`, {classrooms}, getAxiosConfig());
     return response.data;
   }
   
@@ -88,7 +88,7 @@ const addUserToClassrooms = async (id: User['id'], classrooms: (Classroom['id'])
 
 const removeUserFromClassrooms = async (id: User['id'], classrooms: (Classroom['id'])[]) => {
   try {
-    const response = await axios.post(apiUrl + `users/${id}/classrooms/remove`, {classrooms}, axiosConfig);
+    const response = await axios.post(apiUrl + `users/${id}/classrooms/remove`, {classrooms}, getAxiosConfig());
     return response.data;
   }
   

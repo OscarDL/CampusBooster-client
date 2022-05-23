@@ -2,13 +2,13 @@ import axios from 'axios';
 import { t } from 'i18next';
 
 import { ToolLink } from '../shared/types/tools';
-import { apiUrl, axiosConfig } from '../shared/api';
+import { apiUrl, getAxiosConfig } from '../shared/api';
 
 
 const axiosFormDataConfig = {
-  ...axiosConfig,
+  ...getAxiosConfig(),
   headers: {
-    ...axiosConfig.headers,
+    ...getAxiosConfig().headers,
     'Content-Type': 'multipart/form-data'
   }
 };
@@ -16,7 +16,7 @@ const axiosFormDataConfig = {
 
 const getTools = async () => {
   try {
-    const response = await axios.get(apiUrl + 'tools', axiosConfig);
+    const response = await axios.get(apiUrl + 'tools', getAxiosConfig());
     return response.data;
   }
 
@@ -49,7 +49,7 @@ const updateTool = async (id: ToolLink['id'], toolData: FormData) => {
 
 const deleteTool = async (id: ToolLink['id']) => {
   try {
-    const response = await axios.delete(apiUrl + 'tools/' + id, axiosConfig);
+    const response = await axios.delete(apiUrl + 'tools/' + id, getAxiosConfig());
     return response.data;
   }
 

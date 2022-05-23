@@ -10,14 +10,14 @@ const port = process.env.NODE_ENV === 'production' ? '' : (':' + process.env.REA
 export const apiUrl = `https://${window.location.hostname}${port}/api/v1/`;
 
 
-export const axiosConfig: AxiosRequestConfig = {
+export const getAxiosConfig = (): AxiosRequestConfig => ({
   headers: {
     'Lang': i18next.language,
     'Content-Type': 'application/json'
   },
   timeout: 10000, // ms
   withCredentials: true
-};
+});
 
 
 axios.interceptors.response.use(

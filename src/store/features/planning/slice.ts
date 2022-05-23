@@ -66,7 +66,7 @@ export const updatePlanningEntry = createAsyncThunk('planning/updatePlanningEntr
   };
 });
 
-export const deletePlanningEntry = createAsyncThunk('planning/deletePlanningEntry', async (id: number, thunkAPI) => {
+export const deletePlanningEntry = createAsyncThunk('planning/deletePlanningEntry', async (id: Planning['id'], thunkAPI) => {
   try {
     await planningService.deletePlanningEntry(id);
     return id;
@@ -90,22 +90,22 @@ const planningSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    // Retrieve all balance entries for admins
+    // Retrieve all planning entries for admins
     builder.addCase(getPlanning.fulfilled, (state, {payload}) => {
       state.planning = payload;
     });
 
-    // Retrieve all balance entries for specific user
+    // Retrieve all planning entries for specific user
     builder.addCase(getUserPlanning.fulfilled, (state, {payload}) => {
       state.planning = payload;
     });
 
-    // Create new balance entry
+    // Create new planning entry
     builder.addCase(createPlanningEntry.fulfilled, (state, {payload}) => {
       state.planning = (state.planning ?? []).concat(payload);
     });
 
-    // Update existing balance entry
+    // Update existing planning entry
     builder.addCase(updatePlanningEntry.fulfilled, (state, {payload}) => {
       if (state.planning) {
         const planningIndex = state.planning.findIndex(entry => entry.id === payload.id);
@@ -113,7 +113,7 @@ const planningSlice = createSlice({
       }
     });
 
-    // Delete balance entry
+    // Delete planning entry
     builder.addCase(deletePlanningEntry.fulfilled, (state, {payload: id}) => {
       if (state.planning) {
         state.planning = state.planning.filter(entry => entry.id !== id);

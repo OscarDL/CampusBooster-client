@@ -56,7 +56,7 @@ export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
 });
 
 
-export const clearLoginState = (error?: string) => {
+export const clearLoginState = (skipPageReload: boolean, error?: string) => {
   clearAzureLocalStorageData();
   sessionStorage.removeItem('persist:' + reduxAuthPersistKey);
 
@@ -65,7 +65,7 @@ export const clearLoginState = (error?: string) => {
       onClose: () => window.location.pathname = '/login'
     });
   } else {
-    window.location.pathname = '/login';
+    if (!skipPageReload) window.location.pathname = '/login';
   }
 };
 
@@ -84,7 +84,7 @@ const authSlice = createSlice({
     },
 
     forceLogout: (_: AuthState, {payload}: {payload: string}) => {
-      clearLoginState(payload);
+      clearLoginState(false, payload);
     }
   },
 
@@ -96,14 +96,14 @@ const authSlice = createSlice({
         state.refreshToken = payload.refreshToken;
       })
       .addCase(login.rejected, (_, {payload}: any) => {
-        clearLoginState(payload.message);
+        clearLoginState(false, payload.message);
       });
 
     // User logout process
     builder
       .addMatcher(isAnyOf(logout.fulfilled, logout.rejected), () => {
         // Clear persisted auth state before login
-        clearLoginState();
+        clearLoginState(false);
       });
   }
 });

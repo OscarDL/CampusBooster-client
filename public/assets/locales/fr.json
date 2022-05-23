@@ -1,13 +1,11 @@
 {
   "brand": "Campus Booster",
 
-
   "api": {
     "error": "Une erreur inconnue est survenue.",
     "timeout": "La connexion au serveur a expiré, veuillez réessayer.",
     "network_error": "La connexion au server a échoué. Vérifiez votre connexion internet ou contactez votre directeur de campus."
   },
-
 
   "browser": {
     "unsupported": {
@@ -21,7 +19,6 @@
     "firefox": "Mozilla Firefox"
   },
 
-
   "login": {
     "title": "Connexion",
     "microsoft": "Se connecter avec Microsoft",
@@ -34,7 +31,6 @@
       "logout": "Erreur de déconnexion."
     }
   },
-
 
   "profile": {
     "title": "Profil et réglages",
@@ -109,18 +105,6 @@
           "url": "https://myaccount.microsoft.com"
         }
       ]
-    }
-  },
-
-
-  "summary": {
-    "title": "Résumé",
-
-    "credits": {
-      "title": "Crédits ECTS: {{earned}}/{{required}}",
-      "earned": "Obtenu",
-      "required": "Requis",
-      "total": "Total"
     }
   },
 
@@ -332,7 +316,7 @@
     "create": {
       "title": "Nouvel utilisateur",
       "success": "Utilisateur \"{{user}}\" créé avec succès.\nL'utilisateur existe déjà dans l'AD Azure et a été lié automatiquement.",
-      "success_new": "Utilisateur \"{{user}}\" créé avec succès.\nCompte créé automatiquement dans l'AD Azure."
+      "success_new": "Utilisateur \"{{user}}\" créé avec succès.\nLe compte a été automatiquement créé dans l'AD Azure."
     },
 
     "update": {

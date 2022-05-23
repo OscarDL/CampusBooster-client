@@ -72,7 +72,7 @@ export const updateBalance = createAsyncThunk('accounting/updateBalance', async 
   };
 });
 
-export const deleteBalance = createAsyncThunk('accounting/deleteBalance', async (id: number, thunkAPI) => {
+export const deleteBalance = createAsyncThunk('accounting/deleteBalance', async (id: Balance['id'], thunkAPI) => {
   try {
     await accountingService.deleteBalance(id);
     return id;

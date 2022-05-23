@@ -115,10 +115,10 @@ const UpdateBalance: FC<Props> = ({balance, open, setOpen}) => {
         </Box>
 
         <FormControl sx={{mt: 2}}>
-          <InputLabel id="balance-select-user">{t('accounting.status.title')}</InputLabel>
+          <InputLabel id="balance-select-status">{t('accounting.status.title')}</InputLabel>
           <Select
             size="small" value={newBalance.status}
-            labelId="balance-select-user" label={t('accounting.status.title')}
+            labelId="balance-select-status" label={t('accounting.status.title')}
             onChange={e => setNewBalance({...newBalance, status: e.target.value as BalanceStatus})}
           >
             {Object.keys(BalanceStatus).map(status => (

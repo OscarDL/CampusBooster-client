@@ -1,41 +1,40 @@
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { FC, useEffect, useState } from 'react';
-import { Button, Checkbox, FormControlLabel, FormGroup, TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 
-import { User } from '../../../../../shared/types/user';
+import { Grade } from '../../../../../shared/types/grades';
 import { useAppDispatch } from '../../../../../store/store';
-import { deleteUser } from '../../../../../store/features/users/slice';
+import { deleteGrade } from '../../../../../store/features/grades/slice';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
 
 
 type Props = {
-  user: User,
+  grade: Grade,
   open: boolean,
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 };
 
 
-const DeleteUser: FC<Props> = ({user, open, setOpen}) => {
+const DeleteGrade: FC<Props> = ({grade, open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
-  const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
-  const [deleteInAD, setDeleteInAD] = useState(false);
-  const userFullName = `${user.firstName} ${user.lastName}`;
+  const [userGrade, setUserGrade] = useState('');
+
+  const textTemplate = `${grade.User.firstName} ${grade.User.lastName} (${grade.grade}/${grade.max})`;
 
 
-  const handleDeleteUser = async (e: React.FormEvent<HTMLElement>) => {
+  const handleDeleteGrade = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      await dispatch(deleteUser({user, deleteInAD})).unwrap();
+      await dispatch(deleteGrade(grade.id)).unwrap();
 
-      setName('');
       setOpen(false);
-      toast.success(t('users.delete.success', {user: userFullName}));
+      toast.success(t('grades.delete.success'));
     }
     catch (error: any) {
       toast.error(error);
@@ -47,35 +46,28 @@ const DeleteUser: FC<Props> = ({user, open, setOpen}) => {
 
   useEffect(() => {
     // Reset state on new dialog open
-    if (open) setName('');
+    if (open) setUserGrade('');
   }, [open]);
 
 
   return (
     <Dialog
-      onSubmit={handleDeleteUser}
       components={{Root: 'form'}}
       onClose={() => setOpen(false)}
+      onSubmit={handleDeleteGrade}
       open={open} fullWidth maxWidth="sm"
     >
-      <DialogTitle>{t('users.delete.title', {user: userFullName})}</DialogTitle>
+      <DialogTitle>{t('accounting.delete.title')}</DialogTitle>
 
       <DialogContent sx={{pt: '0 !important'}}>
-        <p>{t('users.delete.text')}</p>
+        <p>{t('grades.delete.text', {text: textTemplate})}</p>
 
         <TextField
           required autoFocus
-          label={t('users.delete.name')}
           margin="dense" variant="standard"
-          onChange={e => setName(e.target.value)}
+          label={t('grades.delete.user_grade')}
+          onChange={e => setUserGrade(e.target.value)}
         />
-
-        <FormGroup>
-          <FormControlLabel
-            label={t('users.delete.azure')} disabled={loading}
-            control={<Checkbox checked={deleteInAD} onChange={e => setDeleteInAD(e.target.checked)}/>}
-          />
-        </FormGroup>
       </DialogContent>
 
       <DialogActions>
@@ -84,8 +76,8 @@ const DeleteUser: FC<Props> = ({user, open, setOpen}) => {
         </Button>
 
         <MainDialogButton
-          type="submit" color="error" variant="contained"
-          loading={loading} disabled={name !== userFullName}
+          type="submit" color="error" variant="contained" 
+          loading={loading} disabled={userGrade !== textTemplate}
         >
           {t('global.confirm')}
         </MainDialogButton>
@@ -95,4 +87,4 @@ const DeleteUser: FC<Props> = ({user, open, setOpen}) => {
 };
 
 
-export default DeleteUser;
+export default DeleteGrade;
