@@ -12,13 +12,13 @@ import { getLoggedInAuthState, userHasAdminRights } from '../../../../shared/fun
 import { DataGridFooter, DataGridHeader, StyledDataGrid } from '../../../shared/datagrid';
 import { clearGrades, getGrades, getUserGrades } from '../../../../store/features/grades/slice';
 
-import CreateBalance from './grade/Create';
-import UpdateBalance from './grade/Update';
-import DeleteBalance from './grade/Delete';
+import CreateBalance from './course/Create';
+import UpdateBalance from './course/Update';
+import DeleteBalance from './course/Delete';
 import Loader from '../../../shared/loader';
 
 
-const Grades: FC = () => {
+const Courses: FC = () => {
   const { t } = useTranslation();
   const apiRef = useGridApiRef();
   const dispatch = useAppDispatch();
@@ -100,4 +100,4 @@ const Grades: FC = () => {
 };
 
 
-export default Grades;
+export default Courses;

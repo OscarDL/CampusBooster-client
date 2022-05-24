@@ -67,15 +67,10 @@
 /* --- Useful links --- */
 
 .profile-view .links ul {
-  /* padding: 0; */
-  /* list-style: disc; */
+  padding: 0;
+  list-style: inside;
 }
 
-.profile-view .links li {
-  display: grid;
-  grid-auto-flow: column;
-  justify-content: flex-start;
-}
 .profile-view .links li:not(:last-child) {
   margin-bottom: 0.75rem;
 }

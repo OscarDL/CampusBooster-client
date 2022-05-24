@@ -317,6 +317,7 @@ body .react-select-component__menu > * {
 }
 
 body .react-select-component__option:hover,
+body .react-select-component__option:active,
 body .react-select-component__option--is-focused {
   background-color: rgba(var(--accent-color), 0.2);
 }

@@ -3,7 +3,7 @@ import { t } from 'i18next';
 
 import { User } from '../shared/types/user';
 import { apiUrl, getAxiosConfig } from '../shared/api';
-import { Grade, GradeRequest } from '../shared/types/grades';
+import { Grade, GradeRequest } from '../shared/types/grade';
 
 
 const getGrades = async () => {

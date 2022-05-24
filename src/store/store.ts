@@ -13,6 +13,7 @@ import authReducer, { AuthState } from './features/auth/slice';
 import toolsReducer, { ToolsState } from './features/tools/slice';
 import usersReducer, { UsersState } from './features/users/slice';
 import gradesReducer, { GradesState } from './features/grades/slice';
+import coursesReducer, { CoursesState } from './features/courses/slice';
 import planningReducer, { PlanningState } from './features/planning/slice';
 import accountingReducer, { AccountingState } from './features/accounting/slice';
 
@@ -26,6 +27,7 @@ type CombinedReducers = {
   tools: ToolsState,
   users: UsersState,
   grades: GradesState,
+  courses: CoursesState,
   planning: PlanningState,
   accounting: AccountingState
 };
@@ -39,6 +41,7 @@ const rootReducer = combineReducers({
   tools: toolsReducer,
   users: usersReducer,
   grades: gradesReducer,
+  courses: coursesReducer,
   planning: planningReducer,
   accounting: accountingReducer
 });

@@ -109,10 +109,42 @@
   },
 
   "grades": {
-    "title": "Notes"
+    "title": "Notes",
+    "add": "Nouvelle note",
+    "select_user": "Sélectionnez un utilisateur",
+    "select_course": "Sélectionnez un cours",
+    "select_teacher": "Sélectionnez un professeur",
+
+    "fields": {
+      "title_one": "{{count}} résultat",
+      "title_other": "{{count}} résultats",
+      "student": "Étudiant",
+      "course": "Cours",
+      "grade": "Note",
+      "teacher": "Professeur",
+      "comment": "Commentaire",
+      "actions": "Actions"
+    },
+
+    "create": {
+      "title": "Nouvelle note",
+      "success": "Note ajoutée avec succès."
+    },
+
+    "update": {
+      "title": "Modifier note",
+      "success": "Note modifiée avec succès."
+    },
+
+    "delete": {
+      "title": "Supprimer note",
+      "text": "Veuillez entrer le nom de l'étudiant ainsi que sa note comme ci-dessous pour éviter une suppression accidentelle.",
+      "student_grade": "Nom complet de l'étudiant (XX/20)",
+      "success": "Note supprimée avec succès."
+    }
   },
 
-  "subjects": {
+  "courses": {
     "title": "Matières"
   },
 
@@ -176,7 +208,7 @@
         "credit": "Crédit",
         "status": "Statut",
         "actions": "Actions",
-        "student_name": "Étudiant",
+        "student": "Étudiant",
         "description": "Description",
         "date_confirmed": "Confirmé le",
         "date_requested": "Date de demande"
@@ -345,6 +377,7 @@
     "colon": " :",
     "close": "Fermer",
     "cancel": "Annuler",
+    "none": "Aucun{{e}}",
     "confirm": "Confirmer",
     "loading": "Chargement",
     "date-mmmm-dd": "DD MMMM",

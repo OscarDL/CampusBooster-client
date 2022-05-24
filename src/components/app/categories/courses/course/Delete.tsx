@@ -21,7 +21,7 @@ const DeleteGrade: FC<Props> = ({grade, open, setOpen}) => {
   const dispatch = useAppDispatch();
 
   const [loading, setLoading] = useState(false);
-  const [studentGrade, setStudentGrade] = useState('');
+  const [userGrade, setUserGrade] = useState('');
 
   const textTemplate = `${grade.User.firstName} ${grade.User.lastName} (${grade.average}/20)`;
 
@@ -46,7 +46,7 @@ const DeleteGrade: FC<Props> = ({grade, open, setOpen}) => {
 
   useEffect(() => {
     // Reset state on new dialog open
-    if (open) setStudentGrade('');
+    if (open) setUserGrade('');
   }, [open]);
 
 
@@ -57,7 +57,7 @@ const DeleteGrade: FC<Props> = ({grade, open, setOpen}) => {
       onSubmit={handleDeleteGrade}
       open={open} fullWidth maxWidth="sm"
     >
-      <DialogTitle>{t('grades.delete.title')}</DialogTitle>
+      <DialogTitle>{t('accounting.delete.title')}</DialogTitle>
 
       <DialogContent sx={{pt: '0 !important'}}>
         <p>{t('grades.delete.text', {text: textTemplate})}</p>
@@ -65,8 +65,8 @@ const DeleteGrade: FC<Props> = ({grade, open, setOpen}) => {
         <TextField
           required autoFocus
           margin="dense" variant="standard"
-          label={t('grades.delete.student_grade')}
-          onChange={e => setStudentGrade(e.target.value)}
+          label={t('grades.delete.user_grade')}
+          onChange={e => setUserGrade(e.target.value)}
         />
       </DialogContent>
 
@@ -77,7 +77,7 @@ const DeleteGrade: FC<Props> = ({grade, open, setOpen}) => {
 
         <MainDialogButton
           type="submit" color="error" variant="contained" 
-          loading={loading} disabled={studentGrade !== textTemplate}
+          loading={loading} disabled={userGrade !== textTemplate}
         >
           {t('global.confirm')}
         </MainDialogButton>

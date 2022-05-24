@@ -20,7 +20,7 @@ type Option = {
 };
 
 
-const GradeUserPicker: FC<Props> = ({type, grade, setGrade}) => {
+const BalanceUserPicker: FC<Props> = ({type, grade, setGrade}) => {
   const { t } = useTranslation();
   const { usersList } = useAppSelector(state => state.users);
   
@@ -31,7 +31,7 @@ const GradeUserPicker: FC<Props> = ({type, grade, setGrade}) => {
   useEffect(() => {
     if (usersList) {
       const userOptions: Option[] = usersList
-        .filter(user => user.role === UserRoles[type === 'user' ? 'Student' : 'Professor'])
+        .filter(user => user.role === UserRoles.Student)
         .map(user => ({
           user,
           value: user.id,
@@ -40,7 +40,7 @@ const GradeUserPicker: FC<Props> = ({type, grade, setGrade}) => {
 
       setUserOptions(userOptions);
     }
-  }, [usersList, type]);
+  }, [usersList]);
 
 
   return (
@@ -48,16 +48,16 @@ const GradeUserPicker: FC<Props> = ({type, grade, setGrade}) => {
       isSearchable
       options={userOptions}
       isLoading={!usersList}
+      isDisabled={!usersList}
       className="react-select-component"
       classNamePrefix="react-select-component"
-      isDisabled={!usersList || type === 'teacher'}
+      placeholder={t('accounting.select_user')}
       onChange={user => setGrade({...grade, [typeId]: user?.value})}
       value={userOptions.find(option => option.user.id === grade[typeId])}
       formatOptionLabel={option => `${option.label} (${option.user.email})`}
-      placeholder={t('grades.' + (type === 'user' ? 'select_user' : 'fields.teacher'))}
     />
   );
 };
 
 
-export default GradeUserPicker;
+export default BalanceUserPicker;

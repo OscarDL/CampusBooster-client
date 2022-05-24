@@ -1,7 +1,7 @@
 import { AccountInfo } from '@azure/msal-browser';
 
 import { Campus } from './campus';
-import { Classroom, ClassroomHasCourse, UserHasClassroom } from './classroom';
+import { Classroom, UserHasClassroom } from './classroom';
 
 
 export type AzureData = AccountInfo;
@@ -49,14 +49,4 @@ export type UserRequest = {
 
   campusId?: Campus['id'], // campus id
   classrooms: (Classroom['id'])[], // classrooms
-};
-
-export type Teacher = {
-  id: number,
-  active: boolean,
-  userId: User['id'],
-  classroomHasCourseId: ClassroomHasCourse['id'],
-
-  User: User,
-  ClassroomHasCourse: ClassroomHasCourse
 };

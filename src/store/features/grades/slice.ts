@@ -5,7 +5,8 @@ import { store } from '../../store';
 import { getUsers } from '../users/slice';
 import { User } from '../../../shared/types/user';
 import gradeService from '../../../services/grades';
-import { Grade, GradeRequest } from '../../../shared/types/grades';
+import { Grade, GradeRequest } from '../../../shared/types/grade';
+import { getCourses } from '../courses/slice';
 
 
 export type GradesState = {
@@ -20,9 +21,9 @@ const initialState: GradesState = {
 
 export const getGrades = createAsyncThunk('grades/getGrades', async (_, thunkAPI) => {
   try {
-    if (!store.getState().users.usersList) {
-      await store.dispatch(getUsers());
-    }
+    const state = store.getState();
+    if (!state.users.usersList) await store.dispatch(getUsers());
+    if (!state.courses.coursesList) await store.dispatch(getCourses());
 
     return await gradeService.getGrades();
   }
@@ -80,7 +81,7 @@ export const deleteGrade = createAsyncThunk('grades/deleteGrade', async (id: Gra
 
 
 const gradesSlice = createSlice({
-  name: 'grade',
+  name: 'grades',
   initialState,
 
   reducers: {

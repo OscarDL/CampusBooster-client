@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import { Box, Button, InputAdornment, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 
 import { GradeRequest } from '../../../../../shared/types/grade';
 import { createGrade } from '../../../../../store/features/grades/slice';
@@ -9,7 +9,6 @@ import { useAppDispatch, useAppSelector } from '../../../../../store/store';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
 
 import GradeUserPicker from './UserPicker';
-import GradeCoursePicker from './CoursePicker';
 
 
 type Props = {
@@ -40,8 +39,6 @@ const CreateGrade: FC<Props> = ({open, setOpen}) => {
 
   const handleCreateGrade = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
-    console.log(grade);
-    return;
     setLoading(true);
 
     try {
@@ -69,38 +66,28 @@ const CreateGrade: FC<Props> = ({open, setOpen}) => {
       <DialogTitle>{t('grades.create.title')}</DialogTitle>
 
       <DialogContent>
-        <Box sx={{mb: 2}}>
-          <GradeUserPicker type="user" grade={grade} setGrade={setGrade}/>
-        </Box>
+        <GradeUserPicker type="user" grade={grade} setGrade={setGrade}/>
+        <GradeUserPicker type="teacher" grade={grade} setGrade={setGrade}/>
 
-        <Box sx={{mb: 2}}>
-          <GradeCoursePicker grade={grade} setGrade={setGrade}/>
-        </Box>
-        
-        <Box sx={{mb: 2}}>
-          <GradeUserPicker type="teacher" grade={grade} setGrade={setGrade}/>
-        </Box>
-
-        <Box sx={{mb: 2}}>
+        <Box className="MuiDialogContent-row" sx={{mt: 1}}>
           <TextField
+            required
             type="number"
-            required fullWidth
+            variant="standard"
             name="cb-grade-grade"
-            label={t('grades.fields.grade')}
-            value={grade.average ?? ''} onChange={handleChangeGrade}
-            inputProps={{inputMode: 'numeric', pattern: '[0-9]*', max: 20}}
-            InputProps={{
-              autoComplete: Date.now().toString(), // requires a unique value to be disabled
-              endAdornment: <InputAdornment position="end">/ 20</InputAdornment>
-            }}
+            value={grade.average ?? ''}
+            onChange={handleChangeGrade}
+            label={t('grades.create.grade') + '/20'}
+            inputProps={{inputMode: 'numeric', pattern: '[0-9]*'}}
           />
         </Box>
 
         <TextField
-          multiline fullWidth
           name="cb-grade-comment"
           value={grade.comment ?? ''}
-          label={t('grades.fields.comment')}
+          required fullWidth multiline
+          sx={{mb: 2}} margin="normal"
+          label={t('grades.create.comment')}
           onChange={e => setGrade({...grade, comment: e.target.value})}
         />
       </DialogContent>

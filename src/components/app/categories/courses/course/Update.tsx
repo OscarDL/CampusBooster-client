@@ -79,7 +79,7 @@ const UpdateGrade: FC<Props> = ({grade, open, setOpen}) => {
             name="cb-grade-grade"
             onChange={handleChangeGrade}
             value={newGrade.average ?? ''}
-            label={t('grades.create.grade') + '/20'}
+            label={t('grades.update.grade')}
             inputProps={{inputMode: 'numeric', pattern: '[0-9]*'}}
           />
         </Box>

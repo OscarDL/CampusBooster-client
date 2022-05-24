@@ -5,7 +5,7 @@ import { useAppSelector } from '../store/store';
 import { categories } from '../shared/utils/values';
 import { getLoggedInAuthState, getUserCategories } from '../shared/functions';
 
-import Subjects from '../views/app/Subjects';
+import Courses from '../views/app/Courses';
 import Grades from '../views/app/Grades';
 import Users from '../views/app/Users';
 import Planning from '../views/app/Planning';
@@ -22,7 +22,7 @@ const LoggedInRoutes: FC = () => {
   const { user } = useAppSelector(getLoggedInAuthState);
 
   const components: {[key: string]: JSX.Element} = {
-    subjects: <Subjects/>,
+    courses: <Courses/>,
     grades: <Grades/>,
     users: <Users/>,
     planning: <Planning/>,

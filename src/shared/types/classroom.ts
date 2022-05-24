@@ -7,7 +7,9 @@ export type Classroom = {
   id: number,
   name: string,
   promotion: number,
-  campusId?: Campus['id']
+  campusId?: Campus['id'],
+
+  ClassroomHasCourses: ClassroomHasCourse[]
 };
 
 export type ClassroomRequest = {
@@ -20,6 +22,7 @@ export type ClassroomRequest = {
 export type ClassroomHasCourse = {
   id: number,
   activated: boolean,
+  teacherId: User['id'],
   courseId: Course['id'],
   classroomId: Classroom['id'],
 

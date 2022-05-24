@@ -1,3 +1,6 @@
+import { ClassroomHasCourse } from './classroom';
+
+
 export enum CourseType {
   Course = 'course',
   Today = 'today',
@@ -13,7 +16,20 @@ export type Course = {
   year: number,
   credits: number,
   description: string,
-  speciality: boolean
+  speciality: boolean,
+
+  ClassroomHasCourses: ClassroomHasCourse[]
+};
+
+export type CourseRequest = {
+  id?: number,
+  name: string,
+  link: string,
+  year: number,
+  credits: number,
+  description: string,
+  speciality: boolean,
+  classroomHasCourseId: ClassroomHasCourse['id']
 };
 
 

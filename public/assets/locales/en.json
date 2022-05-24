@@ -111,11 +111,43 @@
 
   "grades": {
     "title": "Grades",
-    "icon": "task"
+    "icon": "task",
+    "add": "New grade",
+    "select_user": "Select a user",
+    "select_course": "Select a course",
+    "select_teacher": "Select a teacher",
+
+    "fields": {
+      "title_one": "{{count}} result",
+      "title_other": "{{count}} results",
+      "grade": "Grade",
+      "course": "Course",
+      "comment": "Comment",
+      "student": "Student",
+      "teacher": "Teacher",
+      "actions": "Actions"
+    },
+
+    "create": {
+      "title": "New grade",
+      "success": "Grade successfully created."
+    },
+
+    "update": {
+      "title": "Update grade",
+      "success": "Grade successfully updated."
+    },
+
+    "delete": {
+      "title": "Delete grade",
+      "text": "Please type in the student name with the grade as shown below to avoid accidental deletion.",
+      "student_grade": "Student name (XX/20)",
+      "success": "Grade successfully deleted."
+    }
   },
 
-  "subjects": {
-    "title": "Subjects",
+  "courses": {
+    "title": "Courses",
     "icon": "topic"
   },
 
@@ -183,7 +215,7 @@
         "credit": "Cdédit",
         "status": "Status",
         "actions": "Actions",
-        "student_name": "Student",
+        "student": "Student",
         "description": "Description",
         "date_requested": "Request date",
         "date_confirmed": "Confirmation date"
@@ -365,6 +397,7 @@
 
   "global": {
     "colon": ":",
+    "none": "None",
     "close": "Close",
     "cancel": "Cancel",
     "confirm": "Confirm",
