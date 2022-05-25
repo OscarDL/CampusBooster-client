@@ -60,7 +60,7 @@ const DeleteUser: FC<Props> = ({user, open, setOpen}) => {
     >
       <DialogTitle>{t('users.delete.title', {user: userFullName})}</DialogTitle>
 
-      <DialogContent sx={{pt: '0 !important'}}>
+      <DialogContent>
         <p>{t('users.delete.text')}</p>
 
         <TextField

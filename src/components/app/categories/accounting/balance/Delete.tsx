@@ -57,7 +57,7 @@ const DeleteBalance: FC<Props> = ({balance, open, setOpen}) => {
     >
       <DialogTitle>{t('accounting.delete.title')}</DialogTitle>
 
-      <DialogContent sx={{pt: '0 !important'}}>
+      <DialogContent>
         <p>{t('accounting.delete.text')}</p>
 
         <TextField

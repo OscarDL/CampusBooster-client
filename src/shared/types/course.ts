@@ -18,7 +18,7 @@ export type Course = {
   description: string,
   speciality: boolean,
 
-  ClassroomHasCourses: ClassroomHasCourse[]
+  ClassroomHasCourses?: ClassroomHasCourse[]
 };
 
 export type CourseRequest = {

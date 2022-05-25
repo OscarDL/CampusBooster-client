@@ -10,8 +10,8 @@ export type Campus = {
   open: boolean,
   virtual: boolean,
 
-  Classrooms: Classroom[],
-  Users: User[]
+  Users?: User[],
+  Classrooms?: Classroom[]
 };
 
 export type UserCampus = {

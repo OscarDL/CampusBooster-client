@@ -14,8 +14,8 @@ type Props = {
 
 type Option = {
   classroom: Classroom,
-  value: any,
-  label: string
+  label: string,
+  value: number
 };
 
 

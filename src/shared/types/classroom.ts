@@ -1,6 +1,7 @@
-import { User } from './user';
 import { Campus } from './campus';
 import { Course } from './course';
+import { Planning } from './planning';
+import { Teacher, User } from './user';
 
 
 export type Classroom = {
@@ -26,8 +27,10 @@ export type ClassroomHasCourse = {
   courseId: Course['id'],
   classroomId: Classroom['id'],
 
-  Course: Course,
-  Classroom: Classroom
+  Course?: Course,
+  Teachers?: Teacher[],
+  Classroom?: Classroom,
+  Plannings?: Planning[]
 };
 
 export type UserHasClassroom = {
@@ -36,6 +39,6 @@ export type UserHasClassroom = {
   userId: User['id'],
   classroomId: Classroom['id'],
 
-  User: User,
-  Classroom: Classroom
+  User?: User,
+  Classroom?: Classroom
 };

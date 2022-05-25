@@ -58,7 +58,7 @@ const DeleteTool: FC<Props> = ({tool, open, setOpen}) => {
     >
       <DialogTitle>{t('tools.delete.title', {tool: tool.title})}</DialogTitle>
 
-      <DialogContent sx={{pt: '0 !important'}}>
+      <DialogContent>
         <p>{t('tools.delete.text')}</p>
 
         <TextField

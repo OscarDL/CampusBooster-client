@@ -14,8 +14,8 @@ type Props = {
 
 type Option = {
   campus: Campus,
-  value: any,
-  label: string
+  label: string,
+  value: number
 };
 
 
@@ -39,16 +39,26 @@ const UserCampusPicker: FC<Props> = ({user, setUser}) => {
   }, [campusList]);
 
 
-  return (
+  return user.role === UserRoles.CampusBoosterAdmin ? (
+    // We have to do it this way because for some reason, setting the value
+    // to undefined doesn't refresh the value shown in the component's view
+    <div>
+      <ReactSelect isDisabled
+        className="react-select-component"
+        placeholder={t('users.select_campus')}
+        classNamePrefix="react-select-component"
+      />
+    </div>
+  ) : (
     <ReactSelect
       isSearchable
       options={campusOptions}
       isLoading={!campusList}
+      isDisabled={!campusList}
       className="react-select-component"
       placeholder={t('users.select_campus')}
       classNamePrefix="react-select-component"
       onChange={campus => setUser({...user, campusId: campus?.value})}
-      isDisabled={!campusList || user.role === UserRoles.CampusBoosterAdmin}
       value={campusOptions.find(option => option.campus.id === user.campusId)}
     />
   );

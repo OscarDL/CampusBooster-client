@@ -1,6 +1,5 @@
 import dayjs from 'dayjs';
 import { toast } from 'react-toastify';
-import ReactSelect from 'react-select';
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -118,17 +117,7 @@ const CreateUser: FC<Props> = ({open, setOpen}) => {
         </FormControl>
 
         <Box sx={{my: 2}}>
-          {user.role === UserRoles.CampusBoosterAdmin ? (
-            // We have to do it this way because for some reason, setting the value
-            // to undefined doesn't refresh the value shown in the component's view
-            <ReactSelect isDisabled
-              className="react-select-component"
-              placeholder={t('users.select_campus')}
-              classNamePrefix="react-select-component"
-            />
-          ) : (
-            <UserCampusPicker user={user} setUser={setUser}/>
-          )}
+          <UserCampusPicker user={user} setUser={setUser}/>
         </Box>
 
         <Box sx={{mb: 2}}>

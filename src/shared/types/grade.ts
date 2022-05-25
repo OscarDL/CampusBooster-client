@@ -1,4 +1,4 @@
-import { User } from './user';
+import { Teacher, User } from './user';
 import { ClassroomHasCourse } from './classroom';
 
 
@@ -10,9 +10,9 @@ export type Grade = {
   teacherId: User['id'],
   classroomHasCourseId: ClassroomHasCourse['id'],
 
-  User: User,
-  Teacher: User,
-  ClassroomHasCourse: ClassroomHasCourse
+  User?: User,
+  Teacher?: Teacher,
+  ClassroomHasCourse?: ClassroomHasCourse
 };
 
 export type GradeRequest = {
@@ -20,6 +20,6 @@ export type GradeRequest = {
   average: number,
   comment: string,
   userId: User['id'],
-  teacherId: User['id'],
+  teacherId: Teacher['id'],
   classroomHasCourseId: ClassroomHasCourse['id']
 };

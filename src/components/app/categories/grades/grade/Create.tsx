@@ -8,8 +8,9 @@ import { createGrade } from '../../../../../store/features/grades/slice';
 import { useAppDispatch, useAppSelector } from '../../../../../store/store';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
 
-import GradeUserPicker from './UserPicker';
-import GradeCoursePicker from './CoursePicker';
+import GradeUserPicker from './pickers/UserPicker';
+import GradeCoursePicker from './pickers/CoursePicker';
+import GradeTeacherPicker from './pickers/TeacherPicker';
 
 
 type Props = {
@@ -40,8 +41,6 @@ const CreateGrade: FC<Props> = ({open, setOpen}) => {
 
   const handleCreateGrade = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
-    console.log(grade);
-    return;
     setLoading(true);
 
     try {
@@ -49,7 +48,7 @@ const CreateGrade: FC<Props> = ({open, setOpen}) => {
 
       setOpen(false);
       setGrade(newGradeRequest());
-      toast.success(t('accounting.create.success'));
+      toast.success(t('grades.create.success'));
     }
     catch (error: any) {
       toast.error(error);
@@ -70,7 +69,7 @@ const CreateGrade: FC<Props> = ({open, setOpen}) => {
 
       <DialogContent>
         <Box sx={{mb: 2}}>
-          <GradeUserPicker type="user" grade={grade} setGrade={setGrade}/>
+          <GradeUserPicker grade={grade} setGrade={setGrade}/>
         </Box>
 
         <Box sx={{mb: 2}}>
@@ -78,7 +77,7 @@ const CreateGrade: FC<Props> = ({open, setOpen}) => {
         </Box>
         
         <Box sx={{mb: 2}}>
-          <GradeUserPicker type="teacher" grade={grade} setGrade={setGrade}/>
+          <GradeTeacherPicker grade={grade} setGrade={setGrade}/>
         </Box>
 
         <Box sx={{mb: 2}}>
@@ -86,9 +85,10 @@ const CreateGrade: FC<Props> = ({open, setOpen}) => {
             type="number"
             required fullWidth
             name="cb-grade-grade"
+            value={grade.average ?? ''}
+            onChange={handleChangeGrade}
             label={t('grades.fields.grade')}
-            value={grade.average ?? ''} onChange={handleChangeGrade}
-            inputProps={{inputMode: 'numeric', pattern: '[0-9]*', max: 20}}
+            inputProps={{inputMode: 'numeric', pattern: '[0-9]*', min: 0, max: 20}}
             InputProps={{
               autoComplete: Date.now().toString(), // requires a unique value to be disabled
               endAdornment: <InputAdornment position="end">/ 20</InputAdornment>

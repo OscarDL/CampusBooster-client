@@ -1,15 +1,18 @@
 import copy from 'fast-copy';
 import { toast } from 'react-toastify';
+import isEqual from 'react-fast-compare';
 import { useTranslation } from 'react-i18next';
 import { FC, useEffect, useState } from 'react';
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, InputAdornment, TextField } from '@mui/material';
 
 import { Grade } from '../../../../../shared/types/grade';
-import { useAppDispatch } from '../../../../../store/store';
 import { updateGrade } from '../../../../../store/features/grades/slice';
+import { useAppDispatch, useAppSelector } from '../../../../../store/store';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
 
-import GradeUserPicker from './UserPicker';
+import GradeUserPicker from './pickers/UserPicker';
+import GradeCoursePicker from './pickers/CoursePicker';
+import GradeTeacherPicker from './pickers/TeacherPicker';
 
 
 type Props = {
@@ -22,6 +25,7 @@ type Props = {
 const UpdateGrade: FC<Props> = ({grade, open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const { gradesList } = useAppSelector(state => state.grades);
 
   const [loading, setLoading] = useState(false);
   const [newGrade, setNewGrade] = useState(copy(grade));
@@ -39,10 +43,10 @@ const UpdateGrade: FC<Props> = ({grade, open, setOpen}) => {
     setLoading(true);
 
     try {
-      await dispatch(updateGrade(grade)).unwrap();
+      await dispatch(updateGrade(newGrade)).unwrap();
 
       setOpen(false);
-      toast.success(t('accounting.update.success'));
+      toast.success(t('grades.update.success'));
     }
     catch (error: any) {
       toast.error(error);
@@ -53,7 +57,6 @@ const UpdateGrade: FC<Props> = ({grade, open, setOpen}) => {
 
 
   useEffect(() => {
-    // Reset state on new dialog open
     if (open) setNewGrade(copy(grade));
   }, [grade, open]);
 
@@ -68,28 +71,39 @@ const UpdateGrade: FC<Props> = ({grade, open, setOpen}) => {
       <DialogTitle>{t('grades.update.title')}</DialogTitle>
 
       <DialogContent>
-        <GradeUserPicker type="user" grade={newGrade} setGrade={setNewGrade}/>
-        <GradeUserPicker type="teacher" grade={newGrade} setGrade={setNewGrade}/>
+        <Box sx={{mb: 2}}>
+          <GradeUserPicker grade={newGrade} setGrade={setNewGrade}/>
+        </Box>
 
-        <Box className="MuiDialogContent-row" sx={{mt: 1}}>
+        <Box sx={{mb: 2}}>
+          <GradeCoursePicker grade={newGrade} setGrade={setNewGrade}/>
+        </Box>
+        
+        <Box sx={{mb: 2}}>
+          <GradeTeacherPicker grade={newGrade} setGrade={setNewGrade}/>
+        </Box>
+
+        <Box sx={{mb: 2}}>
           <TextField
-            required
             type="number"
-            variant="standard"
+            required fullWidth
             name="cb-grade-grade"
             onChange={handleChangeGrade}
             value={newGrade.average ?? ''}
-            label={t('grades.create.grade') + '/20'}
-            inputProps={{inputMode: 'numeric', pattern: '[0-9]*'}}
+            label={t('grades.fields.grade')}
+            inputProps={{inputMode: 'numeric', pattern: '[0-9]*', min: 0, max: 20}}
+            InputProps={{
+              autoComplete: Date.now().toString(), // requires a unique value to be disabled
+              endAdornment: <InputAdornment position="end">/ 20</InputAdornment>
+            }}
           />
         </Box>
 
         <TextField
+          multiline fullWidth
           name="cb-grade-comment"
-          required fullWidth multiline
-          sx={{mb: 2}} margin="normal"
           value={newGrade.comment ?? ''}
-          label={t('grades.update.comment')}
+          label={t('grades.fields.comment')}
           onChange={e => setNewGrade({...newGrade, comment: e.target.value})}
         />
       </DialogContent>
@@ -101,7 +115,7 @@ const UpdateGrade: FC<Props> = ({grade, open, setOpen}) => {
 
         <MainDialogButton
           type="submit" variant="contained" loading={loading}
-          disabled={!(newGrade.userId && newGrade.teacherId)}
+          disabled={!gradesList || !newGrade.teacherId || isEqual(grade, newGrade)}
         >
           {t('global.confirm')}
         </MainDialogButton>

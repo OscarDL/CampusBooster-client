@@ -15,7 +15,8 @@ export type Planning = {
   date: string,
   cancelled: boolean,
   classroomHasCourseId: number,
-  ClassroomHasCourse: ClassroomHasCourse
+
+  ClassroomHasCourse?: ClassroomHasCourse
 };
 
 export type PlanningRequest = {
@@ -23,5 +24,6 @@ export type PlanningRequest = {
   date: string,
   cancelled: boolean,
   classroomHasCourseId: number,
-  ClassroomHasCourse: ClassroomHasCourse
+
+  ClassroomHasCourse?: ClassroomHasCourse
 };

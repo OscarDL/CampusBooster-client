@@ -1,14 +1,13 @@
-import ReactSelect from 'react-select';
 import { useTranslation } from 'react-i18next';
 import React, { FC, useEffect, useState } from 'react';
+import ReactSelect, { SingleValue } from 'react-select';
 
-import { useAppSelector } from '../../../../../store/store';
-import { User, UserRoles } from '../../../../../shared/types/user';
-import { Grade, GradeRequest } from '../../../../../shared/types/grade';
+import { useAppSelector } from '../../../../../../store/store';
+import { User, UserRoles } from '../../../../../../shared/types/user';
+import { Grade, GradeRequest } from '../../../../../../shared/types/grade';
 
 
 type Props = {
-  type: 'user' | 'teacher',
   grade: Grade | GradeRequest,
   setGrade: React.Dispatch<React.SetStateAction<any>>
 };
@@ -20,18 +19,27 @@ type Option = {
 };
 
 
-const GradeUserPicker: FC<Props> = ({type, grade, setGrade}) => {
+const GradeUserPicker: FC<Props> = ({grade, setGrade}) => {
   const { t } = useTranslation();
   const { usersList } = useAppSelector(state => state.users);
   
-  const typeId = type === 'user' ? 'userId' : 'teacherId';
   const [userOptions, setUserOptions] = useState<Option[]>([]);
+
+
+  const handleChangeUser = (option: SingleValue<Option>) => {
+    setGrade({
+      ...grade,
+      teacherId: 0,
+      classroomHasCourseId: 0,
+      userId: option?.value ?? 0
+    });
+  };
 
 
   useEffect(() => {
     if (usersList) {
       const userOptions: Option[] = usersList
-        .filter(user => user.role === UserRoles[type === 'user' ? 'Student' : 'Professor'])
+        .filter(user => user.role === UserRoles.Student)
         .map(user => ({
           user,
           value: user.id,
@@ -40,7 +48,7 @@ const GradeUserPicker: FC<Props> = ({type, grade, setGrade}) => {
 
       setUserOptions(userOptions);
     }
-  }, [usersList, type]);
+  }, [usersList]);
 
 
   return (
@@ -48,13 +56,13 @@ const GradeUserPicker: FC<Props> = ({type, grade, setGrade}) => {
       isSearchable
       options={userOptions}
       isLoading={!usersList}
+      isDisabled={!usersList}
+      onChange={handleChangeUser}
       className="react-select-component"
+      placeholder={t('grades.select_user')}
       classNamePrefix="react-select-component"
-      isDisabled={!usersList || type === 'teacher'}
-      onChange={user => setGrade({...grade, [typeId]: user?.value})}
-      value={userOptions.find(option => option.user.id === grade[typeId])}
+      value={userOptions.find(option => option.user.id === grade.userId)}
       formatOptionLabel={option => `${option.label} (${option.user.email})`}
-      placeholder={t('grades.' + (type === 'user' ? 'select_user' : 'fields.teacher'))}
     />
   );
 };

@@ -49,14 +49,14 @@ const Courses: FC = () => {
 
   return (
     <>
-      <ContentHeader title={t('grades.title')}>
+      <ContentHeader title={t('courses.title')}>
         {isAdmin && (
           <Button
             className="button"
             onClick={() => setOpenCreate(true)}
             startIcon={<span className="material-icons">add_circle_outline</span>}
           >
-            {t('grades.add')}
+            {t('courses.add')}
           </Button>
         )}
       </ContentHeader>

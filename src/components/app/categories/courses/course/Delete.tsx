@@ -23,7 +23,7 @@ const DeleteGrade: FC<Props> = ({grade, open, setOpen}) => {
   const [loading, setLoading] = useState(false);
   const [userGrade, setUserGrade] = useState('');
 
-  const textTemplate = `${grade.User.firstName} ${grade.User.lastName} (${grade.average}/20)`;
+  const textTemplate = `${grade.User?.firstName} ${grade.User?.lastName} (${grade.average}/20)`;
 
 
   const handleDeleteGrade = async (e: React.FormEvent<HTMLElement>) => {
@@ -59,7 +59,7 @@ const DeleteGrade: FC<Props> = ({grade, open, setOpen}) => {
     >
       <DialogTitle>{t('accounting.delete.title')}</DialogTitle>
 
-      <DialogContent sx={{pt: '0 !important'}}>
+      <DialogContent>
         <p>{t('grades.delete.text', {text: textTemplate})}</p>
 
         <TextField

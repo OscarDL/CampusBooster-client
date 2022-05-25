@@ -124,7 +124,7 @@ export const getUsersColumns = ({user, setOpenUpdate, setOpenDelete, setSelected
     },
     {
       field: 'UserHasClassrooms', headerName: t(columnPrefix + 'classrooms'), width: 250,
-      valueGetter: ({row}) => row.UserHasClassrooms.map((uhc: UserHasClassroom) => uhc.Classroom.name).join(', ')
+      valueGetter: ({row}) => row.UserHasClassrooms.map((uhc: UserHasClassroom) => uhc.Classroom?.name).join(', ')
     },
     ...getEditDeleteColumn({user, columnPrefix, setOpenUpdate, setOpenDelete, setSelectedRow})
   ];
@@ -148,7 +148,7 @@ export const getGradesColumns = ({user, setOpenUpdate, setOpenDelete, setSelecte
     ...userColumn,
     {
       field: 'course', headerName: t(columnPrefix + 'course'), width: 100,
-      valueGetter: ({row}) => row.ClassroomHasCourse.Course.name
+      valueGetter: ({row}) => row.ClassroomHasCourse?.Course?.name
     },
     {
       field: 'grade', headerName: t(columnPrefix + 'grade'), width: 100,
@@ -159,7 +159,7 @@ export const getGradesColumns = ({user, setOpenUpdate, setOpenDelete, setSelecte
     },
     {
       field: 'teacher', headerName: t(columnPrefix + 'teacher'), width: 200,
-      valueGetter: ({row}) => `${row.ClassroomHasCourse?.Teacher?.firstName} ${row.ClassroomHasCourse?.Teacher?.lastName}`
+      valueGetter: ({row}) => `${row.Teacher?.User?.firstName} ${row.Teacher?.User?.lastName}`
     },
     ...getEditDeleteColumn({user, columnPrefix, setOpenUpdate, setOpenDelete, setSelectedRow})
   ];
