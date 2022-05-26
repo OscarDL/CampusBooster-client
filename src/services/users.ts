@@ -50,6 +50,17 @@ const updateUser = async (user: UserRequest) => {
   }
 };
 
+const updateBannedUser = async (id: UserRequest['id'], banned: UserRequest['banned']) => {
+  try {
+    const response = await axios.patch(apiUrl + 'users/' + id!, {banned}, getAxiosConfig());
+    return response.data;
+  }
+
+  catch (error: any) {
+    return Promise.reject(error?.response?.data || t('api.error'));
+  }
+};
+
 const activateUser = async (userId: User['id']) => {
   try {
     const response = await axios.patch(apiUrl + `users/${userId}/activate`, {}, getAxiosConfig());
@@ -103,6 +114,7 @@ const userService = {
   getUserById,
   createUser,
   updateUser,
+  updateBannedUser,
   activateUser,
   deleteUser,
   addUserToClassrooms,

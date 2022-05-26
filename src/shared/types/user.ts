@@ -40,6 +40,7 @@ export type UserRequest = {
   id?: User['id'],
   role: UserRoles,
   avatar?: string,
+  banned?: boolean,
   birthday: string,
   lastName: string,
   firstName: string,

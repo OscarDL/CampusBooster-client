@@ -29,8 +29,20 @@ const LoggedInRoutes: FC = () => {
     absences: <Absences/>,
     internships: <Internships/>,
     accounting: <Accounting/>,
-    admin: <Admin/>,
-    tools: <Tools/>
+    tools: <Tools/>,
+    admin: <Admin/>
+  };
+
+  const paths: {[key: string]: string} = {
+    courses: '/courses',
+    grades: '/grades',
+    users: '/users',
+    planning: '/planning',
+    absences: '/absences',
+    internships: '/internships',
+    accounting: '/accounting',
+    tools: '/tools',
+    admin: '/admin/*'
   };
 
 
@@ -41,13 +53,13 @@ const LoggedInRoutes: FC = () => {
       <div className="app__content">
         <Routes>
           {getUserCategories(categories, user).map(category => (
-            <Route key={category} path={'/' + category} element={components[category]}/>
+            <Route key={category} path={paths[category]} element={components[category]}/>
           ))}
 
           <Route path="/profile" element={<Profile/>}/>
 
           {/* Redirect to the home page if the route doesn't exist */}
-          <Route path="*" element={<Navigate replace to="/grades"/>} />
+          <Route path="*" element={<Navigate replace to="/grades"/>}/>
         </Routes>
       </div>
     </>

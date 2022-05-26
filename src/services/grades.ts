@@ -39,7 +39,7 @@ const createGrade = async (grade: GradeRequest) => {
   }
 };
 
-const updateGrade = async (grade: Grade) => {
+const updateGrade = async (grade: Partial<Grade>) => {
   try {
     const response = await axios.patch(apiUrl + 'grades/' + grade.id, grade, getAxiosConfig());
     return response.data;

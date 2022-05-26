@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { useGridApiRef } from '@mui/x-data-grid-pro';
 import { FC, useEffect, useMemo, useState } from 'react';
+import { GridColDef, useGridApiRef } from '@mui/x-data-grid-pro';
 
 import { useStateWithCallback } from '../../../../shared/hooks';
 import { User, UserRoles } from '../../../../shared/types/user';
@@ -23,9 +23,7 @@ import './Users.css';
 
 
 const getUserTab = (user: User, tab: number) => {
-  if (tab === 0) { // Show all users
-    return true;
-  }
+  if (tab === 0) return true; // Show all users
   return user.role === Object.values(UserRoles).at(tab - 1);
 };
 
@@ -44,7 +42,8 @@ const Users: FC = () => {
   const [openDelete, setOpenDelete] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
-  const columns = useMemo(() => (
+
+  const columns: GridColDef[] = useMemo(() => (
     getUsersColumns({user, setOpenUpdate, setOpenDelete, setSelectedRow: setSelectedUser})
   ), [user]);
 

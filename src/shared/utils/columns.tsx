@@ -2,8 +2,8 @@ import dayjs from 'dayjs';
 import { t } from 'i18next';
 import { IconButton } from '@mui/material';
 import { Dispatch, SetStateAction } from 'react';
-import { DeleteOutlined, EditOutlined } from '@mui/icons-material';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid-pro';
+import { DeleteOutlined, EditOutlined, RemoveCircleOutlineOutlined } from '@mui/icons-material';
 
 import { User, UserRoles } from '../types/user';
 import { UserHasClassroom } from '../types/classroom';
@@ -120,13 +120,53 @@ export const getUsersColumns = ({user, setOpenUpdate, setOpenDelete, setSelected
       valueGetter: ({row}) => dayjs(row.birthday).format(t('global.date-mm-dd-yyyy'))
     },
     {
-      field: 'Campus', headerName: t(columnPrefix + 'campus'), width: 125, valueGetter: ({row}) => row.Campus?.name
+      field: 'Campus', headerName: t(columnPrefix + 'campus'), width: 150, valueGetter: ({row}) => row.Campus?.name
     },
     {
       field: 'UserHasClassrooms', headerName: t(columnPrefix + 'classrooms'), width: 250,
       valueGetter: ({row}) => row.UserHasClassrooms.map((uhc: UserHasClassroom) => uhc.Classroom?.name).join(', ')
     },
     ...getEditDeleteColumn({user, columnPrefix, setOpenUpdate, setOpenDelete, setSelectedRow})
+  ];
+};
+
+
+export const getBannedUsersColumns = ({setOpenDelete, setSelectedRow}: Partial<BaseProps>): GridColDef[] => {
+  const columnPrefix = 'users.fields.';
+
+  return [
+    {
+      field: 'role', headerName: t(columnPrefix + 'role'), width: 150,
+      valueGetter: ({row}) => t(`users.${row.role.toLowerCase()}.title_role`)
+    },
+    {
+      field: 'firstName', headerName: t(columnPrefix + 'first_name'), width: 125
+    },
+    {
+      field: 'lastName', headerName: t(columnPrefix + 'last_name'), width: 125
+    },
+    {
+      field: 'email', headerName: t(columnPrefix + 'email'), width: 300
+    },
+    {
+      field: 'Campus', headerName: t(columnPrefix + 'campus'), width: 150, valueGetter: ({row}) => row.Campus?.name
+    },
+    {
+      field: 'actions', headerName: t(columnPrefix + 'actions'), width: 100,
+      renderCell: ({row}) => (
+        <div>
+          <IconButton
+            color="error"
+            onClick={() => {
+              setSelectedRow?.(row);
+              setOpenDelete?.(true);
+            }}
+          >
+            <RemoveCircleOutlineOutlined/>
+          </IconButton>
+        </div>
+      )
+    }
   ];
 };
 
@@ -152,7 +192,7 @@ export const getGradesColumns = ({user, setOpenUpdate, setOpenDelete, setSelecte
     },
     {
       field: 'grade', headerName: t(columnPrefix + 'grade'), width: 100,
-      valueGetter: ({row}) => `${row.average}/20`
+      valueGetter: ({row}) => `${row.average} / 20`
     },
     {
       field: 'comment', headerName: t(columnPrefix + 'comment'), width: 400

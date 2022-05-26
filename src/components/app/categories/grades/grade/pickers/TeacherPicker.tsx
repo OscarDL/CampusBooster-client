@@ -38,7 +38,7 @@ const GradeTeacherPicker: FC<Props> = ({grade, setGrade}) => {
         ?.map(teacher => ({
           teacher,
           value: teacher.id,
-          label: `${teacher.User?.firstName} ${teacher.User?.lastName}`
+          label: `${teacher.User.firstName} ${teacher.User.lastName} (${teacher.User.email})`
         })) ?? [];
 
       setTeacherOptions(teacherOptions);
@@ -68,9 +68,9 @@ const GradeTeacherPicker: FC<Props> = ({grade, setGrade}) => {
       options={teacherOptions}
       className="react-select-component"
       classNamePrefix="react-select-component"
+      isDisabled={!!grade.id} // disable for grade update
       onChange={option => setGrade({...grade, teacherId: option?.value ?? 0})}
       value={teacherOptions.find(option => option.teacher.id === grade.teacherId)}
-      formatOptionLabel={option => `${option.label} (${option.teacher.User?.email})`}
     />
   );
 };

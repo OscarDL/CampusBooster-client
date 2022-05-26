@@ -56,7 +56,7 @@ export const createGrade = createAsyncThunk('grades/createGrade', async (grade: 
   };
 });
 
-export const updateGrade = createAsyncThunk('grades/updateGrade', async (grade: Grade, thunkAPI) => {
+export const updateGrade = createAsyncThunk('grades/updateGrade', async (grade: Partial<Grade>, thunkAPI) => {
   try {
     return await gradeService.updateGrade(grade);
   }

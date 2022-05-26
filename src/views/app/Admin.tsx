@@ -1,22 +1,21 @@
-import { FC, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import { FC } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
-import Admin from '../../components/app/categories/admin';
+import AdminPanel from './admin/Panel';
+import BannedUsersView from './admin/Bans';
+import ClassroomsView from './admin/Classrooms';
 
 
 const AdminView: FC = () => {
-  const { t } = useTranslation();
-
-
-  useEffect(() => {
-    document.title = `${t('brand')} - ${t('admin.title')}`;
-  }, [t]);
-
-
   return (
-    <div className="admin-view">
-      <Admin/>
-    </div>
+    <Routes>
+      <Route index element={<AdminPanel/>}/>
+      <Route path="bans" element={<BannedUsersView/>}/>
+      <Route path="classrooms" element={<ClassroomsView/>}/>
+
+      {/* Redirect to the home admin page if the route doesn't exist */}
+      <Route path="/admin/*" element={<Navigate replace to="/admin"/>}/>
+    </Routes>
   );
 };
 

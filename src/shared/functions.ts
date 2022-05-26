@@ -91,9 +91,9 @@ export const getCategoryTitle = (user: User) => {
 // Retrieve categories accessible by current user
 export const getUserCategories = (categories: string[], user: User) => {
   const studentForbidden: string[] = ['admin', 'users'];
-  const professorForbidden: string[] = ['admin', 'users'];
-  const fullProfessorForbidden: string[] = ['admin', 'users', 'planning'];
-  const companyForbidden: string[] = ['admin', 'users', 'planning'];
+  const professorForbidden: string[] = ['admin', 'users', 'accounting'];
+  const fullProfessorForbidden: string[] = ['admin', 'users', 'planning', 'accounting'];
+  const companyForbidden: string[] = ['admin', 'users', 'planning', 'accounting', 'tools'];
   const assistantForbidden: string[] = ['planning'];
   const campusManagerForbidden: string[] = ['planning'];
   const campusBoosterAdminForbidden: string[] = ['planning'];

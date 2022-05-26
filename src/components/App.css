@@ -114,6 +114,9 @@ code {
 .flex-col {
   flex-direction: column;
 }
+.flex-align {
+  align-items: center;
+}
 .flex-grow > * {
   flex-grow: 1;
 }

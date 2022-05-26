@@ -43,7 +43,7 @@ const GradeUserPicker: FC<Props> = ({grade, setGrade}) => {
         .map(user => ({
           user,
           value: user.id,
-          label: `${user.firstName} ${user.lastName}`
+          label: `${user.firstName} ${user.lastName} (${user.email})`
         }));
 
       setUserOptions(userOptions);
@@ -56,13 +56,12 @@ const GradeUserPicker: FC<Props> = ({grade, setGrade}) => {
       isSearchable
       options={userOptions}
       isLoading={!usersList}
-      isDisabled={!usersList}
       onChange={handleChangeUser}
       className="react-select-component"
       placeholder={t('grades.select_user')}
       classNamePrefix="react-select-component"
+      isDisabled={!usersList || !!grade.id} // disable for grade update
       value={userOptions.find(option => option.user.id === grade.userId)}
-      formatOptionLabel={option => `${option.label} (${option.user.email})`}
     />
   );
 };

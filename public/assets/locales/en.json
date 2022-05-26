@@ -388,7 +388,27 @@
 
   "admin": {
     "title": "Administration",
-    "icon": "admin_panel_settings"
+    "icon": "admin_panel_settings",
+
+    "banned_users": {
+      "title": "Banned users",
+      "title_one": "{{count}} banned user",
+      "title_other": "{{count}} banned users",
+
+      "add": {
+        "button": "Ban user",
+        "select_user": "Select a user",
+        "title": "Add user to ban list",
+        "success": "User \"{{user}}\" successfully banned."
+      },
+
+      "remove": {
+        "title": "Remove user from ban list",
+        "text": "Please type in the name of the user below to avoid accidental removal.",
+        "full_name": "Full name",
+        "success": "User \"{{user}}\" successfully unbanned."
+      }
+    }
   },
 
   "data_grid": {

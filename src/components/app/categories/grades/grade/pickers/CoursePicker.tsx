@@ -89,6 +89,7 @@ const GradeCoursePicker: FC<Props> = ({grade, setGrade}) => {
       className="react-select-component"
       placeholder={t('grades.select_course')}
       classNamePrefix="react-select-component"
+      isDisabled={!!grade.id} // disable for grade update
       value={courseOptions.find(option => option.course.id === grade.classroomHasCourseId)}
     />
   );

@@ -43,7 +43,12 @@ const UpdateGrade: FC<Props> = ({grade, open, setOpen}) => {
     setLoading(true);
 
     try {
-      await dispatch(updateGrade(newGrade)).unwrap();
+      const grade: Partial<Grade> = {
+        id: newGrade.id,
+        average: newGrade.average,
+        comment: newGrade.comment
+      };
+      await dispatch(updateGrade(grade)).unwrap();
 
       setOpen(false);
       toast.success(t('grades.update.success'));

@@ -138,7 +138,7 @@
 
     "delete": {
       "title": "Supprimer note",
-      "text": "Veuillez entrer le nom de l'étudiant ainsi que sa note comme ci-dessous pour éviter une suppression accidentelle.",
+      "text": "Veuillez entrer le nom de l'étudiant ainsi que sa note comme l'exemple ci-dessous afin d'éviter une suppression accidentelle.",
       "student_grade": "Nom complet de l'étudiant (XX/20)",
       "success": "Note supprimée avec succès."
     }
@@ -239,7 +239,7 @@
 
     "delete": {
       "title": "Supprimer entrée de solde",
-      "text": "Veuillez écrire la description de l'entrée ci-dessous pour éviter une suppression accidentelle.",
+      "text": "Veuillez écrire la description de l'entrée ci-dessous afin d'éviter une suppression accidentelle.",
       "description": "Description",
       "success": "Entrée de solde supprimée avec succès."
     }
@@ -288,7 +288,7 @@
     "delete": {
       "name": "Nom de l'outil",
       "title": "Supprimer \"{{tool}}\"",
-      "text": "Veuillez entrer le nom de l'outil ci-dessous pour éviter une suppression accidentelle.",
+      "text": "Veuillez entrer le nom de l'outil ci-dessous afin d'éviter une suppression accidentelle.",
       "success": "Outil \"{{tool}}\" supprimé avec succès."
     }
   },
@@ -358,7 +358,7 @@
 
     "delete": {
       "title": "Supprimer \"{{user}}\"",
-      "text": "Veuillez entrer le nom de l'utilisateur ci-dessous pour éviter une suppression accidentelle.",
+      "text": "Veuillez entrer le nom de l'utilisateur ci-dessous afin d'éviter une suppression accidentelle.",
       "name": "Nom complet",
       "azure": "Supprimer l'utilisateur de l'AD Azure",
       "success": "Utilisateur \"{{user}}\" supprimé avec succès."
@@ -366,7 +366,27 @@
   },
 
   "admin": {
-    "title": "Administration"
+    "title": "Administration",
+
+    "banned_users": {
+      "title": "Utilisateurs bannis",
+      "title_one": "{{count}} utilisateur banni",
+      "title_other": "{{count}} utilisateurs bannis",
+
+      "add": {
+        "button": "Bannir un utilisateur",
+        "select_user": "Sélectionnez un utilisateur",
+        "title": "Ajouter un utilisateur à la liste",
+        "success": "Utilisateur \"{{user}}\" banni avec succès."
+      },
+
+      "remove": {
+        "title": "Retirer un utilisateur de la liste",
+        "text": "Veuillez entrer le nom de l'utilisateur ci-dessous afin d'éviter une suppression accidentelle.",
+        "full_name": "Nom complet",
+        "success": "Utilisateur \"{{user}}\" dé-banni avec succès."
+      }
+    }
   },
 
   "data_grid": {
