@@ -44,11 +44,13 @@ const UserClassroomPicker: FC<Props> = ({user, setUser}) => {
   return (
     <ReactSelect
       isMulti isSearchable
+      closeMenuOnSelect={false}
       options={classroomOptions}
       className="react-select-component"
       classNamePrefix="react-select-component"
       placeholder={t('users.select_classroom')}
       isLoading={!(campusList && classroomsList)}
+      noOptionsMessage={() => t('users.no_classrooms')}
       isDisabled={!(campusList && classroomsList) || user.role !== UserRoles.Student}
       value={classroomOptions.filter(option => user.classrooms.includes(option.value))}
       onChange={classrooms => setUser({...user, classrooms: classrooms.map(c => c.value)})}

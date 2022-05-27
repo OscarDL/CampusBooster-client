@@ -1,7 +1,9 @@
 import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Users from '../../components/app/categories/users';
+import Users from '../../../components/app/categories/users';
+
+import './Users.css';
 
 
 const UsersView: FC = () => {

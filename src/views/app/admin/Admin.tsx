@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Admin from '../../../components/app/categories/admin';
 
 
-const AdminPanelView: FC = () => {
+const AdminView: FC = () => {
   const { t } = useTranslation();
 
 
@@ -21,4 +21,4 @@ const AdminPanelView: FC = () => {
 };
 
 
-export default AdminPanelView;
+export default AdminView;

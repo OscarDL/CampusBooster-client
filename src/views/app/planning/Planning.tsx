@@ -1,7 +1,9 @@
 import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Planning from '../../components/app/categories/planning';
+import Planning from '../../../components/app/categories/planning';
+
+import './Planning.css';
 
 
 const PlanningView: FC = () => {

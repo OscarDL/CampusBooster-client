@@ -13,8 +13,6 @@ import Account from './categories/Account';
 import Settings from './categories/Settings';
 import Dropdown from '../../../shared/dropdown';
 
-import './Profile.css';
-
 
 const Profile: FC = () => {
   const { t } = useTranslation();

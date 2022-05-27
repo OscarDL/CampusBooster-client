@@ -15,8 +15,6 @@ import ToolTab from './tool/Tab';
 import Loader from '../../../shared/loader';
 import CreateTool from './tool/dialogs/Create';
 
-import './Tools.css';
-
 
 const Tools: FC = () => {
   const { t } = useTranslation();

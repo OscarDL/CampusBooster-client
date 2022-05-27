@@ -7,8 +7,6 @@ import { PromptBackdrop, FormPrompt, PromptActions, PromptContent, PromptTitle, 
 
 import Unsupported from './Unsupported';
 
-import './Auth.css';
-
 
 const Login: FC = () => {
   const { t } = useTranslation();

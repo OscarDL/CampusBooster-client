@@ -1,7 +1,9 @@
 import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Grades from '../../components/app/categories/grades';
+import Grades from '../../../components/app/categories/grades';
+
+import './Grades.css';
 
 
 const GradesView: FC = () => {

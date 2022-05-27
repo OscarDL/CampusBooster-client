@@ -4,8 +4,6 @@ import { useTranslation } from 'react-i18next';
 
 import { ContentBody, ContentHeader } from '../../../shared/content';
 
-import './Admin.css';
-
 
 const Admin: FC = () => {
   const { t } = useTranslation();
@@ -18,6 +16,7 @@ const Admin: FC = () => {
       <ContentBody>
         Admin : banned users list, classroom list + course access, manage planning for each class, etc
         <br/><Link to="bans">Banned users list</Link>
+        <br/><Link to="campus">Campus list</Link>
         <br/><Link to="classrooms">Classrooms list</Link>
       </ContentBody>
     </>

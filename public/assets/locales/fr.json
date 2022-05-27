@@ -298,6 +298,7 @@
     "add": "Nouvel utilisateur",
     "select_campus": "Sélectionnez un campus",
     "select_classroom": "Sélectionnez une classe",
+    "no_classrooms": "Aucune classe restante",
 
     "tab_all": {
       "title": "Tous"
@@ -385,6 +386,56 @@
         "text": "Veuillez entrer le nom de l'utilisateur ci-dessous afin d'éviter une suppression accidentelle.",
         "full_name": "Nom complet",
         "success": "Utilisateur \"{{user}}\" dé-banni avec succès."
+      }
+    },
+
+    "campus": {
+      "title": "Liste des campus",
+      "title_one": "{{count}} campus",
+      "title_other": "{{count}} campus",
+
+      "create": {
+        "button": "Nouveau campus",
+        "select_campus_manager": "Sélectionnez un campus manager",
+        "title": "Nouveau campus",
+        "success": "Campus \"{{campus}}\" créé avec succès."
+      },
+
+      "update": {
+        "title": "Modifier \"{{Campus}}\"",
+        "success": "Campus \"{{campus}}\" modifié avec succès."
+      },
+
+      "delete": {
+        "title": "Supprimer \"{{campus}}\"",
+        "text": "Veuillez entrer le nom du campus ci-dessous afin d'éviter une suppression accidentelle.",
+        "campus_name": "Nom du campus",
+        "success": "Campus \"{{campus}}\" supprimé avec succès."
+      }
+    },
+
+    "classrooms": {
+      "title": "Liste des classes",
+      "title_one": "{{count}} classe",
+      "title_other": "{{count}} classes",
+
+      "create": {
+        "button": "Nouvelle classe",
+        "select_campus": "Sélectionnez un campus",
+        "title": "Nouvelle classe",
+        "success": "Classe \"{{classroom}}\" créé avec succès."
+      },
+
+      "update": {
+        "title": "Modifier \"{{classroom}}\"",
+        "success": "Classe \"{{classroom}}\" modifié avec succès."
+      },
+
+      "delete": {
+        "title": "Supprimer \"{{classroom}}\"",
+        "text": "Veuillez entrer le nom de la classe ci-dessous afin d'éviter une suppression accidentelle.",
+        "classe_name": "Nom de la classe",
+        "success": "Classe \"{{classroom}}\" supprimé avec succès."
       }
     }
   },

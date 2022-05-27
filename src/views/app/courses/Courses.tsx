@@ -1,7 +1,9 @@
 import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Courses from '../../components/app/categories/courses';
+import Courses from '../../../components/app/categories/courses';
+
+import './Courses.css';
 
 
 const CoursesView: FC = () => {

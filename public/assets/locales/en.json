@@ -311,6 +311,7 @@
     "add": "New user",
     "select_campus": "Select a campus",
     "select_classroom": "Select a classroom",
+    "no_classrooms": "No classrooms remaining",
 
     "tab_all": {
       "title": "All users",
@@ -407,6 +408,56 @@
         "text": "Please type in the name of the user below to avoid accidental removal.",
         "full_name": "Full name",
         "success": "User \"{{user}}\" successfully unbanned."
+      }
+    },
+
+    "campus": {
+      "title": "Campus list",
+      "title_one": "{{count}} campus",
+      "title_other": "{{count}} campuses",
+
+      "create": {
+        "button": "New campus",
+        "select_campus_manager": "Select a campus manager",
+        "title": "Create a new campus",
+        "success": "Campus \"{{campus}}\" successfully created."
+      },
+
+      "update": {
+        "title": "Edit \"{{Campus}}\"",
+        "success": "Campus \"{{campus}}\" successfully updated."
+      },
+
+      "delete": {
+        "title": "Delete \"{{campus}}\"",
+        "text": "Please type in the name of the campus below to avoid accidental removal.",
+        "campus_name": "Campus name",
+        "success": "Campus \"{{campus}}\" successfully deleted."
+      }
+    },
+
+    "classrooms": {
+      "title": "Classroom list",
+      "title_one": "{{count}} classroom",
+      "title_other": "{{count}} classrooms",
+
+      "create": {
+        "button": "New classroom",
+        "select_campus": "Select a campus",
+        "title": "Create a new classroom",
+        "success": "Classroom \"{{classroom}}\" successfully created."
+      },
+
+      "update": {
+        "title": "Edit \"{{Classroom}}\"",
+        "success": "Classroom \"{{classroom}}\" successfully updated."
+      },
+
+      "delete": {
+        "title": "Delete \"{{classroom}}\"",
+        "text": "Please type in the name of the classroom below to avoid accidental removal.",
+        "classroom_name": "Classroom name",
+        "success": "Classroom \"{{classroom}}\" successfully deleted."
       }
     }
   },

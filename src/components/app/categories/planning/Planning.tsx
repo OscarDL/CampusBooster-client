@@ -9,8 +9,6 @@ import Calendar from './categories/Calendar';
 import TasksList from './categories/projects/List';
 import DetailsList from './categories/details/List';
 
-import './Planning.css';
-
 
 const Planning: FC = () => {
   const { t } = useTranslation();

@@ -19,8 +19,6 @@ import UpdateUser from './dialogs/Update';
 import DeleteUser from './dialogs/Delete';
 import Loader from '../../../shared/loader';
 
-import './Users.css';
-
 
 const getUserTab = (user: User, tab: number) => {
   if (tab === 0) return true; // Show all users
