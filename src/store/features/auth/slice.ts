@@ -5,7 +5,7 @@ import authService from '../../../services/auth';
 import userService from '../../../services/users';
 import { AzureData, User } from '../../../shared/types/user';
 import { reduxAuthPersistKey } from '../../../shared/utils/values';
-import { clearAzureLocalStorageData } from '../../../shared/functions';
+import { clearAzureLocalStorageData, saveRedirectUrl } from '../../../shared/functions';
 
 
 export type AuthState = {
@@ -84,6 +84,7 @@ const authSlice = createSlice({
     },
 
     forceLogout: (_: AuthState, {payload}: {payload: string}) => {
+      saveRedirectUrl();
       clearLoginState(false, payload);
     }
   },

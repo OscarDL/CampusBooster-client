@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { FC, useEffect, useState } from 'react';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 
 import { useAppSelector } from '../store/store';
 import { categories } from '../shared/utils/values';
@@ -19,7 +19,10 @@ import Internships from '../views/app/internships/Internships';
 
 
 const LoggedInRoutes: FC = () => {
+  const navigate = useNavigate();
   const { user } = useAppSelector(getLoggedInAuthState);
+
+  const [redirected, setRedirected] = useState(false);
 
   const components: {[key: string]: JSX.Element} = {
     courses: <Courses/>,
@@ -44,6 +47,18 @@ const LoggedInRoutes: FC = () => {
     tools: '/tools',
     admin: '/admin/*'
   };
+
+
+  useEffect(() => {
+    if (!redirected) {
+      setRedirected(true);
+      const redirectUrl = sessionStorage.getItem('redirectUrl');
+
+      // Redirect after login
+      sessionStorage.removeItem('redirectUrl');
+      if (redirectUrl) navigate(redirectUrl);
+    }
+  }, [navigate, redirected]);
 
 
   return (

@@ -8,7 +8,7 @@ import { isTouchDevice } from '../views/shared/Drawer';
 import { setCategory } from '../store/features/app/slice';
 import { useAppSelector, useAppDispatch } from '../store/store';
 import { LinkTypes, SupportedThemes } from '../shared/types/settings';
-import { getCategoryTitle, getCurrentTheme } from '../shared/functions';
+import { getCategoryTitle, getCurrentTheme, saveRedirectUrl } from '../shared/functions';
 
 import Loader from './shared/loader/Loader';
 import LoggedInRoutes from '../routes/LoggedInRoutes';
@@ -54,11 +54,16 @@ const App: FC = () => {
   }, [settings.linkType]);
 
   useEffect(() => {
-    if (!user && azureData) {
-      dispatch(login(azureData));
+    if (!user) {
+      if (azureData) {
+        dispatch(login(azureData));
+      } else {
+        saveRedirectUrl();
+        // Redirect to correct route after login
+      }
     }
 
-    if (user) {
+    else {
       dispatch(setCategory(getCategoryTitle(user)));
     }
   }, [azureData, user, dispatch]);

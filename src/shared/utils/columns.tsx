@@ -204,3 +204,32 @@ export const getGradesColumns = ({user, setOpenUpdate, setOpenDelete, setSelecte
     ...getEditDeleteColumn({user, columnPrefix, setOpenUpdate, setOpenDelete, setSelectedRow})
   ];
 };
+
+
+export const getCampusColumns = ({user, setOpenUpdate, setOpenDelete, setSelectedRow}: BaseProps): GridColDef[] => {
+  const columnPrefix = 'admin.campus.fields.';
+
+  return [
+    {
+      field: 'name', headerName: t(columnPrefix + 'name'), width: 200
+    },
+    {
+      field: 'address', headerName: t(columnPrefix + 'address'), width: 300
+    },
+    {
+      field: 'postCode', headerName: t(columnPrefix + 'post_code'), width: 100
+    },
+    {
+      field: 'city', headerName: t(columnPrefix + 'city'), width: 200
+    },
+    {
+      field: 'open', headerName: t(columnPrefix + 'open'), width: 100,
+      valueGetter: ({row}) => t('global.' + (row.open ? 'yes' : 'no'))
+    },
+    {
+      field: 'virtual', headerName: t(columnPrefix + 'virtual'), width: 100,
+      valueGetter: ({row}) => t('global.' + (row.open ? 'yes' : 'no'))
+    },
+    ...getEditDeleteColumn({user, columnPrefix, setOpenUpdate, setOpenDelete, setSelectedRow})
+  ];
+};

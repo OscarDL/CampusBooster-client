@@ -17,6 +17,13 @@ export const updateLocalStorageSettings = (key: keyof Settings, value: any): voi
   localStorage.setItem('settings', JSON.stringify(settings));
 };
 
+// Save current url to session storage for redirect after login
+export const saveRedirectUrl = (): void => {
+  if (window.location.pathname !== '/login') {
+    sessionStorage.setItem('redirectUrl', window.location.pathname);
+  }
+};
+
 // Retrieve current user language
 export const getCurrentLang = (): SupportedLangs => {
   const savedLang = localStorage.getItem('lang') as SupportedLangs;

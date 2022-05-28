@@ -416,6 +416,16 @@
       "title_one": "{{count}} campus",
       "title_other": "{{count}} campuses",
 
+      "fields": {
+        "name": "Campus name",
+        "address": "Address",
+        "post_code": "Post code",
+        "city": "City",
+        "open": "Open",
+        "virtual": "Virtual",
+        "actions": "Actions"
+      },
+
       "create": {
         "button": "New campus",
         "select_campus_manager": "Select a campus manager",
@@ -424,14 +434,14 @@
       },
 
       "update": {
-        "title": "Edit \"{{Campus}}\"",
+        "title": "Edit \"{{campus}}\"",
         "success": "Campus \"{{campus}}\" successfully updated."
       },
 
       "delete": {
         "title": "Delete \"{{campus}}\"",
         "text": "Please type in the name of the campus below to avoid accidental removal.",
-        "campus_name": "Campus name",
+        "name": "Campus name",
         "success": "Campus \"{{campus}}\" successfully deleted."
       }
     },
@@ -467,6 +477,8 @@
   },
 
   "global": {
+    "no": "No",
+    "yes": "Yes",
     "colon": ":",
     "none": "None",
     "close": "Close",
