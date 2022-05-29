@@ -21,7 +21,7 @@ type Option = {
 
 const UserCampusPicker: FC<Props> = ({user, setUser}) => {
   const { t } = useTranslation();
-  const { campusList } = useAppSelector(state => state.users);
+  const { campusList } = useAppSelector(state => state.campus);
 
   const [campusOptions, setCampusOptions] = useState<Option[]>([]);
 

@@ -31,10 +31,7 @@ const Accounting: FC = () => {
   const [openDelete, setOpenDelete] = useState(false);
   const [selectedBalance, setSelectedBalance] = useState<Balance | null>(null);
 
-  const isAdmin = useMemo(() => (
-    userHasAdminRights(user.role)
-  ), [user.role]);
-
+  const isAdmin = useMemo(() => userHasAdminRights(user), [user]);
   const columns = useMemo(() => (
     getAccountingColumns({user, setOpenUpdate, setOpenDelete, setSelectedRow: setSelectedBalance})
   ), [user]);

@@ -21,7 +21,8 @@ type Option = {
 
 const UserClassroomPicker: FC<Props> = ({user, setUser}) => {
   const { t } = useTranslation();
-  const { campusList, classroomsList } = useAppSelector(state => state.users);
+  const { campusList } = useAppSelector(state => state.campus);
+  const { classroomsList } = useAppSelector(state => state.classrooms);
 
   const [classroomOptions, setClassroomOptions] = useState<Option[]>([]);
 

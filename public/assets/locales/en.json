@@ -405,7 +405,7 @@
 
       "remove": {
         "title": "Remove user from ban list",
-        "text": "Please type in the name of the user below to avoid accidental removal.",
+        "text": "Please type in the name of the user below to avoid accidental ubban.",
         "full_name": "Full name",
         "success": "User \"{{user}}\" successfully unbanned."
       }
@@ -450,10 +450,19 @@
       "title": "Classroom list",
       "title_one": "{{count}} classroom",
       "title_other": "{{count}} classrooms",
+      "select_campus": "Select a campus",
+
+      "fields": {
+        "campus": "Campus",
+        "no_campus": "No campus assigned",
+        "name": "Classroom name",
+        "promotion": "Promotion",
+        "courses": "Courses list",
+        "actions": "Actions"
+      },
 
       "create": {
         "button": "New classroom",
-        "select_campus": "Select a campus",
         "title": "Create a new classroom",
         "success": "Classroom \"{{classroom}}\" successfully created."
       },
@@ -466,7 +475,7 @@
       "delete": {
         "title": "Delete \"{{classroom}}\"",
         "text": "Please type in the name of the classroom below to avoid accidental removal.",
-        "classroom_name": "Classroom name",
+        "name": "Classroom name",
         "success": "Classroom \"{{classroom}}\" successfully deleted."
       }
     }

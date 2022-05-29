@@ -130,7 +130,7 @@ const accountingSlice = createSlice({
 
     // Show an error message on any of these cases being rejected.
     builder
-    .addMatcher(isAnyOf(createBalance.rejected, updateBalance.rejected, deleteBalance.rejected), (_, {payload}: any) => {
+      .addMatcher(isAnyOf(createBalance.rejected, updateBalance.rejected, deleteBalance.rejected), (_, {payload}: any) => {
         toast.error(payload.message);
       })
       .addMatcher(isAnyOf(getBalances.rejected, getUserBalance.rejected), (state, {payload}: any) => {

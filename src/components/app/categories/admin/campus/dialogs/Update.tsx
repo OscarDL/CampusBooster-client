@@ -6,15 +6,15 @@ import { Box, Button, Checkbox, FormControlLabel, FormGroup, TextField } from '@
 
 import { Campus } from '../../../../../../shared/types/campus';
 import { useAppDispatch, useAppSelector } from '../../../../../../store/store';
-// import { updateCampus } from '../../../../../../store/features/users/slice';
+// import { updateCampus } from '../../../../../../store/features/campus/slice';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../../shared/dialog';
 
 import CampusManagerPicker from './CampusManagerPicker';
 
 
 type Props = {
-  campus: Campus,
   open: boolean,
+  campus: Campus,
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 };
 
@@ -22,11 +22,16 @@ type Props = {
 const UpdateCampus: FC<Props> = ({campus, open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { campusList } = useAppSelector(state => state.users);
+  const { campusList } = useAppSelector(state => state.campus);
 
   const [loading, setLoading] = useState(false);
   const [newCampus, setNewCampus] = useState(copy(campus));
 
+
+  const formIsComplete = () => {
+    if (!newCampus.virtual) return newCampus.name && newCampus.address && newCampus.city && newCampus.campusManagerId;
+    return newCampus.name && newCampus.campusManagerId;
+  };
 
   const handleUpdateCampus = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
@@ -75,31 +80,31 @@ const UpdateCampus: FC<Props> = ({campus, open, setOpen}) => {
         />
 
         <TextField
-          required
           margin="dense"
           variant="standard"
           name="cb-campus-address"
           value={newCampus.address}
+          required={!newCampus.virtual}
           label={t('admin.campus.fields.address')}
           onChange={e => setNewCampus({...newCampus, address: e.target.value})}
         />
 
         <Box className="MuiDialogContent-row">
           <TextField
-            required
             margin="dense"
             variant="standard"
             name="cb-campus-post-code"
             value={newCampus.postCode}
+            required={!newCampus.virtual}
             label={t('admin.campus.fields.post_code')}
             onChange={e => setNewCampus({...newCampus, postCode: e.target.value})}
           />
           <TextField
-            required
             margin="dense"
             variant="standard"
             name="cb-campus-city"
             value={newCampus.city}
+            required={!newCampus.virtual}
             label={t('admin.campus.fields.city')}
             onChange={e => setNewCampus({...newCampus, city: e.target.value})}
           />
@@ -135,7 +140,7 @@ const UpdateCampus: FC<Props> = ({campus, open, setOpen}) => {
 
         <MainDialogButton
           type="submit" variant="contained" loading={loading}
-          disabled={!campusList || !(newCampus.name && newCampus.address && newCampus.city)}
+          disabled={!campusList || !formIsComplete()}
         >
           {t('global.confirm')}
         </MainDialogButton>

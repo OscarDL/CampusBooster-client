@@ -6,8 +6,8 @@ import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid-pro';
 import { DeleteOutlined, EditOutlined, RemoveCircleOutlineOutlined } from '@mui/icons-material';
 
 import { User, UserRoles } from '../types/user';
-import { UserHasClassroom } from '../types/classroom';
 import { userHasAdminRights } from '../../shared/functions';
+import { Classroom, ClassroomHasCourse, UserHasClassroom } from '../types/classroom';
 
 
 type BaseProps = {
@@ -22,10 +22,8 @@ type EditDeleteColumnProps = (props: BaseProps & {
 }) => GridColDef[];
 
 
-const getEditDeleteColumn: EditDeleteColumnProps = ({
-  user, columnPrefix, setOpenUpdate, setOpenDelete, setSelectedRow
-}) => {
-  if (!userHasAdminRights(user.role)) return [];
+const getEditDeleteColumn: EditDeleteColumnProps = ({user, columnPrefix, setOpenUpdate, setOpenDelete, setSelectedRow}) => {
+  if (!userHasAdminRights(user)) return [];
 
   return [{
     width: 100,
@@ -61,7 +59,7 @@ const getEditDeleteColumn: EditDeleteColumnProps = ({
 export const getAccountingColumns = ({user, setOpenUpdate, setOpenDelete, setSelectedRow}: BaseProps): GridColDef[] => {
   const columnPrefix = 'accounting.data_grid.columns.';
 
-  const userColumn: GridColDef[] = userHasAdminRights(user.role) ? (
+  const userColumn: GridColDef[] = userHasAdminRights(user) ? (
     [{ field: 'studentName', headerName: t(columnPrefix + 'student'), width: 200 }]
   ) : (
     []
@@ -228,7 +226,34 @@ export const getCampusColumns = ({user, setOpenUpdate, setOpenDelete, setSelecte
     },
     {
       field: 'virtual', headerName: t(columnPrefix + 'virtual'), width: 100,
-      valueGetter: ({row}) => t('global.' + (row.open ? 'yes' : 'no'))
+      valueGetter: ({row}) => t('global.' + (row.virtual ? 'yes' : 'no'))
+    },
+    ...getEditDeleteColumn({user, columnPrefix, setOpenUpdate, setOpenDelete, setSelectedRow})
+  ];
+};
+
+
+export const getClassroomsColumns = ({user, setOpenUpdate, setOpenDelete, setSelectedRow}: BaseProps): GridColDef[] => {
+  const columnPrefix = 'admin.classrooms.fields.';
+  const getCourses = (row: Classroom) => row.ClassroomHasCourses?.map((chc: ClassroomHasCourse) => chc.Course?.name).join(', ');
+
+  return [
+    {
+      field: 'campus', headerName: t(columnPrefix + 'campus'), width: 200,
+      valueGetter: ({row}) => row.Campus?.name ?? t(columnPrefix + 'no_campus')
+    },
+    {
+      field: 'name', headerName: t(columnPrefix + 'name'), width: 200
+    },
+    {
+      field: 'promotion', headerName: t(columnPrefix + 'promotion'), width: 100
+    },
+    {
+      field: 'courses', headerName: t(columnPrefix + 'courses'), width: 300, valueGetter: ({row}) => getCourses(row),
+      renderCell: ({row}) => (
+        <div style={{overflow: 'hidden', textOverflow: 'ellipsis'}} title={getCourses(row)}>{getCourses(row)}</div>
+      )
+      
     },
     ...getEditDeleteColumn({user, columnPrefix, setOpenUpdate, setOpenDelete, setSelectedRow})
   ];

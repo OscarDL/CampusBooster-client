@@ -9,7 +9,7 @@ import { getUsersColumns } from '../../../../shared/utils/columns';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 import { getMuiDataGridLocale } from '../../../../shared/utils/locales';
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
-import { clearUsersList, getUsers } from '../../../../store/features/users/slice';
+import { clearUsers, getUsers } from '../../../../store/features/users/slice';
 import { getLoggedInAuthState, userHasAdminRights } from '../../../../shared/functions';
 import { DataGridFooter, DataGridHeader, StyledDataGrid } from '../../../shared/datagrid';
 
@@ -58,7 +58,7 @@ const Users: FC = () => {
   return (
     <>
       <ContentHeader title={t('users.title')}>
-        {userHasAdminRights(user.role) && (
+        {userHasAdminRights(user) && (
           <Button
             className="button"
             onClick={() => setOpenCreate(true)}
@@ -88,7 +88,7 @@ const Users: FC = () => {
 
             Toolbar: () => (
               <DataGridHeader
-                loading={!usersList} refreshData={() => dispatch(clearUsersList())}
+                loading={!usersList} refreshData={() => dispatch(clearUsers())}
                 title={t('users.fields.title', {count: apiRef.current.getVisibleRowModels().size})}
               />
             ),

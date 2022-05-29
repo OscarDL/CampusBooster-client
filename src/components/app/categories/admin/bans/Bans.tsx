@@ -8,7 +8,7 @@ import { ContentBody, ContentHeader } from '../../../../shared/content';
 import { getMuiDataGridLocale } from '../../../../../shared/utils/locales';
 import { getBannedUsersColumns } from '../../../../../shared/utils/columns';
 import { useAppDispatch, useAppSelector } from '../../../../../store/store';
-import { clearUsersList, getUsers } from '../../../../../store/features/users/slice';
+import { clearUsers, getUsers } from '../../../../../store/features/users/slice';
 import { DataGridFooter, DataGridHeader, StyledDataGrid } from '../../../../shared/datagrid';
 
 import AddBan from './dialogs/Add';
@@ -66,7 +66,7 @@ const BannedUsers: FC = () => {
 
             Toolbar: () => (
               <DataGridHeader
-                loading={!usersList} refreshData={() => dispatch(clearUsersList())}
+                loading={!usersList} refreshData={() => dispatch(clearUsers())}
                 title={t('admin.banned_users.title', {count: apiRef.current.getVisibleRowModels().size})}
               />
             ),
@@ -79,6 +79,7 @@ const BannedUsers: FC = () => {
       </ContentBody>
 
       <AddBan open={openAdd} setOpen={setOpenAdd}/>
+
       {selectedUser && <RemoveBan user={selectedUser} open={openRemove} setOpen={setOpenRemove}/>}
     </>
   );

@@ -123,7 +123,7 @@ const gradesSlice = createSlice({
 
     // Show an error message on any of these cases being rejected.
     builder
-    .addMatcher(isAnyOf(createGrade.rejected, updateGrade.rejected, deleteGrade.rejected), (_, {payload}: any) => {
+      .addMatcher(isAnyOf(createGrade.rejected, updateGrade.rejected, deleteGrade.rejected), (_, {payload}: any) => {
         toast.error(payload.message);
       })
       .addMatcher(isAnyOf(getGrades.rejected, getUserGrades.rejected), (state, {payload}: any) => {

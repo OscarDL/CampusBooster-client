@@ -9,7 +9,7 @@ import { getLoggedInAuthState } from '../../../../../shared/functions';
 import { ContentBody, ContentHeader } from '../../../../shared/content';
 import { getMuiDataGridLocale } from '../../../../../shared/utils/locales';
 import { useAppDispatch, useAppSelector } from '../../../../../store/store';
-import { clearUsersList, getUsers } from '../../../../../store/features/users/slice';
+import { clearCampus, getCampus } from '../../../../../store/features/campus/slice';
 import { DataGridFooter, DataGridHeader, StyledDataGrid } from '../../../../shared/datagrid';
 
 import CreateCampus from './dialogs/Create';
@@ -24,7 +24,7 @@ const CampusList: FC = () => {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector(getLoggedInAuthState);
   const { settings } = useAppSelector(state => state.app);
-  const { campusList } = useAppSelector(state => state.users);
+  const { campusList } = useAppSelector(state => state.campus);
 
   const [openCreate, setOpenCreate] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
@@ -37,8 +37,7 @@ const CampusList: FC = () => {
 
 
   useEffect(() => {
-    if (!campusList) dispatch(getUsers());
-    // Campus are retrieved alongside users
+    if (!campusList) dispatch(getCampus());
   }, [campusList, dispatch]);
 
 
@@ -71,7 +70,7 @@ const CampusList: FC = () => {
 
             Toolbar: () => (
               <DataGridHeader
-                loading={!campusList} refreshData={() => dispatch(clearUsersList())}
+                loading={!campusList} refreshData={() => dispatch(clearCampus())}
                 title={t('admin.campus.title', {count: apiRef.current.getVisibleRowModels().size})}
               />
             ),
@@ -84,6 +83,7 @@ const CampusList: FC = () => {
       </ContentBody>
 
       <CreateCampus open={openCreate} setOpen={setOpenCreate}/>
+
       {selectedCampus && <>
         <UpdateCampus campus={selectedCampus} open={openUpdate} setOpen={setOpenUpdate}/>
         <DeleteCampus campus={selectedCampus} open={openDelete} setOpen={setOpenDelete}/>

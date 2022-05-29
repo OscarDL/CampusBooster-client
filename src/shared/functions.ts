@@ -194,6 +194,6 @@ export const clearAzureLocalStorageData = () => {
 
 
 // Check if user role is included in these administrative / management roles
-export const userHasAdminRights = (role: UserRoles) => (
-  [UserRoles.Assistant, UserRoles.CampusManager, UserRoles.CampusBoosterAdmin].includes(role)
+export const userHasAdminRights = (user: User) => (
+  [UserRoles.Assistant, UserRoles.CampusManager, UserRoles.CampusBoosterAdmin].includes(user.role)
 );

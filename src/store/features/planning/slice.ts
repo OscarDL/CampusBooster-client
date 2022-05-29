@@ -122,7 +122,7 @@ const planningSlice = createSlice({
 
     // Show an error message on any of these cases being rejected.
     builder
-    .addMatcher(isAnyOf(createPlanningEntry.rejected, updatePlanningEntry.rejected, deletePlanningEntry.rejected), (_, {payload}: any) => {
+      .addMatcher(isAnyOf(createPlanningEntry.rejected, updatePlanningEntry.rejected, deletePlanningEntry.rejected), (_, {payload}: any) => {
         toast.error(payload.message);
       })
       .addMatcher(isAnyOf(getPlanning.rejected, getUserPlanning.rejected), (state, {payload}: any) => {

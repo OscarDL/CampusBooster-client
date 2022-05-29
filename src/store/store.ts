@@ -12,10 +12,12 @@ import authReducer, { AuthState } from './features/auth/slice';
 // Individual features
 import toolsReducer, { ToolsState } from './features/tools/slice';
 import usersReducer, { UsersState } from './features/users/slice';
+import campusReducer, { CampusState } from './features/campus/slice';
 import gradesReducer, { GradesState } from './features/grades/slice';
 import coursesReducer, { CoursesState } from './features/courses/slice';
 import planningReducer, { PlanningState } from './features/planning/slice';
 import accountingReducer, { AccountingState } from './features/accounting/slice';
+import classroomsReducer, { ClassroomsState } from './features/classrooms/slice';
 
 
 type CombinedReducers = {
@@ -27,9 +29,11 @@ type CombinedReducers = {
   tools: ToolsState,
   users: UsersState,
   grades: GradesState,
+  campus: CampusState,
   courses: CoursesState,
   planning: PlanningState,
-  accounting: AccountingState
+  accounting: AccountingState,
+  classrooms: ClassroomsState
 };
 
 const rootReducer = combineReducers({
@@ -40,10 +44,12 @@ const rootReducer = combineReducers({
   // Individual features
   tools: toolsReducer,
   users: usersReducer,
+  campus: campusReducer,
   grades: gradesReducer,
   courses: coursesReducer,
   planning: planningReducer,
-  accounting: accountingReducer
+  accounting: accountingReducer,
+  classrooms: classroomsReducer
 });
 
 

@@ -2,29 +2,28 @@ import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 import { store } from '../../store';
-import { getUsers } from '../users/slice';
-import { User } from '../../../shared/types/user';
-import courseService from '../../../services/courses';
-import { Course, CourseRequest } from '../../../shared/types/course';
+import { getCampus } from '../campus/slice';
+import classroomsService from '../../../services/classrooms';
+import { Classroom, ClassroomRequest } from '../../../shared/types/classroom';
 
 
-export type CoursesState = {
-  coursesList: Course[] | null,
+export type ClassroomsState = {
+  classroomsList: Classroom[] | null,
 };
 
 
-const initialState: CoursesState = {
-  coursesList: null
+const initialState: ClassroomsState = {
+  classroomsList: null
 };
 
 
-export const getCourses = createAsyncThunk('courses/getCourses', async (_, thunkAPI) => {
+export const getClassrooms = createAsyncThunk('classrooms/getClassrooms', async (_, thunkAPI) => {
   try {
-    if (!store.getState().users.usersList) {
-      await store.dispatch(getUsers());
+    if (!store.getState().campus.campusList) {
+      await store.dispatch(getCampus());
     }
 
-    return await courseService.getCourses();
+    return await classroomsService.getClassrooms();
   }
 
   catch (error: any) {
@@ -33,9 +32,9 @@ export const getCourses = createAsyncThunk('courses/getCourses', async (_, thunk
   };
 });
 
-export const getUserCourses = createAsyncThunk('courses/getUserCourses', async (id: User['id'], thunkAPI) => {
+export const getClassroomById = createAsyncThunk('classrooms/getClassroomById', async (id: Classroom['id'], thunkAPI) => {
   try {
-    return await courseService.getUserCourses(id);
+    return await classroomsService.getClassroomById(id);
   }
 
   catch (error: any) {
@@ -44,9 +43,9 @@ export const getUserCourses = createAsyncThunk('courses/getUserCourses', async (
   };
 });
 
-export const createCourse = createAsyncThunk('courses/createCourse', async (grade: CourseRequest, thunkAPI) => {
+export const createClassroom = createAsyncThunk('classrooms/createClassroom', async (classroom: ClassroomRequest, thunkAPI) => {
   try {
-    return await courseService.createCourse(grade);
+    return await classroomsService.createClassroom(classroom);
   }
 
   catch (error: any) {
@@ -55,9 +54,9 @@ export const createCourse = createAsyncThunk('courses/createCourse', async (grad
   };
 });
 
-export const updateCourse = createAsyncThunk('courses/updateCourse', async (grade: Course, thunkAPI) => {
+export const updateClassroom = createAsyncThunk('classrooms/updateClassroom', async (classroom: Classroom, thunkAPI) => {
   try {
-    return await courseService.updateCourse(grade);
+    return await classroomsService.updateClassroom(classroom);
   }
 
   catch (error: any) {
@@ -66,9 +65,9 @@ export const updateCourse = createAsyncThunk('courses/updateCourse', async (grad
   };
 });
 
-export const deleteCourse = createAsyncThunk('courses/deleteCourse', async (id: Course['id'], thunkAPI) => {
+export const deleteClassroom = createAsyncThunk('classrooms/deleteClassroom', async (id: Classroom['id'], thunkAPI) => {
   try {
-    await courseService.deleteCourse(id);
+    await classroomsService.deleteClassroom(id);
     return id;
   }
 
@@ -79,59 +78,59 @@ export const deleteCourse = createAsyncThunk('courses/deleteCourse', async (id: 
 });
 
 
-const coursesSlice = createSlice({
-  name: 'courses',
+const classroomsSlice = createSlice({
+  name: 'classrooms',
   initialState,
 
   reducers: {
-    clearCourses: (state: CoursesState) => {
-      state.coursesList = null;
+    clearClassrooms: (state: ClassroomsState) => {
+      state.classroomsList = null;
     }
   },
 
   extraReducers: (builder) => {
-    // Retrieve all courses for admins
-    builder.addCase(getCourses.fulfilled, (state, {payload}) => {
-      state.coursesList = payload;
+    // Retrieve all classrooms for admins
+    builder.addCase(getClassrooms.fulfilled, (state, {payload}) => {
+      state.classroomsList = payload;
     });
 
-    // Retrieve all courses for specific user
-    builder.addCase(getUserCourses.fulfilled, (state, {payload}) => {
-      state.coursesList = payload;
+    // Retrieve classroom by classroom id
+    builder.addCase(getClassroomById.fulfilled, (state, {payload}) => {
+      state.classroomsList = payload;
     });
 
-    // Create new grade
-    builder.addCase(createCourse.fulfilled, (state, {payload}) => {
-      state.coursesList = (state.coursesList ?? []).concat(payload);
+    // Create new classroom
+    builder.addCase(createClassroom.fulfilled, (state, {payload}) => {
+      state.classroomsList = (state.classroomsList ?? []).concat(payload);
     });
 
-    // Update existing grade
-    builder.addCase(updateCourse.fulfilled, (state, {payload}) => {
-      if (state.coursesList) {
-        const gradeIndex = state.coursesList.findIndex(grade => grade.id === payload.id);
-        state.coursesList[gradeIndex] = payload;
+    // Update existing classroom
+    builder.addCase(updateClassroom.fulfilled, (state, {payload}) => {
+      if (state.classroomsList) {
+        const classroomIndex = state.classroomsList.findIndex(classroom => classroom.id === payload.id);
+        state.classroomsList[classroomIndex] = payload;
       }
     });
 
-    // Delete grade
-    builder.addCase(deleteCourse.fulfilled, (state, {payload: id}) => {
-      if (state.coursesList) {
-        state.coursesList = state.coursesList.filter(grade => grade.id !== id);
+    // Delete classroom
+    builder.addCase(deleteClassroom.fulfilled, (state, {payload: id}) => {
+      if (state.classroomsList) {
+        state.classroomsList = state.classroomsList.filter(classroom => classroom.id !== id);
       }
     });
 
     // Show an error message on any of these cases being rejected.
     builder
-    .addMatcher(isAnyOf(createCourse.rejected, updateCourse.rejected, deleteCourse.rejected), (_, {payload}: any) => {
+      .addMatcher(isAnyOf(createClassroom.rejected, updateClassroom.rejected, deleteClassroom.rejected), (_, {payload}: any) => {
         toast.error(payload.message);
       })
-      .addMatcher(isAnyOf(getCourses.rejected, getUserCourses.rejected), (state, {payload}: any) => {
-        state.coursesList = [];
+      .addMatcher(isAnyOf(getClassrooms.rejected, getClassroomById.rejected), (state, {payload}: any) => {
+        state.classroomsList = [];
         toast.error(payload.message);
       });
   }
 });
 
 
-export const { clearCourses } = coursesSlice.actions;
-export default coursesSlice.reducer;
+export const { clearClassrooms } = classroomsSlice.actions;
+export default classroomsSlice.reducer;

@@ -382,8 +382,8 @@
       },
 
       "remove": {
-        "title": "Retirer un utilisateur de la liste",
-        "text": "Veuillez entrer le nom de l'utilisateur ci-dessous afin d'éviter une suppression accidentelle.",
+        "title": "Retirer un utilisateur des bannis",
+        "text": "Veuillez entrer le nom de l'utilisateur ci-dessous afin d'éviter un dé-bannissement accidentel.",
         "full_name": "Nom complet",
         "success": "Utilisateur \"{{user}}\" dé-banni avec succès."
       }
@@ -428,10 +428,19 @@
       "title": "Liste des classes",
       "title_one": "{{count}} classe",
       "title_other": "{{count}} classes",
+      "select_campus": "Sélectionnez un campus",
+
+      "fields": {
+        "campus": "Campus",
+        "no_campus": "Aucun campus assigné",
+        "name": "Nom de la classe",
+        "promotion": "Promotion",
+        "courses": "Liste des cours",
+        "actions": "Actions"
+      },
 
       "create": {
         "button": "Nouvelle classe",
-        "select_campus": "Sélectionnez un campus",
         "title": "Nouvelle classe",
         "success": "Classe \"{{classroom}}\" créé avec succès."
       },
@@ -444,7 +453,7 @@
       "delete": {
         "title": "Supprimer \"{{classroom}}\"",
         "text": "Veuillez entrer le nom de la classe ci-dessous afin d'éviter une suppression accidentelle.",
-        "classe_name": "Nom de la classe",
+        "name": "Nom de la classe",
         "success": "Classe \"{{classroom}}\" supprimé avec succès."
       }
     }

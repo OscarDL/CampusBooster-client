@@ -31,8 +31,6 @@
 
 /* Drawer item elements */
 .drawer__icon {
-  color: rgba(0, 0, 0, 0.66);
-
   min-width: 0;
   width: fit-content;
 

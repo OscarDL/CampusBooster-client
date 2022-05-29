@@ -3,20 +3,20 @@ import { useTranslation } from 'react-i18next';
 import { FC, useEffect, useState } from 'react';
 import { Button, TextField } from '@mui/material';
 
-import { Campus } from '../../../../../../shared/types/campus';
 import { useAppDispatch } from '../../../../../../store/store';
-// import { deleteCampus } from '../../../../../../store/features/campus/slice';
+import { Classroom } from '../../../../../../shared/types/classroom';
+import { deleteClassroom } from '../../../../../../store/features/classrooms/slice';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../../shared/dialog';
 
 
 type Props = {
   open: boolean,
-  campus: Campus,
+  classroom: Classroom,
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 };
 
 
-const DeleteCampus: FC<Props> = ({campus, open, setOpen}) => {
+const DeleteClassroom: FC<Props> = ({classroom, open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
@@ -24,16 +24,16 @@ const DeleteCampus: FC<Props> = ({campus, open, setOpen}) => {
   const [loading, setLoading] = useState(false);
 
 
-  const handleDeleteCampus = async (e: React.FormEvent<HTMLElement>) => {
+  const handleDeleteClassroom = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      // await dispatch(deleteCampus(campus.id)).unwrap();
+      await dispatch(deleteClassroom(classroom.id)).unwrap();
 
       setName('');
       setOpen(false);
-      toast.success(t('admin.campus.delete.success', {campus: campus.name}));
+      toast.success(t('admin.classrooms.delete.success', {classroom: classroom.name}));
     }
     catch (error: any) {
       toast.error(error);
@@ -52,20 +52,20 @@ const DeleteCampus: FC<Props> = ({campus, open, setOpen}) => {
   return (
     <Dialog
       components={{Root: 'form'}}
-      onSubmit={handleDeleteCampus}
       onClose={() => setOpen(false)}
+      onSubmit={handleDeleteClassroom}
       open={open} fullWidth maxWidth="sm"
     >
-      <DialogTitle>{t('admin.campus.delete.title', {campus: campus.name})}</DialogTitle>
+      <DialogTitle>{t('admin.classrooms.delete.title', {classroom: classroom.name})}</DialogTitle>
 
       <DialogContent>
-        <p>{t('admin.campus.delete.text')}</p>
+        <p>{t('admin.classrooms.delete.text')}</p>
 
         <TextField
           required autoFocus
           margin="dense" variant="standard"
-          label={t('admin.campus.delete.name')}
           onChange={e => setName(e.target.value)}
+          label={t('admin.classrooms.delete.name')}
         />
       </DialogContent>
 
@@ -76,7 +76,7 @@ const DeleteCampus: FC<Props> = ({campus, open, setOpen}) => {
 
         <MainDialogButton
           type="submit" color="error" variant="contained"
-          loading={loading} disabled={name !== campus.name}
+          loading={loading} disabled={name !== classroom.name}
         >
           {t('global.confirm')}
         </MainDialogButton>
@@ -86,4 +86,4 @@ const DeleteCampus: FC<Props> = ({campus, open, setOpen}) => {
 };
 
 
-export default DeleteCampus;
+export default DeleteClassroom;

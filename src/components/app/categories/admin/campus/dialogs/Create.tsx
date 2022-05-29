@@ -5,7 +5,7 @@ import { Box, Button, Checkbox, FormControlLabel, FormGroup, TextField } from '@
 
 import { CampusRequest } from '../../../../../../shared/types/campus';
 import { useAppDispatch, useAppSelector } from '../../../../../../store/store';
-// import { createCampus } from '../../../../../../store/features/users/slice';
+// import { createCampus } from '../../../../../../store/features/campus/slice';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../../shared/dialog';
 
 import CampusManagerPicker from './CampusManagerPicker';
@@ -25,11 +25,16 @@ const newCampusRequest = (): CampusRequest => ({
 const CreateCampus: FC<Props> = ({open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { campusList } = useAppSelector(state => state.users);
+  const { campusList } = useAppSelector(state => state.campus);
 
   const [loading, setLoading] = useState(false);
   const [campus, setCampus] = useState(newCampusRequest());
 
+
+  const formIsComplete = () => {
+    if (!campus.virtual) return campus.name && campus.address && campus.city && campus.campusManagerId;
+    return campus.name && campus.campusManagerId;
+  };
 
   const handleCreateCampus = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
@@ -74,31 +79,31 @@ const CreateCampus: FC<Props> = ({open, setOpen}) => {
         />
 
         <TextField
-          required
           margin="dense"
           variant="standard"
           value={campus.address}
           name="cb-campus-address"
+          required={!campus.virtual}
           label={t('admin.campus.fields.address')}
           onChange={e => setCampus({...campus, address: e.target.value})}
         />
 
         <Box className="MuiDialogContent-row">
           <TextField
-            required
             margin="dense"
             variant="standard"
             value={campus.postCode}
             name="cb-campus-post-code"
+            required={!campus.virtual}
             label={t('admin.campus.fields.post_code')}
             onChange={e => setCampus({...campus, postCode: e.target.value})}
           />
           <TextField
-            required
             margin="dense"
             variant="standard"
             value={campus.city}
             name="cb-campus-city"
+            required={!campus.virtual}
             label={t('admin.campus.fields.city')}
             onChange={e => setCampus({...campus, city: e.target.value})}
           />
@@ -134,7 +139,7 @@ const CreateCampus: FC<Props> = ({open, setOpen}) => {
 
         <MainDialogButton
           type="submit" variant="contained" loading={loading}
-          disabled={!campusList || !(campus.name && campus.address && campus.city && campus.campusManagerId)}
+          disabled={!campusList || !formIsComplete()}
         >
           {t('global.confirm')}
         </MainDialogButton>

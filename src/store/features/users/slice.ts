@@ -1,36 +1,31 @@
 import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-import { Campus } from '../../../shared/types/campus';
+import { store } from '../../store';
+import { getCampus } from '../campus/slice';
+import userService from '../../../services/users';
+import { getClassrooms } from '../classrooms/slice';
 import { Classroom } from '../../../shared/types/classroom';
 import { User, UserRequest } from '../../../shared/types/user';
-
-import userService from '../../../services/users';
-import campusService from '../../../services/campus';
-import classroomService from '../../../services/classrooms';
 
 
 export type UsersState = {
   usersList: User[] | null
-  campusList: Campus[] | null,
-  classroomsList: Classroom[] | null,
 };
 
 
 const initialState: UsersState = {
-  usersList: null,
-  campusList: null,
-  classroomsList: null
+  usersList: null
 };
 
 
 export const getUsers = createAsyncThunk('users/getUsers', async (_, thunkAPI) => {
   try {
-    const users = await userService.getUsers();
-    const campus = await campusService.getCampus();
-    const classrooms = await classroomService.getClassrooms();
+    const state = store.getState();
+    if (!state.campus.campusList) await store.dispatch(getCampus());
+    if (!state.classrooms.classroomsList) await store.dispatch(getClassrooms());
 
-    return { users, campus, classrooms };
+    return await userService.getUsers();
   }
 
   catch (error: any) {
@@ -115,8 +110,7 @@ const usersSlice = createSlice({
   initialState,
 
   reducers: {
-    clearUsersList: (state: UsersState) => {
-      state.campusList = null;
+    clearUsers: (state: UsersState) => {
       state.usersList = null;
     }
   },
@@ -125,12 +119,9 @@ const usersSlice = createSlice({
     // Retrieve all users
     builder
       .addCase(getUsers.fulfilled, (state, {payload}) => {
-        state.usersList = payload.users;
-        state.campusList = payload.campus;
-        state.classroomsList = payload.classrooms;
+        state.usersList = payload;
       })
       .addCase(getUsers.rejected, (state, {payload}: any) => {
-        state.campusList = [];
         state.usersList = [];
         toast.error(payload.message);
       });
@@ -163,5 +154,5 @@ const usersSlice = createSlice({
 });
 
 
-export const { clearUsersList } = usersSlice.actions;
+export const { clearUsers } = usersSlice.actions;
 export default usersSlice.reducer;

@@ -44,9 +44,9 @@ export const getUserCourses = createAsyncThunk('courses/getUserCourses', async (
   };
 });
 
-export const createCourse = createAsyncThunk('courses/createCourse', async (grade: CourseRequest, thunkAPI) => {
+export const createCourse = createAsyncThunk('courses/createCourse', async (course: CourseRequest, thunkAPI) => {
   try {
-    return await courseService.createCourse(grade);
+    return await courseService.createCourse(course);
   }
 
   catch (error: any) {
@@ -55,9 +55,9 @@ export const createCourse = createAsyncThunk('courses/createCourse', async (grad
   };
 });
 
-export const updateCourse = createAsyncThunk('courses/updateCourse', async (grade: Course, thunkAPI) => {
+export const updateCourse = createAsyncThunk('courses/updateCourse', async (course: Course, thunkAPI) => {
   try {
-    return await courseService.updateCourse(grade);
+    return await courseService.updateCourse(course);
   }
 
   catch (error: any) {
@@ -100,29 +100,29 @@ const coursesSlice = createSlice({
       state.coursesList = payload;
     });
 
-    // Create new grade
+    // Create new course
     builder.addCase(createCourse.fulfilled, (state, {payload}) => {
       state.coursesList = (state.coursesList ?? []).concat(payload);
     });
 
-    // Update existing grade
+    // Update existing course
     builder.addCase(updateCourse.fulfilled, (state, {payload}) => {
       if (state.coursesList) {
-        const gradeIndex = state.coursesList.findIndex(grade => grade.id === payload.id);
-        state.coursesList[gradeIndex] = payload;
+        const courseIndex = state.coursesList.findIndex(course => course.id === payload.id);
+        state.coursesList[courseIndex] = payload;
       }
     });
 
-    // Delete grade
+    // Delete course
     builder.addCase(deleteCourse.fulfilled, (state, {payload: id}) => {
       if (state.coursesList) {
-        state.coursesList = state.coursesList.filter(grade => grade.id !== id);
+        state.coursesList = state.coursesList.filter(course => course.id !== id);
       }
     });
 
     // Show an error message on any of these cases being rejected.
     builder
-    .addMatcher(isAnyOf(createCourse.rejected, updateCourse.rejected, deleteCourse.rejected), (_, {payload}: any) => {
+      .addMatcher(isAnyOf(createCourse.rejected, updateCourse.rejected, deleteCourse.rejected), (_, {payload}: any) => {
         toast.error(payload.message);
       })
       .addMatcher(isAnyOf(getCourses.rejected, getUserCourses.rejected), (state, {payload}: any) => {

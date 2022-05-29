@@ -10,7 +10,9 @@ export type Classroom = {
   promotion: number,
   campusId?: Campus['id'],
 
-  ClassroomHasCourses: ClassroomHasCourse[]
+  Campus?: Campus,
+  UserHasClassrooms?: User[],
+  ClassroomHasCourses?: ClassroomHasCourse[]
 };
 
 export type ClassroomRequest = {
