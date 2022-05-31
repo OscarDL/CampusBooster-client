@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { User } from './user';
+import { PublicUser, User } from './user';
 
 
 export enum BalanceStatus {
@@ -18,9 +18,10 @@ export type Balance = {
   status: BalanceStatus,
   dateRequested: string | dayjs.Dayjs,
   dateConfirmed: string | dayjs.Dayjs,
-  User?: User,
   userId: User['id'],
-  studentName?: string
+  studentName?: string,
+
+  User?: PublicUser
 };
 
 export type BalanceRequest = {

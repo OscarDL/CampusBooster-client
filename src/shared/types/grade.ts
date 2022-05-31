@@ -1,5 +1,5 @@
-import { Teacher, User } from './user';
 import { ClassroomHasCourse } from './classroom';
+import { PublicUser, Teacher, User } from './user';
 
 
 export type Grade = {
@@ -10,7 +10,7 @@ export type Grade = {
   teacherId: User['id'],
   classroomHasCourseId: ClassroomHasCourse['id'],
 
-  User?: User,
+  User?: PublicUser,
   Teacher?: Teacher,
   ClassroomHasCourse?: ClassroomHasCourse
 };

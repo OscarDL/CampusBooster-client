@@ -1,3 +1,5 @@
+import { AppCategories } from "../types/routing";
+
 export const colors = {
   accent: '#503cb4',
   accentRGB: '80, 60, 180',
@@ -6,16 +8,18 @@ export const colors = {
 
 export const reduxAuthPersistKey = 'auth-state';
 
+// Do not include profile route here
 export const categories = [
-  'grades',
-  'courses',
-  'users',
-  'planning',
-  'absences',
-  'internships',
-  'accounting',
-  'admin',
-  'tools',
+  AppCategories.Home,
+  AppCategories.Grades,
+  AppCategories.Courses,
+  AppCategories.Users,
+  AppCategories.Planning,
+  AppCategories.Absences,
+  AppCategories.Internships,
+  AppCategories.Accounting,
+  AppCategories.Admin,
+  AppCategories.Tools,
 ];
 
 export const allowedFileTypes = {

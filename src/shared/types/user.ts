@@ -21,7 +21,7 @@ export type User = {
   role: UserRoles,
   active: boolean,
   banned: boolean,
-  
+
   email: string,
   avatar?: string,
   lastName: string,
@@ -34,6 +34,14 @@ export type User = {
   UserHasClassrooms?: UserHasClassroom[], // user classrooms
 
   azureData: AzureData // azure authentication data
+};
+
+export type PublicUser = {
+  id: number,
+  email: string,
+  role: UserRoles,
+  lastName: string,
+  firstName: string
 };
 
 export type UserRequest = {
@@ -58,5 +66,5 @@ export type Teacher = {
   userId: User['id'],
   classroomHasCourseId: ClassroomHasCourse['id'],
 
-  User: User
+  User: PublicUser
 };

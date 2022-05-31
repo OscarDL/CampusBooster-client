@@ -1,8 +1,6 @@
 import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-import { store } from '../../store';
-import { getUsers } from '../users/slice';
 import { User } from '../../../shared/types/user';
 import planningService from '../../../services/planning';
 import { Planning, PlanningRequest } from '../../../shared/types/planning';
@@ -20,10 +18,6 @@ const initialState: PlanningState = {
 
 export const getPlanning = createAsyncThunk('planning/getPlanning', async (_, thunkAPI) => {
   try {
-    if (!store.getState().users.usersList) {
-      await store.dispatch(getUsers());
-    }
-
     return await planningService.getPlanning();
   }
 

@@ -1,7 +1,7 @@
 import { Campus } from './campus';
 import { Course } from './course';
 import { Planning } from './planning';
-import { Teacher, User } from './user';
+import { PublicUser, Teacher, User } from './user';
 
 
 export type Classroom = {
@@ -11,7 +11,7 @@ export type Classroom = {
   campusId?: Campus['id'],
 
   Campus?: Campus,
-  UserHasClassrooms?: User[],
+  UserHasClassrooms?: PublicUser[],
   ClassroomHasCourses?: ClassroomHasCourse[]
 };
 
@@ -19,7 +19,8 @@ export type ClassroomRequest = {
   id?: number,
   name: string,
   promotion: number,
-  campusId?: Campus['id']
+  campusId?: Campus['id'],
+  courses: (Course['id'])[]
 };
 
 export type ClassroomHasCourse = {
@@ -41,6 +42,6 @@ export type UserHasClassroom = {
   userId: User['id'],
   classroomId: Classroom['id'],
 
-  User?: User,
+  User?: PublicUser,
   Classroom?: Classroom
 };

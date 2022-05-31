@@ -45,6 +45,7 @@ const UserClassroomPicker: FC<Props> = ({user, setUser}) => {
   return (
     <ReactSelect
       isMulti isSearchable
+      menuPosition="fixed"
       closeMenuOnSelect={false}
       options={classroomOptions}
       className="react-select-component"

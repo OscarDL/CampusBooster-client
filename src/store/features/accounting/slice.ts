@@ -1,8 +1,6 @@
 import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-import { store } from '../../store';
-import { getUsers } from '../users/slice';
 import { User } from '../../../shared/types/user';
 import accountingService from '../../../services/accounting';
 import { Balance, BalanceRequest } from '../../../shared/types/accounting';
@@ -26,10 +24,6 @@ const setBalanceStudent = (balance: Balance): Balance => ({
 
 export const getBalances = createAsyncThunk('accounting/getBalances', async (_, thunkAPI) => {
   try {
-    if (!store.getState().users.usersList) {
-      await store.dispatch(getUsers());
-    }
-
     return await accountingService.getBalances();
   }
 

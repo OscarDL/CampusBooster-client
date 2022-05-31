@@ -23,7 +23,7 @@ type EditDeleteColumnProps = (props: BaseProps & {
 
 
 const getEditDeleteColumn: EditDeleteColumnProps = ({user, columnPrefix, setOpenUpdate, setOpenDelete, setSelectedRow}) => {
-  if (!userHasAdminRights(user)) return [];
+  if (!userHasAdminRights(user.role)) return [];
 
   return [{
     width: 100,
@@ -59,7 +59,7 @@ const getEditDeleteColumn: EditDeleteColumnProps = ({user, columnPrefix, setOpen
 export const getAccountingColumns = ({user, setOpenUpdate, setOpenDelete, setSelectedRow}: BaseProps): GridColDef[] => {
   const columnPrefix = 'accounting.data_grid.columns.';
 
-  const userColumn: GridColDef[] = userHasAdminRights(user) ? (
+  const userColumn: GridColDef[] = userHasAdminRights(user.role) ? (
     [{ field: 'studentName', headerName: t(columnPrefix + 'student'), width: 200 }]
   ) : (
     []

@@ -4,11 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { Box, Button, Checkbox, FormControlLabel, FormGroup, TextField } from '@mui/material';
 
 import { CampusRequest } from '../../../../../../shared/types/campus';
+import { createCampus } from '../../../../../../store/features/campus/slice';
 import { useAppDispatch, useAppSelector } from '../../../../../../store/store';
-// import { createCampus } from '../../../../../../store/features/campus/slice';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../../shared/dialog';
-
-import CampusManagerPicker from './CampusManagerPicker';
 
 
 type Props = {
@@ -32,8 +30,8 @@ const CreateCampus: FC<Props> = ({open, setOpen}) => {
 
 
   const formIsComplete = () => {
-    if (!campus.virtual) return campus.name && campus.address && campus.city && campus.campusManagerId;
-    return campus.name && campus.campusManagerId;
+    if (!campus.virtual) return campus.name && campus.address && campus.city;
+    return campus.name;
   };
 
   const handleCreateCampus = async (e: React.FormEvent<HTMLElement>) => {
@@ -41,7 +39,7 @@ const CreateCampus: FC<Props> = ({open, setOpen}) => {
     setLoading(true);
 
     try {
-      //await dispatch(createCampus(campus)).unwrap();
+      await dispatch(createCampus(campus)).unwrap();
 
       setOpen(false);
       setCampus(newCampusRequest());
@@ -65,7 +63,9 @@ const CreateCampus: FC<Props> = ({open, setOpen}) => {
       <DialogTitle>{t('admin.campus.create.title')}</DialogTitle>
 
       <DialogContent>
-        <CampusManagerPicker campus={campus} setCampus={setCampus}/>
+        <Box sx={{mb: 2}}>
+          <b>{t('admin.campus.create.select_campus_manager')}</b>
+        </Box>
 
         <TextField
           required

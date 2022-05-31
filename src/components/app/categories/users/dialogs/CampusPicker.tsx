@@ -4,6 +4,7 @@ import React, { FC, useEffect, useState } from 'react';
 
 import { Campus } from '../../../../../shared/types/campus';
 import { useAppSelector } from '../../../../../store/store';
+import { getLoggedInAuthState } from '../../../../../shared/functions';
 import { User, UserRequest, UserRoles } from '../../../../../shared/types/user';
 
 
@@ -19,8 +20,9 @@ type Option = {
 };
 
 
-const UserCampusPicker: FC<Props> = ({user, setUser}) => {
+const UserCampusPicker: FC<Props> = ({user: selectedUser, setUser}) => {
   const { t } = useTranslation();
+  const { user } = useAppSelector(getLoggedInAuthState);
   const { campusList } = useAppSelector(state => state.campus);
 
   const [campusOptions, setCampusOptions] = useState<Option[]>([]);
@@ -28,22 +30,34 @@ const UserCampusPicker: FC<Props> = ({user, setUser}) => {
 
   useEffect(() => {
     if (campusList) {
-      const campusOptions: Option[] = campusList.map(campus => ({
-        campus,
-        value: campus.id,
-        label: campus.name
-      }));
+      const campusOptions: Option[] = campusList
+        // Only let Campus Booster admins select other campuses
+        .filter(campus => user.campusId ? user.campusId === campus.id : true)
+        // Only show campuses that do not have a campus manager if selected user role is manager
+        .filter(campus => {
+          if (selectedUser.role === UserRoles.CampusManager) {
+            return !campus.CampusManager || campus.CampusManager.id === selectedUser.id;
+          }
+          return true;
+        })
+        .map(campus => ({
+          campus,
+          value: campus.id,
+          label: campus.name
+        }));
 
       setCampusOptions(campusOptions);
     }
-  }, [campusList]);
+  }, [campusList, user, selectedUser]);
 
 
-  return user.role === UserRoles.CampusBoosterAdmin ? (
+  return selectedUser.role === UserRoles.CampusBoosterAdmin ? (
     // We have to do it this way because for some reason, setting the value
     // to undefined doesn't refresh the value shown in the component's view
     <div>
-      <ReactSelect isDisabled
+      <ReactSelect
+        isDisabled
+        menuPosition="fixed"
         className="react-select-component"
         placeholder={t('users.select_campus')}
         classNamePrefix="react-select-component"
@@ -52,14 +66,15 @@ const UserCampusPicker: FC<Props> = ({user, setUser}) => {
   ) : (
     <ReactSelect
       isSearchable
+      menuPosition="fixed"
       options={campusOptions}
       isLoading={!campusList}
       isDisabled={!campusList}
       className="react-select-component"
       placeholder={t('users.select_campus')}
       classNamePrefix="react-select-component"
-      onChange={campus => setUser({...user, campusId: campus?.value})}
-      value={campusOptions.find(option => option.campus.id === user.campusId)}
+      onChange={campus => setUser({...selectedUser, campusId: campus?.value})}
+      value={campusOptions.find(option => option.campus.id === selectedUser.campusId)}
     />
   );
 };

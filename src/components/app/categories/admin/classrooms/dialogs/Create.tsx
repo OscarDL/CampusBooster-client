@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 
 import { ClassroomRequest } from '../../../../../../shared/types/classroom';
 import { useAppDispatch, useAppSelector } from '../../../../../../store/store';
@@ -9,6 +9,7 @@ import { createClassroom } from '../../../../../../store/features/classrooms/sli
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../../shared/dialog';
 
 import CampusPicker from './CampusPicker';
+import CoursesPicker from './CoursesPicker';
 
 
 type Props = {
@@ -18,7 +19,7 @@ type Props = {
 
 
 const newClassroomRequest = (): ClassroomRequest => ({
-  name: '', promotion: 0, campusId: undefined
+  name: '', promotion: 0, campusId: undefined, courses: []
 });
 
 
@@ -66,30 +67,36 @@ const CreateClassroom: FC<Props> = ({open, setOpen}) => {
     >
       <DialogTitle>{t('admin.classrooms.create.title', {classroom: classroom.name})}</DialogTitle>
 
-      <DialogContent>
-        <CampusPicker classroom={classroom} setClassroom={setClassroom}/>
+      <DialogContent sx={{pt: '0 !important'}}>
+        <Box className="MuiDialogContent-row">
+          <TextField
+            required
+            margin="dense"
+            variant="standard"
+            value={classroom.name}
+            name="cb-classroom-name"
+            label={t('admin.classrooms.fields.name')}
+            onChange={e => setClassroom({...classroom, name: e.target.value})}
+          />
 
-        <TextField
-          required
-          margin="dense"
-          variant="standard"
-          value={classroom.name}
-          name="cb-classroom-name"
-          label={t('admin.classrooms.fields.name')}
-          onChange={e => setClassroom({...classroom, name: e.target.value})}
-        />
+          <TextField
+            required
+            margin="dense"
+            variant="standard"
+            name="cb-classroom-promotion"
+            onChange={handleChangePromotion}
+            value={classroom.promotion || ''}
+            label={t('admin.classrooms.fields.promotion')}
+            placeholder={String(new Date().getFullYear())}
+            inputProps={{inputMode: 'numeric', pattern: '[0-9]*'}}
+          />
+        </Box>
 
-        <TextField
-          required
-          margin="dense"
-          variant="standard"
-          name="cb-classroom-promotion"
-          onChange={handleChangePromotion}
-          value={classroom.promotion || ''}
-          label={t('admin.classrooms.fields.promotion')}
-          placeholder={String(new Date().getFullYear())}
-          inputProps={{inputMode: 'numeric', pattern: '[0-9]*'}}
-        />
+        <Box sx={{my: 2}}>
+          <CampusPicker classroom={classroom} setClassroom={setClassroom}/>
+        </Box>
+
+        <CoursesPicker classroom={classroom} setClassroom={setClassroom}/>
       </DialogContent>
 
       <DialogActions>

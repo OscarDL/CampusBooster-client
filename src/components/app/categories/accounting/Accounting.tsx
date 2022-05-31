@@ -4,6 +4,7 @@ import { useGridApiRef } from '@mui/x-data-grid-pro';
 import { FC, useEffect, useMemo, useState } from 'react';
 
 import { Balance } from '../../../../shared/types/accounting';
+import { getUsers } from '../../../../store/features/users/slice';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 import { getAccountingColumns } from '../../../../shared/utils/columns';
 import { getMuiDataGridLocale } from '../../../../shared/utils/locales';
@@ -24,6 +25,7 @@ const Accounting: FC = () => {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector(getLoggedInAuthState);
   const { settings } = useAppSelector(state => state.app);
+  const { usersList } = useAppSelector(state => state.users);
   const { balances } = useAppSelector(state => state.accounting);
 
   const [openCreate, setOpenCreate] = useState(false);
@@ -31,16 +33,30 @@ const Accounting: FC = () => {
   const [openDelete, setOpenDelete] = useState(false);
   const [selectedBalance, setSelectedBalance] = useState<Balance | null>(null);
 
-  const isAdmin = useMemo(() => userHasAdminRights(user), [user]);
+  const isAdmin = useMemo(() => userHasAdminRights(user.role), [user.role]);
   const columns = useMemo(() => (
     getAccountingColumns({user, setOpenUpdate, setOpenDelete, setSelectedRow: setSelectedBalance})
   ), [user]);
 
 
   useEffect(() => {
-    if (!balances) {
-      isAdmin ? dispatch(getBalances()) : dispatch(getUserBalance(user.id));
-    }
+    const initData = async () => {
+      if (!balances) {
+        if (!isAdmin) {
+          await dispatch(getUserBalance(user.id));
+          return;
+        }
+
+        if (!usersList) await dispatch(getUsers());
+        await dispatch(getBalances());
+      }
+    };
+
+    // Do NOT include useEffect dependencies from initData() prior to gradesList
+    // to avoid calling the API with getGrades() multiple times unnecessarily.
+    initData();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [balances, isAdmin, user.id, dispatch]);
 
 

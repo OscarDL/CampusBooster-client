@@ -3,9 +3,11 @@ import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 
 import { useAppSelector } from '../store/store';
 import { categories } from '../shared/utils/values';
+import { AppCategories, AppRoutes } from '../shared/types/routing';
 import { getLoggedInAuthState, getUserCategories } from '../shared/functions';
 
 import Admin from './AdminRoutes';
+import Home from '../views/app/home/Home';
 import Drawer from '../views/shared/Drawer';
 import Tools from '../views/app/tools/Tools';
 import Users from '../views/app/users/Users';
@@ -25,6 +27,7 @@ const LoggedInRoutes: FC = () => {
   const [redirected, setRedirected] = useState(false);
 
   const components: {[key: string]: JSX.Element} = {
+    home: <Home/>,
     courses: <Courses/>,
     grades: <Grades/>,
     users: <Users/>,
@@ -36,17 +39,9 @@ const LoggedInRoutes: FC = () => {
     admin: <Admin/>
   };
 
-  const paths: {[key: string]: string} = {
-    courses: '/courses',
-    grades: '/grades',
-    users: '/users',
-    planning: '/planning',
-    absences: '/absences',
-    internships: '/internships',
-    accounting: '/accounting',
-    tools: '/tools',
-    admin: '/admin/*'
-  };
+  const paths = Object.fromEntries(
+    Object.entries(components).map(([key]) => [key, AppRoutes[key as AppCategories]])
+  );
 
 
   useEffect(() => {
@@ -74,7 +69,7 @@ const LoggedInRoutes: FC = () => {
           <Route path="/profile" element={<Profile/>}/>
 
           {/* Redirect to the home page if the route doesn't exist */}
-          <Route path="*" element={<Navigate replace to="/grades"/>}/>
+          <Route path="*" element={<Navigate replace to={AppRoutes.home}/>}/>
         </Routes>
       </div>
     </>

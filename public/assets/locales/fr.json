@@ -32,6 +32,10 @@
     }
   },
 
+  "home": {
+    "title": "Accueil"
+  },
+
   "profile": {
     "title": "Profil et réglages",
     "ms_account": "Compte Microsoft",
@@ -354,7 +358,15 @@
 
     "update": {
       "title": "Modifier \"{{user}}\"",
-      "success": "Utilisateur \"{{user}}\" modifié avec succès."
+      "success": "Utilisateur \"{{user}}\" modifié avec succès.",
+
+      "reset_pw": {
+        "button": "Réinitialiser le mot de passe",
+        "tooltip_1": "Vous ne pouvez pas manuellement réinitialiser le mot de passe de \"{{user}}\" sans adresse mail personelle assignée.",
+        "tooltip_2": "En ajoutant une adresse mail personnelle puis en cliquant \"Modifier\", son mot de passe sera automatiquement réinitialisé.",
+        "success": "Le mot de passe de l'utilisateur \"{{user}}\" a été réinitialisé et envoyé à son adresse mail personelle.",
+        "success_auto": "Son mot de passe a été réinitialisé et envoyé à son adresse mail personnelle suite à ces changements."
+      }
     },
 
     "delete": {
@@ -362,7 +374,8 @@
       "text": "Veuillez entrer le nom de l'utilisateur ci-dessous afin d'éviter une suppression accidentelle.",
       "name": "Nom complet",
       "azure": "Supprimer l'utilisateur de l'AD Azure",
-      "success": "Utilisateur \"{{user}}\" supprimé avec succès."
+      "success": "Utilisateur \"{{user}}\" supprimé avec succès.",
+      "undeletable": "Vous ne possédez pas les droits nécessaires pour supprimer l'utilisateur \"{{user}}\"."
     }
   },
 
@@ -406,13 +419,14 @@
 
       "create": {
         "button": "Nouveau campus",
-        "select_campus_manager": "Sélectionnez un campus manager",
+        "select_campus_manager": "Veuillez ensuite assigner le campus manager souhaité depuis l'onglet \"utilisateurs\".",
         "title": "Nouveau campus",
         "success": "Campus \"{{campus}}\" créé avec succès."
       },
 
       "update": {
         "title": "Modifier \"{{campus}}\"",
+        "select_campus_manager": "Veuillez modifier le campus manager souhaité depuis l'onglet \"utilisateurs\" directement.",
         "success": "Campus \"{{campus}}\" modifié avec succès."
       },
 
@@ -429,6 +443,7 @@
       "title_one": "{{count}} classe",
       "title_other": "{{count}} classes",
       "select_campus": "Sélectionnez un campus",
+      "select_courses": "Sélectionnez des cours",
 
       "fields": {
         "campus": "Campus",

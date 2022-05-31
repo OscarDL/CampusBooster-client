@@ -44,6 +44,7 @@ const BalanceUserPicker: FC<Props> = ({balance, setBalance}) => {
   return (
     <ReactSelect
       isSearchable
+      menuPosition="fixed"
       options={userOptions}
       isLoading={!usersList}
       isDisabled={!usersList}

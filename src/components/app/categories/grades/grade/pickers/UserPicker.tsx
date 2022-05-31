@@ -54,6 +54,7 @@ const GradeUserPicker: FC<Props> = ({grade, setGrade}) => {
   return (
     <ReactSelect
       isSearchable
+      menuPosition="fixed"
       options={userOptions}
       isLoading={!usersList}
       onChange={handleChangeUser}

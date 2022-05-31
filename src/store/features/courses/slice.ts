@@ -1,8 +1,6 @@
 import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-import { store } from '../../store';
-import { getUsers } from '../users/slice';
 import { User } from '../../../shared/types/user';
 import courseService from '../../../services/courses';
 import { Course, CourseRequest } from '../../../shared/types/course';
@@ -20,10 +18,6 @@ const initialState: CoursesState = {
 
 export const getCourses = createAsyncThunk('courses/getCourses', async (_, thunkAPI) => {
   try {
-    if (!store.getState().users.usersList) {
-      await store.dispatch(getUsers());
-    }
-
     return await courseService.getCourses();
   }
 

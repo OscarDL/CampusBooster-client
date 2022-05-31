@@ -1,22 +1,23 @@
 import dayjs from 'dayjs';
 import { toast } from 'react-toastify';
-import ReactSelect from 'react-select';
 import isEqual from 'react-fast-compare';
 import { useTranslation } from 'react-i18next';
 import { FC, useEffect, useState } from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { Box, Button, FormControl, InputAdornment, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
+import { Box, Button, FormControl, InputAdornment, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Tooltip, Zoom } from '@mui/material';
 
 import { userEmailMatchesError } from './Create';
 import { azureDomainName } from '../../../../../shared/utils/values';
 import { updateUser } from '../../../../../store/features/users/slice';
 import { useAppDispatch, useAppSelector } from '../../../../../store/store';
 import { User, UserRequest, UserRoles } from '../../../../../shared/types/user';
+import { getLoggedInAuthState, userHasAdminRights, userHasHigherRole } from '../../../../../shared/functions';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
 
 import UserCampusPicker from './CampusPicker';
 import UserClassroomPicker from './ClassroomPicker';
+import userService from '../../../../../services/users';
 
 
 type Props = {
@@ -28,18 +29,22 @@ type Props = {
 const newUserRequest = (user: User): UserRequest => ({
   id: user.id, role: user.role, firstName: user.firstName, lastName: user.lastName,
   birthday: user.birthday, email: user.email.split('@')[0], personalEmail: user.personalEmail,
-  classrooms: (user.UserHasClassrooms ?? [])?.map(classroom => classroom.classroomId), campusId: user.campusId
+  classrooms: (user.UserHasClassrooms ?? []).map(classroom => classroom.classroomId), campusId: user.campusId
 });
 
 
-const UpdateUser: FC<Props> = ({user, open, setOpen}) => {
+const UpdateUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const { user } = useAppSelector(getLoggedInAuthState);
   const { usersList } = useAppSelector(state => state.users);
 
   const [loading, setLoading] = useState(false);
-  const [newUser, setNewUser] = useState(newUserRequest(user));
-  const userFullName = `${user.firstName} ${user.lastName}`;
+  const [loadingResetPw, setLoadingResetPw] = useState(false);
+  const [passwordResetSent, setPasswordResetSent] = useState(false);
+  const [newUser, setNewUser] = useState(newUserRequest(selectedUser));
+  const userFullName = `${selectedUser.firstName} ${selectedUser.lastName}`;
+  const tooltip = `${t('users.update.reset_pw.tooltip_1', {user: userFullName})} ${t('users.update.reset_pw.tooltip_2')}`;
 
 
   const formIsComplete = () => (
@@ -48,7 +53,7 @@ const UpdateUser: FC<Props> = ({user, open, setOpen}) => {
     newUser.birthday &&
     newUser.email && !userEmailMatchesError(newUser.email) &&
     (newUser.role === UserRoles.Student ? newUser.personalEmail : true) &&
-    (newUser.role !== UserRoles.CampusBoosterAdmin ? newUser.campusId : true)
+    (!userHasAdminRights(newUser.role) ? newUser.campusId : true)
   );
 
   const handleChangeRole = (e: SelectChangeEvent<UserRoles>) => {
@@ -68,6 +73,22 @@ const UpdateUser: FC<Props> = ({user, open, setOpen}) => {
     setNewUser({...newUser, role, campusId, classrooms});
   };
 
+  const handleResetPassword = async () => {
+    setLoadingResetPw(true);
+
+    try {
+      await userService.resetUserPassword(selectedUser.id, selectedUser.personalEmail);
+
+      setPasswordResetSent(true);
+      toast.success(t('users.update.reset_pw.success', {user: `${selectedUser.firstName} ${selectedUser.lastName}`}));
+    }
+    catch (error: any) {
+      toast.error(error);
+    };
+
+    setLoadingResetPw(false);
+  };
+
   const handleUpdateUser = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -79,9 +100,9 @@ const UpdateUser: FC<Props> = ({user, open, setOpen}) => {
           email: `${newUser.email}@${azureDomainName}`
         },
         addClassrooms: newUser.classrooms.filter(classroom => (
-          !(user.UserHasClassrooms ?? []).map(uhc => uhc.classroomId).includes(classroom)
+          !(selectedUser.UserHasClassrooms ?? []).map(uhc => uhc.classroomId).includes(classroom)
         )),
-        removeClassrooms: (user.UserHasClassrooms ?? [])
+        removeClassrooms: (selectedUser.UserHasClassrooms ?? [])
           .filter(uhc => !newUser.classrooms.includes(uhc.classroomId))
           .map(uhc => uhc.classroomId)
       };
@@ -89,7 +110,8 @@ const UpdateUser: FC<Props> = ({user, open, setOpen}) => {
       await dispatch(updateUser(request)).unwrap();
 
       setOpen(false);
-      toast.success(t('users.update.success', {user: `${user.firstName} ${user.lastName}`}));
+      toast.success(t('users.update.success', {user: `${selectedUser.firstName} ${selectedUser.lastName}`}));
+      if (newUser.personalEmail !== selectedUser.personalEmail) toast.success(t('users.update.reset_pw.success_auto'));
     }
     catch (error: any) {
       toast.error(error);
@@ -101,8 +123,8 @@ const UpdateUser: FC<Props> = ({user, open, setOpen}) => {
 
   useEffect(() => {
     // Reset state on new dialog open
-    if (open) setNewUser(newUserRequest(user));
-  }, [user, open]);
+    if (open) setNewUser(newUserRequest(selectedUser));
+  }, [selectedUser, open]);
 
 
   return (
@@ -123,25 +145,17 @@ const UpdateUser: FC<Props> = ({user, open, setOpen}) => {
             labelId="user-select-role" label={t('users.fields.role')}
           >
             {Object.values(UserRoles).map(role => (
-              <MenuItem key={role} value={role}>
-                {t(`users.${role.toLowerCase()}.title_role`)}
-              </MenuItem>
+              !userHasHigherRole(user, role) ? (
+                <MenuItem key={role} value={role}>
+                  {t(`users.${role.toLowerCase()}.title_role`)}
+                </MenuItem>
+              ) : null
             ))}
           </Select>
         </FormControl>
 
         <Box sx={{my: 2}}>
-          {newUser.role === UserRoles.CampusBoosterAdmin ? (
-            // We have to do it this way because for some reason, setting the value
-            // to undefined doesn't refresh the value shown in the component's view
-            <ReactSelect isDisabled
-              className="react-select-component"
-              placeholder={t('users.select_campus')}
-              classNamePrefix="react-select-component"
-            />
-          ) : (
-            <UserCampusPicker user={newUser} setUser={setNewUser}/>
-          )}
+          <UserCampusPicker user={newUser} setUser={setNewUser}/>
         </Box>
 
         <Box sx={{mb: 2}}>
@@ -186,7 +200,7 @@ const UpdateUser: FC<Props> = ({user, open, setOpen}) => {
           }}
         />
 
-        <Box className="MuiDialogContent-row">
+        <Box className="MuiDialogContent-row" sx={{mb: 2}}>
           <TextField
             margin="dense"
             variant="standard"
@@ -205,6 +219,27 @@ const UpdateUser: FC<Props> = ({user, open, setOpen}) => {
             />
           </LocalizationProvider>
         </Box>
+
+        <Box className="MuiDialogContent-row">
+          {selectedUser.personalEmail ? (
+            <MainDialogButton
+              color="primary"
+              variant="contained"
+              sx={{width: '100%'}}
+              loading={loadingResetPw}
+              onClick={handleResetPassword}
+              disabled={passwordResetSent || selectedUser.personalEmail !== newUser.personalEmail}
+            >
+              {t('users.update.reset_pw.button')}
+            </MainDialogButton>
+          ) : (
+            <Tooltip TransitionComponent={Zoom} title={tooltip} placement="top">
+              <Box><Button disabled color="primary" variant="contained" sx={{width: '100%'}}>
+                {t('users.update.reset_pw.button')}
+              </Button></Box>
+            </Tooltip>
+          )}
+        </Box>
       </DialogContent>
 
       <DialogActions>
@@ -214,7 +249,7 @@ const UpdateUser: FC<Props> = ({user, open, setOpen}) => {
 
         <MainDialogButton
           type="submit" variant="contained" loading={loading}
-          disabled={!usersList || !formIsComplete() || isEqual(newUserRequest(user), newUser)}
+          disabled={!usersList || !formIsComplete() || isEqual(newUserRequest(selectedUser), newUser)}
         >
           {t('global.confirm')}
         </MainDialogButton>

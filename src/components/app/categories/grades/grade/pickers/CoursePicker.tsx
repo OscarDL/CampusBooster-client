@@ -71,6 +71,7 @@ const GradeCoursePicker: FC<Props> = ({grade, setGrade}) => {
     <div>
       <ReactSelect
         isSearchable
+        menuPosition="fixed"
         options={courseOptions}
         onChange={handleChangeCourse}
         className="react-select-component"
@@ -84,6 +85,7 @@ const GradeCoursePicker: FC<Props> = ({grade, setGrade}) => {
   ) : (
     <ReactSelect
       isSearchable
+      menuPosition="fixed"
       options={courseOptions}
       onChange={handleChangeCourse}
       className="react-select-component"

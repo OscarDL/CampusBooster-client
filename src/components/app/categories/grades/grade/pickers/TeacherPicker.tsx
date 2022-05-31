@@ -52,6 +52,7 @@ const GradeTeacherPicker: FC<Props> = ({grade, setGrade}) => {
     <div>
       <ReactSelect
         isSearchable
+        menuPosition="fixed"
         isLoading={!usersList}
         options={teacherOptions}
         className="react-select-component"
@@ -65,6 +66,7 @@ const GradeTeacherPicker: FC<Props> = ({grade, setGrade}) => {
   ) : (
     <ReactSelect
       isSearchable
+      menuPosition="fixed"
       options={teacherOptions}
       className="react-select-component"
       classNamePrefix="react-select-component"

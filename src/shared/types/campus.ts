@@ -1,5 +1,5 @@
-import { User } from './user';
 import { Classroom } from './classroom';
+import { PublicUser, User } from './user';
 
 
 export type Campus = {
@@ -10,21 +10,10 @@ export type Campus = {
   city: string,
   open: boolean,
   virtual: boolean,
-  campusManagerId: User['id'],
 
   Users?: User[],
-  Classrooms?: Classroom[]
-};
-
-export type UserCampus = {
-  id: number,
-  name: string,
-  address: string,
-  postCode: string,
-  city: string,
-  open: boolean,
-  virtual: boolean,
-  campusManagerId: User['id']
+  Classrooms?: Classroom[],
+  CampusManager: PublicUser
 };
 
 export type CampusRequest = {

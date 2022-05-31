@@ -1,10 +1,7 @@
 import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-import { store } from '../../store';
-import { getCampus } from '../campus/slice';
 import userService from '../../../services/users';
-import { getClassrooms } from '../classrooms/slice';
 import { Classroom } from '../../../shared/types/classroom';
 import { User, UserRequest } from '../../../shared/types/user';
 
@@ -21,10 +18,6 @@ const initialState: UsersState = {
 
 export const getUsers = createAsyncThunk('users/getUsers', async (_, thunkAPI) => {
   try {
-    const state = store.getState();
-    if (!state.campus.campusList) await store.dispatch(getCampus());
-    if (!state.classrooms.classroomsList) await store.dispatch(getClassrooms());
-
     return await userService.getUsers();
   }
 

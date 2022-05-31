@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import { Box, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -55,9 +55,7 @@ const AddBan: FC<Props> = ({open, setOpen}) => {
       <DialogTitle>{t('admin.banned_users.add.title')}</DialogTitle>
 
       <DialogContent>
-        <Box sx={{mb: 20}}>
-          <UserPicker user={user} setUser={setUser}/>
-        </Box>
+        <UserPicker user={user} setUser={setUser}/>
       </DialogContent>
 
       <DialogActions>

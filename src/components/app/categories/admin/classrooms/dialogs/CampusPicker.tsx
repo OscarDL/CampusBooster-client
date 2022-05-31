@@ -50,6 +50,7 @@ const CampusPicker: FC<Props> = ({classroom, setClassroom}) => {
     <ReactSelect
       isClearable
       isSearchable
+      menuPosition="fixed"
       options={campusOptions}
       isLoading={!campusList}
       isDisabled={!campusList}

@@ -4,8 +4,10 @@ import { useGridApiRef } from '@mui/x-data-grid-pro';
 import { FC, useEffect, useMemo, useState } from 'react';
 
 import { Classroom } from '../../../../../shared/types/classroom';
+import { getCampus } from '../../../../../store/features/campus/slice';
 import { getLoggedInAuthState } from '../../../../../shared/functions';
 import { ContentBody, ContentHeader } from '../../../../shared/content';
+import { getCourses } from '../../../../../store/features/courses/slice';
 import { getClassroomsColumns } from '../../../../../shared/utils/columns';
 import { getMuiDataGridLocale } from '../../../../../shared/utils/locales';
 import { useAppDispatch, useAppSelector } from '../../../../../store/store';
@@ -24,6 +26,8 @@ const ClassroomsList: FC = () => {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector(getLoggedInAuthState);
   const { settings } = useAppSelector(state => state.app);
+  const { campusList } = useAppSelector(state => state.campus);
+  const { coursesList } = useAppSelector(state => state.courses);
   const { classroomsList } = useAppSelector(state => state.classrooms);
 
   const [openCreate, setOpenCreate] = useState(false);
@@ -37,7 +41,18 @@ const ClassroomsList: FC = () => {
 
 
   useEffect(() => {
-    if (!classroomsList) dispatch(getClassrooms());
+    const initData = async () => {
+      if (!campusList) await dispatch(getCampus());
+      if (!coursesList) await dispatch(getCourses());
+
+      if (!classroomsList) await dispatch(getClassrooms());
+    };
+
+    // Do NOT include useEffect dependencies from initData() prior to gradesList
+    // to avoid calling the API with getGrades() multiple times unnecessarily.
+    initData();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [classroomsList, dispatch]);
 
 

@@ -21,3 +21,9 @@ export const useStateWithCallback = <T>(initialState: T | (() => T)): [T, Dispat
 
   return [state, setStateCallback];
 };
+
+
+export const useEffectOnce = (callback: () => void) => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(callback, []);
+};

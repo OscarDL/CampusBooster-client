@@ -5,11 +5,9 @@ import React, { FC, useEffect, useState } from 'react';
 import { Box, Button, Checkbox, FormControlLabel, FormGroup, TextField } from '@mui/material';
 
 import { Campus } from '../../../../../../shared/types/campus';
+import { updateCampus } from '../../../../../../store/features/campus/slice';
 import { useAppDispatch, useAppSelector } from '../../../../../../store/store';
-// import { updateCampus } from '../../../../../../store/features/campus/slice';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../../shared/dialog';
-
-import CampusManagerPicker from './CampusManagerPicker';
 
 
 type Props = {
@@ -29,8 +27,8 @@ const UpdateCampus: FC<Props> = ({campus, open, setOpen}) => {
 
 
   const formIsComplete = () => {
-    if (!newCampus.virtual) return newCampus.name && newCampus.address && newCampus.city && newCampus.campusManagerId;
-    return newCampus.name && newCampus.campusManagerId;
+    if (!newCampus.virtual) return newCampus.name && newCampus.address && newCampus.city;
+    return newCampus.name;
   };
 
   const handleUpdateCampus = async (e: React.FormEvent<HTMLElement>) => {
@@ -38,7 +36,7 @@ const UpdateCampus: FC<Props> = ({campus, open, setOpen}) => {
     setLoading(true);
 
     try {
-      //await dispatch(updateCampus(campus)).unwrap();
+      await dispatch(updateCampus(campus)).unwrap();
 
       setOpen(false);
       toast.success(t('admin.campus.update.success', {campus: campus.name}));
@@ -67,7 +65,9 @@ const UpdateCampus: FC<Props> = ({campus, open, setOpen}) => {
       <DialogTitle>{t('admin.campus.update.title', {campus: campus.name})}</DialogTitle>
 
       <DialogContent>
-        <CampusManagerPicker campus={newCampus} setCampus={setNewCampus}/>
+        <Box sx={{mb: 2}}>
+          <b>{t('admin.campus.update.select_campus_manager')}</b>
+        </Box>
 
         <TextField
           required

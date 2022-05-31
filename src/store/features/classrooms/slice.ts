@@ -1,10 +1,9 @@
 import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-import { store } from '../../store';
-import { getCampus } from '../campus/slice';
 import classroomsService from '../../../services/classrooms';
 import { Classroom, ClassroomRequest } from '../../../shared/types/classroom';
+import { Course } from '../../../shared/types/course';
 
 
 export type ClassroomsState = {
@@ -19,10 +18,6 @@ const initialState: ClassroomsState = {
 
 export const getClassrooms = createAsyncThunk('classrooms/getClassrooms', async (_, thunkAPI) => {
   try {
-    if (!store.getState().campus.campusList) {
-      await store.dispatch(getCampus());
-    }
-
     return await classroomsService.getClassrooms();
   }
 
@@ -45,7 +40,14 @@ export const getClassroomById = createAsyncThunk('classrooms/getClassroomById', 
 
 export const createClassroom = createAsyncThunk('classrooms/createClassroom', async (classroom: ClassroomRequest, thunkAPI) => {
   try {
-    return await classroomsService.createClassroom(classroom);
+    const newClassroom = {...classroom, courses: undefined};
+    const createdClassroom = await classroomsService.createClassroom(newClassroom);
+
+    if (classroom.courses.length > 0) {
+      await classroomsService.addCoursesToClassroom(createdClassroom.id, classroom.courses);
+    }
+
+    return await classroomsService.getClassroomById(createdClassroom.id);
   }
 
   catch (error: any) {
@@ -54,9 +56,22 @@ export const createClassroom = createAsyncThunk('classrooms/createClassroom', as
   };
 });
 
-export const updateClassroom = createAsyncThunk('classrooms/updateClassroom', async (classroom: Classroom, thunkAPI) => {
+type UpdateRequest = {
+  classroom: ClassroomRequest,
+  addCourses?: (Course['id'])[],
+  removeCourses?: (Course['id'])[]
+};
+export const updateClassroom = createAsyncThunk('classrooms/updateClassroom', async (request: UpdateRequest, thunkAPI) => {
   try {
-    return await classroomsService.updateClassroom(classroom);
+    if (request.addCourses && request.addCourses.length > 0) {
+      await classroomsService.addCoursesToClassroom(request.classroom.id!, request.addCourses);
+    }
+
+    if (request.removeCourses && request.removeCourses.length > 0) {
+      await classroomsService.removeCoursesFromClassroom(request.classroom.id!, request.removeCourses);
+    }
+
+    return await classroomsService.updateClassroom(request.classroom);
   }
 
   catch (error: any) {

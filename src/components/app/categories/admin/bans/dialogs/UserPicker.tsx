@@ -43,6 +43,7 @@ const UserClassroomPicker: FC<Props> = ({user, setUser}) => {
   return (
     <ReactSelect
       isSearchable
+      menuPosition="fixed"
       options={userOptions}
       isLoading={!usersList}
       isDisabled={!usersList}

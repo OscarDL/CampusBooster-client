@@ -316,7 +316,7 @@ body .react-select-component__menu {
   animation: 0.25s cubic-bezier(0.4, 0, 0.2, 1) react-select-menu;
 }
 body .react-select-component__menu > * {
-  max-height: 150px;
+  max-height: 200px;
 }
 
 body .react-select-component__option:hover,

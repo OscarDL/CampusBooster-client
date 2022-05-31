@@ -31,7 +31,7 @@ const Courses: FC = () => {
   const [openDelete, setOpenDelete] = useState(false);
   const [selectedGrade, setSelectedGrade] = useState<Grade | null>(null);
 
-  const isAdmin = useMemo(() => userHasAdminRights(user), [user]);
+  const isAdmin = useMemo(() => userHasAdminRights(user.role), [user.role]);
   const columns = useMemo(() => (
     getGradesColumns({user, setOpenUpdate, setOpenDelete, setSelectedRow: setSelectedGrade})
   ), [user]);

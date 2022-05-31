@@ -6,9 +6,11 @@ import { GridColDef, useGridApiRef } from '@mui/x-data-grid-pro';
 import { useStateWithCallback } from '../../../../shared/hooks';
 import { User, UserRoles } from '../../../../shared/types/user';
 import { getUsersColumns } from '../../../../shared/utils/columns';
+import { getCampus } from '../../../../store/features/campus/slice';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 import { getMuiDataGridLocale } from '../../../../shared/utils/locales';
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
+import { getClassrooms } from '../../../../store/features/classrooms/slice';
 import { clearUsers, getUsers } from '../../../../store/features/users/slice';
 import { getLoggedInAuthState, userHasAdminRights } from '../../../../shared/functions';
 import { DataGridFooter, DataGridHeader, StyledDataGrid } from '../../../shared/datagrid';
@@ -33,6 +35,8 @@ const Users: FC = () => {
   const { user } = useAppSelector(getLoggedInAuthState);
   const { settings } = useAppSelector(state => state.app);
   const { usersList } = useAppSelector(state => state.users);
+  const { campusList } = useAppSelector(state => state.campus);
+  const { classroomsList } = useAppSelector(state => state.classrooms);
 
   const [tab, setTab] = useStateWithCallback(0);
   const [openCreate, setOpenCreate] = useState(false);
@@ -47,7 +51,18 @@ const Users: FC = () => {
 
 
   useEffect(() => {
-    if (!usersList) dispatch(getUsers());
+    const initData = async () => {
+      if (!campusList) await dispatch(getCampus());
+      if (!classroomsList) await dispatch(getClassrooms());
+
+      if (!usersList) await dispatch(getUsers());
+    };
+
+    // Do NOT include useEffect dependencies from initData() prior to gradesList
+    // to avoid calling the API with getGrades() multiple times unnecessarily.
+    initData();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usersList, dispatch]);
 
   useEffect(() => {
@@ -58,7 +73,7 @@ const Users: FC = () => {
   return (
     <>
       <ContentHeader title={t('users.title')}>
-        {userHasAdminRights(user) && (
+        {userHasAdminRights(user.role) && (
           <Button
             className="button"
             onClick={() => setOpenCreate(true)}

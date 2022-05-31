@@ -32,6 +32,11 @@
     }
   },
 
+  "home": {
+    "icon": "dashboard",
+    "title": "Home"
+  },
+
   "profile": {
     "icon": "account_circle",
     "title": "Profile & Settings",
@@ -369,13 +374,21 @@
 
     "create": {
       "title": "New user",
-      "success": "User {{user}} successfully created.\nUser already exists in Azure AD and was linked automatically.",
-      "success_new": "User {{user}} successfully created.\nAccount automatically created in the Azure AD."
+      "success": "User \"{{user}}\" successfully created.\nUser already exists in Azure AD and was linked automatically.",
+      "success_new": "User \"{{user}}\" successfully created.\nAccount automatically created in the Azure AD."
     },
 
     "update": {
       "title": "Edit \"{{user}}\"",
-      "success": "User {{user}} successfully updated."
+      "success": "User \"{{user}}\" successfully updated.",
+
+      "reset_pw": {
+        "button": "Reset user password",
+        "tooltip_1": "You cannot manually reset the password of \"{{user}}\" without a personal email address assigned.",
+        "tooltip_2": "By adding a personal email address and clicking \"Confirm\", their password will be automatically reset.",
+        "success": "Password for user \"{{user}}\" was reset and sent to their personal email address.",
+        "success_auto": "Their password was reset and sent to their personal email address following this change."
+      }
     },
 
     "delete": {
@@ -383,7 +396,8 @@
       "text": "Please type in the name of the user below to avoid accidental deletion.",
       "name": "Full name",
       "azure": "Delete user from Azure AD",
-      "success": "User {{user}} successfully deleted."
+      "success": "User \"{{user}}\" successfully deleted.",
+      "undeletable": "You do not have sufficient rights to delete user \" {{user}}\"."
     }
   },
 
@@ -428,13 +442,14 @@
 
       "create": {
         "button": "New campus",
-        "select_campus_manager": "Select a campus manager",
+        "select_campus_manager": "Please then assign the desired campus manager from the \"users\" tab.",
         "title": "Create a new campus",
         "success": "Campus \"{{campus}}\" successfully created."
       },
 
       "update": {
         "title": "Edit \"{{campus}}\"",
+        "select_campus_manager": "Please change the desired campus manager from the \"users\" tab directly.",
         "success": "Campus \"{{campus}}\" successfully updated."
       },
 
@@ -451,6 +466,7 @@
       "title_one": "{{count}} classroom",
       "title_other": "{{count}} classrooms",
       "select_campus": "Select a campus",
+      "select_courses": "Select courses",
 
       "fields": {
         "campus": "Campus",

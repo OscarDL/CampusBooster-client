@@ -3,6 +3,7 @@ import { User, UserRoles } from './types/user';
 import { supportedLangs } from './utils/locales';
 import { categories, localStorageKeysToPersist } from './utils/values';
 import { LinkTypes, Settings, SupportedLangs, SupportedThemes } from './types/settings';
+import { AppCategories } from './types/routing';
 
 
 /* --- SETTINGS --- */
@@ -87,8 +88,8 @@ export const getLoggedInAuthState = (state: RootState) => ({
 export const getCategoryTitle = (user: User) => {
   const category = window.location.pathname.replace('/', '').split('/').at(0);
 
-  if (!getUserCategories(categories, user).find(c => c === category) && category !== 'profile') {
-    return categories.find(c => c === 'summary') + '.title';
+  if (!getUserCategories(categories, user).find(c => c === category) && category !== AppCategories.Profile) {
+    return categories.find(c => c === AppCategories.Home) + '.title';
   }
 
   return category + '.title';
@@ -133,6 +134,25 @@ export const getUserCategories = (categories: string[], user: User) => {
     default: {
       return categories.filter(category => !studentForbidden.includes(category));
     }
+  };
+};
+
+
+export const userHasHigherRole = (user: User, role: UserRoles) => {
+  const {
+    CampusBoosterAdmin: cba, CampusManager: cm, Assistant: a,
+    Company: c, FullProfessor: fp, Professor: p, Student: s
+  } = UserRoles;
+
+  switch (user.role) {
+    case cba: return false;
+    case cm: return role === cba;
+    case a: return [cba, cm].includes(role);
+    case c: return [cba, cm, a].includes(role);
+    // company is not superior to professors
+    case fp: return [cba, cm, a].includes(role);
+    case p: return [cba, cm, a, fp].includes(role);
+    case s: return [cba, cm, a, c, fp, p].includes(role);
   };
 };
 
@@ -194,6 +214,6 @@ export const clearAzureLocalStorageData = () => {
 
 
 // Check if user role is included in these administrative / management roles
-export const userHasAdminRights = (user: User) => (
-  [UserRoles.Assistant, UserRoles.CampusManager, UserRoles.CampusBoosterAdmin].includes(user.role)
+export const userHasAdminRights = (role: UserRoles) => (
+  [UserRoles.Assistant, UserRoles.CampusManager, UserRoles.CampusBoosterAdmin].includes(role)
 );

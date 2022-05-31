@@ -72,6 +72,17 @@ const activateUser = async (userId: User['id']) => {
   }
 };
 
+const resetUserPassword = async (userId: User['id'], personalEmail: User['personalEmail']) => {
+  try {
+    const response = await axios.patch(apiUrl + `users/${userId}/resetpassword`, {personalEmail}, getAxiosConfig());
+    return response.data;
+  }
+
+  catch (error: any) {
+    return Promise.reject(error?.response?.data || t('api.error'));
+  }
+};
+
 const deleteUser = async (id: User['id'], deleteInAD: boolean) => {
   try {
     if (deleteInAD) await axios.delete(apiUrl + 'users/azure/' + id, getAxiosConfig());
@@ -116,6 +127,7 @@ const userService = {
   updateUser,
   updateBannedUser,
   activateUser,
+  resetUserPassword,
   deleteUser,
   addUserToClassrooms,
   removeUserFromClassrooms

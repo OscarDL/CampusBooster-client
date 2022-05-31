@@ -4,8 +4,9 @@ import { FC, useEffect, useState } from 'react';
 import { Button, Checkbox, FormControlLabel, FormGroup, TextField } from '@mui/material';
 
 import { User } from '../../../../../shared/types/user';
-import { useAppDispatch } from '../../../../../store/store';
 import { deleteUser } from '../../../../../store/features/users/slice';
+import { useAppDispatch, useAppSelector } from '../../../../../store/store';
+import { getLoggedInAuthState, userHasHigherRole } from '../../../../../shared/functions';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
 
 
@@ -16,7 +17,36 @@ type Props = {
 };
 
 
-const DeleteUser: FC<Props> = ({user, open, setOpen}) => {
+const UndeletableUser: FC<Props> = ({user, open, setOpen}) => {
+  const { t } = useTranslation();
+  const userFullName = `${user.firstName} ${user.lastName}`;
+
+  return (
+    <Dialog
+      onClose={() => setOpen(false)}
+      open={open} fullWidth maxWidth="sm"
+    >
+      <DialogTitle>{t('users.delete.title', {user: userFullName})}</DialogTitle>
+
+      <DialogContent sx={{mb: 2}}>
+        <b>{t('users.delete.undeletable', {user: userFullName})}</b>
+      </DialogContent>
+
+      <DialogActions>
+        <Button color="primary" onClick={() => setOpen(false)}>
+          {t('global.cancel')}
+        </Button>
+
+        <MainDialogButton color="error" variant="contained" disabled>
+          {t('global.confirm')}
+        </MainDialogButton>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
+
+const DeletableUser: FC<Props> = ({user, open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
@@ -91,6 +121,19 @@ const DeleteUser: FC<Props> = ({user, open, setOpen}) => {
         </MainDialogButton>
       </DialogActions>
     </Dialog>
+  );
+};
+
+
+const DeleteUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
+  const { user } = useAppSelector(getLoggedInAuthState);
+
+  return (
+    user.id === selectedUser.id || userHasHigherRole(user, selectedUser.role) ? (
+      <UndeletableUser user={selectedUser} open={open} setOpen={setOpen}/>
+    ) : (
+      <DeletableUser user={selectedUser} open={open} setOpen={setOpen}/>
+    )
   );
 };
 

@@ -1,15 +1,15 @@
-import copy from 'fast-copy';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import { Button, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import React, { FC, useEffect, useState } from 'react';
 
-import { Classroom } from '../../../../../../shared/types/classroom';
 import { useAppDispatch, useAppSelector } from '../../../../../../store/store';
 import { updateClassroom } from '../../../../../../store/features/classrooms/slice';
+import { Classroom, ClassroomRequest } from '../../../../../../shared/types/classroom';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../../shared/dialog';
 
 import CampusPicker from './CampusPicker';
+import CoursesPicker from './CoursesPicker';
 
 
 type Props = {
@@ -19,13 +19,19 @@ type Props = {
 };
 
 
+const newClassroomRequest = (classroom: Classroom): ClassroomRequest => ({
+  name: classroom.name, promotion: classroom.promotion,
+  campusId: classroom.campusId, courses: classroom.ClassroomHasCourses?.map(chc => chc.courseId) ?? []
+});
+
+
 const UpdateClassroom: FC<Props> = ({classroom, open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { classroomsList } = useAppSelector(state => state.classrooms);
 
   const [loading, setLoading] = useState(false);
-  const [newClassroom, setNewClassroom] = useState(copy(classroom));
+  const [newClassroom, setNewClassroom] = useState(newClassroomRequest(classroom));
 
 
   const handleChangePromotion = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -40,7 +46,17 @@ const UpdateClassroom: FC<Props> = ({classroom, open, setOpen}) => {
     setLoading(true);
 
     try {
-      await dispatch(updateClassroom(newClassroom)).unwrap();
+      const request = {
+        classroom: newClassroom,
+        addCourses: newClassroom.courses.filter(course => (
+          !(classroom.ClassroomHasCourses ?? []).map(chc => chc.courseId).includes(course)
+        )),
+        removeCourses: (classroom.ClassroomHasCourses ?? [])
+          .filter(chc => !newClassroom.courses.includes(chc.courseId))
+          .map(chc => chc.courseId)
+      };
+
+      await dispatch(updateClassroom(request)).unwrap();
 
       setOpen(false);
       toast.success(t('admin.classrooms.update.success', {classroom: classroom.name}));
@@ -55,7 +71,7 @@ const UpdateClassroom: FC<Props> = ({classroom, open, setOpen}) => {
 
   useEffect(() => {
     // Reset state on new dialog open
-    if (open) setNewClassroom(copy(classroom));
+    if (open) setNewClassroom(newClassroomRequest(classroom));
   }, [classroom, open]);
 
 
@@ -68,31 +84,36 @@ const UpdateClassroom: FC<Props> = ({classroom, open, setOpen}) => {
     >
       <DialogTitle>{t('admin.classrooms.update.title', {classroom: classroom.name})}</DialogTitle>
 
-      <DialogContent>
-        <CampusPicker classroom={newClassroom} setClassroom={setNewClassroom}/>
+      <DialogContent sx={{pt: '0 !important'}}>
+        <Box className="MuiDialogContent-row">
+          <TextField
+            required
+            margin="dense"
+            variant="standard"
+            name="cb-classroom-name"
+            value={newClassroom.name}
+            label={t('admin.classrooms.fields.name')}
+            onChange={e => setNewClassroom({...newClassroom, name: e.target.value})}
+          />
 
-        <TextField
-          required
-          margin="dense"
-          variant="standard"
-          name="cb-classroom-name"
-          value={newClassroom.name}
-          label={t('admin.classrooms.fields.name')}
-          onChange={e => setNewClassroom({...newClassroom, name: e.target.value})}
-        />
+          <TextField
+            required
+            margin="dense"
+            variant="standard"
+            name="cb-classroom-promotion"
+            onChange={handleChangePromotion}
+            value={newClassroom.promotion || ''}
+            label={t('admin.classrooms.fields.promotion')}
+            placeholder={String(new Date().getFullYear())}
+            inputProps={{inputMode: 'numeric', pattern: '[0-9]*'}}
+          />
+        </Box>
 
-        <TextField
-          required
-          type="number"
-          margin="dense"
-          variant="standard"
-          name="cb-classroom-promotion"
-          value={newClassroom.promotion}
-          onChange={handleChangePromotion}
-          label={t('admin.classrooms.fields.promotion')}
-          placeholder={String(new Date().getFullYear())}
-          inputProps={{inputMode: 'numeric', pattern: '[0-9]*'}}
-        />
+        <Box sx={{my: 2}}>
+          <CampusPicker classroom={newClassroom} setClassroom={setNewClassroom}/>
+        </Box>
+
+        <CoursesPicker classroom={newClassroom} setClassroom={setNewClassroom}/>
       </DialogContent>
 
       <DialogActions>
