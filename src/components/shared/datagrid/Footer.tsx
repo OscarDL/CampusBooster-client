@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { GridFooter } from '@mui/x-data-grid-pro';
 
-import { setPagination } from '../../../store/features/app/slice';
+import { setDataGridValue } from '../../../store/features/app/slice';
 import { useAppDispatch, useAppSelector } from '../../../store/store';
 
 
@@ -21,7 +21,7 @@ const DataGridFooter: FC = () => {
           id="pagination"
           type="checkbox"
           checked={settings.dataGrid.pagination}
-          onChange={e => dispatch(setPagination(e.target.checked))}
+          onChange={e => dispatch(setDataGridValue({key: 'pagination', value: e.target.checked}))}
         />
         <label htmlFor="pagination">{t('data_grid.pagination')}</label>
       </div>

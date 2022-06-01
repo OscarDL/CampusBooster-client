@@ -4,15 +4,17 @@ import { useGridApiRef } from '@mui/x-data-grid-pro';
 import { FC, useEffect, useMemo, useState } from 'react';
 
 import { Grade } from '../../../../shared/types/grade';
+import { UserRoles } from '../../../../shared/types/user';
 import { getUsers } from '../../../../store/features/users/slice';
 import { getGradesColumns } from '../../../../shared/utils/columns';
+import { getLoggedInAuthState } from '../../../../shared/functions';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 import { getCourses } from '../../../../store/features/courses/slice';
 import { getMuiDataGridLocale } from '../../../../shared/utils/locales';
+import { setDataGridValue } from '../../../../store/features/app/slice';
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
-import { getLoggedInAuthState, userHasAdminRights } from '../../../../shared/functions';
 import { DataGridFooter, DataGridHeader, StyledDataGrid } from '../../../shared/datagrid';
-import { clearGrades, getGrades, getUserGrades } from '../../../../store/features/grades/slice';
+import { clearGrades, getGrades, getTeacherAsUserGrades, getUserGrades } from '../../../../store/features/grades/slice';
 
 import CreateBalance from './grade/Create';
 import UpdateBalance from './grade/Update';
@@ -35,7 +37,6 @@ const Grades: FC = () => {
   const [openDelete, setOpenDelete] = useState(false);
   const [selectedGrade, setSelectedGrade] = useState<Grade | null>(null);
 
-  const isAdmin = useMemo(() => userHasAdminRights(user.role), [user.role]);
   const columns = useMemo(() => (
     getGradesColumns({user, setOpenUpdate, setOpenDelete, setSelectedRow: setSelectedGrade})
   ), [user]);
@@ -47,7 +48,25 @@ const Grades: FC = () => {
       if (!coursesList) await dispatch(getCourses());
 
       if (!gradesList) {
-        await (isAdmin ? dispatch(getGrades()) : dispatch(getUserGrades(user.id)));
+        switch (user.role) {
+          case UserRoles.Student: {
+            await dispatch(getUserGrades(user.id));
+            break;
+          }
+
+          case UserRoles.Company:
+          case UserRoles.Professor:
+          case UserRoles.FullProfessor: {
+            await dispatch(getTeacherAsUserGrades(user.id));
+            break;
+          }
+
+          case UserRoles.Assistant:
+          case UserRoles.CampusManager:
+          case UserRoles.CampusBoosterAdmin: {
+            await dispatch(getGrades());
+          }
+        };
       }
     };
 
@@ -56,13 +75,13 @@ const Grades: FC = () => {
     initData();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gradesList, isAdmin, user.id, dispatch]);
+  }, [gradesList, user.id, user.role, dispatch]);
 
 
   return (
     <>
       <ContentHeader title={t('grades.title')}>
-        {isAdmin && (
+        {user.role !== UserRoles.Student && (
           <Button
             className="button"
             onClick={() => setOpenCreate(true)}
@@ -81,8 +100,9 @@ const Grades: FC = () => {
           disableSelectionOnClick
 
           loading={!gradesList}
-          rows={gradesList ?? []} columns={columns}
-          pagination={settings.dataGrid.pagination}
+          columns={columns} rows={gradesList ?? []}
+          pageSize={settings.dataGrid.pageSize} pagination={settings.dataGrid.pagination}
+          onPageSizeChange={value => dispatch(setDataGridValue({key: 'pageSize', value}))}
 
           components={{
             LoadingOverlay: Loader,

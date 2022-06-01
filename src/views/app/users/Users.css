@@ -27,16 +27,6 @@
 }
 
 
-/* --- Users tab --- */
-
-.users-tab.tab-slide-left {
-  animation: 0.05s tab-reveal forwards, 0.3s tab-slide-left forwards;
-}
-.users-tab.tab-slide-right {
-  animation: 0.05s tab-reveal forwards, 0.3s tab-slide-right forwards;
-}
-
-
 /* Up to: Smartphones */
 @media (max-width: 479px) {
   .users-tab {
@@ -47,10 +37,6 @@
 
 /* Up to: Small tablets */
 @media (max-width: 767px) {
-  @keyframes tab-slide-in-left {}
-
-  @keyframes tab-slide-in-right {}
-
   .users-select {
     display: flex;
   }

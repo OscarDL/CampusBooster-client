@@ -5,7 +5,7 @@ import { Button, TextField } from '@mui/material';
 
 import { Campus } from '../../../../../../shared/types/campus';
 import { useAppDispatch } from '../../../../../../store/store';
-// import { deleteCampus } from '../../../../../../store/features/campus/slice';
+import { deleteCampus } from '../../../../../../store/features/campus/slice';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../../shared/dialog';
 
 
@@ -29,7 +29,7 @@ const DeleteCampus: FC<Props> = ({campus, open, setOpen}) => {
     setLoading(true);
 
     try {
-      // await dispatch(deleteCampus(campus.id)).unwrap();
+      await dispatch(deleteCampus(campus.id)).unwrap();
 
       setName('');
       setOpen(false);

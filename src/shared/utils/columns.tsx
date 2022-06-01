@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { t } from 'i18next';
 import { Dispatch, SetStateAction } from 'react';
-import { IconButton, Tooltip } from '@mui/material';
+import { Button, IconButton, Tooltip } from '@mui/material';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid-pro';
 import { DeleteOutlined, EditOutlined, OpenInNewRounded, RemoveCircleOutlineOutlined } from '@mui/icons-material';
 
@@ -18,20 +18,18 @@ type BaseProps = {
   setSelectedRow: Dispatch<SetStateAction<any>>
 };
 
-type EditDeleteColumnProps = (props: BaseProps & {
-  columnPrefix: string
-}) => GridColDef[];
+type EditDeleteColumnProps = (props: Partial<BaseProps> & {allowed: boolean}) => GridColDef[];
 
 
-const getEditDeleteColumn: EditDeleteColumnProps = ({user, columnPrefix, setOpenUpdate, setOpenDelete, setSelectedRow}) => {
-  if (!userHasAdminRights(user.role)) return [];
+const getEditDeleteColumn: EditDeleteColumnProps = ({allowed, setOpenUpdate, setOpenDelete, setSelectedRow}) => {
+  if (!allowed) return [];
 
   return [{
     width: 100,
     sortable: false,
     field: 'actions',
     filterable: false,
-    headerName: t(columnPrefix + 'actions'),
+    headerName: t('data_grid.actions'),
 
     renderCell: ({row}: GridRenderCellParams) => (
       <div>
@@ -39,8 +37,8 @@ const getEditDeleteColumn: EditDeleteColumnProps = ({user, columnPrefix, setOpen
           <IconButton
             color="primary"
             onClick={() => {
-              setSelectedRow(row);
-              setOpenUpdate(true);
+              setSelectedRow?.(row);
+              setOpenUpdate?.(true);
             }}
           >
             <EditOutlined/>
@@ -51,8 +49,8 @@ const getEditDeleteColumn: EditDeleteColumnProps = ({user, columnPrefix, setOpen
           <IconButton
             color="error"
             onClick={() => {
-              setSelectedRow(row);
-              setOpenDelete(true);
+              setSelectedRow?.(row);
+              setOpenDelete?.(true);
             }}
           >
             <DeleteOutlined/>
@@ -65,6 +63,7 @@ const getEditDeleteColumn: EditDeleteColumnProps = ({user, columnPrefix, setOpen
 
 
 export const getAccountingColumns = ({user, setOpenUpdate, setOpenDelete, setSelectedRow}: BaseProps): GridColDef[] => {
+  const allowed = userHasAdminRights(user.role);
   const columnPrefix = 'accounting.data_grid.columns.';
 
   const userColumn: GridColDef[] = userHasAdminRights(user.role) ? (
@@ -96,12 +95,13 @@ export const getAccountingColumns = ({user, setOpenUpdate, setOpenDelete, setSel
     {
       field: 'status', headerName: t(columnPrefix + 'status'), width: 150, valueGetter: ({row}) => t('accounting.status.' + row.status)
     },
-    ...getEditDeleteColumn({user, columnPrefix, setOpenUpdate, setOpenDelete, setSelectedRow})
+    ...getEditDeleteColumn({allowed, setOpenUpdate, setOpenDelete, setSelectedRow})
   ];
 };
 
 
 export const getUsersColumns = ({user, setOpenUpdate, setOpenDelete, setSelectedRow}: BaseProps): GridColDef[] => {
+  const allowed = userHasAdminRights(user.role);
   const columnPrefix = 'users.fields.';
 
   return [
@@ -132,7 +132,7 @@ export const getUsersColumns = ({user, setOpenUpdate, setOpenDelete, setSelected
       field: 'UserHasClassrooms', headerName: t(columnPrefix + 'classrooms'), width: 250,
       valueGetter: ({row}) => row.UserHasClassrooms.map((uhc: UserHasClassroom) => uhc.Classroom?.name).join(', ')
     },
-    ...getEditDeleteColumn({user, columnPrefix, setOpenUpdate, setOpenDelete, setSelectedRow})
+    ...getEditDeleteColumn({allowed, setOpenUpdate, setOpenDelete, setSelectedRow})
   ];
 };
 
@@ -178,9 +178,10 @@ export const getBannedUsersColumns = ({setOpenDelete, setSelectedRow}: Partial<B
 
 
 export const getGradesColumns = ({user, setOpenUpdate, setOpenDelete, setSelectedRow}: BaseProps): GridColDef[] => {
+  const allowed = user.role !== UserRoles.Student;
   const columnPrefix = 'grades.fields.';
 
-  const userColumn: GridColDef[] = user.role !== UserRoles.Student ? (
+  const userColumn: GridColDef[] = allowed ? (
     [{
       field: 'student', headerName: t(columnPrefix + 'student'), width: 200,
       valueGetter: ({row}) => `${row.User?.firstName} ${row.User?.lastName}`
@@ -207,12 +208,13 @@ export const getGradesColumns = ({user, setOpenUpdate, setOpenDelete, setSelecte
       field: 'teacher', headerName: t(columnPrefix + 'teacher'), width: 200,
       valueGetter: ({row}) => `${row.Teacher?.User?.firstName} ${row.Teacher?.User?.lastName}`
     },
-    ...getEditDeleteColumn({user, columnPrefix, setOpenUpdate, setOpenDelete, setSelectedRow})
+    ...getEditDeleteColumn({allowed, setOpenUpdate, setOpenDelete, setSelectedRow})
   ];
 };
 
 
 export const getCampusColumns = ({user, setOpenUpdate, setOpenDelete, setSelectedRow}: BaseProps): GridColDef[] => {
+  const allowed = userHasAdminRights(user.role);
   const columnPrefix = 'admin.campus.fields.';
 
   return [
@@ -236,12 +238,13 @@ export const getCampusColumns = ({user, setOpenUpdate, setOpenDelete, setSelecte
       field: 'virtual', headerName: t(columnPrefix + 'virtual'), width: 100,
       valueGetter: ({row}) => t('global.' + (row.virtual ? 'yes' : 'no'))
     },
-    ...getEditDeleteColumn({user, columnPrefix, setOpenUpdate, setOpenDelete, setSelectedRow})
+    ...getEditDeleteColumn({allowed, setOpenUpdate, setOpenDelete, setSelectedRow})
   ];
 };
 
 
 export const getClassroomsColumns = ({user, setOpenUpdate, setOpenDelete, setSelectedRow}: BaseProps): GridColDef[] => {
+  const allowed = userHasAdminRights(user.role);
   const columnPrefix = 'admin.classrooms.fields.';
   const getCourses = (row: Classroom) => row.ClassroomHasCourses?.map((chc: ClassroomHasCourse) => chc.Course?.name).join(', ');
 
@@ -263,21 +266,23 @@ export const getClassroomsColumns = ({user, setOpenUpdate, setOpenDelete, setSel
       )
       
     },
-    ...getEditDeleteColumn({user, columnPrefix, setOpenUpdate, setOpenDelete, setSelectedRow})
+    ...getEditDeleteColumn({allowed, setOpenUpdate, setOpenDelete, setSelectedRow})
   ];
 };
 
 
 export const getCoursesColumns = ({user, setOpenUpdate, setOpenDelete, setSelectedRow}: BaseProps): GridColDef[] => {
+  const allowed = userHasAdminRights(user.role);
   const columnPrefix = 'courses.fields.';
 
   const getCanvasLink = (link: Course['link']) => (
-    <IconButton sx={{ml: -1}} onClick={() => window.open(link, '_blank')}>
-      <OpenInNewRounded color="primary"/>
-    </IconButton>
-    // <Button sx={{ml: '-10px'}} onClick={() => window.open(link, '_blank')}>
-    //   {t(columnPrefix + 'link_field')}
-    // </Button>
+    <Button
+      sx={{ml: '-10px'}}
+      endIcon={<OpenInNewRounded/>}
+      onClick={() => window.open(link, '_blank')}
+    >
+      {t(columnPrefix + 'link_field')}
+    </Button>
   );
 
 
@@ -303,6 +308,36 @@ export const getCoursesColumns = ({user, setOpenUpdate, setOpenDelete, setSelect
       field: 'speciality', headerName: t(columnPrefix + 'speciality'), width: 100,
       valueGetter: ({row}) => t('global.' + (row.speciality ? 'yes' : 'no'))
     },
-    ...getEditDeleteColumn({user, columnPrefix, setOpenUpdate, setOpenDelete, setSelectedRow})
+    ...getEditDeleteColumn({allowed, setOpenUpdate, setOpenDelete, setSelectedRow})
+  ];
+};
+
+
+export const getTeachersColumns = ({user, setOpenUpdate, setOpenDelete, setSelectedRow}: BaseProps): GridColDef[] => {
+  const allowed = userHasAdminRights(user.role);
+  const columnPrefix = 'admin.teachers.fields.';
+
+  return [
+    {
+      field: 'campus', headerName: t(columnPrefix + 'campus'), width: 200,
+      valueGetter: ({row}) => row.ClassroomHasCourse.Classroom.Campus.name
+    },
+    {
+      field: 'classroom', headerName: t(columnPrefix + 'classroom'), width: 250,
+      valueGetter: ({row}) => `${row.ClassroomHasCourse.Classroom.name} ${row.ClassroomHasCourse.Classroom.promotion}`
+    },
+    {
+      field: 'course', headerName: t(columnPrefix + 'course'), width: 150,
+      valueGetter: ({row}) => row.ClassroomHasCourse.Course.name
+    },
+    {
+      field: 'name', headerName: t(columnPrefix + 'name'), width: 250,
+      valueGetter: ({row}) => `${row.User.firstName} ${row.User.lastName}`
+    },
+    {
+      field: 'active', headerName: t(columnPrefix + 'active'), width: 100,
+      valueGetter: ({row}) => t('global.' + (row.active ? 'yes' : 'no'))
+    },
+    ...getEditDeleteColumn({allowed, setOpenUpdate, setOpenDelete, setSelectedRow})
   ];
 };

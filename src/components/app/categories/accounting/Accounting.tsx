@@ -8,6 +8,7 @@ import { getUsers } from '../../../../store/features/users/slice';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 import { getAccountingColumns } from '../../../../shared/utils/columns';
 import { getMuiDataGridLocale } from '../../../../shared/utils/locales';
+import { setDataGridValue } from '../../../../store/features/app/slice';
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
 import { getLoggedInAuthState, userHasAdminRights } from '../../../../shared/functions';
 import { DataGridFooter, DataGridHeader, StyledDataGrid } from '../../../shared/datagrid';
@@ -82,8 +83,9 @@ const Accounting: FC = () => {
           disableSelectionOnClick
 
           loading={!balances}
-          rows={balances ?? []} columns={columns}
-          pagination={settings.dataGrid.pagination}
+          columns={columns} rows={balances ?? []}
+          pageSize={settings.dataGrid.pageSize} pagination={settings.dataGrid.pagination}
+          onPageSizeChange={value => dispatch(setDataGridValue({key: 'pageSize', value}))}
 
           components={{
             LoadingOverlay: Loader,

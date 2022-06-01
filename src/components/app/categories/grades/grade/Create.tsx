@@ -88,7 +88,7 @@ const CreateGrade: FC<Props> = ({open, setOpen}) => {
             value={grade.average ?? ''}
             onChange={handleChangeGrade}
             label={t('grades.fields.grade')}
-            inputProps={{inputMode: 'numeric', pattern: '[0-9]*', min: 0, max: 20}}
+            inputProps={{inputMode: 'numeric', pattern: '[0-9]*', min: 0, max: 20, step: 0.01}}
             InputProps={{
               autoComplete: Date.now().toString(), // requires a unique value to be disabled
               endAdornment: <InputAdornment position="end">/ 20</InputAdornment>

@@ -3,14 +3,13 @@ import { Tab, Tabs } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { UserRoles } from '../../../../shared/types/user';
-import { DispatchWithCallback } from '../../../../shared/hooks';
 
 import Dropdown from '../../../shared/dropdown';
 
 
 type TabsProps = {
   tab: number,
-  setTab: DispatchWithCallback<React.SetStateAction<number>>
+  setTab: React.Dispatch<React.SetStateAction<number>>
 };
 
 
@@ -27,13 +26,6 @@ const UserTabs: FC<TabsProps> = ({tab, setTab}) => {
       icon: t(`users.${role.toLowerCase()}.icon`)
     }))
   );
-
-  const animateNewTab = (_: any, newTab: any) => {
-    setTab(newTab, () => {
-      const tabElement = document.getElementById('users-tab-' + newTab);
-      tabElement?.classList.add(`tab-slide-${tab > newTab ? 'left' : 'right'}`);
-    });
-  };
 
   return (
     <div className="container users-tabs-container">
@@ -53,12 +45,12 @@ const UserTabs: FC<TabsProps> = ({tab, setTab}) => {
         </Dropdown>
       </div>
 
-      <div className="tools-tabs">
+      <div className="users-tabs">
         <Tabs // Material tabs for desktop
           value={tab}
           variant="scrollable"
           scrollButtons="auto"
-          onChange={animateNewTab}
+          onChange={(_, tab) => setTab(tab)}
         >
           {tabs.map((tab, i) => (
             <Tab key={i} tabIndex={0} label={tab.title}/>

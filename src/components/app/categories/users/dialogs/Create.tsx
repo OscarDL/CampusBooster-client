@@ -10,8 +10,8 @@ import { azureDomainName } from '../../../../../shared/utils/values';
 import { createUser } from '../../../../../store/features/users/slice';
 import { UserRequest, UserRoles } from '../../../../../shared/types/user';
 import { useAppDispatch, useAppSelector } from '../../../../../store/store';
-import { getLoggedInAuthState, userHasAdminRights, userHasHigherRole } from '../../../../../shared/functions';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
+import { getLoggedInAuthState, userHasHigherRole, userShouldHaveNoCampusAssigned } from '../../../../../shared/functions';
 
 import UserCampusPicker from './CampusPicker';
 import UserClassroomPicker from './ClassroomPicker';
@@ -48,7 +48,7 @@ const CreateUser: FC<Props> = ({open, setOpen}) => {
     newUser.birthday &&
     !userEmailMatchesError(newUser.email) &&
     (newUser.role === UserRoles.Student ? newUser.personalEmail : true) &&
-    (!userHasAdminRights(newUser.role) ? newUser.campusId : true)
+    (!userShouldHaveNoCampusAssigned(newUser.role) ? newUser.campusId : true)
   );
 
   const handleChangeRole = (e: SelectChangeEvent<UserRoles>) => {

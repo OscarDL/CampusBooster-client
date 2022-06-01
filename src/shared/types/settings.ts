@@ -23,6 +23,7 @@ export type Settings = {
   linkType: LinkTypes,
 
   dataGrid: {
+    pageSize: number,
     pagination: boolean
   }
 };

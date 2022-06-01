@@ -8,6 +8,8 @@ import { getLoggedInAuthState } from '../shared/functions';
 import BansView from '../views/app/admin/Bans';
 import AdminView from '../views/app/admin/Admin';
 import CampusView from '../views/app/admin/Campus';
+import TeachersView from '../views/app/admin/Teachers';
+import PlanningsView from '../views/app/admin/Plannings';
 import ClassroomsView from '../views/app/admin/Classrooms';
 
 
@@ -18,6 +20,8 @@ const AdminRoutes: FC = () => {
     <Routes>
       <Route index element={<AdminView/>}/>
       <Route path="bans" element={<BansView/>}/>
+      <Route path="teachers" element={<TeachersView/>}/>
+      <Route path="plannings" element={<PlanningsView/>}/>
       <Route path="classrooms" element={<ClassroomsView/>}/>
       {user.role === UserRoles.CampusBoosterAdmin && <Route path="campus" element={<CampusView/>}/>}
 

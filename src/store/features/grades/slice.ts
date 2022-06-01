@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 import { User } from '../../../shared/types/user';
 import gradeService from '../../../services/grades';
+import { Teacher } from '../../../shared/types/teacher';
 import { Grade, GradeRequest } from '../../../shared/types/grade';
 
 
@@ -30,6 +31,28 @@ export const getGrades = createAsyncThunk('grades/getGrades', async (_, thunkAPI
 export const getUserGrades = createAsyncThunk('grades/getUserGrades', async (id: User['id'], thunkAPI) => {
   try {
     return await gradeService.getUserGrades(id);
+  }
+
+  catch (error: any) {
+    const message = error || 'error';
+    return thunkAPI.rejectWithValue(message);
+  };
+});
+
+export const getTeacherGrades = createAsyncThunk('grades/getTeacherGrades', async (id: Teacher['id'], thunkAPI) => {
+  try {
+    return await gradeService.getTeacherGrades(id);
+  }
+
+  catch (error: any) {
+    const message = error || 'error';
+    return thunkAPI.rejectWithValue(message);
+  };
+});
+
+export const getTeacherAsUserGrades = createAsyncThunk('grades/getTeacherAsUserGrades', async (id: User['id'], thunkAPI) => {
+  try {
+    return await gradeService.getTeacherAsUserGrades(id);
   }
 
   catch (error: any) {
@@ -84,16 +107,6 @@ const gradesSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    // Retrieve all grades for admins
-    builder.addCase(getGrades.fulfilled, (state, {payload}) => {
-      state.gradesList = payload;
-    });
-
-    // Retrieve all grades for specific user
-    builder.addCase(getUserGrades.fulfilled, (state, {payload}) => {
-      state.gradesList = payload;
-    });
-
     // Create new grade
     builder.addCase(createGrade.fulfilled, (state, {payload}) => {
       state.gradesList = (state.gradesList ?? []).concat(payload);
@@ -114,12 +127,27 @@ const gradesSlice = createSlice({
       }
     });
 
+    // Retrieve specific grades for different user roles
+    builder.addMatcher(isAnyOf(
+      getGrades.fulfilled,
+      getUserGrades.fulfilled,
+      getTeacherGrades.fulfilled,
+      getTeacherAsUserGrades.fulfilled
+    ), (state, {payload}: any) => {
+      state.gradesList = payload;
+    });
+
     // Show an error message on any of these cases being rejected.
     builder
       .addMatcher(isAnyOf(createGrade.rejected, updateGrade.rejected, deleteGrade.rejected), (_, {payload}: any) => {
         toast.error(payload.message);
       })
-      .addMatcher(isAnyOf(getGrades.rejected, getUserGrades.rejected), (state, {payload}: any) => {
+      .addMatcher(isAnyOf(
+        getGrades.rejected,
+        getUserGrades.rejected,
+        getTeacherGrades.rejected,
+        getTeacherAsUserGrades.rejected
+      ), (state, {payload}: any) => {
         state.gradesList = [];
         toast.error(payload.message);
       });

@@ -126,8 +126,7 @@
       "course": "Cours",
       "grade": "Note",
       "teacher": "Professeur",
-      "comment": "Commentaire",
-      "actions": "Actions"
+      "comment": "Commentaire"
     },
 
     "create": {
@@ -143,7 +142,7 @@
     "delete": {
       "title": "Supprimer note",
       "text": "Veuillez entrer le nom de l'étudiant ainsi que sa note comme l'exemple ci-dessous afin d'éviter une suppression accidentelle.",
-      "student_grade": "Nom complet de l'étudiant (XX/20)",
+      "student_grade": "Nom de l'étudiant (XX/20)",
       "success": "Note supprimée avec succès."
     }
   },
@@ -151,6 +150,15 @@
   "courses": {
     "title": "Matières",
     "add": "Ajouter une matière",
+
+    "tabs": {
+      "all": "Tous les cours",
+      "year_1": "B.Eng.1",
+      "year_2": "B.Eng.2",
+      "year_3": "B.Eng.3",
+      "year_4": "M.Eng.1",
+      "year_5": "M.Eng.2"
+    },
 
     "fields": {
       "title_one": "{{count}} cours",
@@ -162,8 +170,7 @@
       "year": "Année",
       "year_field": "{{year}}e année",
       "credits": "Crédits",
-      "speciality": "Spécialité",
-      "actions": "Actions"
+      "speciality": "Spécialité"
     },
 
     "create": {
@@ -243,7 +250,6 @@
         "debit": "Débit",
         "credit": "Crédit",
         "status": "Statut",
-        "actions": "Actions",
         "student": "Étudiant",
         "description": "Description",
         "date_confirmed": "Confirmé le",
@@ -378,8 +384,7 @@
       "classrooms": "Classes",
       "birthday": "Date de naissance",
       "email": "Adresse mail (SUPINFO)",
-      "personal_email": "Adresse mail personelle",
-      "actions": "Actions"
+      "personal_email": "Adresse mail personelle"
     },
 
     "create": {
@@ -445,8 +450,7 @@
         "post_code": "Code postal",
         "city": "Ville",
         "open": "Ouvert",
-        "virtual": "Virtuel",
-        "actions": "Actions"
+        "virtual": "Virtuel"
       },
 
       "create": {
@@ -482,8 +486,7 @@
         "no_campus": "Aucun campus assigné",
         "name": "Nom de la classe",
         "promotion": "Promotion",
-        "courses": "Liste des cours",
-        "actions": "Actions"
+        "courses": "Liste des cours"
       },
 
       "create": {
@@ -503,10 +506,44 @@
         "name": "Nom de la classe",
         "success": "Classe \"{{classroom}}\" supprimé avec succès."
       }
+    },
+
+    "teachers": {
+      "title": "Professeurs",
+      "title_one": "{{count}} professeur",
+      "title_other": "{{count}} professeurs",
+
+      "fields": {
+        "campus": "Campus",
+        "classroom": "Classe",
+        "course": "Cours",
+        "name": "Nom du professeur",
+        "active": "Actif"
+      },
+
+      "add": {
+        "button": "Ajouter un professeur",
+        "select_user": "Sélectionnez un utilisateur",
+        "title": "Ajouter un utilisateur à la liste des professeurs",
+        "success": "Utilisateur \"{{user}}\" ajouté comme professeur avec succès."
+      },
+
+      "update": {
+        "title": "Modifier professeur \"{{teacher}}\"",
+        "success": "User \"{{user}}\" successfully updated."
+      },
+
+      "remove": {
+        "title": "Retirer \"{{user}}\" de la liste des professeurs",
+        "text": "Veuillez entrer le nom de l'utilisateur et du cours comme ci-dessous afin d'éviter un retrait accidentel.",
+        "name_course": "{{user}} - {{course}}",
+        "success": "Utilisateur \"{{user}}\" retiré de la liste des professeurs avec succès."
+      }
     }
   },
 
   "data_grid": {
+    "actions": "Actions",
     "pagination": "Pagination"
   },
 

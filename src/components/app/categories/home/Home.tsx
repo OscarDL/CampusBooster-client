@@ -19,7 +19,10 @@ const Home: FC = () => {
       <ContentHeader title={t('home.title')}/>
 
       <ContentBody>
-        {user.role === UserRoles.Student ? <Credits/> : 'Home'}
+        <div id="grid">
+          {/* {user.role === UserRoles.Student ? <Credits/> : 'Home'} */}
+          <Credits/>
+        </div>
       </ContentBody>
     </>
   );

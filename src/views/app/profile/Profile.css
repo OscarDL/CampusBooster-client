@@ -55,15 +55,6 @@
 }
 
 
-/* --- Credits progress --- */
-
-.profile-view .credits {
-  /* Workaround for ChartJS not resizing down */
-  /* width: 99%; */
-  /* margin: 0 auto; */
-}
-
-
 /* --- Useful links --- */
 
 .profile-view .links ul {

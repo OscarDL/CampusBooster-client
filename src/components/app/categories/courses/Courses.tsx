@@ -7,11 +7,13 @@ import { Course } from '../../../../shared/types/course';
 import { getCoursesColumns } from '../../../../shared/utils/columns';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 import { getMuiDataGridLocale } from '../../../../shared/utils/locales';
+import { setDataGridValue } from '../../../../store/features/app/slice';
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
 import { clearCourses, getCourses } from '../../../../store/features/courses/slice';
 import { getLoggedInAuthState, userHasAdminRights } from '../../../../shared/functions';
 import { DataGridFooter, DataGridHeader, StyledDataGrid } from '../../../shared/datagrid';
 
+import YearTabs from './Tabs';
 import CreateCourse from './course/Create';
 import UpdateCourse from './course/Update';
 import DeleteCourse from './course/Delete';
@@ -26,6 +28,7 @@ const Courses: FC = () => {
   const { settings } = useAppSelector(state => state.app);
   const { coursesList } = useAppSelector(state => state.courses);
 
+  const [tab, setTab] = useState(0);
   const [openCreate, setOpenCreate] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
@@ -40,6 +43,10 @@ const Courses: FC = () => {
   useEffect(() => {
     if (!coursesList) dispatch(getCourses());
   }, [coursesList, dispatch]);
+
+  useEffect(() => {
+    apiRef.current.setColumnVisibility('year', tab === 0);
+  }, [apiRef, tab]);
 
 
   return (
@@ -56,6 +63,8 @@ const Courses: FC = () => {
         )}
       </ContentHeader>
 
+      <YearTabs tab={tab} setTab={setTab}/>
+
       <ContentBody>
         <StyledDataGrid
           apiRef={apiRef}
@@ -65,8 +74,12 @@ const Courses: FC = () => {
 
           columns={columns}
           loading={!coursesList}
-          pagination={settings.dataGrid.pagination}
-          rows={(coursesList ?? []).slice().sort((a, b) => a.name.localeCompare(b.name))}
+          rows={(coursesList ?? [])
+            .filter(course => tab > 0 ? course.year === tab : true)
+            .sort((a, b) => a.name.localeCompare(b.name))
+          }
+          pageSize={settings.dataGrid.pageSize} pagination={settings.dataGrid.pagination}
+          onPageSizeChange={value => dispatch(setDataGridValue({key: 'pageSize', value}))}
 
           components={{
             LoadingOverlay: Loader,

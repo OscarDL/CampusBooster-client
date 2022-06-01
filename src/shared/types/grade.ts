@@ -1,5 +1,6 @@
+import { Teacher } from './teacher';
+import { PublicUser, User } from './user';
 import { ClassroomHasCourse } from './classroom';
-import { PublicUser, Teacher, User } from './user';
 
 
 export type Grade = {

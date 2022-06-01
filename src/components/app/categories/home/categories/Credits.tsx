@@ -3,8 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { FC, useEffect, useMemo, useState } from 'react';
 
 import { ContentHeader } from '../../../../shared/content';
+import { useAppSelector } from '../../../../../store/store';
 import { getFakeCredits } from '../../../../../shared/fake/data';
 import { getDonutChartOptions, getLayoutPosition } from '../utils';
+import { getLoggedInAuthState } from '../../../../../shared/functions';
 
 import Loader from '../../../../shared/loader';
 import Container from '../../../../shared/container';
@@ -16,10 +18,11 @@ Chart.register(ArcElement, Tooltip, Legend);
 
 const Credits: FC = () => {
   const { t } = useTranslation();
+  const { user } = useAppSelector(getLoggedInAuthState);
+
   const [subjects, setSubjects] = useState<any[] | null>(null);
   const [legendPos, setLegendPos] = useState<LayoutPosition>(getLayoutPosition());
 
-  const earned = subjects?.map(sub => sub.earned).reduce((a, b) => a + b);
   const required = subjects?.filter(sub => !sub.optional).map(sub => sub.credits).reduce((a, b) => a + b);
   const total = subjects?.map(sub => sub.credits).reduce((a, b) => a + b);
 
@@ -33,14 +36,14 @@ const Credits: FC = () => {
 
     datasets: [{
       data: [
-        earned,
-        required - earned < 0 ? 0 : required - earned,
-        total - Math.max(required, earned)
+        user.credits,
+        required - user.credits < 0 ? 0 : required - user.credits,
+        total - Math.max(required, user.credits)
       ],
       backgroundColor: ['#4d4', '#da2', '#28d'],
       label: t('profile.credits.title'),
     }]
-  }), [earned, required, total, t]);
+  }), [user.credits, required, total, t]);
 
 
   useEffect(() => {
@@ -55,14 +58,13 @@ const Credits: FC = () => {
   }, []);
 
   useEffect(() => {
-    const getSubjects = setTimeout(() => setSubjects(getFakeCredits()), 1000);
-    return () => clearTimeout(getSubjects);
+    setSubjects(getFakeCredits());
   }, []);
 
 
   return (
     <Container className="credits">
-      <ContentHeader title={t('profile.credits.title', {earned, required})}/>
+      <ContentHeader title={t('profile.credits.title', {earned: user.credits, required})}/>
 
       {subjects ? (
         <Doughnut

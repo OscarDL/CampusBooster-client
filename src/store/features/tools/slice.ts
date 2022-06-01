@@ -70,7 +70,7 @@ const toolsSlice = createSlice({
   initialState,
 
   reducers: {
-    clearToolsList: (state: ToolsState) => {
+    clearTools: (state: ToolsState) => {
       state.toolsList = null;
     }
   },
@@ -117,5 +117,5 @@ const toolsSlice = createSlice({
 });
 
 
-export const { clearToolsList } = toolsSlice.actions;
+export const { clearTools } = toolsSlice.actions;
 export default toolsSlice.reducer;

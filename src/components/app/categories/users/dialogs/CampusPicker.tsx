@@ -40,6 +40,7 @@ const UserCampusPicker: FC<Props> = ({user: selectedUser, setUser}) => {
           }
           return true;
         })
+        .sort((a, b) => a.name.localeCompare(b.name))
         .map(campus => ({
           campus,
           value: campus.id,
@@ -57,6 +58,7 @@ const UserCampusPicker: FC<Props> = ({user: selectedUser, setUser}) => {
     <div>
       <ReactSelect
         isDisabled
+        isClearable
         menuPosition="fixed"
         className="react-select-component"
         placeholder={t('users.select_campus')}
@@ -65,6 +67,7 @@ const UserCampusPicker: FC<Props> = ({user: selectedUser, setUser}) => {
     </div>
   ) : (
     <ReactSelect
+      isClearable
       isSearchable
       menuPosition="fixed"
       options={campusOptions}

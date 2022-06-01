@@ -129,8 +129,7 @@
       "course": "Course",
       "comment": "Comment",
       "student": "Student",
-      "teacher": "Teacher",
-      "actions": "Actions"
+      "teacher": "Teacher"
     },
 
     "create": {
@@ -156,6 +155,15 @@
     "icon": "topic",
     "add": "Add course",
 
+    "tabs": {
+      "all": "All courses",
+      "year_1": "B.Eng.1",
+      "year_2": "B.Eng.2",
+      "year_3": "B.Eng.3",
+      "year_4": "M.Eng.1",
+      "year_5": "M.Eng.2"
+    },
+
     "fields": {
       "title_one": "{{count}} course",
       "title_other": "{{count}} courses",
@@ -166,8 +174,7 @@
       "year": "Year",
       "year_field": "Year {{year}}",
       "credits": "Credits",
-      "speciality": "Speciality",
-      "actions": "Actions"
+      "speciality": "Speciality"
     },
 
     "create": {
@@ -251,7 +258,6 @@
         "debit": "Debit",
         "credit": "Cdédit",
         "status": "Status",
-        "actions": "Actions",
         "student": "Student",
         "description": "Description",
         "date_requested": "Request date",
@@ -400,8 +406,7 @@
       "classrooms": "Classrooms",
       "birthday": "Birthday",
       "email": "Email address (SUPINFO)",
-      "personal_email": "Personal email address",
-      "actions": "Actions"
+      "personal_email": "Personal email address"
     },
 
     "create": {
@@ -450,8 +455,8 @@
       },
 
       "remove": {
-        "title": "Remove user from ban list",
-        "text": "Please type in the name of the user below to avoid accidental ubban.",
+        "title": "Remove \"{{user}}\" from ban list",
+        "text": "Please type in the name of the user below to avoid accidental unban.",
         "full_name": "Full name",
         "success": "User \"{{user}}\" successfully unbanned."
       }
@@ -468,8 +473,7 @@
         "post_code": "Post code",
         "city": "City",
         "open": "Open",
-        "virtual": "Virtual",
-        "actions": "Actions"
+        "virtual": "Virtual"
       },
 
       "create": {
@@ -505,8 +509,7 @@
         "no_campus": "No campus assigned",
         "name": "Classroom name",
         "promotion": "Promotion",
-        "courses": "Courses list",
-        "actions": "Actions"
+        "courses": "Courses list"
       },
 
       "create": {
@@ -526,10 +529,44 @@
         "name": "Classroom name",
         "success": "Classroom \"{{classroom}}\" successfully deleted."
       }
+    },
+
+    "teachers": {
+      "title": "Teachers",
+      "title_one": "{{count}} teacher",
+      "title_other": "{{count}} teachers",
+
+      "fields": {
+        "campus": "Campus",
+        "classroom": "Classroom",
+        "course": "Course",
+        "name": "Teacher name",
+        "active": "Active"
+      },
+
+      "add": {
+        "button": "Add teacher",
+        "select_user": "Select a user",
+        "title": "Add user to teachers list",
+        "success": "User \"{{user}}\" successfully added as teacher."
+      },
+
+      "update": {
+        "title": "Update teacher \"{{teacher}}\"",
+        "success": "User \"{{user}}\" successfully updated."
+      },
+
+      "remove": {
+        "title": "Remove \"{{user}}\" from teachers list",
+        "text": "Please type in the name of the user and course as shown below to avoid accidental removal.",
+        "name_course": "{{user}} - {{course}}",
+        "success": "User \"{{user}}\" successfully removed from teachers list."
+      }
     }
   },
 
   "data_grid": {
+    "actions": "Actions",
     "pagination": "Pagination"
   },
 

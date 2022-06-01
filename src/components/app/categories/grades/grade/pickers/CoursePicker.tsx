@@ -24,7 +24,7 @@ const GradeCoursePicker: FC<Props> = ({grade, setGrade}) => {
   const { usersList } = useAppSelector(state => state.users);
   const { coursesList } = useAppSelector(state => state.courses);
   
-  const [courseOptions, setCourseOptions] = useState<Option[]>([]);
+  const [coursesOptions, setCoursesOptions] = useState<Option[]>([]);
 
   const userChc = useMemo(() => {
     if (!(usersList && grade.userId)) return [];
@@ -49,7 +49,7 @@ const GradeCoursePicker: FC<Props> = ({grade, setGrade}) => {
 
   useEffect(() => {
     if (coursesList) {
-      const courseOptions: Option[] = coursesList
+      const coursesOptions: Option[] = coursesList
         .filter(course => (
           course.ClassroomHasCourses?.map(chc => chc.id).some(id => userChc?.map(chc => chc?.id).includes(id))
         ))
@@ -60,7 +60,7 @@ const GradeCoursePicker: FC<Props> = ({grade, setGrade}) => {
           label: `${course.name} (${course.description})`
         }));
 
-      setCourseOptions(courseOptions);
+      setCoursesOptions(coursesOptions);
     }
   }, [coursesList, userChc]);
 
@@ -72,27 +72,27 @@ const GradeCoursePicker: FC<Props> = ({grade, setGrade}) => {
       <ReactSelect
         isSearchable
         menuPosition="fixed"
-        options={courseOptions}
+        options={coursesOptions}
         onChange={handleChangeCourse}
         className="react-select-component"
         placeholder={t('grades.select_course')}
         isLoading={!(coursesList && usersList)}
         classNamePrefix="react-select-component"
         isDisabled={!(coursesList && usersList) || !grade.userId}
-        value={courseOptions.find(option => option.course.id === grade.classroomHasCourseId)}
+        value={coursesOptions.find(option => option.course.ClassroomHasCourses?.find(chc => chc.id === grade.classroomHasCourseId))}
       />
     </div>
   ) : (
     <ReactSelect
       isSearchable
       menuPosition="fixed"
-      options={courseOptions}
+      options={coursesOptions}
       onChange={handleChangeCourse}
       className="react-select-component"
       placeholder={t('grades.select_course')}
       classNamePrefix="react-select-component"
       isDisabled={!!grade.id} // disable for grade update
-      value={courseOptions.find(option => option.course.id === grade.classroomHasCourseId)}
+      value={coursesOptions.find(option => option.course.ClassroomHasCourses?.find(chc => chc.id === grade.classroomHasCourseId))}
     />
   );
 };

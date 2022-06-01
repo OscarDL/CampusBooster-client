@@ -33,6 +33,7 @@
 .drawer__icon {
   min-width: 0;
   width: fit-content;
+  color: rgba(0, 0, 0, 0.66);
 
   display: flex;
   flex-shrink: 0;

@@ -31,6 +31,7 @@ const UserClassroomPicker: FC<Props> = ({user, setUser}) => {
     if (campusList && classroomsList) {
       const classroomOptions: Option[] = classroomsList
         .filter(classroom => !classroom.campusId || classroom.campusId === user.campusId)
+        .sort((a, b) => a.name.localeCompare(b.name))
         .map(classroom => ({
           classroom,
           value: classroom.id,

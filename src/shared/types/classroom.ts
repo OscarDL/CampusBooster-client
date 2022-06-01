@@ -1,7 +1,8 @@
 import { Campus } from './campus';
 import { Course } from './course';
+import { Teacher } from './teacher';
 import { Planning } from './planning';
-import { PublicUser, Teacher, User } from './user';
+import { PublicUser, User } from './user';
 
 
 export type Classroom = {

@@ -17,6 +17,8 @@ const Admin: FC = () => {
         Admin : banned users list, classroom list + course access, manage planning for each class, etc
         <br/><Link to="bans">Banned users list</Link>
         <br/><Link to="campus">Campus list</Link>
+        <br/><Link to="teachers">Teachers list</Link>
+        <br/><Link to="plannings">Plannings list</Link>
         <br/><Link to="classrooms">Classrooms list</Link>
       </ContentBody>
     </>

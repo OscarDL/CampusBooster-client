@@ -1,3 +1,229 @@
-.banned-users-view {
+.admin-plannings-view .content__body {
+  gap: 1rem;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template: auto / auto 1fr;
+
+  --max-calendar-picker-width: 288px;
+  --course-color-exam: rgb(80, 160, 20);
+  --course-color-oral: rgb(200, 70, 30);
+  --course-color-course: rgb(20, 140, 180);
+  --course-color-project: rgb(160, 20, 120);
+  --course-color-today: rgb(var(--accent-color));
+}
+
+.admin-plannings-view .calendar-picker > .content__header {
+  justify-content: center;
+}
+
+#hide-calendar-btn {
+  display: none;
+}
+
+.admin-plannings-view .content__body .content__header + hr {
+  display: block;
+}
+
+
+/* --- Mui Calendar Picker --- */
+
+.admin-plannings-view .MuiPickerStaticWrapper-root .PrivatePickersToolbar-root {
+  display: none;
+}
+
+.admin-plannings-view .MuiCalendarPicker-root > div:first-child {
+  margin-top: 3px;
+}
+.admin-plannings-view .MuiCalendarPicker-root div[role="presentation"] {
+  user-select: none;
+  max-height: fit-content;
+}
+.admin-plannings-view .MuiPickerStaticWrapper-root,
+.admin-plannings-view .MuiPickerStaticWrapper-root > div > :last-child,
+.admin-plannings-view .MuiPickerStaticWrapper-root .MuiCalendarPicker-root {
+  width: unset;
+  min-width: 236px;
+}
+
+.admin-plannings-view .MuiCalendarPicker-viewTransitionContainer {
+  overflow-y: hidden;
+}
+.admin-plannings-view .MuiCalendarPicker-viewTransitionContainer > div > :first-child:not(.MuiMonthPicker-root) {
+  padding: 0 4px;
+}
+
+.admin-plannings-view .MuiMonthPicker-root {
+  margin: 0 0 1rem;
+  max-width: var(--max-calendar-picker-width);
+}
+
+.admin-plannings-view .PrivatePickersYear-yearButton {
+  padding: unset;
+}
+
+
+/* --- Calendar picker legend --- */
+
+.admin-plannings-view .calendar-picker-legend {
+  gap: 1rem;
+  display: grid;
+  place-content: center;
+  /* (max-width - gap) / 2 -> 2 items per row minimum */
+  grid-template-columns: repeat(auto-fit, calc((var(--max-calendar-picker-width) - 1rem) / 2)); 
+}
+.admin-plannings-view .calendar-picker-legend > div {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+
+  padding: 0.33rem 0.66rem;
+  border-radius: var(--radius-large);
+}
+
+
+/* --- Calendar details for the month --- */
+
+.admin-plannings-view .details__list {
+  padding-left: 0;
+  list-style: none;
+}
+
+.admin-plannings-view .details__empty {
+  padding: 2rem;
+  display: grid;
+  text-align: center;
+  place-items: center;
+}
+
+.admin-plannings-view .details__item {
+  gap: 0.33rem;
+  min-height: 28px;
+  padding-left: 0.66rem;
+
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+
+.admin-plannings-view .details__item:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.admin-plannings-view .details__item::before {
+  left: 0;
+  top: 50%;
+  width: 3px;
   height: 100%;
+  content: ' ';
+  position: absolute;
+  transform: translateY(-50%);
+  border-radius: var(--radius-large);
+}
+
+.admin-plannings-view .details__item__date {
+  flex-shrink: 0;
+  font-weight: bold;
+}
+
+.admin-plannings-view .details__item__title {
+  overflow-x: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.admin-plannings-view .details__item.course-color-course::before {
+  background-color: var(--course-color-course);
+}
+.admin-plannings-view .details__item.course-color-course .details__item__date {
+  color: var(--course-color-course);
+}
+
+.admin-plannings-view .details__item.course-color-today::before {
+  background-color: var(--course-color-today);
+}
+.admin-plannings-view .details__item.course-color-today .details__item__date {
+  color: var(--course-color-today);
+}
+
+.admin-plannings-view .details__item.course-color-exam::before {
+  background-color: var(--course-color-exam);
+}
+.admin-plannings-view .details__item.course-color-exam .details__item__date {
+  color: var(--course-color-exam);
+}
+
+.admin-plannings-view .details__item.course-color-oral::before {
+  background-color: var(--course-color-oral);
+}
+.admin-plannings-view .details__item.course-color-oral .details__item__date {
+  color: var(--course-color-oral);
+}
+
+.admin-plannings-view .details__item.course-color-project::before {
+  background-color: var(--course-color-project);
+}
+.admin-plannings-view .details__item.course-color-project .details__item__date {
+  color: var(--course-color-project);
+}
+
+/* Action button */
+.admin-plannings-view .details__item__more {
+  flex-grow: 1;
+  justify-self: flex-end;
+}
+.admin-plannings-view .details__item__more > button {
+  float: right;
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+
+
+/* --- Task details --- */
+
+.admin-plannings-view .details__item .prompt__content,
+.admin-plannings-view .details__item .prompt__content .project-dates {
+  justify-content: space-evenly;
+}
+
+.admin-plannings-view .details__item .prompt__content .project-dates {
+  gap: 1rem;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.admin-plannings-view .details__item .prompt__content .project-detail {
+  margin: 5px 0;
+  font-size: 17px;
+}
+.admin-plannings-view .details__item .prompt__content .project-detail > span {
+  font-weight: 600;
+  color: rgb(var(--accent-color));
+}
+
+
+/* Up to: Tablets (landscape) */
+@media (max-width: 1023px) {
+  .admin-plannings-view .content__body {
+    flex-grow: unset;
+    grid-auto-flow: row;
+    grid-template: auto 1fr / auto;
+  }
+
+  #hide-calendar-btn {
+    display: flex;
+  }
+  .admin-plannings-view .calendar-picker.hide > .content__header ~ .MuiPickerStaticWrapper-root,
+  .admin-plannings-view .calendar-picker.hide > .content__header ~ .MuiPickerStaticWrapper-root + hr {
+    display: none;
+  }
+}
+
+/* Laptops & Desktops */
+@media (min-width: 1024px) {
+  .admin-plannings-view .MuiCalendarPicker-root {
+    min-width: 288px;
+  }
 }

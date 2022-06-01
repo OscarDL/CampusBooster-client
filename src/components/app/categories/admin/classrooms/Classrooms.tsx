@@ -8,6 +8,7 @@ import { getCampus } from '../../../../../store/features/campus/slice';
 import { getLoggedInAuthState } from '../../../../../shared/functions';
 import { ContentBody, ContentHeader } from '../../../../shared/content';
 import { getCourses } from '../../../../../store/features/courses/slice';
+import { setDataGridValue } from '../../../../../store/features/app/slice';
 import { getClassroomsColumns } from '../../../../../shared/utils/columns';
 import { getMuiDataGridLocale } from '../../../../../shared/utils/locales';
 import { useAppDispatch, useAppSelector } from '../../../../../store/store';
@@ -75,10 +76,10 @@ const ClassroomsList: FC = () => {
           disableColumnPinning
           disableSelectionOnClick
 
-          columns={columns}
           loading={!classroomsList}
-          rows={classroomsList ?? []}
-          pagination={settings.dataGrid.pagination}
+          columns={columns} rows={classroomsList ?? []}
+          pageSize={settings.dataGrid.pageSize} pagination={settings.dataGrid.pagination}
+          onPageSizeChange={value => dispatch(setDataGridValue({key: 'pageSize', value}))}
 
           components={{
             LoadingOverlay: Loader,

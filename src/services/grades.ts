@@ -2,6 +2,7 @@ import axios from 'axios';
 import { t } from 'i18next';
 
 import { User } from '../shared/types/user';
+import { Teacher } from '../shared/types/teacher';
 import { apiUrl, getAxiosConfig } from '../shared/api';
 import { Grade, GradeRequest } from '../shared/types/grade';
 
@@ -20,6 +21,28 @@ const getGrades = async () => {
 const getUserGrades = async (id: User['id']) => {
   try {
     const response = await axios.get(apiUrl + 'grades/user/' + id, getAxiosConfig());
+    return response.data;
+  }
+
+  catch (error: any) {
+    return Promise.reject(error?.response?.data || t('api.error'));
+  }
+};
+
+const getTeacherGrades = async (id: Teacher['id']) => {
+  try {
+    const response = await axios.get(apiUrl + 'grades/teacher/' + id, getAxiosConfig());
+    return response.data;
+  }
+
+  catch (error: any) {
+    return Promise.reject(error?.response?.data || t('api.error'));
+  }
+};
+
+const getTeacherAsUserGrades = async (id: User['id']) => {
+  try {
+    const response = await axios.get(apiUrl + 'grades/teacher/user/' + id, getAxiosConfig());
     return response.data;
   }
 
@@ -65,6 +88,8 @@ const deleteGrade = async (id: Grade['id']) => {
 const accountingService = {
   getGrades,
   getUserGrades,
+  getTeacherGrades,
+  getTeacherAsUserGrades,
   createGrade,
   updateGrade,
   deleteGrade

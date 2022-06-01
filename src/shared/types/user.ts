@@ -23,6 +23,7 @@ export type User = {
   banned: boolean,
 
   email: string,
+  credits: number,
   avatar?: string,
   lastName: string,
   firstName: string,
@@ -58,13 +59,4 @@ export type UserRequest = {
 
   campusId?: Campus['id'], // campus id
   classrooms: (Classroom['id'])[], // classrooms
-};
-
-export type Teacher = {
-  id: number,
-  active: boolean,
-  userId: User['id'],
-  classroomHasCourseId: ClassroomHasCourse['id'],
-
-  User: PublicUser
 };

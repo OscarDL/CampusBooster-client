@@ -1,0 +1,15 @@
+.home-view .content__body > #grid {
+  gap: 1rem;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template: auto / 1fr 1fr;
+}
+
+
+/* --- Credits progress --- */
+
+.home-view .credits {
+  /* Workaround for ChartJS not resizing down */
+  width: 99%;
+  margin: 0 auto;
+}

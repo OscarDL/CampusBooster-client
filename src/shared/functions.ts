@@ -97,42 +97,42 @@ export const getCategoryTitle = (user: User) => {
 
 
 // Retrieve categories accessible by current user
-export const getUserCategories = (categories: string[], user: User) => {
-  const studentForbidden: string[] = [AC.Admin, AC.Users];
-  const professorForbidden: string[] = [AC.Admin, AC.Users, AC.Accounting];
-  const fullProfessorForbidden: string[] = [AC.Admin, AC.Users, AC.Planning, AC.Accounting];
-  const companyForbidden: string[] = [AC.Admin, AC.Users, AC.Planning, AC.Accounting, AC.Tools];
-  const assistantForbidden: string[] = [AC.Planning];
-  const campusManagerForbidden: string[] = [AC.Planning];
-  const campusBoosterAdminForbidden: string[] = [AC.Planning];
+export const getUserCategories = (categories: AC[], user: User) => {
+  const hiddenForStudents: AC[] = [AC.Admin, AC.Users];
+  const hiddenForProfessors: AC[] = [AC.Admin, AC.Users, AC.Accounting];
+  const hiddenForFullProfessors: AC[] = [AC.Admin, AC.Users, AC.Planning, AC.Accounting];
+  const hiddenForCompanies: AC[] = [AC.Admin, AC.Users, AC.Planning, AC.Accounting, AC.Tools];
+  const hiddenForAssistants: AC[] = [AC.Planning];
+  const hiddenForCampusManagers: AC[] = [AC.Planning];
+  const hiddenForCampusBoosterAdmins: AC[] = [AC.Planning];
 
   switch (user.role) {
     case UserRoles.Professor: {
-      return categories.filter(category => !professorForbidden.includes(category));
+      return categories.filter(category => !hiddenForProfessors.includes(category));
     }
 
     case UserRoles.FullProfessor: {
-      return categories.filter(category => !fullProfessorForbidden.includes(category));
+      return categories.filter(category => !hiddenForFullProfessors.includes(category));
     }
 
     case UserRoles.Company: {
-      return categories.filter(category => !companyForbidden.includes(category));
+      return categories.filter(category => !hiddenForCompanies.includes(category));
     }
 
     case UserRoles.Assistant: {
-      return categories.filter(category => !assistantForbidden.includes(category));
+      return categories.filter(category => !hiddenForAssistants.includes(category));
     }
 
     case UserRoles.CampusManager: {
-      return categories.filter(category => !campusManagerForbidden.includes(category));
+      return categories.filter(category => !hiddenForCampusManagers.includes(category));
     }
 
     case UserRoles.CampusBoosterAdmin: {
-      return categories.filter(category => !campusBoosterAdminForbidden.includes(category));
+      return categories.filter(category => !hiddenForCampusBoosterAdmins.includes(category));
     }
 
     default: {
-      return categories.filter(category => !studentForbidden.includes(category));
+      return categories.filter(category => !hiddenForStudents.includes(category));
     }
   };
 };
@@ -155,6 +155,11 @@ export const userHasHigherRole = (user: User, role: UserRoles) => {
     case s: return [cba, cm, a, c, fp, p].includes(role);
   };
 };
+
+
+export const userShouldHaveNoCampusAssigned = (role: UserRoles) => (
+  ![UserRoles.Student, UserRoles.Assistant, UserRoles.CampusManager].includes(role)
+);
 
 
 export const getUrlDomain = (url: string): string => {

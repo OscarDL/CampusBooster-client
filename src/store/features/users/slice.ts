@@ -52,15 +52,21 @@ type UpdateRequest = {
 };
 export const updateUser = createAsyncThunk('users/updateUser', async (request: UpdateRequest, thunkAPI) => {
   try {
-    if (request.addClassrooms && request.addClassrooms.length > 0) {
-      await userService.addUserToClassrooms(request.user.id!, request.addClassrooms);
-    }
-
+    // Remove needed classrooms first
     if (request.removeClassrooms && request.removeClassrooms.length > 0) {
       await userService.removeUserFromClassrooms(request.user.id!, request.removeClassrooms);
     }
 
-    return await userService.updateUser(request.user);
+    // Then update core user info
+    const updatedUser = await userService.updateUser(request.user);
+
+    // Then add the necessary classrooms
+    if (request.addClassrooms && request.addClassrooms.length > 0) {
+      await userService.addUserToClassrooms(request.user.id!, request.addClassrooms);
+    }
+
+    // Then return the updated user
+    return await userService.getUserById(updatedUser.id);
   }
 
   catch (error: any) {

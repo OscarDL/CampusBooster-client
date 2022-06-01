@@ -6,7 +6,7 @@ import { apiUrl, getAxiosConfig } from '../shared/api';
 import { Planning, PlanningRequest } from '../shared/types/planning';
 
 
-const getPlanning = async () => {
+const getPlannings = async () => {
   try {
     const response = await axios.get(apiUrl + 'plannings', getAxiosConfig());
     return response.data;
@@ -63,7 +63,7 @@ const deletePlanningEntry = async (id: Planning['id']) => {
 
 
 const planningService = {
-  getPlanning,
+  getPlannings,
   getUserPlanning,
   createPlanningEntry,
   updatePlanningEntry,

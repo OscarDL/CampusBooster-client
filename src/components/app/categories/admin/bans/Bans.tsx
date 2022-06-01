@@ -6,6 +6,7 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import { User } from '../../../../../shared/types/user';
 import { getCampus } from '../../../../../store/features/campus/slice';
 import { ContentBody, ContentHeader } from '../../../../shared/content';
+import { setDataGridValue } from '../../../../../store/features/app/slice';
 import { getMuiDataGridLocale } from '../../../../../shared/utils/locales';
 import { getBannedUsersColumns } from '../../../../../shared/utils/columns';
 import { useAppDispatch, useAppSelector } from '../../../../../store/store';
@@ -71,10 +72,10 @@ const BannedUsers: FC = () => {
           disableColumnPinning
           disableSelectionOnClick
 
-          columns={columns}
           loading={!usersList}
-          pagination={settings.dataGrid.pagination}
-          rows={(usersList ?? []).filter(user => user.banned)}
+          columns={columns} rows={(usersList ?? []).filter(user => user.banned)}
+          pageSize={settings.dataGrid.pageSize} pagination={settings.dataGrid.pagination}
+          onPageSizeChange={value => dispatch(setDataGridValue({key: 'pageSize', value}))}
 
           components={{
             LoadingOverlay: Loader,

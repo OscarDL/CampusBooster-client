@@ -55,10 +55,10 @@ const RemoveBan: FC<Props> = ({user, open, setOpen}) => {
       onClose={() => setOpen(false)}
       open={open} fullWidth maxWidth="sm"
     >
-      <DialogTitle>{t('admin.banned_users.remove.title')}</DialogTitle>
+      <DialogTitle>{t('admin.banned_users.remove.title', {user: `${user.firstName} ${user.lastName}`})}</DialogTitle>
 
       <DialogContent>
-        <p>{t('admin.banned_users.remove.text', {text: `${user.firstName} ${user.lastName}`})}</p>
+        <p>{t('admin.banned_users.remove.text')}</p>
 
         <TextField
           required autoFocus

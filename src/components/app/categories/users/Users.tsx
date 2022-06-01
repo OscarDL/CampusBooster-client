@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { GridColDef, useGridApiRef } from '@mui/x-data-grid-pro';
 
-import { useStateWithCallback } from '../../../../shared/hooks';
 import { User, UserRoles } from '../../../../shared/types/user';
 import { getUsersColumns } from '../../../../shared/utils/columns';
 import { getCampus } from '../../../../store/features/campus/slice';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 import { getMuiDataGridLocale } from '../../../../shared/utils/locales';
+import { setDataGridValue } from '../../../../store/features/app/slice';
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
 import { getClassrooms } from '../../../../store/features/classrooms/slice';
 import { clearUsers, getUsers } from '../../../../store/features/users/slice';
@@ -38,7 +38,7 @@ const Users: FC = () => {
   const { campusList } = useAppSelector(state => state.campus);
   const { classroomsList } = useAppSelector(state => state.classrooms);
 
-  const [tab, setTab] = useStateWithCallback(0);
+  const [tab, setTab] = useState(0);
   const [openCreate, setOpenCreate] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
@@ -95,8 +95,9 @@ const Users: FC = () => {
 
           columns={columns}
           loading={!usersList}
-          pagination={settings.dataGrid.pagination}
           rows={(usersList ?? []).filter(user => getUserTab(user, tab))}
+          pageSize={settings.dataGrid.pageSize} pagination={settings.dataGrid.pagination}
+          onPageSizeChange={value => dispatch(setDataGridValue({key: 'pageSize', value}))}
 
           components={{
             LoadingOverlay: Loader,

@@ -2,9 +2,10 @@ import ReactSelect from 'react-select';
 import { useTranslation } from 'react-i18next';
 import React, { FC, useEffect, useState } from 'react';
 
-import { Teacher } from '../../../../../../shared/types/user';
 import { useAppSelector } from '../../../../../../store/store';
+import { Teacher } from '../../../../../../shared/types/teacher';
 import { Grade, GradeRequest } from '../../../../../../shared/types/grade';
+import { getLoggedInAuthState, userHasAdminRights } from '../../../../../../shared/functions';
 
 
 type Props = {
@@ -21,6 +22,7 @@ type Option = {
 
 const GradeTeacherPicker: FC<Props> = ({grade, setGrade}) => {
   const { t } = useTranslation();
+  const { user } = useAppSelector(getLoggedInAuthState);
   const { usersList } = useAppSelector(state => state.users);
   const { coursesList } = useAppSelector(state => state.courses);
   
@@ -34,7 +36,9 @@ const GradeTeacherPicker: FC<Props> = ({grade, setGrade}) => {
       ));
 
       const teacherOptions: Option[] = selectedCourse?.ClassroomHasCourses
-        ?.find(chc => chc.id === grade.classroomHasCourseId)?.Teachers?.map(teacher => teacher)
+        ?.find(chc => chc.id === grade.classroomHasCourseId)?.Teachers
+        // For non-admins, only show the logged in user as a teacher
+        ?.filter(teacher => userHasAdminRights(user.role) ? true : teacher.User.id === user.id)
         ?.map(teacher => ({
           teacher,
           value: teacher.id,
@@ -43,7 +47,7 @@ const GradeTeacherPicker: FC<Props> = ({grade, setGrade}) => {
 
       setTeacherOptions(teacherOptions);
     }
-  }, [coursesList, usersList, grade.classroomHasCourseId]);
+  }, [coursesList, grade.classroomHasCourseId, user, usersList]);
 
 
   return !grade.teacherId ? (
@@ -60,7 +64,6 @@ const GradeTeacherPicker: FC<Props> = ({grade, setGrade}) => {
         placeholder={t('grades.fields.teacher')}
         isDisabled={!usersList || !grade.classroomHasCourseId}
         onChange={option => setGrade({...grade, teacherId: option?.value ?? 0})}
-        value={teacherOptions.find(option => option.teacher.id === grade.teacherId)}
       />
     </div>
   ) : (

@@ -6,19 +6,19 @@ import planningService from '../../../services/planning';
 import { Planning, PlanningRequest } from '../../../shared/types/planning';
 
 
-export type PlanningState = {
-  planning: Planning[] | null,
+export type PlanningsState = {
+  planningsList: Planning[] | null,
 };
 
 
-const initialState: PlanningState = {
-  planning: null
+const initialState: PlanningsState = {
+  planningsList: null
 };
 
 
-export const getPlanning = createAsyncThunk('planning/getPlanning', async (_, thunkAPI) => {
+export const getPlannings = createAsyncThunk('planning/getPlanning', async (_, thunkAPI) => {
   try {
-    return await planningService.getPlanning();
+    return await planningService.getPlannings();
   }
 
   catch (error: any) {
@@ -73,44 +73,44 @@ export const deletePlanningEntry = createAsyncThunk('planning/deletePlanningEntr
 });
 
 
-const planningSlice = createSlice({
+const planningsSlice = createSlice({
   name: 'planning',
   initialState,
 
   reducers: {
-    clearPlanning: (state: PlanningState) => {
-      state.planning = null;
+    clearPlannings: (state: PlanningsState) => {
+      state.planningsList = null;
     }
   },
 
   extraReducers: (builder) => {
     // Retrieve all planning entries for admins
-    builder.addCase(getPlanning.fulfilled, (state, {payload}) => {
-      state.planning = payload;
+    builder.addCase(getPlannings.fulfilled, (state, {payload}) => {
+      state.planningsList = payload;
     });
 
     // Retrieve all planning entries for specific user
     builder.addCase(getUserPlanning.fulfilled, (state, {payload}) => {
-      state.planning = payload;
+      state.planningsList = payload;
     });
 
     // Create new planning entry
     builder.addCase(createPlanningEntry.fulfilled, (state, {payload}) => {
-      state.planning = (state.planning ?? []).concat(payload);
+      state.planningsList = (state.planningsList ?? []).concat(payload);
     });
 
     // Update existing planning entry
     builder.addCase(updatePlanningEntry.fulfilled, (state, {payload}) => {
-      if (state.planning) {
-        const planningIndex = state.planning.findIndex(entry => entry.id === payload.id);
-        state.planning[planningIndex] = payload;
+      if (state.planningsList) {
+        const planningIndex = state.planningsList.findIndex(entry => entry.id === payload.id);
+        state.planningsList[planningIndex] = payload;
       }
     });
 
     // Delete planning entry
     builder.addCase(deletePlanningEntry.fulfilled, (state, {payload: id}) => {
-      if (state.planning) {
-        state.planning = state.planning.filter(entry => entry.id !== id);
+      if (state.planningsList) {
+        state.planningsList = state.planningsList.filter(entry => entry.id !== id);
       }
     });
 
@@ -119,13 +119,13 @@ const planningSlice = createSlice({
       .addMatcher(isAnyOf(createPlanningEntry.rejected, updatePlanningEntry.rejected, deletePlanningEntry.rejected), (_, {payload}: any) => {
         toast.error(payload.message);
       })
-      .addMatcher(isAnyOf(getPlanning.rejected, getUserPlanning.rejected), (state, {payload}: any) => {
-        state.planning = [];
+      .addMatcher(isAnyOf(getPlannings.rejected, getUserPlanning.rejected), (state, {payload}: any) => {
+        state.planningsList = [];
         toast.error(payload.message);
       });
   }
 });
 
 
-export const { clearPlanning } = planningSlice.actions;
-export default planningSlice.reducer;
+export const { clearPlannings } = planningsSlice.actions;
+export default planningsSlice.reducer;
