@@ -32,7 +32,7 @@ export const allowedFileTypes = {
   ]
 };
 
-export const maxMobileWidth = 768;
+export const mobileWidthBreakpoint = 768;
 
 export const localStorageKeysToPersist = ['lang', 'settings'];
 

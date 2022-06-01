@@ -20,7 +20,7 @@ type Props = {
 
 
 const newClassroomRequest = (classroom: Classroom): ClassroomRequest => ({
-  name: classroom.name, promotion: classroom.promotion,
+  id: classroom.id, name: classroom.name, promotion: classroom.promotion,
   campusId: classroom.campusId, courses: classroom.ClassroomHasCourses?.map(chc => chc.courseId) ?? []
 });
 

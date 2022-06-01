@@ -3,18 +3,18 @@ import { useTranslation } from 'react-i18next';
 import { useGridApiRef } from '@mui/x-data-grid-pro';
 import { FC, useEffect, useMemo, useState } from 'react';
 
-import { Grade } from '../../../../shared/types/grade';
-import { getGradesColumns } from '../../../../shared/utils/columns';
+import { Course } from '../../../../shared/types/course';
+import { getCoursesColumns } from '../../../../shared/utils/columns';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 import { getMuiDataGridLocale } from '../../../../shared/utils/locales';
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
+import { clearCourses, getCourses } from '../../../../store/features/courses/slice';
 import { getLoggedInAuthState, userHasAdminRights } from '../../../../shared/functions';
 import { DataGridFooter, DataGridHeader, StyledDataGrid } from '../../../shared/datagrid';
-import { clearGrades, getGrades, getUserGrades } from '../../../../store/features/grades/slice';
 
-import CreateBalance from './course/Create';
-import UpdateBalance from './course/Update';
-import DeleteBalance from './course/Delete';
+import CreateCourse from './course/Create';
+import UpdateCourse from './course/Update';
+import DeleteCourse from './course/Delete';
 import Loader from '../../../shared/loader';
 
 
@@ -24,24 +24,22 @@ const Courses: FC = () => {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector(getLoggedInAuthState);
   const { settings } = useAppSelector(state => state.app);
-  const { gradesList } = useAppSelector(state => state.grades);
+  const { coursesList } = useAppSelector(state => state.courses);
 
   const [openCreate, setOpenCreate] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
-  const [selectedGrade, setSelectedGrade] = useState<Grade | null>(null);
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
 
   const isAdmin = useMemo(() => userHasAdminRights(user.role), [user.role]);
   const columns = useMemo(() => (
-    getGradesColumns({user, setOpenUpdate, setOpenDelete, setSelectedRow: setSelectedGrade})
+    getCoursesColumns({user, setOpenUpdate, setOpenDelete, setSelectedRow: setSelectedCourse})
   ), [user]);
 
 
   useEffect(() => {
-    if (!gradesList) {
-      isAdmin ? dispatch(getGrades()) : dispatch(getUserGrades(user.id));
-    }
-  }, [gradesList, isAdmin, user.id, dispatch]);
+    if (!coursesList) dispatch(getCourses());
+  }, [coursesList, dispatch]);
 
 
   return (
@@ -65,17 +63,18 @@ const Courses: FC = () => {
           disableColumnPinning
           disableSelectionOnClick
 
-          loading={!gradesList}
-          rows={gradesList ?? []} columns={columns}
+          columns={columns}
+          loading={!coursesList}
           pagination={settings.dataGrid.pagination}
+          rows={(coursesList ?? []).slice().sort((a, b) => a.name.localeCompare(b.name))}
 
           components={{
             LoadingOverlay: Loader,
 
             Toolbar: () => (
               <DataGridHeader
-                loading={!gradesList} refreshData={() => dispatch(clearGrades())}
-                title={t('grades.fields.title', {count: apiRef.current.getVisibleRowModels().size})}
+                loading={!coursesList} refreshData={() => dispatch(clearCourses())}
+                title={t('courses.fields.title', {count: apiRef.current.getVisibleRowModels().size})}
               />
             ),
 
@@ -86,11 +85,11 @@ const Courses: FC = () => {
         />
       </ContentBody>
 
-      <CreateBalance open={openCreate} setOpen={setOpenCreate}/>
+      <CreateCourse open={openCreate} setOpen={setOpenCreate}/>
 
-      {selectedGrade && <>
-        <UpdateBalance grade={selectedGrade} open={openUpdate} setOpen={setOpenUpdate}/>
-        <DeleteBalance grade={selectedGrade} open={openDelete} setOpen={setOpenDelete}/>
+      {selectedCourse && <>
+        <UpdateCourse course={selectedCourse} open={openUpdate} setOpen={setOpenUpdate}/>
+        <DeleteCourse course={selectedCourse} open={openDelete} setOpen={setOpenDelete}/>
       </>}
     </>
   );

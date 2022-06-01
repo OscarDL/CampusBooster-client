@@ -1,14 +1,12 @@
 import { FC, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, Checkbox, FormControlLabel, FormGroup, InputAdornment, TextField } from '@mui/material';
 
-import { GradeRequest } from '../../../../../shared/types/grade';
-import { createGrade } from '../../../../../store/features/grades/slice';
-import { useAppDispatch, useAppSelector } from '../../../../../store/store';
+import { useAppDispatch } from '../../../../../store/store';
+import { CourseRequest } from '../../../../../shared/types/course';
+import { createCourse } from '../../../../../store/features/courses/slice';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
-
-import GradeUserPicker from './UserPicker';
 
 
 type Props = {
@@ -16,37 +14,37 @@ type Props = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 };
 
-const newGradeRequest = (): GradeRequest => ({
-  average: 0, comment: '', userId: 0, teacherId: 0, classroomHasCourseId: 0
+
+const newCourseRequest = (): CourseRequest => ({
+  name: '', description: '', link: '', speciality: false, credits: 1, year: 1
 });
 
 
-const CreateGrade: FC<Props> = ({open, setOpen}) => {
+const CreateCourse: FC<Props> = ({open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { gradesList } = useAppSelector(state => state.grades);
 
   const [loading, setLoading] = useState(false);
-  const [grade, setGrade] = useState<GradeRequest>(newGradeRequest());
+  const [course, setCourse] = useState(newCourseRequest());
 
 
-  const handleChangeGrade = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChangeYearCredits = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, type: 'year' | 'credits') => {
     const value = Number(e.target.value);
     if (isNaN(value)) return;
 
-    setGrade({...grade, average: value});
+    setCourse({...course, [type]: value});
   };
 
-  const handleCreateGrade = async (e: React.FormEvent<HTMLElement>) => {
+  const handleCreateCourse = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      await dispatch(createGrade(grade)).unwrap();
+      await dispatch(createCourse(course)).unwrap();
 
       setOpen(false);
-      setGrade(newGradeRequest());
-      toast.success(t('accounting.create.success'));
+      setCourse(newCourseRequest());
+      toast.success(t('courses.create.success', {course: course.name}));
     }
     catch (error: any) {
       toast.error(error);
@@ -59,36 +57,75 @@ const CreateGrade: FC<Props> = ({open, setOpen}) => {
   return (
     <Dialog
       components={{Root: 'form'}}
-      onSubmit={handleCreateGrade}
+      onSubmit={handleCreateCourse}
       onClose={() => setOpen(false)}
       open={open} fullWidth maxWidth="sm"
     >
-      <DialogTitle>{t('grades.create.title')}</DialogTitle>
+      <DialogTitle>{t('courses.create.title')}</DialogTitle>
 
       <DialogContent>
-        <GradeUserPicker type="user" grade={grade} setGrade={setGrade}/>
-        <GradeUserPicker type="teacher" grade={grade} setGrade={setGrade}/>
+        <TextField
+          required
+          variant="standard"
+          value={course.name}
+          name="cb-course-name"
+          label={t('courses.fields.name')}
+          onChange={e => setCourse({...course, name: e.target.value})}
+          InputProps={{endAdornment: <InputAdornment position="end" sx={{color: 'unset'}}>
+            <FormGroup>
+              <FormControlLabel
+                label={t('courses.fields.speciality')}
+                control={<Checkbox
+                  checked={course.speciality}
+                  onChange={e => setCourse({...course, speciality: e.target.checked})}
+                />}
+              />
+            </FormGroup>
+          </InputAdornment>}}
+        />
 
-        <Box className="MuiDialogContent-row" sx={{mt: 1}}>
+        <TextField
+          sx={{my: 2}}
+          required fullWidth
+          variant="standard"
+          value={course.link}
+          name="cb-course-link"
+          label={t('courses.fields.link')}
+          onChange={e => setCourse({...course, link: e.target.value})}
+        />
+
+        <Box className="MuiDialogContent-row" sx={{mb: 2}}>
           <TextField
             required
             type="number"
             variant="standard"
-            name="cb-grade-grade"
-            value={grade.average ?? ''}
-            onChange={handleChangeGrade}
-            label={t('grades.create.grade') + '/20'}
-            inputProps={{inputMode: 'numeric', pattern: '[0-9]*'}}
+            value={course.year}
+            name="cb-course-year"
+            label={t('courses.fields.year')}
+            InputProps={{autoComplete: Date.now().toString()}}
+            onChange={e => handleChangeYearCredits(e, 'year')}
+            inputProps={{inputMode: 'numeric', pattern: '[0-9]*', min: 1, max: 5}}
+          />
+          <TextField
+            required
+            type="number"
+            variant="standard"
+            value={course.credits}
+            name="cb-course-credits"
+            label={t('courses.fields.credits')}
+            InputProps={{autoComplete: Date.now().toString()}}
+            onChange={e => handleChangeYearCredits(e, 'credits')}
+            inputProps={{inputMode: 'numeric', pattern: '[0-9]*', min: 1}}
           />
         </Box>
 
         <TextField
-          name="cb-grade-comment"
-          value={grade.comment ?? ''}
+          margin="dense"
+          value={course.description}
+          name="cb-course-description"
           required fullWidth multiline
-          sx={{mb: 2}} margin="normal"
-          label={t('grades.create.comment')}
-          onChange={e => setGrade({...grade, comment: e.target.value})}
+          label={t('courses.fields.description')}
+          onChange={e => setCourse({...course, description: e.target.value})}
         />
       </DialogContent>
 
@@ -99,7 +136,7 @@ const CreateGrade: FC<Props> = ({open, setOpen}) => {
 
         <MainDialogButton
           type="submit" variant="contained" loading={loading}
-          disabled={!gradesList || !(grade.userId && grade.teacherId)}
+          disabled={!(course.credits && course.name && course.link && course.description)}
         >
           {t('global.confirm')}
         </MainDialogButton>
@@ -109,4 +146,4 @@ const CreateGrade: FC<Props> = ({open, setOpen}) => {
 };
 
 
-export default CreateGrade;
+export default CreateCourse;

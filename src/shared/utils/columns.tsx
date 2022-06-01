@@ -1,10 +1,11 @@
 import dayjs from 'dayjs';
 import { t } from 'i18next';
-import { IconButton } from '@mui/material';
 import { Dispatch, SetStateAction } from 'react';
+import { IconButton, Tooltip } from '@mui/material';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid-pro';
-import { DeleteOutlined, EditOutlined, RemoveCircleOutlineOutlined } from '@mui/icons-material';
+import { DeleteOutlined, EditOutlined, OpenInNewRounded, RemoveCircleOutlineOutlined } from '@mui/icons-material';
 
+import { Course } from '../types/course';
 import { User, UserRoles } from '../types/user';
 import { userHasAdminRights } from '../../shared/functions';
 import { Classroom, ClassroomHasCourse, UserHasClassroom } from '../types/classroom';
@@ -27,29 +28,36 @@ const getEditDeleteColumn: EditDeleteColumnProps = ({user, columnPrefix, setOpen
 
   return [{
     width: 100,
+    sortable: false,
     field: 'actions',
+    filterable: false,
     headerName: t(columnPrefix + 'actions'),
 
     renderCell: ({row}: GridRenderCellParams) => (
       <div>
-        <IconButton
-          color="primary"
-          onClick={() => {
-            setSelectedRow(row);
-            setOpenUpdate(true);
-          }}
-        >
-          <EditOutlined/>
-        </IconButton>
-        <IconButton
-          color="error"
-          onClick={() => {
-            setSelectedRow(row);
-            setOpenDelete(true);
-          }}
-        >
-          <DeleteOutlined/>
-        </IconButton>
+        <Tooltip title={t('global.edit') ?? ''}>
+          <IconButton
+            color="primary"
+            onClick={() => {
+              setSelectedRow(row);
+              setOpenUpdate(true);
+            }}
+          >
+            <EditOutlined/>
+          </IconButton>
+        </Tooltip>
+
+        <Tooltip title={t('global.delete') ?? ''}>
+          <IconButton
+            color="error"
+            onClick={() => {
+              setSelectedRow(row);
+              setOpenDelete(true);
+            }}
+          >
+            <DeleteOutlined/>
+          </IconButton>
+        </Tooltip>
       </div>
     )
   }]
@@ -254,6 +262,46 @@ export const getClassroomsColumns = ({user, setOpenUpdate, setOpenDelete, setSel
         <div style={{overflow: 'hidden', textOverflow: 'ellipsis'}} title={getCourses(row)}>{getCourses(row)}</div>
       )
       
+    },
+    ...getEditDeleteColumn({user, columnPrefix, setOpenUpdate, setOpenDelete, setSelectedRow})
+  ];
+};
+
+
+export const getCoursesColumns = ({user, setOpenUpdate, setOpenDelete, setSelectedRow}: BaseProps): GridColDef[] => {
+  const columnPrefix = 'courses.fields.';
+
+  const getCanvasLink = (link: Course['link']) => (
+    <IconButton sx={{ml: -1}} onClick={() => window.open(link, '_blank')}>
+      <OpenInNewRounded color="primary"/>
+    </IconButton>
+    // <Button sx={{ml: '-10px'}} onClick={() => window.open(link, '_blank')}>
+    //   {t(columnPrefix + 'link_field')}
+    // </Button>
+  );
+
+
+  return [
+    {
+      field: 'year', headerName: t(columnPrefix + 'year'), width: 150,
+      valueGetter: ({row}) => t(columnPrefix + 'year_field', {year: row.year})
+    },
+    {
+      field: 'name', headerName: t(columnPrefix + 'name'), width: 150
+    },
+    {
+      field: 'description', headerName: t(columnPrefix + 'description'), width: 450
+    },
+    {
+      field: 'link', headerName: t(columnPrefix + 'link'), width: 150, filterable: false, sortable: false,
+      valueGetter: ({row}) => row.link, renderCell: ({row}) => getCanvasLink(row.link)
+    },
+    {
+      field: 'credits', headerName: t(columnPrefix + 'credits'), width: 100
+    },
+    {
+      field: 'speciality', headerName: t(columnPrefix + 'speciality'), width: 100,
+      valueGetter: ({row}) => t('global.' + (row.speciality ? 'yes' : 'no'))
     },
     ...getEditDeleteColumn({user, columnPrefix, setOpenUpdate, setOpenDelete, setSelectedRow})
   ];

@@ -269,6 +269,9 @@ export const dataGridTheme = () => ({
   // Columns component
   '.MuiDataGrid-columnHeaders': {},
 
+  // Cell component
+  '.MuiDataGrid-cell': {},
+
   // Footer component
   '.MuiDataGrid-customFooter': {
     height: '56px',

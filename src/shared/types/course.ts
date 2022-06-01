@@ -28,8 +28,7 @@ export type CourseRequest = {
   year: number,
   credits: number,
   description: string,
-  speciality: boolean,
-  classroomHasCourseId: ClassroomHasCourse['id']
+  speciality: boolean
 };
 
 

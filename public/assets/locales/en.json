@@ -153,7 +153,39 @@
 
   "courses": {
     "title": "Courses",
-    "icon": "topic"
+    "icon": "topic",
+    "add": "Add course",
+
+    "fields": {
+      "title_one": "{{count}} course",
+      "title_other": "{{count}} courses",
+      "name": "Course name",
+      "link": "Canvas link",
+      "link_field": "Access course",
+      "description": "Description",
+      "year": "Year",
+      "year_field": "Year {{year}}",
+      "credits": "Credits",
+      "speciality": "Speciality",
+      "actions": "Actions"
+    },
+
+    "create": {
+      "title": "New course",
+      "success": "Course \"{{course}}\" successfully created."
+    },
+
+    "update": {
+      "title": "Edit \"{{course}}\"",
+      "success": "Course \"{{course}}\" successfully updated."
+    },
+
+    "delete": {
+      "title": "Delete \"{{course}}\"",
+      "text": "Please type in the name of the course below to avoid accidental deletion.",
+      "name": "Course name",
+      "success": "Course \"{{course}}\" successfully deleted."
+    }
   },
 
   "planning": {
@@ -505,9 +537,11 @@
     "no": "No",
     "yes": "Yes",
     "colon": ":",
+    "edit": "Edit",
     "none": "None",
     "close": "Close",
     "cancel": "Cancel",
+    "delete": "Delete",
     "confirm": "Confirm",
     "loading": "Loading",
     "date-mmmm-dd": "MMMM DD",

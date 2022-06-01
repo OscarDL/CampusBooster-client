@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 
-import { maxMobileWidth } from '../../shared/utils/values';
+import { mobileWidthBreakpoint } from '../../shared/utils/values';
 
 import SideDrawer from '../../components/app/drawers/SideDrawer';
 import SwipeDrawer from '../../components/app/drawers/SwipeDrawer';
@@ -8,8 +8,8 @@ import SwipeDrawer from '../../components/app/drawers/SwipeDrawer';
 import '../../components/app/drawers/Drawers.css';
 
 
-export const isNarrowWidth = () => document.body.clientWidth <= maxMobileWidth;
 export const isTouchDevice = () => window.matchMedia('(pointer: coarse)').matches;
+export const isNarrowWidth = () => document.body.clientWidth < mobileWidthBreakpoint;
 
 
 const Drawer: FC = () => {

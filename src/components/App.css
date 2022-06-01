@@ -397,14 +397,16 @@ body button .MuiButton-startIcon.MuiButton-iconSizeSmall {
 
 /* --- DataGrid tables --- */
 
-/* Make Grid pop-ups at the top-right */
-/* div[role="tooltip"].MuiDataGrid-panel {
-  top: 130px !important;
-  left: unset !important;
-  right: 26px !important;
-  transform: none !important;
-  z-index: var(--z-index-mui-tooltip) !important;
-} */
+@media (min-width: 768px) {
+  /* Make Grid pop-ups at the top-right */
+  div[role="tooltip"].MuiDataGrid-panel {
+    top: 130px !important;
+    left: unset !important;
+    right: 26px !important;
+    transform: none !important;
+    z-index: var(--z-index-mui-tooltip) !important;
+  }
+}
 
 body .MuiDataGrid-toolbarContainer .MuiButton-label { font-family: inherit; }
 body .MuiDataGrid-toolbarContainer .MuiButton-textSizeSmall { font-size: inherit; }

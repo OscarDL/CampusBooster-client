@@ -1,9 +1,9 @@
 import { RootState } from '../store/store';
 import { User, UserRoles } from './types/user';
 import { supportedLangs } from './utils/locales';
+import { AppCategories as AC } from './types/routing';
 import { categories, localStorageKeysToPersist } from './utils/values';
 import { LinkTypes, Settings, SupportedLangs, SupportedThemes } from './types/settings';
-import { AppCategories } from './types/routing';
 
 
 /* --- SETTINGS --- */
@@ -88,8 +88,8 @@ export const getLoggedInAuthState = (state: RootState) => ({
 export const getCategoryTitle = (user: User) => {
   const category = window.location.pathname.replace('/', '').split('/').at(0);
 
-  if (!getUserCategories(categories, user).find(c => c === category) && category !== AppCategories.Profile) {
-    return categories.find(c => c === AppCategories.Home) + '.title';
+  if (!getUserCategories(categories, user).find(c => c === category) && category !== AC.Profile) {
+    return categories.find(c => c === AC.Home) + '.title';
   }
 
   return category + '.title';
@@ -98,13 +98,13 @@ export const getCategoryTitle = (user: User) => {
 
 // Retrieve categories accessible by current user
 export const getUserCategories = (categories: string[], user: User) => {
-  const studentForbidden: string[] = ['admin', 'users'];
-  const professorForbidden: string[] = ['admin', 'users', 'accounting'];
-  const fullProfessorForbidden: string[] = ['admin', 'users', 'planning', 'accounting'];
-  const companyForbidden: string[] = ['admin', 'users', 'planning', 'accounting', 'tools'];
-  const assistantForbidden: string[] = ['planning'];
-  const campusManagerForbidden: string[] = ['planning'];
-  const campusBoosterAdminForbidden: string[] = ['planning'];
+  const studentForbidden: string[] = [AC.Admin, AC.Users];
+  const professorForbidden: string[] = [AC.Admin, AC.Users, AC.Accounting];
+  const fullProfessorForbidden: string[] = [AC.Admin, AC.Users, AC.Planning, AC.Accounting];
+  const companyForbidden: string[] = [AC.Admin, AC.Users, AC.Planning, AC.Accounting, AC.Tools];
+  const assistantForbidden: string[] = [AC.Planning];
+  const campusManagerForbidden: string[] = [AC.Planning];
+  const campusBoosterAdminForbidden: string[] = [AC.Planning];
 
   switch (user.role) {
     case UserRoles.Professor: {

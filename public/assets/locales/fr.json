@@ -149,7 +149,39 @@
   },
 
   "courses": {
-    "title": "Matières"
+    "title": "Matières",
+    "add": "Ajouter une matière",
+
+    "fields": {
+      "title_one": "{{count}} cours",
+      "title_other": "{{count}} cours",
+      "name": "Nom du cours",
+      "link": "Lien Canvas",
+      "link_field": "Accéder",
+      "description": "Description",
+      "year": "Année",
+      "year_field": "{{year}}e année",
+      "credits": "Crédits",
+      "speciality": "Spécialité",
+      "actions": "Actions"
+    },
+
+    "create": {
+      "title": "Nouveau cours",
+      "success": "Cours \"{{course}}\" ajouté avec succès."
+    },
+
+    "update": {
+      "title": "Modifier \"{{course}}\"",
+      "success": "Cours \"{{course}}\" modifié avec succès."
+    },
+
+    "delete": {
+      "title": "Supprimer \"{{course}}\"",
+      "text": "Veuillez entrer le nom du cours ci-dessous afin d'éviter une suppression accidentelle.",
+      "name": "Nom du cours",
+      "success": "Cours \"{{course}}\" supprimé avec succès."
+    }
   },
 
   "planning": {
@@ -483,8 +515,10 @@
     "yes": "Oui",
     "colon": " :",
     "close": "Fermer",
+    "edit": "Modifier",
     "cancel": "Annuler",
     "none": "Aucun{{e}}",
+    "delete": "Supprimer",
     "confirm": "Confirmer",
     "loading": "Chargement",
     "date-mmmm-dd": "DD MMMM",
