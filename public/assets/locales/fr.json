@@ -225,8 +225,23 @@
     "title": "Absences"
   },
 
-  "internships": {
-    "title": "Stages et contrats"
+  "contracts": {
+    "title": "Stages et contrats",
+    "add": "Nouveau contrat",
+
+    "fields": {
+      "title_one": "{{count}} contrat",
+      "title_other": "{{count}} contrats",
+      "student": "Étudiant",
+      "entreprise": "Entreprise",
+      "start_date": "Date de début",
+      "end_date": "Date de fin",
+      "email": "Email contact",
+      "phone": "Téléphone contact",
+      "url": "Lien (URL)",
+      "mission": "Mission",
+      "supervisor": "Maitre de stage"
+    }
   },
 
   "accounting": {
@@ -291,6 +306,7 @@
     "title": "Outils",
     "add": "Ajouter un outil",
     "no_description": "Aucune description disponible pour cet outil.",
+    "image_too_large": "L'image sélectionnée est trop volumineuse, veuillez en choisir une autre (max:\u00A0{{size}}Mo)",
 
     "general": {
       "title": "Général"

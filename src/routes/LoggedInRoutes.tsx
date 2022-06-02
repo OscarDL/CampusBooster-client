@@ -16,8 +16,8 @@ import Courses from '../views/app/courses/Courses';
 import Profile from '../views/app/profile/Profile';
 import Absences from '../views/app/absences/Absences';
 import Planning from '../views/app/planning/Planning';
+import Contracts from '../views/app/contracts/Contracts';
 import Accounting from '../views/app/accounting/Accounting';
-import Internships from '../views/app/internships/Internships';
 
 
 const LoggedInRoutes: FC = () => {
@@ -33,7 +33,7 @@ const LoggedInRoutes: FC = () => {
     users: <Users/>,
     planning: <Planning/>,
     absences: <Absences/>,
-    internships: <Internships/>,
+    contracts: <Contracts/>,
     accounting: <Accounting/>,
     tools: <Tools/>,
     admin: <Admin/>

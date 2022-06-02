@@ -5,7 +5,7 @@ import { Button, TextField } from '@mui/material';
 
 import { useAppDispatch } from '../../../../../../store/store';
 import { deleteTool } from '../../../../../../store/features/tools/slice';
-import { ToolLinkBase64Image } from '../../../../../../shared/types/tools';
+import { ToolLinkBase64Image } from '../../../../../../shared/types/tool';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../../shared/dialog';
 
 

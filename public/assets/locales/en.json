@@ -231,9 +231,24 @@
     "icon": "event_busy"
   },
 
-  "internships": {
-    "title": "Internships",
-    "icon": "work_outline"
+  "contracts": {
+    "title": "Internships & contracts",
+    "icon": "work_outline",
+    "add": "New contract",
+
+    "fields": {
+      "title_one": "{{count}} contract",
+      "title_other": "{{count}} contracts",
+      "student": "Student",
+      "company": "Company",
+      "start_date": "Start date",
+      "end_date": "End date",
+      "email":"Contact email",
+      "phone":"Contact phone",
+      "url": "Link (URL)",
+      "mission": "Mission",
+      "supervisor": "Supervisor"
+    }
   },
 
   "accounting": {
@@ -300,6 +315,7 @@
     "icon": "handyman",
     "add": "Add tool",
     "no_description": "No description available for this tool.",
+    "image_too_large": "Image selected is too large, please choose another one (max:\u00A0{{size}}MB)",
 
     "general": {
       "title": "General",

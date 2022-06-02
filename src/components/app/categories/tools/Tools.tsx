@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { FC, useEffect, useState } from 'react';
 
 import { UserRoles } from '../../../../shared/types/user';
-import { ToolCategory } from '../../../../shared/types/tools';
+import { ToolCategory } from '../../../../shared/types/tool';
 import { useStateWithCallback } from '../../../../shared/hooks';
 import { getTools } from '../../../../store/features/tools/slice';
 import { getLoggedInAuthState } from '../../../../shared/functions';

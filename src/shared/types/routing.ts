@@ -6,7 +6,7 @@ export enum AppCategories {
   Users = 'users',
   Planning = 'planning',
   Absences = 'absences',
-  Internships = 'internships',
+  Contracts = 'contracts',
   Accounting = 'accounting',
   Tools = 'tools',
   Admin = 'admin'
@@ -21,7 +21,7 @@ export enum AppRoutes {
   users = '/users',
   planning = '/planning',
   absences = '/absences',
-  internships = '/internships',
+  contracts = '/contracts',
   accounting = '/accounting',
   tools = '/tools',
   admin = '/admin/*'

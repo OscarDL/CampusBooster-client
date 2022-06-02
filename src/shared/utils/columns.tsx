@@ -3,7 +3,7 @@ import { t } from 'i18next';
 import { Dispatch, SetStateAction } from 'react';
 import { Button, IconButton, Tooltip } from '@mui/material';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid-pro';
-import { DeleteOutlined, EditOutlined, OpenInNewRounded, RemoveCircleOutlineOutlined } from '@mui/icons-material';
+import { DeleteOutlined, Download, EditOutlined, OpenInNewRounded, RemoveCircleOutlineOutlined } from '@mui/icons-material';
 
 import { Course } from '../types/course';
 import { User, UserRoles } from '../types/user';
@@ -29,6 +29,7 @@ const getEditDeleteColumn: EditDeleteColumnProps = ({allowed, setOpenUpdate, set
     sortable: false,
     field: 'actions',
     filterable: false,
+    disableExport: true,
     headerName: t('data_grid.actions'),
 
     renderCell: ({row}: GridRenderCellParams) => (
@@ -67,7 +68,10 @@ export const getAccountingColumns = ({user, setOpenUpdate, setOpenDelete, setSel
   const columnPrefix = 'accounting.data_grid.columns.';
 
   const userColumn: GridColDef[] = userHasAdminRights(user.role) ? (
-    [{ field: 'studentName', headerName: t(columnPrefix + 'student'), width: 200 }]
+    [{
+      field: 'student', headerName: t(columnPrefix + 'student'), width: 200,
+      valueGetter: ({row}) => `${row.User.firstName} ${row.User.lastName}`
+    }]
   ) : (
     []
   );
@@ -158,7 +162,7 @@ export const getBannedUsersColumns = ({setOpenDelete, setSelectedRow}: Partial<B
       field: 'Campus', headerName: t(columnPrefix + 'campus'), width: 150, valueGetter: ({row}) => row.Campus?.name
     },
     {
-      field: 'actions', headerName: t(columnPrefix + 'actions'), width: 100,
+      field: 'actions', headerName: t(columnPrefix + 'actions'), width: 100, filterable: false, sortable: false, disableExport: true,
       renderCell: ({row}) => (
         <div>
           <IconButton
@@ -299,7 +303,7 @@ export const getCoursesColumns = ({user, setOpenUpdate, setOpenDelete, setSelect
     },
     {
       field: 'link', headerName: t(columnPrefix + 'link'), width: 150, filterable: false, sortable: false,
-      valueGetter: ({row}) => row.link, renderCell: ({row}) => getCanvasLink(row.link)
+      disableExport: true, valueGetter: ({row}) => row.link, renderCell: ({row}) => getCanvasLink(row.link)
     },
     {
       field: 'credits', headerName: t(columnPrefix + 'credits'), width: 100
@@ -339,5 +343,80 @@ export const getTeachersColumns = ({user, setOpenUpdate, setOpenDelete, setSelec
       valueGetter: ({row}) => t('global.' + (row.active ? 'yes' : 'no'))
     },
     ...getEditDeleteColumn({allowed, setOpenUpdate, setOpenDelete, setSelectedRow})
+  ];
+};
+
+
+export const getAbsencesColumns = ({user, setOpenUpdate, setOpenDelete, setSelectedRow}: BaseProps): GridColDef[] => {
+  const columnPrefix = 'absences.fields.';
+
+  const getCanvasLink = (link: Course['link']) => (
+    <Button
+      sx={{ml: '-10px'}}
+      startIcon={<Download/>}
+      onClick={() => window.open(link, '_blank')}
+    >
+      {t(columnPrefix + 'documents_field')}
+    </Button>
+  );
+
+
+  return [
+    {
+      field: 'year', headerName: t(columnPrefix + 'year'), width: 150,
+      valueGetter: ({row}) => t(columnPrefix + 'year_field', {year: row.year})
+    },
+    // TODO (+ disable export for downloads column)
+    ...getEditDeleteColumn({allowed: true, setOpenUpdate, setOpenDelete, setSelectedRow})
+  ];
+};
+
+
+export const getContractsColumns = ({user, setOpenUpdate, setOpenDelete, setSelectedRow}: BaseProps): GridColDef[] => {
+  const columnPrefix = 'contracts.fields.';
+
+  const userColumn: GridColDef[] = userHasAdminRights(user.role) ? (
+    [{
+      field: 'student', headerName: t(columnPrefix + 'student'), width: 200,
+      valueGetter: ({row}) => `${row.User.firstName} ${row.User.lastName}`
+    }]
+  ) : (
+    []
+  );
+
+
+  return [
+    ...userColumn,
+    {
+      field: 'startDate', headerName: t(columnPrefix + 'start_date'), width: 150,
+      valueGetter: ({row}) => dayjs(row.startDate).format(t('global.date-mm-dd-yyyy'))
+    },
+    {
+      field: 'endDate', headerName: t(columnPrefix + 'end_date'), width: 150,
+      valueGetter: ({row}) => dayjs(row.endDate).format(t('global.date-mm-dd-yyyy'))
+    },
+    {
+      field: 'company', headerName: t(columnPrefix + 'company'), width: 150
+    },
+    {
+      field: 'url', headerName: t(columnPrefix + 'url'), width: 150, hide: true // Make link clickable
+    },
+    {
+      field: 'supervisor', headerName: t(columnPrefix + 'supervisor'), width: 200,
+      valueGetter: ({row}) => `${row.Supervisor.User.firstName} ${row.Supervisor.User.lastName}`
+    },
+    {
+      field: 'mission', headerName: t(columnPrefix + 'mission'), width: 200, hide: true
+    },
+    {
+      field: 'email', headerName: t(columnPrefix + 'email'), width: 200 // Make email clickable
+    },
+    {
+      field: 'phone', headerName: t(columnPrefix + 'phone'), width: 150
+    },
+    {
+      field: 'address', headerName: t(columnPrefix + 'address'), width: 300, hide: true
+    },
+    ...getEditDeleteColumn({allowed: true, setOpenUpdate, setOpenDelete, setSelectedRow})
   ];
 };

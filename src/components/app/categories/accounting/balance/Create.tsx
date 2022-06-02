@@ -20,7 +20,7 @@ type Props = {
 };
 
 const newBalanceRequest = (): BalanceRequest => ({
-  userId: 0, debit: 0, credit: 0, description: '', status: BalanceStatus.pending,
+  userId: 0, debit: 0, credit: 0, description: '', status: BalanceStatus.Pending,
   dateRequested: dayjs().toISOString(), dateConfirmed: undefined
 });
 

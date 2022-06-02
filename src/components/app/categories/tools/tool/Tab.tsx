@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { ToolLinkBase64Image } from '../../../../../shared/types/tools';
+import { ToolLinkBase64Image } from '../../../../../shared/types/tool';
 
 import Tool from '../tool/Tool';
 

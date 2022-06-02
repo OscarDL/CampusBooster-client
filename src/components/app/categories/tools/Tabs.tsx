@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { DispatchWithCallback } from '../../../../shared/hooks';
 
 import Dropdown from '../../../shared/dropdown';
-import { ToolCategory } from '../../../../shared/types/tools';
+import { ToolCategory } from '../../../../shared/types/tool';
 
 
 type TabsProps = {

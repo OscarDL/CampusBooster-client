@@ -2,7 +2,7 @@ import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 import toolService from '../../../services/tools';
-import { ToolLink, ToolLinkBase64Image } from '../../../shared/types/tools';
+import { ToolLink, ToolLinkBase64Image } from '../../../shared/types/tool';
 
 
 export type ToolsState = {

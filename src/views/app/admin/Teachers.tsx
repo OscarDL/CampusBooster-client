@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Teachers from '../../../components/app/categories/admin/campus copy';
+import Teachers from '../../../components/app/categories/admin/teachers';
 
 
 const TeachersView: FC = () => {

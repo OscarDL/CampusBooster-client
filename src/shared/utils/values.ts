@@ -16,7 +16,7 @@ export const categories = [
   AppCategories.Users,
   AppCategories.Planning,
   AppCategories.Absences,
-  AppCategories.Internships,
+  AppCategories.Contracts,
   AppCategories.Accounting,
   AppCategories.Admin,
   AppCategories.Tools,
@@ -31,6 +31,9 @@ export const allowedFileTypes = {
     'image/svg+xml'
   ]
 };
+
+export const maxImageSize = 2097152 // 2MB in bytes;
+export const maxDocumentSize = 5242880 // 5MB in bytes;
 
 export const mobileWidthBreakpoint = 768;
 

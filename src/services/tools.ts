@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { t } from 'i18next';
 
-import { ToolLink } from '../shared/types/tools';
+import { ToolLink } from '../shared/types/tool';
 import { apiUrl, getAxiosConfig } from '../shared/api';
 
 

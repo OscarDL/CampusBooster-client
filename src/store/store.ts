@@ -16,6 +16,7 @@ import campusReducer, { CampusState } from './features/campus/slice';
 import gradesReducer, { GradesState } from './features/grades/slice';
 import coursesReducer, { CoursesState } from './features/courses/slice';
 import teachersReducer, { TeachersState } from './features/teachers/slice';
+import contractsReducer, { ContractsState } from './features/contracts/slice';
 import planningsReducer, { PlanningsState } from './features/plannings/slice';
 import accountingReducer, { AccountingState } from './features/accounting/slice';
 import classroomsReducer, { ClassroomsState } from './features/classrooms/slice';
@@ -33,6 +34,7 @@ type CombinedReducers = {
   campus: CampusState,
   courses: CoursesState,
   teachers: TeachersState,
+  contracts: ContractsState,
   plannings: PlanningsState,
   accounting: AccountingState,
   classrooms: ClassroomsState
@@ -50,6 +52,7 @@ const rootReducer = combineReducers({
   grades: gradesReducer,
   courses: coursesReducer,
   teachers: teachersReducer,
+  contracts: contractsReducer,
   plannings: planningsReducer,
   accounting: accountingReducer,
   classrooms: classroomsReducer

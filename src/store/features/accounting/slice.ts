@@ -16,12 +16,6 @@ const initialState: AccountingState = {
 };
 
 
-const setBalanceStudent = (balance: Balance): Balance => ({
-  ...balance,
-  studentName: `${balance.User?.firstName} ${balance.User?.lastName}`
-});
-
-
 export const getBalances = createAsyncThunk('accounting/getBalances', async (_, thunkAPI) => {
   try {
     return await accountingService.getBalances();
@@ -92,26 +86,24 @@ const accountingSlice = createSlice({
   extraReducers: (builder) => {
     // Retrieve all balance entries for admins
     builder.addCase(getBalances.fulfilled, (state, {payload}) => {
-      const balances = payload.map(setBalanceStudent);
-      state.balances = balances;
+      state.balances = payload;
     });
 
     // Retrieve all balance entries for specific user
     builder.addCase(getUserBalance.fulfilled, (state, {payload}) => {
-      const balances = payload.map(setBalanceStudent);
-      state.balances = balances;
+      state.balances = payload;
     });
 
     // Create new balance entry
     builder.addCase(createBalance.fulfilled, (state, {payload}) => {
-      state.balances = (state.balances ?? []).concat(setBalanceStudent(payload));
+      state.balances = (state.balances ?? []).concat(payload);
     });
 
     // Update existing balance entry
     builder.addCase(updateBalance.fulfilled, (state, {payload}) => {
       if (state.balances) {
         const balanceIndex = state.balances.findIndex(balance => balance.id === payload.id);
-        state.balances[balanceIndex] = setBalanceStudent(payload);
+        state.balances[balanceIndex] = payload;
       }
     });
 

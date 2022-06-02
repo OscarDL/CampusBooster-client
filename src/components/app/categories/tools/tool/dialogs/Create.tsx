@@ -4,10 +4,10 @@ import { FC, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Box, Button, FormControl, IconButton, InputLabel, MenuItem, Select, styled, TextField } from '@mui/material';
 
-import { allowedFileTypes } from '../../../../../../shared/utils/values';
 import { createTool } from '../../../../../../store/features/tools/slice';
 import { useAppDispatch, useAppSelector } from '../../../../../../store/store';
-import { ToolCategory, ToolRequest } from '../../../../../../shared/types/tools';
+import { ToolCategory, ToolRequest } from '../../../../../../shared/types/tool';
+import { allowedFileTypes, maxImageSize } from '../../../../../../shared/utils/values';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../../shared/dialog';
 
 
@@ -17,7 +17,7 @@ type Props = {
 };
 
 const newToolRequest = (): ToolRequest => ({
-  img: '', url: '', title: '', category: ToolCategory.general, description: ''
+  img: '', url: '', title: '', category: ToolCategory.General, description: ''
 });
 
 const Input = styled('input')({display: 'none'});
@@ -36,6 +36,11 @@ const CreateTool: FC<Props> = ({open, setOpen}) => {
   const handleAddImage = (e: React.FormEvent<HTMLInputElement>) => {
     const result = e.target as HTMLInputElement;
     const file = result.files?.[0];
+
+    if (file && file.size > maxImageSize) {
+      toast.error(t('tools.image_too_large', {size: maxImageSize/1024/1024})); // bytes to megabytes
+      return;
+    }
 
     if (!file) {
       setTool({...tool, img: ''});

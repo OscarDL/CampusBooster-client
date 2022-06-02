@@ -7,9 +7,9 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { Box, Button, FormControl, IconButton, InputLabel, MenuItem, Select, styled, TextField } from '@mui/material';
 
 import { useAppDispatch } from '../../../../../../store/store';
-import { allowedFileTypes } from '../../../../../../shared/utils/values';
 import { updateTool } from '../../../../../../store/features/tools/slice';
-import { ToolCategory, ToolLink } from '../../../../../../shared/types/tools';
+import { ToolCategory, ToolLink } from '../../../../../../shared/types/tool';
+import { allowedFileTypes, maxImageSize } from '../../../../../../shared/utils/values';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../../shared/dialog';
 
 
@@ -35,6 +35,11 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
   const handleAddImage = (e: React.FormEvent<HTMLInputElement>) => {
     const result = e.target as HTMLInputElement;
     const file = result.files?.[0];
+
+    if (file && file.size > maxImageSize) {
+      toast.error(t('tools.image_too_large', {size: maxImageSize/1024/1024})); // bytes to megabytes
+      return;
+    }
 
     if (!file) {
       setNewTool({...newTool, img: ''});

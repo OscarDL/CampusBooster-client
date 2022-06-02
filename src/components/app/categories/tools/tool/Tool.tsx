@@ -6,7 +6,7 @@ import { EditOutlined, DeleteOutlined } from '@mui/icons-material';
 import { useAppSelector } from '../../../../../store/store';
 import { UserRoles } from '../../../../../shared/types/user';
 import { getLoggedInAuthState } from '../../../../../shared/functions';
-import { ToolLinkBase64Image } from '../../../../../shared/types/tools';
+import { ToolLinkBase64Image } from '../../../../../shared/types/tool';
 
 import UpdateTool from './dialogs/Update';
 import DeleteTool from './dialogs/Delete';
