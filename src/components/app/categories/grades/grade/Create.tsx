@@ -75,7 +75,7 @@ const CreateGrade: FC<Props> = ({open, setOpen}) => {
         <Box sx={{mb: 2}}>
           <GradeCoursePicker grade={grade} setGrade={setGrade}/>
         </Box>
-        
+
         <Box sx={{mb: 2}}>
           <GradeTeacherPicker grade={grade} setGrade={setGrade}/>
         </Box>

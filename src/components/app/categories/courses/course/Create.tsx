@@ -28,6 +28,14 @@ const CreateCourse: FC<Props> = ({open, setOpen}) => {
   const [course, setCourse] = useState(newCourseRequest());
 
 
+
+  const formIsComplete = () => (
+    course.name &&
+    course.link &&
+    course.credits &&
+    course.description
+  );
+
   const handleChangeYearCredits = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, type: 'year' | 'credits') => {
     const value = Number(e.target.value);
     if (isNaN(value)) return;
@@ -135,8 +143,8 @@ const CreateCourse: FC<Props> = ({open, setOpen}) => {
         </Button>
 
         <MainDialogButton
+          disabled={!formIsComplete()}
           type="submit" variant="contained" loading={loading}
-          disabled={!(course.credits && course.name && course.link && course.description)}
         >
           {t('global.confirm')}
         </MainDialogButton>

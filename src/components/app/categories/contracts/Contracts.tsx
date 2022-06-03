@@ -15,9 +15,9 @@ import { getLoggedInAuthState, userHasAdminRights } from '../../../../shared/fun
 import { DataGridFooter, DataGridHeader, StyledDataGrid } from '../../../shared/datagrid';
 import { clearContracts, getContracts, getSupervisorContracts, getUserContracts } from '../../../../store/features/contracts/slice';
 
-// import CreateBalance from './contract/Create';
-// import UpdateBalance from './contract/Update';
-// import DeleteBalance from './contract/Delete';
+import CreateContract from './grade/Create';
+import UpdateContract from './grade/Update';
+import DeleteContract from './grade/Delete';
 import Loader from '../../../shared/loader';
 
 
@@ -116,12 +116,12 @@ const Contracts: FC = () => {
         />
       </ContentBody>
 
-      {/* <CreateBalance open={openCreate} setOpen={setOpenCreate}/>
+      <CreateContract open={openCreate} setOpen={setOpenCreate}/>
 
-      {selectedGrade && <>
-        <UpdateBalance contract={selectedGrade} open={openUpdate} setOpen={setOpenUpdate}/>
-        <DeleteBalance contract={selectedGrade} open={openDelete} setOpen={setOpenDelete}/>
-      </>} */}
+      {selectedContract && <>
+        <UpdateContract contract={selectedContract} open={openUpdate} setOpen={setOpenUpdate}/>
+        <DeleteContract contract={selectedContract} open={openDelete} setOpen={setOpenDelete}/>
+      </>}
     </>
   );
 };

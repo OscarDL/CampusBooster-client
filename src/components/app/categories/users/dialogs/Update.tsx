@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import { toast } from 'react-toastify';
 import isEqual from 'react-fast-compare';
 import { useTranslation } from 'react-i18next';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { Box, Button, FormControl, InputAdornment, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Tooltip, Zoom } from '@mui/material';
@@ -45,6 +45,10 @@ const UpdateUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
   const [newUser, setNewUser] = useState(newUserRequest(selectedUser));
   const userFullName = `${selectedUser.firstName} ${selectedUser.lastName}`;
   const tooltip = `${t('users.update.reset_pw.tooltip_1', {user: userFullName})} ${t('users.update.reset_pw.tooltip_2')}`;
+
+  const userEqual = useMemo(() => (
+    isEqual(newUserRequest(selectedUser), newUser)
+  ), [selectedUser, newUser]);
 
 
   const formIsComplete = () => (
@@ -140,8 +144,9 @@ const UpdateUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
         <FormControl>
           <InputLabel id="user-select-role">{t('users.fields.role')}</InputLabel>
           <Select
-            size="small" value={newUser.role}
-            onChange={e => handleChangeRole(e)}
+            size="small"
+            value={newUser.role}
+            onChange={handleChangeRole}
             labelId="user-select-role" label={t('users.fields.role')}
           >
             {Object.values(UserRoles).map(role => (
@@ -249,7 +254,7 @@ const UpdateUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
 
         <MainDialogButton
           type="submit" variant="contained" loading={loading}
-          disabled={!usersList || !formIsComplete() || isEqual(newUserRequest(selectedUser), newUser)}
+          disabled={!usersList || userEqual || !formIsComplete()}
         >
           {t('global.confirm')}
         </MainDialogButton>

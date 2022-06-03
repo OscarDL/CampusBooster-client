@@ -192,7 +192,7 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
 
         <MainDialogButton
           type="submit" variant="contained" loading={loading}
-          disabled={!(newTool.title && newTool.description && newTool.url) || isEqual(tool, newTool)}
+          disabled={isEqual(tool, newTool) || !(newTool.title && newTool.description && newTool.url)}
         >
           {t('global.confirm')}
         </MainDialogButton>

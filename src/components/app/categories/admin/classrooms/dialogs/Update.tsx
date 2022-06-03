@@ -1,7 +1,8 @@
 import { toast } from 'react-toastify';
+import isEqual from 'react-fast-compare';
 import { useTranslation } from 'react-i18next';
 import { Box, Button, TextField } from '@mui/material';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../../../../../store/store';
 import { updateClassroom } from '../../../../../../store/features/classrooms/slice';
@@ -32,6 +33,10 @@ const UpdateClassroom: FC<Props> = ({classroom, open, setOpen}) => {
 
   const [loading, setLoading] = useState(false);
   const [newClassroom, setNewClassroom] = useState(newClassroomRequest(classroom));
+
+  const classroomEqual = useMemo(() => (
+    isEqual(newClassroomRequest(classroom), newClassroom)
+  ), [classroom, newClassroom]);
 
 
   const handleChangePromotion = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -123,7 +128,7 @@ const UpdateClassroom: FC<Props> = ({classroom, open, setOpen}) => {
 
         <MainDialogButton
           type="submit" variant="contained" loading={loading}
-          disabled={!classroomsList || !newClassroom.name || !newClassroom.promotion}
+          disabled={!classroomsList || classroomEqual || !newClassroom.name || !newClassroom.promotion}
         >
           {t('global.confirm')}
         </MainDialogButton>

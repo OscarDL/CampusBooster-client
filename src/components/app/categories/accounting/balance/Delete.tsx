@@ -61,7 +61,9 @@ const DeleteBalance: FC<Props> = ({balance, open, setOpen}) => {
         <p>{t('accounting.delete.text')}</p>
 
         <TextField
+          sx={{mt: 2}}
           required autoFocus
+          value={description}
           margin="dense" variant="standard"
           label={t('accounting.delete.description')}
           onChange={e => setDescription(e.target.value)}

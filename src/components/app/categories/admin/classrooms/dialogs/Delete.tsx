@@ -20,8 +20,8 @@ const DeleteClassroom: FC<Props> = ({classroom, open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
-  const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
+  const [classroomName, setClassroomName] = useState('');
 
 
   const handleDeleteClassroom = async (e: React.FormEvent<HTMLElement>) => {
@@ -31,7 +31,6 @@ const DeleteClassroom: FC<Props> = ({classroom, open, setOpen}) => {
     try {
       await dispatch(deleteClassroom(classroom.id)).unwrap();
 
-      setName('');
       setOpen(false);
       toast.success(t('admin.classrooms.delete.success', {classroom: classroom.name}));
     }
@@ -45,7 +44,7 @@ const DeleteClassroom: FC<Props> = ({classroom, open, setOpen}) => {
 
   useEffect(() => {
     // Reset state on new dialog open
-    if (open) setName('');
+    if (open) setClassroomName('');
   }, [open]);
 
 
@@ -62,10 +61,12 @@ const DeleteClassroom: FC<Props> = ({classroom, open, setOpen}) => {
         <p>{t('admin.classrooms.delete.text')}</p>
 
         <TextField
+          sx={{mb: 2}}
           required autoFocus
+          value={classroomName}
           margin="dense" variant="standard"
-          onChange={e => setName(e.target.value)}
           label={t('admin.classrooms.delete.name')}
+          onChange={e => setClassroomName(e.target.value)}
         />
       </DialogContent>
 
@@ -76,7 +77,7 @@ const DeleteClassroom: FC<Props> = ({classroom, open, setOpen}) => {
 
         <MainDialogButton
           type="submit" color="error" variant="contained"
-          loading={loading} disabled={name !== classroom.name}
+          loading={loading} disabled={classroomName !== classroom.name}
         >
           {t('global.confirm')}
         </MainDialogButton>

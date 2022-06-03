@@ -20,8 +20,8 @@ const DeleteTool: FC<Props> = ({tool, open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
-  const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(false);
+  const [toolTitle, setToolTitle] = useState('');
 
 
   const handleDeleteTool = async (e: React.FormEvent<HTMLElement>) => {
@@ -31,7 +31,6 @@ const DeleteTool: FC<Props> = ({tool, open, setOpen}) => {
     try {
       await dispatch(deleteTool(tool.id!)).unwrap();
 
-      setTitle('');
       setOpen(false);
       toast.success(t('tools.delete.success', {tool: tool.title}));
     }
@@ -45,7 +44,7 @@ const DeleteTool: FC<Props> = ({tool, open, setOpen}) => {
 
   useEffect(() => {
     // Reset state on new dialog open
-    if (open) setTitle('');
+    if (open) setToolTitle('');
   }, [open]);
 
 
@@ -62,10 +61,12 @@ const DeleteTool: FC<Props> = ({tool, open, setOpen}) => {
         <p>{t('tools.delete.text')}</p>
 
         <TextField
+          sx={{mt: 2}}
+          value={toolTitle}
           required autoFocus
           label={t('tools.delete.name')}
           margin="dense" variant="standard"
-          onChange={e => setTitle(e.target.value)}
+          onChange={e => setToolTitle(e.target.value)}
         />
       </DialogContent>
 
@@ -76,7 +77,7 @@ const DeleteTool: FC<Props> = ({tool, open, setOpen}) => {
 
         <MainDialogButton
           type="submit" color="error" variant="contained"
-          loading={loading} disabled={tool.title !== title}
+          loading={loading} disabled={tool.title !== toolTitle}
         >
           {t('global.confirm')}
         </MainDialogButton>

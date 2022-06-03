@@ -235,6 +235,8 @@
     "title": "Internships & contracts",
     "icon": "work_outline",
     "add": "New contract",
+    "select_student": "Select a student",
+    "select_supervisor": "Select a supervisor",
 
     "fields": {
       "title_one": "{{count}} contract",
@@ -245,9 +247,35 @@
       "end_date": "End date",
       "email":"Contact email",
       "phone":"Contact phone",
+      "address": "Address",
       "url": "Link (URL)",
       "mission": "Mission",
-      "supervisor": "Supervisor"
+      "supervisor": "Supervisor",
+
+      "type": {
+        "title": "Type",
+        "full_time_internship": "Full-time internship",
+        "part_time_internship": "Part-time internship",
+        "apprentice_contract": "Apprentice contract",
+        "professional_contract": "Professional contract"
+      }
+    },
+
+    "create": {
+      "title": "New entreprise contract",
+      "success": "Contract for \"{{user}}\" with company \"{{company}}\" successfully created."
+    },
+
+    "update": {
+      "title": "Update contract for \"{{user}}\"",
+      "success": "Contract of \"{{user}}\" in company \"{{company}}\" successfully updated."
+    },
+
+    "delete": {
+      "title": "Delete contract of \"{{user}}\"",
+      "text": "Please type in the name of the user and company as shown below to avoid accidental deletion.",
+      "student_company": "Student (Company)",
+      "success": "Contract of \"{{user}}\" in company \"{{company}}\" successfully deleted."
     }
   },
 

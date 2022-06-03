@@ -1,5 +1,6 @@
 import copy from 'fast-copy';
 import { toast } from 'react-toastify';
+import isEqual from 'react-fast-compare';
 import { useTranslation } from 'react-i18next';
 import React, { FC, useEffect, useState } from 'react';
 import { Box, Button, Checkbox, FormControlLabel, FormGroup, TextField } from '@mui/material';
@@ -140,7 +141,7 @@ const UpdateCampus: FC<Props> = ({campus, open, setOpen}) => {
 
         <MainDialogButton
           type="submit" variant="contained" loading={loading}
-          disabled={!campusList || !formIsComplete()}
+          disabled={!campusList || isEqual(campus, newCampus) || !formIsComplete()}
         >
           {t('global.confirm')}
         </MainDialogButton>

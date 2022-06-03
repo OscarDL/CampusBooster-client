@@ -103,8 +103,9 @@ const CreateUser: FC<Props> = ({open, setOpen}) => {
         <FormControl>
           <InputLabel id="user-select-role">{t('users.fields.role')}</InputLabel>
           <Select
+            size="small"
+            value={newUser.role}
             onChange={handleChangeRole}
-            size="small" value={newUser.role}
             labelId="user-select-role" label={t('users.fields.role')}
           >
             {Object.values(UserRoles).map(role => (

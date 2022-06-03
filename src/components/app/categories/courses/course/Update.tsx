@@ -8,11 +8,12 @@ import { Course } from '../../../../../shared/types/course';
 import { useAppDispatch } from '../../../../../store/store';
 import { updateCourse } from '../../../../../store/features/courses/slice';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
+import isEqual from 'react-fast-compare';
 
 
 type Props = {
-  course: Course,
   open: boolean,
+  course: Course,
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 };
 
@@ -24,6 +25,13 @@ const UpdateCourse: FC<Props> = ({course, open, setOpen}) => {
   const [loading, setLoading] = useState(false);
   const [newCourse, setNewCourse] = useState(copy(course));
 
+
+  const formIsComplete = () => (
+    newCourse.name &&
+    newCourse.link &&
+    newCourse.credits &&
+    newCourse.description
+  );
 
   const handleChangeYearCredits = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, type: 'year' | 'credits') => {
     const value = Number(e.target.value);
@@ -138,7 +146,7 @@ const UpdateCourse: FC<Props> = ({course, open, setOpen}) => {
 
         <MainDialogButton
           type="submit" variant="contained" loading={loading}
-          disabled={!(newCourse.credits && newCourse.name && newCourse.link && newCourse.description)}
+          disabled={isEqual(course, newCourse) || !formIsComplete()}
         >
           {t('global.confirm')}
         </MainDialogButton>

@@ -16,9 +16,9 @@ import { useAppDispatch, useAppSelector } from '../../../../store/store';
 import { DataGridFooter, DataGridHeader, StyledDataGrid } from '../../../shared/datagrid';
 import { clearGrades, getGrades, getTeacherAsUserGrades, getUserGrades } from '../../../../store/features/grades/slice';
 
-import CreateBalance from './grade/Create';
-import UpdateBalance from './grade/Update';
-import DeleteBalance from './grade/Delete';
+import CreateGrade from './grade/Create';
+import UpdateGrade from './grade/Update';
+import DeleteGrade from './grade/Delete';
 import Loader from '../../../shared/loader';
 
 
@@ -121,11 +121,11 @@ const Grades: FC = () => {
         />
       </ContentBody>
 
-      <CreateBalance open={openCreate} setOpen={setOpenCreate}/>
+      <CreateGrade open={openCreate} setOpen={setOpenCreate}/>
 
       {selectedGrade && <>
-        <UpdateBalance grade={selectedGrade} open={openUpdate} setOpen={setOpenUpdate}/>
-        <DeleteBalance grade={selectedGrade} open={openDelete} setOpen={setOpenDelete}/>
+        <UpdateGrade grade={selectedGrade} open={openUpdate} setOpen={setOpenUpdate}/>
+        <DeleteGrade grade={selectedGrade} open={openDelete} setOpen={setOpenDelete}/>
       </>}
     </>
   );

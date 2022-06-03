@@ -83,7 +83,7 @@ const UpdateGrade: FC<Props> = ({grade, open, setOpen}) => {
         <Box sx={{mb: 2}}>
           <GradeCoursePicker grade={newGrade} setGrade={setNewGrade}/>
         </Box>
-        
+
         <Box sx={{mb: 2}}>
           <GradeTeacherPicker grade={newGrade} setGrade={setNewGrade}/>
         </Box>
@@ -120,7 +120,7 @@ const UpdateGrade: FC<Props> = ({grade, open, setOpen}) => {
 
         <MainDialogButton
           type="submit" variant="contained" loading={loading}
-          disabled={!gradesList || !newGrade.teacherId || isEqual(grade, newGrade)}
+          disabled={!gradesList || isEqual(grade, newGrade) || !newGrade.teacherId}
         >
           {t('global.confirm')}
         </MainDialogButton>

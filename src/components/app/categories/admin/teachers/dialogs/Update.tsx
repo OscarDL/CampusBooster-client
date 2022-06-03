@@ -1,5 +1,6 @@
 import copy from 'fast-copy';
 import { toast } from 'react-toastify';
+import isEqual from 'react-fast-compare';
 import { Box, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import React, { FC, useEffect, useState } from 'react';
@@ -82,7 +83,7 @@ const UpdateTeacher: FC<Props> = ({teacher, open, setOpen}) => {
 
         <MainDialogButton
           type="submit" variant="contained" loading={loading}
-          disabled={!teachersList || !newTeacher.classroomHasCourseId || !newTeacher.userId}
+          disabled={!teachersList || isEqual(teacher, newTeacher) || !newTeacher.classroomHasCourseId || !newTeacher.userId}
         >
           {t('global.confirm')}
         </MainDialogButton>

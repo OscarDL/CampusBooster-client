@@ -53,8 +53,8 @@ const DeleteGrade: FC<Props> = ({grade, open, setOpen}) => {
   return (
     <Dialog
       components={{Root: 'form'}}
-      onClose={() => setOpen(false)}
       onSubmit={handleDeleteGrade}
+      onClose={() => setOpen(false)}
       open={open} fullWidth maxWidth="sm"
     >
       <DialogTitle>{t('grades.delete.title')}</DialogTitle>
@@ -63,7 +63,9 @@ const DeleteGrade: FC<Props> = ({grade, open, setOpen}) => {
         <p>{t('grades.delete.text', {text: textTemplate})}</p>
 
         <TextField
+          sx={{mt: 2}}
           required autoFocus
+          value={studentGrade}
           margin="dense" variant="standard"
           label={t('grades.delete.student_grade')}
           onChange={e => setStudentGrade(e.target.value)}

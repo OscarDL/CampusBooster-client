@@ -228,6 +228,8 @@
   "contracts": {
     "title": "Stages et contrats",
     "add": "Nouveau contrat",
+    "select_student": "Sélectionnez un étudiant",
+    "select_supervisor": "Sélectionnez un superviseur",
 
     "fields": {
       "title_one": "{{count}} contrat",
@@ -238,9 +240,35 @@
       "end_date": "Date de fin",
       "email": "Email contact",
       "phone": "Téléphone contact",
+      "address": "Addresse",
       "url": "Lien (URL)",
       "mission": "Mission",
-      "supervisor": "Maitre de stage"
+      "supervisor": "Superviseur",
+
+      "type": {
+        "title": "Type",
+        "full_time_internship": "Stage à temps plein",
+        "part_time_internship": "Stage à temps partiel",
+        "apprentice_contract": "Contrat d'apprentissage",
+        "professional_contract": "Contrat de professionnalisation"
+      }
+    },
+
+    "create": {
+      "title": "Nouveau contrat d'entreprise",
+      "success": "Contrat pour \"{{user}}\" avec l'entreprise \"{{company}}\" créé avec succès."
+    },
+
+    "update": {
+      "title": "Modifier le contrat pour \"{{user}}\"",
+      "success": "Contrat de \"{{user}}\" dans l'entreprise \"{{company}}\" modifié avec succès."
+    },
+
+    "delete": {
+      "title": "Supprimer le contrat de \"{{user}}\"",
+        "text": "Veuillez entrer le nom de l'étudiant et de l'entreprise comme ci-dessous afin d'éviter une suppression accidentelle.",
+        "student_company": "Étudiant (Entreprise)",
+      "success": "Contrat de \"{{user}}\" dans l'entreprise \"{{company}}\" supprimé avec succès."
     }
   },
 

@@ -17,6 +17,7 @@ export type Contract = {
   address: string,
   type: ContractType,
 
+  company: string,
   mission: string,
   endDate: string,
   startDate: string,
@@ -34,6 +35,7 @@ export type ContractRequest = {
   address: string,
   type: ContractType,
 
+  company: string,
   mission: string,
   endDate: string,
   startDate: string,

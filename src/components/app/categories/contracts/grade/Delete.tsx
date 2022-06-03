@@ -3,36 +3,39 @@ import { useTranslation } from 'react-i18next';
 import { FC, useEffect, useState } from 'react';
 import { Button, TextField } from '@mui/material';
 
-import { Course } from '../../../../../shared/types/course';
 import { useAppDispatch } from '../../../../../store/store';
-import { deleteCourse } from '../../../../../store/features/courses/slice';
+import { Contract } from '../../../../../shared/types/contract';
+import { deleteContract } from '../../../../../store/features/contracts/slice';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
 
 
 type Props = {
   open: boolean,
-  course: Course,
+  contract: Contract,
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 };
 
 
-const DeleteCourse: FC<Props> = ({course, open, setOpen}) => {
+const DeleteContract: FC<Props> = ({contract, open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
   const [loading, setLoading] = useState(false);
-  const [courseName, setCourseName] = useState('');
+  const [studentCompany, setStudentCompany] = useState('');
+
+  const userFullName = `${contract.User?.firstName} ${contract.User?.lastName}`;
+  const textTemplate = `${userFullName} (${contract.company})`;
 
 
-  const handleDeleteCourse = async (e: React.FormEvent<HTMLElement>) => {
+  const handleDeleteContract = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      await dispatch(deleteCourse(course.id)).unwrap();
+      await dispatch(deleteContract(contract.id)).unwrap();
 
       setOpen(false);
-      toast.success(t('courses.delete.success'));
+      toast.success(t('contracts.delete.success', {user: `${userFullName}`, company: contract.company}));
     }
     catch (error: any) {
       toast.error(error);
@@ -44,7 +47,7 @@ const DeleteCourse: FC<Props> = ({course, open, setOpen}) => {
 
   useEffect(() => {
     // Reset state on new dialog open
-    if (open) setCourseName('');
+    if (open) setStudentCompany('');
   }, [open]);
 
 
@@ -52,21 +55,21 @@ const DeleteCourse: FC<Props> = ({course, open, setOpen}) => {
     <Dialog
       components={{Root: 'form'}}
       onClose={() => setOpen(false)}
-      onSubmit={handleDeleteCourse}
+      onSubmit={handleDeleteContract}
       open={open} fullWidth maxWidth="sm"
     >
-      <DialogTitle>{t('courses.delete.title', {course: course.name})}</DialogTitle>
+      <DialogTitle>{t('contracts.delete.title', {user: userFullName})}</DialogTitle>
 
       <DialogContent>
-        <p>{t('courses.delete.text')}</p>
+        <p>{t('contracts.delete.text')}</p>
 
         <TextField
           sx={{mt: 2}}
-          value={courseName}
           required autoFocus
-          label={t('courses.delete.name')}
+          value={studentCompany}
           margin="dense" variant="standard"
-          onChange={e => setCourseName(e.target.value)}
+          label={t('contracts.delete.student_company')}
+          onChange={e => setStudentCompany(e.target.value)}
         />
       </DialogContent>
 
@@ -77,7 +80,7 @@ const DeleteCourse: FC<Props> = ({course, open, setOpen}) => {
 
         <MainDialogButton
           type="submit" color="error" variant="contained" 
-          loading={loading} disabled={courseName !== course.name}
+          loading={loading} disabled={studentCompany !== textTemplate}
         >
           {t('global.confirm')}
         </MainDialogButton>
@@ -87,4 +90,4 @@ const DeleteCourse: FC<Props> = ({course, open, setOpen}) => {
 };
 
 
-export default DeleteCourse;
+export default DeleteContract;

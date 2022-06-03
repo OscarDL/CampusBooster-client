@@ -50,7 +50,7 @@ const DeletableUser: FC<Props> = ({user, open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
-  const [name, setName] = useState('');
+  const [userName, setUserName] = useState('');
   const [loading, setLoading] = useState(false);
   const [deleteInAD, setDeleteInAD] = useState(false);
   const userFullName = `${user.firstName} ${user.lastName}`;
@@ -63,7 +63,6 @@ const DeletableUser: FC<Props> = ({user, open, setOpen}) => {
     try {
       await dispatch(deleteUser({user, deleteInAD})).unwrap();
 
-      setName('');
       setOpen(false);
       toast.success(t('users.delete.success', {user: userFullName}));
     }
@@ -77,7 +76,7 @@ const DeletableUser: FC<Props> = ({user, open, setOpen}) => {
 
   useEffect(() => {
     // Reset state on new dialog open
-    if (open) setName('');
+    if (open) setUserName('');
   }, [open]);
 
 
@@ -94,10 +93,12 @@ const DeletableUser: FC<Props> = ({user, open, setOpen}) => {
         <p>{t('users.delete.text')}</p>
 
         <TextField
+          sx={{mt: 2}}
+          value={userName}
           required autoFocus
           label={t('users.delete.name')}
           margin="dense" variant="standard"
-          onChange={e => setName(e.target.value)}
+          onChange={e => setUserName(e.target.value)}
         />
 
         <FormGroup>
@@ -115,7 +116,7 @@ const DeletableUser: FC<Props> = ({user, open, setOpen}) => {
 
         <MainDialogButton
           type="submit" color="error" variant="contained"
-          loading={loading} disabled={name !== userFullName}
+          loading={loading} disabled={userName !== userFullName}
         >
           {t('global.confirm')}
         </MainDialogButton>
