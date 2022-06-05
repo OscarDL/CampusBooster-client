@@ -197,7 +197,12 @@
 
     "details": {
       "title": "Détails du mois",
-      "none": "Aucun évènement scolaire en {{m}}."
+      "none": "Le planning de {{m}} est actuellement vide.",
+      "period": {
+        "morning": "matin",
+        "afternoon": "après-midi",
+        "full_day": "jour complet"
+      }
     },
 
     "projects": {
@@ -214,9 +219,9 @@
     },
 
     "colors": {
-      "exam": "Examen",
+      "practice_exam": "Examen (TP)",
+      "oral_exam": "Soutenance",
       "course": "Cours",
-      "oral": "Soutenance",
       "today": "Aujourd'hui"
     }
   },
@@ -234,7 +239,8 @@
       "date": "Date",
       "course": "Cours",
       "reason": "Raison",
-      "files": "Fichiers",
+      "files_one": "{{count}} fichier",
+      "files_other": "{{count}} fichiers",
       "documents": "Documents",
 
       "type": {
@@ -277,7 +283,8 @@
   },
 
   "contracts": {
-    "title": "Stages et contrats",
+    "title": "Contrats",
+    "title_header": "Stages et contrats",
     "add": "Nouveau contrat",
     "select_student": "Sélectionnez un étudiant",
     "select_supervisor": "Sélectionnez un superviseur",
@@ -666,7 +673,9 @@
       "mmmm-dd": "DD MMMM",
       "compare": "D-M-YYYY",
       "mm-dd-yyyy": "DD-MM-YYYY",
-      "mmm-d-yyyy": "D MMM YYYY"
+      "mmm-d-yyyy": "D MMM YYYY",
+      "next_month": "Mois suivant",
+      "prev_month": "Mois précédent"
     }
   }
 }

@@ -25,7 +25,7 @@ const ProjectsLine: FC<Props> = ({project}) => {
       </span>
 
       <span className="details__item__title">
-        {project.title}
+        &nbsp;{project.title}
       </span>
 
       <span className="details__item__more">

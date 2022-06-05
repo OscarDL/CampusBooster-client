@@ -53,8 +53,8 @@ const Accounting: FC = () => {
       }
     };
 
-    // Do NOT include useEffect dependencies from initData() prior to gradesList
-    // to avoid calling the API with getGrades() multiple times unnecessarily.
+    // Do NOT include useEffect dependencies from initData() prior to balances list
+    // to avoid calling the API with other dispatch calls multiple times unnecessarily.
     initData();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -202,7 +202,12 @@
 
     "details": {
       "title": "Details for this month",
-      "none": "No school events in {{m}}."
+      "none": "Planning for {{m}} is currently empty.",
+      "period": {
+        "morning": "morning",
+        "afternoon": "afternoon",
+        "full_day": "full day"
+      }
     },
 
     "projects": {
@@ -219,10 +224,10 @@
     },
 
     "colors": {
-      "exam": "Exam",
-      "oral": "Oral",
-      "today": "Today",
-      "course": "Course"
+      "practice_exam": "Practice exam",
+      "oral_exam": "Oral exam",
+      "course": "Course",
+      "today": "Today"
     }
   },
 
@@ -240,7 +245,8 @@
       "date": "Date",
       "course": "Course",
       "reason": "Reason",
-      "files": "Files",
+      "files_one": "{{count}} file",
+      "files_other": "{{count}} files",
       "documents": "Documents",
 
       "type": {
@@ -284,7 +290,8 @@
   },
 
   "contracts": {
-    "title": "Internships & contracts",
+    "title": "Contracts",
+    "title_header": "Internships & contracts",
     "icon": "work_outline",
     "add": "New contract",
     "select_student": "Select a student",
@@ -690,7 +697,9 @@
       "mmmm-dd": "MMMM DD",
       "compare": "D-M-YYYY",
       "mm-dd-yyyy": "MM-DD-YYYY",
-      "mmm-d-yyyy": "MMM. D, YYYY"
+      "mmm-d-yyyy": "MMM. D, YYYY",
+      "next_month": "Next month",
+      "prev_month": "Previous month"
     }
   }
 }

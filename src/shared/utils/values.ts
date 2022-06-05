@@ -1,12 +1,17 @@
+import { PlanningType } from "../types/planning";
 import { AppCategories } from "../types/routing";
 
 export const colors = {
   accent: '#503cb4',
   accentRGB: '80, 60, 180',
-  calendarPicker: ['course', 'exam', 'oral', 'today']
-};
 
-export const reduxAuthPersistKey = 'auth-state';
+  calendarPicker: [
+    PlanningType.Course.toLowerCase(),
+    PlanningType.PracticeExam.toLowerCase(),
+    PlanningType.OralExam.toLowerCase(),
+    PlanningType.Today.toLowerCase()
+  ]
+};
 
 // Do not include profile route here
 export const categories = [
@@ -44,6 +49,7 @@ export const maxDocumentSize = 5242880 // 5MB in bytes;
 
 export const mobileWidthBreakpoint = 768;
 
+export const reduxAuthPersistKey = 'auth-state';
 export const localStorageKeysToPersist = ['lang', 'settings'];
 
 export const azureDomainName = process.env.REACT_APP_AZURE_DOMAIN_NAME ?? '';

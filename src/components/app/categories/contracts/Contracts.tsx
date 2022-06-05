@@ -67,8 +67,8 @@ const Contracts: FC = () => {
       }
     };
 
-    // Do NOT include useEffect dependencies from initData() prior to contractsList
-    // to avoid calling the API with getContracts() multiple times unnecessarily.
+    // Do NOT include useEffect dependencies from initData() prior to contracts list
+    // to avoid calling the API with other dispatch calls multiple times unnecessarily.
     initData();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -77,7 +77,7 @@ const Contracts: FC = () => {
 
   return (
     <>
-      <ContentHeader title={t('contracts.title')}>
+      <ContentHeader title={t('contracts.title_header')}>
         {userHasAdminRights(user.role) && (
           <Button
             className="button"

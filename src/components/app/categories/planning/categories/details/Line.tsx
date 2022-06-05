@@ -2,37 +2,38 @@ import dayjs from 'dayjs';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { FakeCourse } from '../../../../../../shared/types/course';
+import { Planning, PlanningPeriod } from '../../../../../../shared/types/planning';
 
 
 type Props = {
-  course: FakeCourse
+  planning: Planning
 };
 
 
-const DetailsLine: FC<Props> = ({course}) => {
+const DetailsLine: FC<Props> = ({planning}) => {
   const { t } = useTranslation();
+  const course = planning.ClassroomHasCourse.Course;
+  const period = t('planning.details.period.' + planning.period.toLowerCase());
 
-  const courseType = (date: Date): 'today' | undefined => {
-    if (date.setHours(0) === (new Date()).setHours(0)) {
-      return 'today'; // Show today's course in a special (accent) color
+  const courseType = (date: string): 'today' | undefined => {
+    if (dayjs().isSame(date, 'day')) {
+      return 'today'; // Show today's course in accent color
     }
   };
 
 
-  return (<>
-    {course.dates?.map((date, key) => (
-      <li key={key} className={'details__item course-color-' + (courseType(date) ?? course.type)}>
-        <span className="details__item__date">
-          {`${dayjs(date).format(t('global.date.mmmm-dd'))} ${t('global.colon')} `}
-        </span>
+  return (
+    <li className={'details__item course-color-' + (courseType(planning.date) ?? planning.type.toLowerCase())}>
+      <span className="details__item__date">
+        {`${dayjs(planning.date).format(t('global.date.mmmm-dd'))} ${t('global.colon')} `}
+      </span>
 
-        <span className="details__item__title">
-          {course.name} - {course.title}
-        </span>
-      </li>
-    ))}
-  </>);
+      <span className="details__item__title">
+        &nbsp;{course?.name} - {course?.description}
+        {planning.period !== PlanningPeriod.FullDay ? ` (${period})` : ''}
+      </span>
+    </li>
+  );
 };
 
 

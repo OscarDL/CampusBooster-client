@@ -405,7 +405,7 @@ export const getAbsencesColumns = ({user, setOpenUpdate, setOpenDelete, setSelec
       startIcon={<Download/>}
       onClick={() => downloadFiles(row)}
     >
-      {t(columnPrefix + 'documents')}
+      {t(columnPrefix + 'files', {count: row.fileKeys.length})}
     </Button>
   );
 
@@ -435,8 +435,8 @@ export const getAbsencesColumns = ({user, setOpenUpdate, setOpenDelete, setSelec
       )
     },
     {
-      field: 'files', headerName: t(columnPrefix + 'files'), width: 150,
-      disableExport: true, renderCell: ({row}) => downloadButton(row)
+      field: 'documents', headerName: t(columnPrefix + 'documents'), width: 150, filterable: false,
+      sortable: false, disableExport: true, renderCell: ({row}) => downloadButton(row)
     },
     ...getEditDeleteColumn({allowed, setOpenUpdate, setOpenDelete, setSelectedRow})
   ];

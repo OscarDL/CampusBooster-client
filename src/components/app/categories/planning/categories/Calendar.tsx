@@ -1,15 +1,16 @@
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Divider, IconButton, TextField } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { StaticDatePicker, LocalizationProvider, PickersDay } from '@mui/x-date-pickers';
 
 import { ContentHeader } from '../../../../shared/content';
 import { colors } from '../../../../../shared/utils/values';
-import { RenderDay } from '../../../../../shared/types/planning';
+import { useAppSelector } from '../../../../../store/store';
+import { FakeProject } from '../../../../../shared/types/course';
 import { getFakeCalendar } from '../../../../../shared/fake/data';
-import { CourseType, FakeCourse, FakeProject } from '../../../../../shared/types/course';
+import { PlanningType, RenderDay } from '../../../../../shared/types/planning';
 
 import Container from '../../../../shared/container';
 
@@ -17,30 +18,29 @@ import Container from '../../../../shared/container';
 type Props = {
   date: dayjs.Dayjs | null,
   setDate: React.Dispatch<React.SetStateAction<dayjs.Dayjs | null>>,
-  setProjects: React.Dispatch<React.SetStateAction<FakeProject[]>>,
-  setCourses: React.Dispatch<React.SetStateAction<FakeCourse[]>>
+  setProjects: React.Dispatch<React.SetStateAction<FakeProject[]>>
 };
 
 
-const Calendar: FC<Props> = ({date, setDate, setProjects, setCourses}) => {
+const Calendar: FC<Props> = ({date, setDate, setProjects}) => {
   const { t } = useTranslation();
   const [calendarData] = useState(getFakeCalendar());
   const [showDatePicker, setShowDatePicker] = useState(true);
+
+  const { planningsList } = useAppSelector(state => state.plannings);
 
 
   const toggleDatePicker = () => setShowDatePicker(showDp => !showDp);
 
   const renderDay: RenderDay = (day, _, props) => {
-    const dayInPlanning = calendarData.courses.find(date => (
-      date.dates?.map(d => new Date(d.setHours(0)).toString()).includes(day.toDate().toString())
-    ));
+    const dayInPlanning = planningsList?.find(planning => dayjs(planning.date).isSame(day, 'day'));
 
-    const courseType = (): CourseType => (
-      dayInPlanning ? dayInPlanning.type as CourseType : CourseType.Empty
+    const planningType = (): PlanningType => (
+      dayInPlanning ? dayInPlanning.type : PlanningType.Empty
     );
     const dayStyle = {
-      color: courseType() && 'white',
-      backgroundColor: `var(--course-color-${courseType()})`
+      color: planningType() && 'white',
+      backgroundColor: `var(--course-color-${planningType().toLowerCase()})`
     };
   
     const isToday = day.format(t('global.date.compare')) === dayjs().format(t('global.date.compare'));
@@ -57,20 +57,11 @@ const Calendar: FC<Props> = ({date, setDate, setProjects, setCourses}) => {
     );
   };
 
-  const handleChangeContent = useCallback((date: dayjs.Dayjs) => {
-    const courses = calendarData.courses.filter(course => (
-      course.dates?.map(d => d.getMonth()).includes(date.month())
-    ));
-
-    setDate(date);
-    setCourses(courses);
-  }, [calendarData.courses, setDate, setCourses]);
-
 
   useEffect(() => {
     // Fetch planning & projects from API
     if (date) {
-      handleChangeContent(date);
+      setDate(date);
 
       // Tasks only need to be setup once, not on every month change
       const projects = calendarData.projects.filter(project => {
@@ -80,17 +71,20 @@ const Calendar: FC<Props> = ({date, setDate, setProjects, setCourses}) => {
       });
       setProjects(projects);
     }
-  }, [handleChangeContent, calendarData.projects, date, setProjects]);
+  }, [calendarData.projects, date, setDate, setProjects]);
 
 
   return (
     // StaticDatePicker doesn't have a style attribute, so we can
     // hide it conditionally using CSS and this container's class
-    <Container className={showDatePicker ? 'calendar-picker' : 'calendar-picker hide'}>
+    <Container className={'calendar-picker' + (showDatePicker ? '' : ' hide')}>
       <ContentHeader title={dayjs().format(t('global.date.mmm-d-yyyy'))}>
         <IconButton id="hide-calendar-btn" onClick={toggleDatePicker}>
-          <span className="material-icons" style={{transform: `rotateZ(${showDatePicker ? 0 : -180}deg)`}}>
-            expand_less
+          <span
+            className="material-icons"
+            style={{transform: `rotateZ(${showDatePicker ? 180 : 0}deg)`}}
+          >
+            arrow_drop_down
           </span>
         </IconButton>
       </ContentHeader>
@@ -100,13 +94,15 @@ const Calendar: FC<Props> = ({date, setDate, setProjects, setCourses}) => {
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <StaticDatePicker
           value={date}
-          onChange={setDate}
           renderDay={renderDay}
+          onChange={() => null}
+          onMonthChange={setDate}
           views={['month', 'day']}
           displayStaticWrapperAs="desktop"
-          onMonthChange={handleChangeContent}
           maxDate={dayjs(new Date()).add(2, 'year')}
           minDate={dayjs(new Date()).subtract(5, 'year')}
+          leftArrowButtonText={t('global.date.prev_month')}
+          rightArrowButtonText={t('global.date.next_month')}
           renderInput={(params) => <TextField {...params}/>}
         />
       </LocalizationProvider>

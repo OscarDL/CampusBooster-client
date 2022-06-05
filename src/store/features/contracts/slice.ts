@@ -96,14 +96,14 @@ const contractsSlice = createSlice({
 
   extraReducers: (builder) => {
     // Retrieve contracts
-    builder
-      .addCase(getContracts.fulfilled, (state, {payload}) => {
-        state.contractsList = payload;
-      })
-      .addCase(getContracts.rejected, (state, {payload}: any) => {
-        state.contractsList = [];
-        toast.error(payload.message);
-      });
+    builder.addCase(getContracts.fulfilled, (state, {payload}) => {
+      state.contractsList = payload;
+    });
+
+    // Retrieve contracts for specific user
+    builder.addCase(getUserContracts.fulfilled, (state, {payload}) => {
+      state.contractsList = payload;
+    });
 
     // Create new contract
     builder.addCase(createContract.fulfilled, (state, {payload}) => {
@@ -126,12 +126,14 @@ const contractsSlice = createSlice({
     });
 
     // Show an error message on any of these cases being rejected.
-    builder.addMatcher(
-      isAnyOf(createContract.rejected, updateContract.rejected, deleteContract.rejected),
-      (_, {payload}: any) => {
+    builder
+      .addMatcher(isAnyOf(createContract.rejected, updateContract.rejected, deleteContract.rejected), (_, {payload}: any) => {
         toast.error(payload.message);
-      }
-    );
+      })
+      .addMatcher(isAnyOf(getContracts.rejected, getUserContracts.rejected), (state, {payload}: any) => {
+        state.contractsList = [];
+        toast.error(payload.message);
+      });;
   }
 });
 

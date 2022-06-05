@@ -57,8 +57,8 @@ const Absences: FC = () => {
       }
     };
 
-    // Do NOT include useEffect dependencies from initData() prior to absencesList
-    // to avoid calling the API with getAbsences() multiple times unnecessarily.
+    // Do NOT include useEffect dependencies from initData() prior to absences list
+    // to avoid calling the API with other dispatch calls multiple times unnecessarily.
     initData();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
