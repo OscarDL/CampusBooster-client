@@ -222,7 +222,58 @@
   },
 
   "absences": {
-    "title": "Absences"
+    "title": "Absences",
+    "add": "Déclarer une absence",
+    "select_date": "Sélectionnez une date",
+    "select_student": "Sélectionnez un étudiant",
+
+    "fields": {
+      "title_one": "{{count}} absence",
+      "title_other": "{{count}} absences",
+      "student": "Étudiant",
+      "date": "Date",
+      "course": "Cours",
+      "reason": "Raison",
+      "files": "Fichiers",
+      "documents": "Documents",
+
+      "type": {
+        "title": "Type",
+        "late": "Retard",
+        "missing": "Absence"
+      },
+      "period": {
+        "title": "Période",
+        "full_day": "Jour complet",
+        "morning": "Matin",
+        "afternoon": "Après-midi",
+        "early_morning": "Début de matinée",
+        "late_morning": "Fin de matinée",
+        "early_afternoon": "Début d'après-midi",
+        "late_afternoon": "Fin d'après-midi"
+      }
+    },
+
+    "create": {
+      "title": "Déclarer une absence",
+      "documents": "Téléverser des documents",
+      "max_documents": "Le nombre maximal de fichiers autorisé est de {{count}}.",
+      "no_files_selected": "Aucun fichier sélectionné",
+      "files_selected_one": "{{count}} fichier sélectionné",
+      "files_selected_other": "{{count}} fichiers sélectionnés",
+      "success": "Justification d'absence créée avec succès."
+    },
+
+    "update": {
+      "title": "Modifier l'absence pour \"{{user}}\"",
+      "success": "Justification d'absence pour \"{{user}}\" modifiée avec succès."
+    },
+
+    "delete": {
+      "title": "Supprimer l'absence pour \"{{user}}\"",
+      "text": "Veuillez entrer le nom de l'étudiant et de la date d'absence comme ci-dessous afin d'éviter une suppression accidentelle.",
+      "success": "Justification d'absence pour \"{{user}}\" supprimée avec succès."
+    }
   },
 
   "contracts": {
@@ -312,7 +363,7 @@
     },
 
     "update": {
-      "title": "Modifier entrée de solde",
+      "title": "Modifier entrée de solde pour \"{{user}}\"",
       "date_requested": "Date de demande",
       "date_confirmed": "Confirmée le",
       "description": "Description",
@@ -323,8 +374,8 @@
     },
 
     "delete": {
-      "title": "Supprimer entrée de solde",
-      "text": "Veuillez écrire la description de l'entrée ci-dessous afin d'éviter une suppression accidentelle.",
+      "title": "Supprimer entrée de solde pour \"{{user}}\"",
+      "text": "Veuillez écrire le nom de l'étudiant ci-dessous afin d'éviter une suppression accidentelle.",
       "description": "Description",
       "success": "Entrée de solde supprimée avec succès."
     }
@@ -383,7 +434,7 @@
     "title": "Utilisateurs",
     "add": "Nouvel utilisateur",
     "select_campus": "Sélectionnez un campus",
-    "select_classroom": "Sélectionnez une classe",
+    "select_classrooms": "Sélectionnez des classes",
     "no_classrooms": "Aucune classe restante",
 
     "tab_all": {
@@ -424,11 +475,20 @@
       "role": "Rôle",
       "first_name": "Prénom",
       "last_name": "Nom",
+      "address": "Addresse",
       "campus": "Campus",
+      "promotion": "Promotion",
+      "credits": "Crédits",
       "classrooms": "Classes",
       "birthday": "Date de naissance",
       "email": "Adresse mail (SUPINFO)",
-      "personal_email": "Adresse mail personelle"
+      "personal_email": "Adresse mail personelle",
+      "gender": {
+        "title": "Genre",
+        "none": "Inconnu",
+        "m": "Masculin",
+        "f": "Feminin"
+      }
     },
 
     "create": {
@@ -602,9 +662,11 @@
     "delete": "Supprimer",
     "confirm": "Confirmer",
     "loading": "Chargement",
-    "date-mmmm-dd": "DD MMMM",
-    "date-compare": "D-M-YYYY",
-    "date-mm-dd-yyyy": "DD-MM-YYYY",
-    "date-mmm-d-yyyy": "D MMM YYYY"
+    "date": {
+      "mmmm-dd": "DD MMMM",
+      "compare": "D-M-YYYY",
+      "mm-dd-yyyy": "DD-MM-YYYY",
+      "mmm-d-yyyy": "D MMM YYYY"
+    }
   }
 }

@@ -51,7 +51,7 @@ const UserClassroomPicker: FC<Props> = ({user, setUser}) => {
       options={classroomOptions}
       className="react-select-component"
       classNamePrefix="react-select-component"
-      placeholder={t('users.select_classroom')}
+      placeholder={t('users.select_classrooms')}
       isLoading={!(campusList && classroomsList)}
       noOptionsMessage={() => t('users.no_classrooms')}
       isDisabled={!(campusList && classroomsList) || user.role !== UserRoles.Student}

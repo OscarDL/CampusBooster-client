@@ -1,39 +1,41 @@
+import dayjs from 'dayjs';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { FC, useEffect, useState } from 'react';
 import { Button, TextField } from '@mui/material';
 
 import { useAppDispatch } from '../../../../../store/store';
-import { Balance } from '../../../../../shared/types/accounting';
-import { deleteBalance } from '../../../../../store/features/accounting/slice';
+import { Absence } from '../../../../../shared/types/absence';
+import { deleteAbsence } from '../../../../../store/features/absences/slice';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
 
 
 type Props = {
   open: boolean,
-  balance: Balance,
+  absence: Absence,
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 };
 
 
-const DeleteBalance: FC<Props> = ({balance, open, setOpen}) => {
+const DeleteAbsence: FC<Props> = ({absence, open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
   const [loading, setLoading] = useState(false);
-  const [studentName, setStudentName] = useState('');
-  const userFullName = `${balance.User?.firstName} ${balance.User?.lastName}`;
+  const [studentDate, setStudentDate] = useState('');
+  const userFullName = `${absence.User.firstName} ${absence.User.lastName}`;
+  const textTemplate = `${userFullName} (${dayjs(absence.Planning.date).format(t('global.date.mm-dd-yyyy'))})`;
 
 
-  const handleDeleteBalance = async (e: React.FormEvent<HTMLElement>) => {
+  const handleDeleteAbsence = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      await dispatch(deleteBalance(balance.id)).unwrap();
+      await dispatch(deleteAbsence(absence.id)).unwrap();
 
       setOpen(false);
-      toast.success(t('accounting.delete.success'));
+      toast.success(t('absences.delete.success', {user: userFullName}));
     }
     catch (error: any) {
       toast.error(error);
@@ -45,7 +47,7 @@ const DeleteBalance: FC<Props> = ({balance, open, setOpen}) => {
 
   useEffect(() => {
     // Reset state on new dialog open
-    if (open) setStudentName('');
+    if (open) setStudentDate('');
   }, [open]);
 
 
@@ -53,21 +55,21 @@ const DeleteBalance: FC<Props> = ({balance, open, setOpen}) => {
     <Dialog
       components={{Root: 'form'}}
       onClose={() => setOpen(false)}
-      onSubmit={handleDeleteBalance}
+      onSubmit={handleDeleteAbsence}
       open={open} fullWidth maxWidth="sm"
     >
-      <DialogTitle>{t('accounting.delete.title', {user: userFullName})}</DialogTitle>
+      <DialogTitle>{t('absences.delete.title', {user: userFullName})}</DialogTitle>
 
       <DialogContent>
-        <p>{t('accounting.delete.text')}</p>
+        <p>{t('absences.delete.text')}</p>
 
         <TextField
           sx={{mt: 2}}
           required autoFocus
-          value={studentName}
+          value={studentDate}
+          label={textTemplate}
           margin="dense" variant="standard"
-          label={t('accounting.delete.description')}
-          onChange={e => setStudentName(e.target.value)}
+          onChange={e => setStudentDate(e.target.value)}
         />
       </DialogContent>
 
@@ -77,8 +79,8 @@ const DeleteBalance: FC<Props> = ({balance, open, setOpen}) => {
         </Button>
 
         <MainDialogButton
-          type="submit" color="error" variant="contained" 
-          loading={loading} disabled={studentName !== userFullName}
+          type="submit" color="error" variant="contained"
+          loading={loading} disabled={studentDate !== textTemplate}
         >
           {t('global.confirm')}
         </MainDialogButton>
@@ -88,4 +90,4 @@ const DeleteBalance: FC<Props> = ({balance, open, setOpen}) => {
 };
 
 
-export default DeleteBalance;
+export default DeleteAbsence;

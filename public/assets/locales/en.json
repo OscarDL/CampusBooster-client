@@ -228,7 +228,59 @@
 
   "absences": {
     "title": "Absences",
-    "icon": "event_busy"
+    "icon": "event_busy",
+    "add": "Declare absence",
+    "select_date": "Select date",
+    "select_student": "Select student",
+
+    "fields": {
+      "title_one": "{{count}} absence",
+      "title_other": "{{count}} absences",
+      "student": "Student",
+      "date": "Date",
+      "course": "Course",
+      "reason": "Reason",
+      "files": "Files",
+      "documents": "Documents",
+
+      "type": {
+        "title": "Type",
+        "late": "Late",
+        "missing": "Missing"
+      },
+      "period": {
+        "title": "Period",
+        "full_day": "Full day",
+        "morning": "Morning",
+        "afternoon": "Afternoon",
+        "early_morning": "Early morning",
+        "late_morning": "Late morning",
+        "early_afternoon": "Early afternoon",
+        "late_afternoon": "Late afternoon"
+      }
+    },
+
+    "create": {
+      "title": "Declare absence",
+      "documents": "Upload documents",
+      "max_documents": "Maximum number of files allowed is {{count}}.",
+      "no_files_selected": "No files selected",
+      "files_selected_one": "{{count}} file selected",
+      "files_selected_other": "{{count}} file(s) selected",
+      "success": "Absence justification successfully created."
+    },
+
+    "update": {
+      "title": "Update absence for \"{{user}}\"",
+      "documents": "Upload documents",
+      "success": "Absence justification for \"{{user}}\" successfully created."
+    },
+
+    "delete": {
+      "title": "Delete absence for \"{{user}}\"",
+      "text": "Please type in the student name & date of absence as shown below to avoid accidental removal.",
+      "success": "Absence justification for \"{{user}}\" successfully deleted."
+    }
   },
 
   "contracts": {
@@ -320,7 +372,7 @@
     },
 
     "update": {
-      "title": "Update balance entry",
+      "title": "Update balance entry for \"{{user}}\"",
       "description": "Description",
       "date_requested": "Request date",
       "date_confirmed": "Confirmed on",
@@ -331,8 +383,8 @@
     },
 
     "delete": {
-      "title": "Delete balance entry",
-      "text": "Please type in the balance entry's description below to avoid accidental deletion.",
+      "title": "Delete balance entry for \"{{user}}\"",
+      "text": "Please type in the student name description below to avoid accidental deletion.",
       "description": "Description",
       "success": "Balance entry successfully deleted."
     }
@@ -397,7 +449,7 @@
     "icon": "school",
     "add": "New user",
     "select_campus": "Select a campus",
-    "select_classroom": "Select a classroom",
+    "select_classrooms": "Select classrooms",
     "no_classrooms": "No classrooms remaining",
 
     "tab_all": {
@@ -446,11 +498,20 @@
       "role": "Role",
       "first_name": "First name",
       "last_name": "Last name",
+      "address": "Address",
       "campus": "Campus",
+      "promotion": "Promotion",
+      "credits": "Credits",
       "classrooms": "Classrooms",
       "birthday": "Birthday",
       "email": "Email address (SUPINFO)",
-      "personal_email": "Personal email address"
+      "personal_email": "Personal email address",
+      "gender": {
+        "title": "Gender",
+        "none": "Unknown",
+        "m": "Masculine",
+        "f": "Feminine"
+      }
     },
 
     "create": {
@@ -625,9 +686,11 @@
     "delete": "Delete",
     "confirm": "Confirm",
     "loading": "Loading",
-    "date-mmmm-dd": "MMMM DD",
-    "date-compare": "D-M-YYYY",
-    "date-mm-dd-yyyy": "MM-DD-YYYY",
-    "date-mmm-d-yyyy": "MMM. D, YYYY"
+    "date": {
+      "mmmm-dd": "MMMM DD",
+      "compare": "D-M-YYYY",
+      "mm-dd-yyyy": "MM-DD-YYYY",
+      "mmm-d-yyyy": "MMM. D, YYYY"
+    }
   }
 }

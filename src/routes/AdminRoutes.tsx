@@ -4,6 +4,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { useAppSelector } from '../store/store';
 import { UserRoles } from '../shared/types/user';
 import { getLoggedInAuthState } from '../shared/functions';
+import { AdminRoutes as Admin, AppRoutes } from '../shared/types/routing';
 
 import BansView from '../views/app/admin/Bans';
 import AdminView from '../views/app/admin/Admin';
@@ -19,14 +20,14 @@ const AdminRoutes: FC = () => {
   return (
     <Routes>
       <Route index element={<AdminView/>}/>
-      <Route path="bans" element={<BansView/>}/>
-      <Route path="teachers" element={<TeachersView/>}/>
-      <Route path="plannings" element={<PlanningsView/>}/>
-      <Route path="classrooms" element={<ClassroomsView/>}/>
-      {user.role === UserRoles.CampusBoosterAdmin && <Route path="campus" element={<CampusView/>}/>}
+      <Route path={Admin.bans} element={<BansView/>}/>
+      <Route path={Admin.teachers} element={<TeachersView/>}/>
+      <Route path={Admin.planning} element={<PlanningsView/>}/>
+      <Route path={Admin.classrooms} element={<ClassroomsView/>}/>
+      {user.role === UserRoles.CampusBoosterAdmin && <Route path={Admin.campus} element={<CampusView/>}/>}
 
       {/* Redirect to the home admin page if the route doesn't exist */}
-      <Route path="/admin/*" element={<Navigate replace to="/admin"/>}/>
+      <Route path="/admin/*" element={<Navigate replace to={AppRoutes.admin}/>}/>
     </Routes>
   );
 };

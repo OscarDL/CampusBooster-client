@@ -43,7 +43,7 @@ const Calendar: FC<Props> = ({date, setDate, setProjects, setCourses}) => {
       backgroundColor: `var(--course-color-${courseType()})`
     };
   
-    const isToday = day.format(t('global.date-compare')) === dayjs().format(t('global.date-compare'));
+    const isToday = day.format(t('global.date.compare')) === dayjs().format(t('global.date.compare'));
 
     return (
       <PickersDay
@@ -87,7 +87,7 @@ const Calendar: FC<Props> = ({date, setDate, setProjects, setCourses}) => {
     // StaticDatePicker doesn't have a style attribute, so we can
     // hide it conditionally using CSS and this container's class
     <Container className={showDatePicker ? 'calendar-picker' : 'calendar-picker hide'}>
-      <ContentHeader title={dayjs().format(t('global.date-mmm-d-yyyy'))}>
+      <ContentHeader title={dayjs().format(t('global.date.mmm-d-yyyy'))}>
         <IconButton id="hide-calendar-btn" onClick={toggleDatePicker}>
           <span className="material-icons" style={{transform: `rotateZ(${showDatePicker ? 0 : -180}deg)`}}>
             expand_less

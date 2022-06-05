@@ -66,7 +66,8 @@ const Users: FC = () => {
   }, [usersList, dispatch]);
 
   useEffect(() => {
-    apiRef.current.setColumnVisibility('role', tab === 0);
+    apiRef.current.setColumnVisibility('role', tab === 0); // All users only
+    apiRef.current.setColumnVisibility('credits', tab === 1); // Students only
   }, [apiRef, tab]);
 
 

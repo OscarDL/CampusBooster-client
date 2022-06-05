@@ -2,10 +2,10 @@ import { FC } from 'react';
 import { Tab, Tabs } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
+import { ToolCategory } from '../../../../shared/types/tool';
 import { DispatchWithCallback } from '../../../../shared/hooks';
 
 import Dropdown from '../../../shared/dropdown';
-import { ToolCategory } from '../../../../shared/types/tool';
 
 
 type TabsProps = {

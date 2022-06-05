@@ -15,10 +15,11 @@ import { getLoggedInAuthState, userHasAdminRights } from '../../../../shared/fun
 import { DataGridFooter, DataGridHeader, StyledDataGrid } from '../../../shared/datagrid';
 import { clearContracts, getContracts, getSupervisorContracts, getUserContracts } from '../../../../store/features/contracts/slice';
 
+import Loader from '../../../shared/loader';
 import CreateContract from './grade/Create';
 import UpdateContract from './grade/Update';
 import DeleteContract from './grade/Delete';
-import Loader from '../../../shared/loader';
+import ContractDetails from './grade/Details';
 
 
 const Contracts: FC = () => {
@@ -33,10 +34,11 @@ const Contracts: FC = () => {
   const [openCreate, setOpenCreate] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
+  const [openDetails, setOpenDetails] = useState(false);
   const [selectedContract, setSelectedContract] = useState<Contract | null>(null);
 
   const columns = useMemo(() => (
-    getContractsColumns({user, setOpenUpdate, setOpenDelete, setSelectedRow: setSelectedContract})
+    getContractsColumns({user, setOpenUpdate, setOpenDelete, setOpenDetails, setSelectedRow: setSelectedContract})
   ), [user]);
 
 
@@ -121,6 +123,7 @@ const Contracts: FC = () => {
       {selectedContract && <>
         <UpdateContract contract={selectedContract} open={openUpdate} setOpen={setOpenUpdate}/>
         <DeleteContract contract={selectedContract} open={openDelete} setOpen={setOpenDelete}/>
+        <ContractDetails contract={selectedContract} open={openDetails} setOpen={setOpenDetails}/>
       </>}
     </>
   );

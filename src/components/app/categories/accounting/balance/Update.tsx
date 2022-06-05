@@ -29,6 +29,7 @@ const UpdateBalance: FC<Props> = ({balance, open, setOpen}) => {
 
   const [loading, setLoading] = useState(false);
   const [newBalance, setNewBalance] = useState(copy(balance));
+  const userFullName = `${balance.User?.firstName} ${balance.User?.lastName}`;
 
 
   const handleChangeCreditDebit = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, type: 'credit' | 'debit') => {
@@ -69,7 +70,7 @@ const UpdateBalance: FC<Props> = ({balance, open, setOpen}) => {
       onSubmit={handleUpdateBalance}
       open={open} fullWidth maxWidth="sm"
     >
-      <DialogTitle>{t('accounting.update.title')}</DialogTitle>
+      <DialogTitle>{t('accounting.update.title', {user: userFullName})}</DialogTitle>
 
       <DialogContent>
         <BalanceUserPicker balance={newBalance} setBalance={setNewBalance}/>
@@ -121,9 +122,9 @@ const UpdateBalance: FC<Props> = ({balance, open, setOpen}) => {
             labelId="balance-select-status" label={t('accounting.status.title')}
             onChange={e => setNewBalance({...newBalance, status: e.target.value as BalanceStatus})}
           >
-            {Object.keys(BalanceStatus).map(status => (
+            {Object.values(BalanceStatus).map(status => (
               <MenuItem key={status} value={status}>
-                {t('accounting.status.' + status)}
+                {t('accounting.status.' + status.toLowerCase())}
               </MenuItem>
             ))}
           </Select>

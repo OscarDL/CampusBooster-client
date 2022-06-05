@@ -1,7 +1,7 @@
 import { AccountInfo } from '@azure/msal-browser';
 
 import { Campus } from './campus';
-import { Classroom, ClassroomHasCourse, UserHasClassroom } from './classroom';
+import { Classroom, UserHasClassroom } from './classroom';
 
 
 export type AzureData = AccountInfo;
@@ -25,7 +25,10 @@ export type User = {
   email: string,
   credits: number,
   avatar?: string,
+  address: string,
+  gender?: string,
   lastName: string,
+  promotion?: number,
   firstName: string,
   birthday: string,
   personalEmail: string,
@@ -55,6 +58,9 @@ export type UserRequest = {
   firstName: string,
 
   email: string,
+  gender?: string,
+  address: string,
+  promotion?: number,
   personalEmail: string,
 
   campusId?: Campus['id'], // campus id

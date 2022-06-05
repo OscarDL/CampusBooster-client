@@ -33,7 +33,7 @@ const BalanceUserPicker: FC<Props> = ({balance, setBalance}) => {
         .map(user => ({
           user,
           value: user.id,
-          label: `${user.firstName} ${user.lastName}`
+          label: `${user.firstName} ${user.lastName} (${user.email})`
         }));
 
       setUserOptions(userOptions);
@@ -53,7 +53,6 @@ const BalanceUserPicker: FC<Props> = ({balance, setBalance}) => {
       placeholder={t('accounting.select_user')}
       onChange={user => setBalance({...balance, userId: user?.value})}
       value={userOptions.find(option => option.user.id === balance.userId)}
-      formatOptionLabel={option => `${option.label} (${option.user.email})`}
     />
   );
 };

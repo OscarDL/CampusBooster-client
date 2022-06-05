@@ -4,10 +4,10 @@ import { PublicUser, User } from './user';
 
 
 export enum BalanceStatus {
-  Pending = 'pending',
-  Cancelled = 'cancelled',
-  Confirmed = 'confirmed',
-  Processing = 'processing'
+  Pending = 'PENDING',
+  Cancelled = 'CANCELLED',
+  Confirmed = 'CONFIRMED',
+  Processing = 'PROCESSING'
 };
 
 export type Balance = {

@@ -99,9 +99,9 @@ export const getCategoryTitle = (user: User) => {
 // Retrieve categories accessible by current user
 export const getUserCategories = (categories: AC[], user: User) => {
   const hiddenForStudents: AC[] = [AC.Admin, AC.Users];
-  const hiddenForProfessors: AC[] = [AC.Admin, AC.Users, AC.Accounting];
-  const hiddenForFullProfessors: AC[] = [AC.Admin, AC.Users, AC.Planning, AC.Accounting];
-  const hiddenForCompanies: AC[] = [AC.Admin, AC.Users, AC.Planning, AC.Accounting, AC.Tools];
+  const hiddenForProfessors: AC[] = [AC.Admin, AC.Users, AC.Accounting, AC.Absences];
+  const hiddenForFullProfessors: AC[] = [AC.Admin, AC.Users, AC.Planning, AC.Accounting, AC.Absences];
+  const hiddenForCompanies: AC[] = [AC.Admin, AC.Users, AC.Planning, AC.Accounting, AC.Tools, AC.Absences];
   const hiddenForAssistants: AC[] = [AC.Planning];
   const hiddenForCampusManagers: AC[] = [AC.Planning];
   const hiddenForCampusBoosterAdmins: AC[] = [AC.Planning];

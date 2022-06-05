@@ -27,8 +27,9 @@ type Props = {
 };
 
 const newUserRequest = (user: User): UserRequest => ({
+  email: user.email.split('@')[0], personalEmail: user.personalEmail,
   id: user.id, role: user.role, firstName: user.firstName, lastName: user.lastName,
-  birthday: user.birthday, email: user.email.split('@')[0], personalEmail: user.personalEmail,
+  gender: user.gender, address: user.address, promotion: user.promotion, birthday: user.birthday,
   classrooms: (user.UserHasClassrooms ?? []).map(classroom => classroom.classroomId), campusId: user.campusId
 });
 
@@ -64,17 +65,31 @@ const UpdateUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
     const role = e.target.value as UserRoles;
 
     let campusId = newUser.campusId;
+    let promotion = newUser.promotion;
     let classrooms = newUser.classrooms;
 
     if (role !== UserRoles.Student) {
       classrooms = [];
+      promotion = undefined;
 
       if (role === UserRoles.CampusBoosterAdmin) {
         campusId = undefined;
       }
     }
 
-    setNewUser({...newUser, role, campusId, classrooms});
+    setNewUser({...newUser, role, campusId, classrooms, promotion});
+  };
+
+  const handleChangeGender = (e: SelectChangeEvent<string>) => {
+    const gender = e.target.value;
+    setNewUser({...newUser, gender: gender !== 'none' ? gender : undefined});
+  };
+
+  const handleChangePromotion = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const value = Number(e.target.value);
+    if (isNaN(value)) return;
+
+    setNewUser({...newUser, promotion: value});
   };
 
   const handleResetPassword = async () => {
@@ -141,29 +156,48 @@ const UpdateUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
       <DialogTitle>{t('users.update.title', {user: userFullName})}</DialogTitle>
 
       <DialogContent>
-        <FormControl>
-          <InputLabel id="user-select-role">{t('users.fields.role')}</InputLabel>
-          <Select
-            size="small"
-            value={newUser.role}
-            onChange={handleChangeRole}
-            labelId="user-select-role" label={t('users.fields.role')}
-          >
-            {Object.values(UserRoles).map(role => (
-              !userHasHigherRole(user, role) ? (
-                <MenuItem key={role} value={role}>
-                  {t(`users.${role.toLowerCase()}.title_role`)}
-                </MenuItem>
-              ) : null
-            ))}
-          </Select>
-        </FormControl>
+        <Box className="MuiDialogContent-row">
+          <FormControl>
+            <InputLabel id="user-select-role">{t('users.fields.role')}</InputLabel>
+            <Select
+              size="small"
+              value={newUser.role}
+              labelId="user-select-role"
+              onChange={handleChangeRole}
+              label={t('users.fields.role')}
+            >
+              {Object.values(UserRoles).map(role => (
+                !userHasHigherRole(user, role) ? (
+                  <MenuItem key={role} value={role}>
+                    {t(`users.${role.toLowerCase()}.title_role`)}
+                  </MenuItem>
+                ) : null
+              ))}
+            </Select>
+          </FormControl>
+
+          <FormControl>
+            <InputLabel id="user-select-gender">{t('users.fields.gender.title')}</InputLabel>
+            <Select
+              size="small"
+              labelId="user-select-gender"
+              onChange={handleChangeGender}
+              value={newUser.gender ?? 'none'}
+              label={t('users.fields.gender.title')}
+              
+            >
+              <MenuItem value="none">{t('users.fields.gender.none')}</MenuItem>
+              <MenuItem value="M">{t('users.fields.gender.m')}</MenuItem>
+              <MenuItem value="F">{t('users.fields.gender.f')}</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
 
         <Box sx={{my: 2}}>
           <UserCampusPicker user={newUser} setUser={setNewUser}/>
         </Box>
 
-        <Box sx={{mb: 2}}>
+        <Box sx={{mb: 1}}>
           <UserClassroomPicker user={newUser} setUser={setNewUser}/>
         </Box>
 
@@ -186,6 +220,31 @@ const UpdateUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
             value={newUser.lastName}
             label={t('users.fields.last_name')}
             onChange={e => setNewUser({...newUser, lastName: e.target.value})}
+          />
+        </Box>
+
+        <Box className="MuiDialogContent-row">
+          <TextField
+            required
+            margin="dense"
+            variant="standard"
+            name="cb-user-address"
+            value={newUser.address}
+            label={t('users.fields.address')}
+            InputProps={{autoComplete: Date.now().toString()}}
+            onChange={e => setNewUser({...newUser, address: e.target.value})}
+          />
+          <TextField
+            required
+            type="number"
+            margin="dense"
+            variant="standard"
+            name="cb-user-promotion"
+            value={newUser.promotion ?? ''}
+            onChange={handleChangePromotion}
+            label={t('users.fields.promotion')}
+            disabled={newUser.role !== UserRoles.Student}
+            inputProps={{inputMode: 'numeric', pattern: '[0-9]*'}}
           />
         </Box>
 

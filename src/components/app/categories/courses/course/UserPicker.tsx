@@ -35,7 +35,7 @@ const BalanceUserPicker: FC<Props> = ({type, grade, setGrade}) => {
         .map(user => ({
           user,
           value: user.id,
-          label: `${user.firstName} ${user.lastName}`
+          label: `${user.firstName} ${user.lastName} (${user.email})`
         }));
 
       setUserOptions(userOptions);
@@ -55,7 +55,6 @@ const BalanceUserPicker: FC<Props> = ({type, grade, setGrade}) => {
       placeholder={t('accounting.select_user')}
       onChange={user => setGrade({...grade, [typeId]: user?.value})}
       value={userOptions.find(option => option.user.id === grade[typeId])}
-      formatOptionLabel={option => `${option.label} (${option.user.email})`}
     />
   );
 };

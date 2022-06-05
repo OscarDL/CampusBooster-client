@@ -73,9 +73,10 @@ const UpdateCourse: FC<Props> = ({course, open, setOpen}) => {
     >
       <DialogTitle>{t('courses.update.title', {course: course.name})}</DialogTitle>
 
-      <DialogContent>
+      <DialogContent sx={{pt: '0 !important'}}>
         <TextField
           required
+          margin="dense"
           variant="standard"
           name="cb-course-name"
           value={newCourse.name}
@@ -95,7 +96,7 @@ const UpdateCourse: FC<Props> = ({course, open, setOpen}) => {
         />
 
         <TextField
-          sx={{my: 2}}
+          margin="dense"
           required fullWidth
           variant="standard"
           name="cb-course-link"
@@ -108,6 +109,7 @@ const UpdateCourse: FC<Props> = ({course, open, setOpen}) => {
           <TextField
             required
             type="number"
+            margin="dense"
             variant="standard"
             name="cb-course-year"
             value={newCourse.year}
@@ -119,6 +121,7 @@ const UpdateCourse: FC<Props> = ({course, open, setOpen}) => {
           <TextField
             required
             type="number"
+            margin="dense"
             variant="standard"
             name="cb-course-credits"
             value={newCourse.credits}

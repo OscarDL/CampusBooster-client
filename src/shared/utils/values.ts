@@ -13,11 +13,11 @@ export const categories = [
   AppCategories.Home,
   AppCategories.Grades,
   AppCategories.Courses,
-  AppCategories.Users,
   AppCategories.Planning,
   AppCategories.Absences,
   AppCategories.Contracts,
   AppCategories.Accounting,
+  AppCategories.Users,
   AppCategories.Admin,
   AppCategories.Tools,
 ];
@@ -29,6 +29,13 @@ export const allowedFileTypes = {
     'image/webp',
     'image/x-icon',
     'image/svg+xml'
+  ],
+
+  absences: [
+    'image/png',
+    'image/jpeg',
+    'application/pdf',
+    'application/document'
   ]
 };
 

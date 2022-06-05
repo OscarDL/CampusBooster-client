@@ -1,11 +1,15 @@
 import dayjs from 'dayjs';
+import JSZip from 'jszip';
 import { t } from 'i18next';
+import { saveAs } from 'file-saver';
 import { Dispatch, SetStateAction } from 'react';
 import { Button, IconButton, Tooltip } from '@mui/material';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid-pro';
-import { DeleteOutlined, Download, EditOutlined, OpenInNewRounded, RemoveCircleOutlineOutlined } from '@mui/icons-material';
+import { DeleteOutlined, Download, EditOutlined, OpenInNewRounded, RemoveCircleOutlineOutlined, VisibilityOutlined } from '@mui/icons-material';
 
 import { Course } from '../types/course';
+import { Absence } from '../types/absence';
+import { Contract } from '../types/contract';
 import { User, UserRoles } from '../types/user';
 import { userHasAdminRights } from '../../shared/functions';
 import { Classroom, ClassroomHasCourse, UserHasClassroom } from '../types/classroom';
@@ -81,11 +85,11 @@ export const getAccountingColumns = ({user, setOpenUpdate, setOpenDelete, setSel
     ...userColumn,
     {
       field: 'dateRequested', headerName: t(columnPrefix + 'date_requested'), width: 150,
-      valueGetter: ({row}) => dayjs(row.dateRequested).format(t('global.date-mm-dd-yyyy'))
+      valueGetter: ({row}) => dayjs(row.dateRequested).format(t('global.date.mm-dd-yyyy'))
     },
     {
       field: 'dateConfirmed', headerName: t(columnPrefix + 'date_confirmed'), width: 150,
-      valueGetter: ({row}) => row.dateConfirmed ? dayjs(row.dateConfirmed).format(t('global.date-mm-dd-yyyy')) : null
+      valueGetter: ({row}) => row.dateConfirmed ? dayjs(row.dateConfirmed).format(t('global.date.mm-dd-yyyy')) : null
     },
     {
       field: 'description', headerName: t(columnPrefix + 'description'), width: 300
@@ -97,7 +101,8 @@ export const getAccountingColumns = ({user, setOpenUpdate, setOpenDelete, setSel
       field: 'credit', headerName: t(columnPrefix + 'credit'), width: 100
     },
     {
-      field: 'status', headerName: t(columnPrefix + 'status'), width: 150, valueGetter: ({row}) => t('accounting.status.' + row.status)
+      field: 'status', headerName: t(columnPrefix + 'status'), width: 150,
+      valueGetter: ({row}) => t('accounting.status.' + row.status.toLowerCase())
     },
     ...getEditDeleteColumn({allowed, setOpenUpdate, setOpenDelete, setSelectedRow})
   ];
@@ -114,6 +119,13 @@ export const getUsersColumns = ({user, setOpenUpdate, setOpenDelete, setSelected
       valueGetter: ({row}) => t(`users.${row.role.toLowerCase()}.title_role`)
     },
     {
+      field: 'Campus', headerName: t(columnPrefix + 'campus'), width: 150, valueGetter: ({row}) => row.Campus?.name
+    },
+    {
+      field: 'gender', headerName: t(columnPrefix + 'gender.title'), width: 100, hide: true,
+      valueGetter: ({row}) => t(columnPrefix + `gender.${(row.gender ?? 'none').toLowerCase()}`)
+    },
+    {
       field: 'firstName', headerName: t(columnPrefix + 'first_name'), width: 125
     },
     {
@@ -123,18 +135,24 @@ export const getUsersColumns = ({user, setOpenUpdate, setOpenDelete, setSelected
       field: 'email', headerName: t(columnPrefix + 'email'), width: 300
     },
     {
-      field: 'personalEmail', headerName: t(columnPrefix + 'personal_email'), width: 250
+      field: 'personalEmail', headerName: t(columnPrefix + 'personal_email'), width: 250, hide: true
     },
     {
       field: 'birthday', headerName: t(columnPrefix + 'birthday'), width: 150, hide: true,
-      valueGetter: ({row}) => dayjs(row.birthday).format(t('global.date-mm-dd-yyyy'))
+      valueGetter: ({row}) => dayjs(row.birthday).format(t('global.date.mm-dd-yyyy'))
     },
     {
-      field: 'Campus', headerName: t(columnPrefix + 'campus'), width: 150, valueGetter: ({row}) => row.Campus?.name
+      field: 'address', headerName: t(columnPrefix + 'address'), width: 300, hide: true
+    },
+    {
+      field: 'promotion', headerName: t(columnPrefix + 'promotion'), width: 100
     },
     {
       field: 'UserHasClassrooms', headerName: t(columnPrefix + 'classrooms'), width: 250,
       valueGetter: ({row}) => row.UserHasClassrooms.map((uhc: UserHasClassroom) => uhc.Classroom?.name).join(', ')
+    },
+    {
+      field: 'credits', headerName: t(columnPrefix + 'credits'), width: 150, hide: true
     },
     ...getEditDeleteColumn({allowed, setOpenUpdate, setOpenDelete, setSelectedRow})
   ];
@@ -162,7 +180,7 @@ export const getBannedUsersColumns = ({setOpenDelete, setSelectedRow}: Partial<B
       field: 'Campus', headerName: t(columnPrefix + 'campus'), width: 150, valueGetter: ({row}) => row.Campus?.name
     },
     {
-      field: 'actions', headerName: t(columnPrefix + 'actions'), width: 100, filterable: false, sortable: false, disableExport: true,
+      field: 'actions', headerName: t('data_grid.actions'), width: 100, filterable: false, sortable: false, disableExport: true,
       renderCell: ({row}) => (
         <div>
           <IconButton
@@ -349,31 +367,7 @@ export const getTeachersColumns = ({user, setOpenUpdate, setOpenDelete, setSelec
 
 export const getAbsencesColumns = ({user, setOpenUpdate, setOpenDelete, setSelectedRow}: BaseProps): GridColDef[] => {
   const columnPrefix = 'absences.fields.';
-
-  const getCanvasLink = (link: Course['link']) => (
-    <Button
-      sx={{ml: '-10px'}}
-      startIcon={<Download/>}
-      onClick={() => window.open(link, '_blank')}
-    >
-      {t(columnPrefix + 'documents_field')}
-    </Button>
-  );
-
-
-  return [
-    {
-      field: 'year', headerName: t(columnPrefix + 'year'), width: 150,
-      valueGetter: ({row}) => t(columnPrefix + 'year_field', {year: row.year})
-    },
-    // TODO (+ disable export for downloads column)
-    ...getEditDeleteColumn({allowed: true, setOpenUpdate, setOpenDelete, setSelectedRow})
-  ];
-};
-
-
-export const getContractsColumns = ({user, setOpenUpdate, setOpenDelete, setSelectedRow}: BaseProps): GridColDef[] => {
-  const columnPrefix = 'contracts.fields.';
+  const allowed = userHasAdminRights(user.role);
 
   const userColumn: GridColDef[] = userHasAdminRights(user.role) ? (
     [{
@@ -384,16 +378,111 @@ export const getContractsColumns = ({user, setOpenUpdate, setOpenDelete, setSele
     []
   );
 
+  const downloadFiles = (row: Absence) => {
+    const zip = new JSZip();
+    const keys = row.fileKeys;
+    const files = row.fileBase64;
+
+    for (let i = 0; i < files.length; i++) {
+      const name = keys[i];
+      const file = files[i].split('base64,')?.[1];
+      zip.file(name.slice(name.lastIndexOf('/') + 1), file, {base64: true});
+    };
+
+    zip.generateAsync({type: 'blob'}).then((content) => {
+      const course = row.Planning.ClassroomHasCourse?.Course;
+      const student = `${row.User.firstName} ${row.User.lastName}`;
+      const type = t(`${columnPrefix}type.${row.late ? 'late' : 'missing'}`);
+      const date = dayjs(row.Planning.date).format(t('global.date.mm-dd-yyyy'));
+
+      saveAs(content, `${student} - ${course?.name} (${type}) - ${date}.zip`);
+    });
+  };
+
+  const downloadButton = (row: Absence) => (
+    <Button
+      sx={{ml: '-10px'}}
+      startIcon={<Download/>}
+      onClick={() => downloadFiles(row)}
+    >
+      {t(columnPrefix + 'documents')}
+    </Button>
+  );
+
+
+  return [
+    ...userColumn,
+    {
+      field: 'date', headerName: t(columnPrefix + 'date'), width: 150,
+      valueGetter: ({row}) => dayjs(row.Planning.date).format(t('global.date.mmm-d-yyyy'))
+    },
+    {
+      field: 'course', headerName: t(columnPrefix + 'course'), width: 100,
+      valueGetter: ({row}) => row.Planning.ClassroomHasCourse.Course.name
+    },
+    {
+      field: 'type', headerName: t(columnPrefix + 'type.title'), width: 100,
+      valueGetter: ({row}) => t(`${columnPrefix}type.${row.late ? 'late' : 'missing'}`)
+    },
+    {
+      field: 'period', headerName: t(columnPrefix + 'period.title'), width: 150,
+      valueGetter: ({row}) => t(`${columnPrefix}period.${row.period.toLowerCase()}`)
+    },
+    {
+      field: 'reason', headerName: t(columnPrefix + 'reason'), width: 300, valueGetter: ({row}) => row.reason,
+      renderCell: ({row}) => (
+        <div style={{overflow: 'hidden', textOverflow: 'ellipsis'}} title={row.reason}>{row.reason}</div>
+      )
+    },
+    {
+      field: 'files', headerName: t(columnPrefix + 'files'), width: 150,
+      disableExport: true, renderCell: ({row}) => downloadButton(row)
+    },
+    ...getEditDeleteColumn({allowed, setOpenUpdate, setOpenDelete, setSelectedRow})
+  ];
+};
+
+
+type ContractProps = BaseProps & {
+  setOpenDetails: Dispatch<SetStateAction<boolean>>
+};
+
+export const getContractsColumns = ({user, setOpenUpdate, setOpenDelete, setOpenDetails, setSelectedRow}: ContractProps): GridColDef[] => {
+  const columnPrefix = 'contracts.fields.';
+  const allowed = userHasAdminRights(user.role);
+
+  const userColumn: GridColDef[] = userHasAdminRights(user.role) ? (
+    [{
+      field: 'student', headerName: t(columnPrefix + 'student'), width: 200,
+      valueGetter: ({row}) => `${row.User.firstName} ${row.User.lastName}`
+    }]
+  ) : (
+    []
+  );
+
+  const openDetailsButton = (row: Contract) => (
+    <Button
+      sx={{ml: '-10px'}}
+      endIcon={<VisibilityOutlined/>}
+      onClick={() => {
+        setSelectedRow(row);
+        setOpenDetails(true);
+      }}
+    >
+      {t(columnPrefix + 'details_field')}
+    </Button>
+  );
+
 
   return [
     ...userColumn,
     {
       field: 'startDate', headerName: t(columnPrefix + 'start_date'), width: 150,
-      valueGetter: ({row}) => dayjs(row.startDate).format(t('global.date-mm-dd-yyyy'))
+      valueGetter: ({row}) => dayjs(row.startDate).format(t('global.date.mm-dd-yyyy'))
     },
     {
       field: 'endDate', headerName: t(columnPrefix + 'end_date'), width: 150,
-      valueGetter: ({row}) => dayjs(row.endDate).format(t('global.date-mm-dd-yyyy'))
+      valueGetter: ({row}) => dayjs(row.endDate).format(t('global.date.mm-dd-yyyy'))
     },
     {
       field: 'company', headerName: t(columnPrefix + 'company'), width: 150
@@ -417,6 +506,10 @@ export const getContractsColumns = ({user, setOpenUpdate, setOpenDelete, setSele
     {
       field: 'address', headerName: t(columnPrefix + 'address'), width: 300, hide: true
     },
-    ...getEditDeleteColumn({allowed: true, setOpenUpdate, setOpenDelete, setSelectedRow})
+    {
+      field: 'details', headerName: t(columnPrefix + 'details'), width: 300, hide: true,
+      renderCell: ({row}) => openDetailsButton(row)
+    },
+    ...getEditDeleteColumn({allowed, setOpenUpdate, setOpenDelete, setSelectedRow})
   ];
 };

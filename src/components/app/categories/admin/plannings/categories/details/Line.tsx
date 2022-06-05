@@ -24,7 +24,7 @@ const DetailsLine: FC<Props> = ({course}) => {
     {course.dates?.map((date, key) => (
       <li key={key} className={'details__item course-color-' + (courseType(date) ?? course.type)}>
         <span className="details__item__date">
-          {`${dayjs(date).format(t('global.date-mmmm-dd'))} ${t('global.colon')} `}
+          {`${dayjs(date).format(t('global.date.mmmm-dd'))} ${t('global.colon')} `}
         </span>
 
         <span className="details__item__title">

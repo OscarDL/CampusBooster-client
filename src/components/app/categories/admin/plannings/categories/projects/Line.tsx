@@ -21,7 +21,7 @@ const ProjectsLine: FC<Props> = ({project}) => {
   return (
     <li className={'details__item course-color-project'}>
       <span className="details__item__date">
-        {`${t('planning.projects.for')} ${dayjs(project.dateEnd).format(t('global.date-mmmm-dd'))} ${t('global.colon')}`}
+        {`${t('planning.projects.for')} ${dayjs(project.dateEnd).format(t('global.date.mmmm-dd'))} ${t('global.colon')}`}
       </span>
 
       <span className="details__item__title">

@@ -71,9 +71,10 @@ const CreateCourse: FC<Props> = ({open, setOpen}) => {
     >
       <DialogTitle>{t('courses.create.title')}</DialogTitle>
 
-      <DialogContent>
+      <DialogContent sx={{pt: '0 !important'}}>
         <TextField
           required
+          margin="dense"
           variant="standard"
           value={course.name}
           name="cb-course-name"
@@ -93,7 +94,7 @@ const CreateCourse: FC<Props> = ({open, setOpen}) => {
         />
 
         <TextField
-          sx={{my: 2}}
+          margin="dense"
           required fullWidth
           variant="standard"
           value={course.link}
@@ -106,6 +107,7 @@ const CreateCourse: FC<Props> = ({open, setOpen}) => {
           <TextField
             required
             type="number"
+            margin="dense"
             variant="standard"
             value={course.year}
             name="cb-course-year"
@@ -117,6 +119,7 @@ const CreateCourse: FC<Props> = ({open, setOpen}) => {
           <TextField
             required
             type="number"
+            margin="dense"
             variant="standard"
             value={course.credits}
             name="cb-course-credits"

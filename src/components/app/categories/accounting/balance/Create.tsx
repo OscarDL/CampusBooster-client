@@ -119,7 +119,7 @@ const CreateBalance: FC<Props> = ({open, setOpen}) => {
             labelId="balance-select-status" label={t('accounting.status.title')}
             onChange={e => setBalance({...balance, status: e.target.value as BalanceStatus})}
           >
-            {Object.keys(BalanceStatus).map(status => (
+            {Object.values(BalanceStatus).map(status => (
               <MenuItem key={status} value={status}>
                 {t('accounting.status.' + status)}
               </MenuItem>
