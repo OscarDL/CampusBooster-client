@@ -33,6 +33,6 @@ export enum AdminRoutes {
   bans = 'bans',
   campus = 'campus',
   teachers = 'teachers',
-  planning = 'planning',
+  plannings = 'plannings',
   classrooms = 'classrooms'
 };

@@ -660,8 +660,10 @@
 
       "add": {
         "button": "Add teacher",
-        "select_user": "Select a user",
         "title": "Add user to teachers list",
+        "select_user": "Select a user",
+        "select_course": "Select a course",
+        "select_classroom": "Select a classroom",
         "success": "User \"{{user}}\" successfully added as teacher."
       },
 

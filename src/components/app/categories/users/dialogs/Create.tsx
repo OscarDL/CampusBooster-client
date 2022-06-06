@@ -165,8 +165,8 @@ const CreateUser: FC<Props> = ({open, setOpen}) => {
             autoFocus
             margin="dense"
             variant="standard"
-            value={newUser.firstName}
             name="cb-user-firstname"
+            value={newUser.firstName}
             label={t('users.fields.first_name')}
             onChange={e => setNewUser({...newUser, firstName: e.target.value})}
           />
@@ -174,8 +174,8 @@ const CreateUser: FC<Props> = ({open, setOpen}) => {
             required
             margin="dense"
             variant="standard"
-            value={newUser.lastName}
             name="cb-user-lastname"
+            value={newUser.lastName}
             label={t('users.fields.last_name')}
             onChange={e => setNewUser({...newUser, lastName: e.target.value})}
           />
@@ -202,6 +202,7 @@ const CreateUser: FC<Props> = ({open, setOpen}) => {
             onChange={handleChangePromotion}
             label={t('users.fields.promotion')}
             disabled={newUser.role !== UserRoles.Student}
+            placeholder={String(new Date().getFullYear())}
             inputProps={{inputMode: 'numeric', pattern: '[0-9]*'}}
           />
         </Box>

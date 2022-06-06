@@ -1,6 +1,6 @@
-import ReactSelect from 'react-select';
 import { useTranslation } from 'react-i18next';
 import React, { FC, useEffect, useState } from 'react';
+import ReactSelect, { SingleValue } from 'react-select';
 
 import { useAppSelector } from '../../../../../../../store/store';
 import { Classroom } from '../../../../../../../shared/types/classroom';
@@ -10,6 +10,7 @@ import { TeacherRequest } from '../../../../../../../shared/types/teacher';
 type Props = {
   teacher: TeacherRequest,
   classroom: Classroom | undefined,
+  setTeacher: React.Dispatch<React.SetStateAction<TeacherRequest>>,
   setClassroom: React.Dispatch<React.SetStateAction<Classroom | undefined>>
 };
 
@@ -20,7 +21,7 @@ type Option = {
 };
 
 
-const TeacherClassroomPicker: FC<Props> = ({teacher, classroom, setClassroom}) => {
+const TeacherClassroomPicker: FC<Props> = ({teacher, setTeacher, classroom, setClassroom}) => {
   const { t } = useTranslation();
   const { usersList } = useAppSelector(state => state.users);
   const { classroomsList } = useAppSelector(state => state.classrooms);
@@ -28,12 +29,15 @@ const TeacherClassroomPicker: FC<Props> = ({teacher, classroom, setClassroom}) =
   const [classroomsOptions, setClassroomsOptions] = useState<Option[]>([]);
 
 
+  const handleChangeClassroom = (option: SingleValue<Option>) => {
+    setClassroom(option?.classroom);
+    setTeacher({...teacher, classroomHasCourseId: 0});
+  };
+
+
   useEffect(() => {
     if (usersList) {
-      // const selectedUser = usersList.find(user => user.id === teacher.userId);
-
       const classroomsOptions: Option[] = classroomsList
-        // ?.filter(classroom => classroom.campusId === selectedUser?.campusId)
         ?.map(classroom => ({
           classroom,
           value: classroom.id,
@@ -53,12 +57,12 @@ const TeacherClassroomPicker: FC<Props> = ({teacher, classroom, setClassroom}) =
         isSearchable
         menuPosition="fixed"
         options={classroomsOptions}
+        onChange={handleChangeClassroom}
         className="react-select-component"
         classNamePrefix="react-select-component"
         isLoading={!usersList || !classroomsList}
         isDisabled={!usersList || !teacher.userId}
-        placeholder={t('admin.teachers.select_classroom')}
-        onChange={option => setClassroom(option?.classroom)}
+        placeholder={t('admin.teachers.add.select_classroom')}
       />
     </div>
   ) : (
@@ -66,9 +70,9 @@ const TeacherClassroomPicker: FC<Props> = ({teacher, classroom, setClassroom}) =
       isSearchable
       menuPosition="fixed"
       options={classroomsOptions}
+      onChange={handleChangeClassroom}
       className="react-select-component"
       classNamePrefix="react-select-component"
-      onChange={option => setClassroom(option?.classroom)}
       value={classroomsOptions.find(option => option.classroom.id === classroom.id)}
     />
   );

@@ -52,7 +52,7 @@ const TeacherCoursePicker: FC<Props> = ({classroom, teacher, setTeacher}) => {
         className="react-select-component"
         isLoading={!(coursesList && usersList)}
         classNamePrefix="react-select-component"
-        placeholder={t('admin.teachers.select_course')}
+        placeholder={t('admin.teachers.add.select_course')}
         isDisabled={!(coursesList && usersList) || !classroom}
         onChange={option => setTeacher({...teacher, classroomHasCourseId: option?.value ?? 0})}
       />

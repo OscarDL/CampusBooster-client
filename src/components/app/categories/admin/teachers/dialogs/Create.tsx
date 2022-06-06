@@ -61,18 +61,31 @@ const CreateTeacher: FC<Props> = ({open, setOpen}) => {
       onClose={() => setOpen(false)}
       open={open} fullWidth maxWidth="sm"
     >
-      <DialogTitle>{t('admin.campus.create.title')}</DialogTitle>
+      <DialogTitle>{t('admin.teachers.add.title')}</DialogTitle>
 
       <DialogContent>
         <Box sx={{mb: 2}}>
-          <TeacherUserPicker teacher={teacher} setTeacher={setTeacher}/>
+          <TeacherUserPicker
+            teacher={teacher}
+            setTeacher={setTeacher}
+            setClassroom={setSelectedClassroom}
+          />
         </Box>
 
         <Box sx={{mb: 2}}>
-          <TeacherClassroomPicker teacher={teacher} classroom={selectedClassroom} setClassroom={setSelectedClassroom}/>
+          <TeacherClassroomPicker
+            teacher={teacher}
+            setTeacher={setTeacher}
+            classroom={selectedClassroom}
+            setClassroom={setSelectedClassroom}
+          />
         </Box>
 
-        <TeacherCoursePicker classroom={selectedClassroom} teacher={teacher} setTeacher={setTeacher}/>
+        <TeacherCoursePicker
+          teacher={teacher}
+          setTeacher={setTeacher}
+          classroom={selectedClassroom}
+        />
       </DialogContent>
 
       <DialogActions>

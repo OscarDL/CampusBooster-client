@@ -44,7 +44,6 @@ const Grades: FC = () => {
 
   useEffect(() => {
     const initData = async () => {
-      if (!usersList) await dispatch(getUsers());
       if (!coursesList) await dispatch(getCourses());
 
       if (!gradesList) {
@@ -57,6 +56,7 @@ const Grades: FC = () => {
           case UserRoles.Company:
           case UserRoles.Professor:
           case UserRoles.FullProfessor: {
+            if (!usersList) await dispatch(getUsers()); // FIX (only get users that are a part of the teacher's classrooms)
             await dispatch(getTeacherAsUserGrades(user.id));
             break;
           }
@@ -64,6 +64,7 @@ const Grades: FC = () => {
           case UserRoles.Assistant:
           case UserRoles.CampusManager:
           case UserRoles.CampusBoosterAdmin: {
+            if (!usersList) await dispatch(getUsers());
             await dispatch(getGrades());
           }
         };

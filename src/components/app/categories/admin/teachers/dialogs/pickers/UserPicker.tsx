@@ -3,13 +3,15 @@ import React, { FC, useEffect, useState } from 'react';
 import ReactSelect, { SingleValue } from 'react-select';
 
 import { useAppSelector } from '../../../../../../../store/store';
+import { Classroom } from '../../../../../../../shared/types/classroom';
 import { User, UserRoles } from '../../../../../../../shared/types/user';
 import { TeacherRequest } from '../../../../../../../shared/types/teacher';
 
 
 type Props = {
   teacher: TeacherRequest,
-  setTeacher: React.Dispatch<React.SetStateAction<TeacherRequest>>
+  setTeacher: React.Dispatch<React.SetStateAction<TeacherRequest>>,
+  setClassroom: React.Dispatch<React.SetStateAction<Classroom | undefined>>
 };
 
 type Option = {
@@ -19,7 +21,7 @@ type Option = {
 };
 
 
-const TeacherUserPicker: FC<Props> = ({teacher, setTeacher}) => {
+const TeacherUserPicker: FC<Props> = ({teacher, setTeacher, setClassroom}) => {
   const { t } = useTranslation();
   const { usersList } = useAppSelector(state => state.users);
   
@@ -32,6 +34,7 @@ const TeacherUserPicker: FC<Props> = ({teacher, setTeacher}) => {
       classroomHasCourseId: 0,
       userId: option?.value ?? 0
     });
+    setClassroom(undefined);
   };
 
 
@@ -60,7 +63,7 @@ const TeacherUserPicker: FC<Props> = ({teacher, setTeacher}) => {
       onChange={handleChangeUser}
       className="react-select-component"
       classNamePrefix="react-select-component"
-      placeholder={t('admin.teachers.select_user')}
+      placeholder={t('admin.teachers.add.select_user')}
       value={userOptions.find(option => option.user.id === teacher.userId)}
     />
   );

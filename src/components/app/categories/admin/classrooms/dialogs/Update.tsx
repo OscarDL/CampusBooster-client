@@ -103,6 +103,7 @@ const UpdateClassroom: FC<Props> = ({classroom, open, setOpen}) => {
 
           <TextField
             required
+            type="number"
             margin="dense"
             variant="standard"
             name="cb-classroom-promotion"

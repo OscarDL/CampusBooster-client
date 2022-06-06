@@ -81,6 +81,7 @@ const CreateClassroom: FC<Props> = ({open, setOpen}) => {
 
           <TextField
             required
+            type="number"
             margin="dense"
             variant="standard"
             name="cb-classroom-promotion"

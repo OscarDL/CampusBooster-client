@@ -637,6 +637,8 @@
       "add": {
         "button": "Ajouter un professeur",
         "select_user": "Sélectionnez un utilisateur",
+        "select_course": "Sélectionnez un cours",
+        "select_classroom": "Sélectionnez une classe",
         "title": "Ajouter un utilisateur à la liste des professeurs",
         "success": "Utilisateur \"{{user}}\" ajouté comme professeur avec succès."
       },
