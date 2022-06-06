@@ -8,8 +8,6 @@ import { StaticDatePicker, LocalizationProvider, PickersDay } from '@mui/x-date-
 import { ContentHeader } from '../../../../shared/content';
 import { colors } from '../../../../../shared/utils/values';
 import { useAppSelector } from '../../../../../store/store';
-import { FakeProject } from '../../../../../shared/types/course';
-import { getFakeCalendar } from '../../../../../shared/fake/data';
 import { PlanningType, RenderDay } from '../../../../../shared/types/planning';
 
 import Container from '../../../../shared/container';
@@ -17,14 +15,12 @@ import Container from '../../../../shared/container';
 
 type Props = {
   date: dayjs.Dayjs | null,
-  setDate: React.Dispatch<React.SetStateAction<dayjs.Dayjs | null>>,
-  setProjects: React.Dispatch<React.SetStateAction<FakeProject[]>>
+  setDate: React.Dispatch<React.SetStateAction<dayjs.Dayjs | null>>
 };
 
 
-const Calendar: FC<Props> = ({date, setDate, setProjects}) => {
+const Calendar: FC<Props> = ({date, setDate}) => {
   const { t } = useTranslation();
-  const [calendarData] = useState(getFakeCalendar());
   const [showDatePicker, setShowDatePicker] = useState(true);
 
   const { planningsList } = useAppSelector(state => state.plannings);
@@ -34,11 +30,13 @@ const Calendar: FC<Props> = ({date, setDate, setProjects}) => {
 
   const renderDay: RenderDay = (day, _, props) => {
     const dayInPlanning = planningsList?.find(planning => dayjs(planning.date).isSame(day, 'day'));
+    const past = dayjs(dayInPlanning?.date).isBefore(dayjs(), 'day');
 
     const planningType = (): PlanningType => (
       dayInPlanning ? dayInPlanning.type : PlanningType.Empty
     );
     const dayStyle = {
+      opacity: past ? 0.5 : 1,
       color: planningType() && 'white',
       backgroundColor: `var(--course-color-${planningType().toLowerCase()})`
     };
@@ -60,18 +58,8 @@ const Calendar: FC<Props> = ({date, setDate, setProjects}) => {
 
   useEffect(() => {
     // Fetch planning & projects from API
-    if (date) {
-      setDate(date);
-
-      // Tasks only need to be setup once, not on every month change
-      const projects = calendarData.projects.filter(project => {
-        const startsBefore = new Date().getMonth() >= project.dateStart.getMonth();
-        const endsAfter = new Date().getMonth() <= project.dateEnd.getMonth();
-        return startsBefore && endsAfter;
-      });
-      setProjects(projects);
-    }
-  }, [calendarData.projects, date, setDate, setProjects]);
+    if (date) setDate(date);
+  }, [date, setDate]);
 
 
   return (

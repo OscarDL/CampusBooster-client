@@ -1,8 +1,10 @@
 import dayjs from 'dayjs';
 import { FC } from 'react';
+import { Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { OpenInNewRounded } from '@mui/icons-material';
 
-import { Planning, PlanningPeriod } from '../../../../../../shared/types/planning';
+import { Planning, PlanningPeriod, PlanningType } from '../../../../../../shared/types/planning';
 
 
 type Props = {
@@ -13,26 +15,35 @@ type Props = {
 const DetailsLine: FC<Props> = ({planning}) => {
   const { t } = useTranslation();
   const course = planning.ClassroomHasCourse.Course;
+  const past = dayjs(planning.date).isBefore(dayjs(), 'day');
   const period = t('planning.details.period.' + planning.period.toLowerCase());
 
-  const courseType = (date: string): 'today' | undefined => {
+  const courseType = (date: string): string => {
     if (dayjs().isSame(date, 'day')) {
-      return 'today'; // Show today's course in accent color
+      return PlanningType.Today.toLowerCase(); // Show today's course in accent color
     }
+    return planning.type.toLowerCase();
   };
 
 
   return (
-    <li className={'details__item course-color-' + (courseType(planning.date) ?? planning.type.toLowerCase())}>
+    <div className={`course-color-${courseType(planning.date)}${past ? ' past' : ''}`}>
       <span className="details__item__date">
-        {`${dayjs(planning.date).format(t('global.date.mmmm-dd'))} ${t('global.colon')} `}
+        {`${dayjs(planning.date).format(t('global.date.mmmm-dd'))}`}
+        {planning.period !== PlanningPeriod.FullDay ? ` (${period})` : ''}
+        {t('global.colon')}
       </span>
 
       <span className="details__item__title">
         &nbsp;{course?.name} - {course?.description}
-        {planning.period !== PlanningPeriod.FullDay ? ` (${period})` : ''}
       </span>
-    </li>
+
+      <span className="details__item__more">
+        <Button color="primary" onClick={() => window.open(course?.link, '_blank')}>
+          <OpenInNewRounded/>
+        </Button>
+      </span>
+    </div>
   );
 };
 

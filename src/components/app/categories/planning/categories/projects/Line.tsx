@@ -3,29 +3,29 @@ import { FC, useState } from 'react';
 import { Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { FakeProject } from '../../../../../../shared/types/course';
+import { Project } from '../../../../../../shared/types/project';
 
 import ProjectDetails from './Details';
 
 
 type Props = {
-  project: FakeProject
+  project: Project
 };
 
 
 const ProjectsLine: FC<Props> = ({project}) => {
   const { t } = useTranslation();
-  const [details, setDetails] = useState<FakeProject>();
+  const [details, setDetails] = useState<Project>();
 
 
   return (
-    <li className={'details__item course-color-project'}>
+    <div className="course-color-project">
       <span className="details__item__date">
-        {`${t('planning.projects.for')} ${dayjs(project.dateEnd).format(t('global.date.mmmm-dd'))} ${t('global.colon')}`}
+        {`${t('planning.projects.for')} ${dayjs(project.endDate).format(t('global.date.mmmm-dd'))} ${t('global.colon')}`}
       </span>
 
       <span className="details__item__title">
-        &nbsp;{project.title}
+        &nbsp;{project.ClassroomHasCourse.Course?.name} - {project.title}
       </span>
 
       <span className="details__item__more">
@@ -35,7 +35,7 @@ const ProjectsLine: FC<Props> = ({project}) => {
       </span>
 
       {<ProjectDetails project={project} open={!!details} setDetails={setDetails}/>}
-    </li>
+    </div>
   );
 };
 

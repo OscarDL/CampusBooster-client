@@ -4,7 +4,7 @@
   grid-auto-flow: column;
   grid-template: auto / auto 1fr;
 
-  --max-calendar-picker-width: 288px;
+  --max-calendar-picker-width: 280px;
   --course-color-practice_exam: rgb(80, 160, 20);
   --course-color-oral_exam: rgb(200, 70, 30);
   --course-color-project: rgb(160, 20, 120);
@@ -84,8 +84,12 @@
 /* --- Calendar details for the month --- */
 
 .planning-view .details__list {
-  padding-left: 0;
+  gap: 1rem;
+  display: grid;
   list-style: none;
+  overflow-x: auto;
+  padding: 0 1rem 1rem;
+  margin: 0 -1rem -1rem;
 }
 
 .planning-view .details__empty {
@@ -95,7 +99,7 @@
   place-items: center;
 }
 
-.planning-view .details__item {
+.planning-view .details__item > div {
   min-height: 28px;
   padding-left: 0.66rem;
 
@@ -104,11 +108,7 @@
   align-items: center;
 }
 
-.planning-view .details__item:not(:last-child) {
-  margin-bottom: 1rem;
-}
-
-.planning-view .details__item::before {
+.planning-view .details__item > div::before {
   left: 0;
   top: 50%;
   width: 3px;
@@ -118,51 +118,58 @@
   transform: translateY(-50%);
   border-radius: var(--radius-large);
 }
+.planning-view .details__item > div.past {
+  opacity: 0.5;
+}
 
 .planning-view .details__item__date {
   flex-shrink: 0;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .planning-view .details__item__title {
   overflow-x: hidden;
-  display: -webkit-box;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  /* display: -webkit-box;
   -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: vertical; */
 }
 
-.planning-view .details__item.course-color-course::before {
+.planning-view .details__item > .course-color-course::before {
   background-color: var(--course-color-course);
 }
-.planning-view .details__item.course-color-course .details__item__date {
+.planning-view .details__item > .course-color-course .details__item__date {
   color: var(--course-color-course);
 }
 
-.planning-view .details__item.course-color-today::before {
+.planning-view .details__item > .course-color-today::before {
   background-color: var(--course-color-today);
 }
-.planning-view .details__item.course-color-today .details__item__date {
+.planning-view .details__item > .course-color-today .details__item__date,
+.planning-view .details__item > .course-color-today .details__item__title {
+  font-weight: bold;
   color: var(--course-color-today);
 }
 
-.planning-view .details__item.course-color-practice_exam::before {
+.planning-view .details__item > .course-color-practice_exam::before {
   background-color: var(--course-color-practice_exam);
 }
-.planning-view .details__item.course-color-practice_exam .details__item__date {
+.planning-view .details__item > .course-color-practice_exam .details__item__date {
   color: var(--course-color-practice_exam);
 }
 
-.planning-view .details__item.course-color-oral_exam::before {
+.planning-view .details__item > .course-color-oral_exam::before {
   background-color: var(--course-color-oral_exam);
 }
-.planning-view .details__item.course-color-oral_exam .details__item__date {
+.planning-view .details__item > .course-color-oral_exam .details__item__date {
   color: var(--course-color-oral_exam);
 }
 
-.planning-view .details__item.course-color-project::before {
+.planning-view .details__item > .course-color-project::before {
   background-color: var(--course-color-project);
 }
-.planning-view .details__item.course-color-project .details__item__date {
+.planning-view .details__item > .course-color-project .details__item__date {
   color: var(--course-color-project);
 }
 
@@ -223,6 +230,6 @@
 /* Laptops & Desktops */
 @media (min-width: 1024px) {
   .planning-view .MuiCalendarPicker-root {
-    min-width: 288px;
+    min-width: var(--max-calendar-picker-width);
   }
 }

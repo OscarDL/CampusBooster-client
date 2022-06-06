@@ -219,7 +219,9 @@
         "date_start": "Start date",
         "date_end": "Deadline",
         "details": "Details",
-        "course": "Course"
+        "course": "Course",
+        "no_details": "No details have been provided for this project.",
+        "canvas_link": "Read subject details on Canvas"
       }
     },
 
