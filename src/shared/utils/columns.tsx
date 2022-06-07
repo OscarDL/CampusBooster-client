@@ -4,7 +4,7 @@ import { t } from 'i18next';
 import { saveAs } from 'file-saver';
 import { Dispatch, SetStateAction } from 'react';
 import { Button, IconButton, Tooltip } from '@mui/material';
-import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid-pro';
+import { getGridBooleanOperators, getGridDateOperators, getGridNumericOperators, GridColDef, GridRenderCellParams } from '@mui/x-data-grid-pro';
 import { DeleteOutlined, Download, EditOutlined, OpenInNewRounded, RemoveCircleOutlineOutlined, VisibilityOutlined } from '@mui/icons-material';
 
 import { Course } from '../types/course';
@@ -23,6 +23,10 @@ type BaseProps = {
 };
 
 type EditDeleteColumnProps = (props: Partial<BaseProps> & {allowed: boolean}) => GridColDef[];
+
+
+// Using <a> tags in the cells causes unknown effects of freezing the grid when dragged,
+// So we are using buttons with window.open() as a result, which do not have this issue.
 
 
 const getEditDeleteColumn: EditDeleteColumnProps = ({allowed, setOpenUpdate, setOpenDelete, setSelectedRow}) => {
@@ -80,25 +84,35 @@ export const getAccountingColumns = ({user, setOpenUpdate, setOpenDelete, setSel
     []
   );
 
+  const getValue = (value: number, type: '-' | '+') => (
+    value ? `${type} ${value}` : value
+  );
+
 
   return [
     ...userColumn,
     {
-      field: 'dateRequested', headerName: t(columnPrefix + 'date_requested'), width: 150,
-      valueGetter: ({row}) => dayjs(row.dateRequested).format(t('global.date.mm-dd-yyyy'))
+      field: 'dateRequested', headerName: t(columnPrefix + 'date_requested'), width: 150, filterOperators: getGridDateOperators(),
+      renderCell: ({row}) => dayjs(row.dateRequested).format(t('global.date.mm-dd-yyyy'))
     },
     {
-      field: 'dateConfirmed', headerName: t(columnPrefix + 'date_confirmed'), width: 150,
-      valueGetter: ({row}) => row.dateConfirmed ? dayjs(row.dateConfirmed).format(t('global.date.mm-dd-yyyy')) : null
+      field: 'dateConfirmed', headerName: t(columnPrefix + 'date_confirmed'), width: 150, filterOperators: getGridDateOperators(),
+      renderCell: ({row}) => row.dateConfirmed ? dayjs(row.dateConfirmed).format(t('global.date.mm-dd-yyyy')) : null
     },
     {
       field: 'description', headerName: t(columnPrefix + 'description'), width: 300
     },
     {
-      field: 'debit', headerName: t(columnPrefix + 'debit'), width: 100
+      field: 'debit', headerName: t(columnPrefix + 'debit'), width: 100, filterOperators: getGridNumericOperators(),
+      renderCell: ({row}) => (
+        <div className={`MuiDataGrid-cellContent ${row.debit ? ' balance-cell-debit' : ''}`}>{getValue(row.debit, '-')}</div>
+      )
     },
     {
-      field: 'credit', headerName: t(columnPrefix + 'credit'), width: 100
+      field: 'credit', headerName: t(columnPrefix + 'credit'), width: 100, filterOperators: getGridNumericOperators(),
+      renderCell: ({row}) => (
+        <div className={`MuiDataGrid-cellContent ${row.credit ? ' balance-cell-credit' : ''}`}>{getValue(row.credit, '+')}</div>
+      )
     },
     {
       field: 'status', headerName: t(columnPrefix + 'status'), width: 150,
@@ -138,21 +152,21 @@ export const getUsersColumns = ({user, setOpenUpdate, setOpenDelete, setSelected
       field: 'personalEmail', headerName: t(columnPrefix + 'personal_email'), width: 250, hide: true
     },
     {
-      field: 'birthday', headerName: t(columnPrefix + 'birthday'), width: 150, hide: true,
-      valueGetter: ({row}) => dayjs(row.birthday).format(t('global.date.mm-dd-yyyy'))
+      field: 'birthday', headerName: t(columnPrefix + 'birthday'), width: 150, hide: true, filterOperators: getGridDateOperators(),
+      renderCell: ({row}) => dayjs(row.birthday).format(t('global.date.mm-dd-yyyy'))
     },
     {
       field: 'address', headerName: t(columnPrefix + 'address'), width: 300, hide: true
     },
     {
-      field: 'promotion', headerName: t(columnPrefix + 'promotion'), width: 100
+      field: 'promotion', headerName: t(columnPrefix + 'promotion'), width: 100, filterOperators: getGridNumericOperators()
     },
     {
       field: 'UserHasClassrooms', headerName: t(columnPrefix + 'classrooms'), width: 250,
       valueGetter: ({row}) => row.UserHasClassrooms.map((uhc: UserHasClassroom) => uhc.Classroom?.name).join(', ')
     },
     {
-      field: 'credits', headerName: t(columnPrefix + 'credits'), width: 150, hide: true
+      field: 'credits', headerName: t(columnPrefix + 'credits'), width: 150, hide: true, filterOperators: getGridNumericOperators()
     },
     ...getEditDeleteColumn({allowed, setOpenUpdate, setOpenDelete, setSelectedRow})
   ];
@@ -220,8 +234,8 @@ export const getGradesColumns = ({user, setOpenUpdate, setOpenDelete, setSelecte
       valueGetter: ({row}) => row.ClassroomHasCourse?.Course?.name
     },
     {
-      field: 'grade', headerName: t(columnPrefix + 'grade'), width: 100,
-      valueGetter: ({row}) => `${row.average} / 20`
+      field: 'average', headerName: t(columnPrefix + 'grade'), width: 100,
+      renderCell: ({row}) => `${row.average} / 20`, filterOperators: getGridNumericOperators()
     },
     {
       field: 'comment', headerName: t(columnPrefix + 'comment'), width: 400
@@ -253,12 +267,12 @@ export const getCampusColumns = ({user, setOpenUpdate, setOpenDelete, setSelecte
       field: 'city', headerName: t(columnPrefix + 'city'), width: 200
     },
     {
-      field: 'open', headerName: t(columnPrefix + 'open'), width: 100,
-      valueGetter: ({row}) => t('global.' + (row.open ? 'yes' : 'no'))
+      field: 'open', headerName: t(columnPrefix + 'open'), width: 100, filterOperators: getGridBooleanOperators(),
+      renderCell: ({row}) => t('global.' + (row.open ? 'yes' : 'no'))
     },
     {
-      field: 'virtual', headerName: t(columnPrefix + 'virtual'), width: 100,
-      valueGetter: ({row}) => t('global.' + (row.virtual ? 'yes' : 'no'))
+      field: 'virtual', headerName: t(columnPrefix + 'virtual'), width: 100, filterOperators: getGridBooleanOperators(),
+      renderCell: ({row}) => t('global.' + (row.virtual ? 'yes' : 'no'))
     },
     ...getEditDeleteColumn({allowed, setOpenUpdate, setOpenDelete, setSelectedRow})
   ];
@@ -279,13 +293,11 @@ export const getClassroomsColumns = ({user, setOpenUpdate, setOpenDelete, setSel
       field: 'name', headerName: t(columnPrefix + 'name'), width: 200
     },
     {
-      field: 'promotion', headerName: t(columnPrefix + 'promotion'), width: 100
+      field: 'promotion', headerName: t(columnPrefix + 'promotion'), width: 100, filterOperators: getGridNumericOperators()
     },
     {
       field: 'courses', headerName: t(columnPrefix + 'courses'), width: 300, valueGetter: ({row}) => getCourses(row),
-      renderCell: ({row}) => (
-        <div style={{overflow: 'hidden', textOverflow: 'ellipsis'}} title={getCourses(row)}>{getCourses(row)}</div>
-      )
+      renderCell: ({row}) => <div className="MuiDataGrid-cellContent" title={getCourses(row)}>{getCourses(row)}</div>
       
     },
     ...getEditDeleteColumn({allowed, setOpenUpdate, setOpenDelete, setSelectedRow})
@@ -310,8 +322,8 @@ export const getCoursesColumns = ({user, setOpenUpdate, setOpenDelete, setSelect
 
   return [
     {
-      field: 'year', headerName: t(columnPrefix + 'year'), width: 150,
-      valueGetter: ({row}) => t(columnPrefix + 'year_field', {year: row.year})
+      field: 'year', headerName: t(columnPrefix + 'year'), width: 150, filterOperators: getGridNumericOperators(),
+      renderCell: ({row}) => t(columnPrefix + 'year_field', {year: row.year})
     },
     {
       field: 'name', headerName: t(columnPrefix + 'name'), width: 150
@@ -324,11 +336,11 @@ export const getCoursesColumns = ({user, setOpenUpdate, setOpenDelete, setSelect
       disableExport: true, valueGetter: ({row}) => row.link, renderCell: ({row}) => getCanvasLink(row.link)
     },
     {
-      field: 'credits', headerName: t(columnPrefix + 'credits'), width: 100
+      field: 'credits', headerName: t(columnPrefix + 'credits'), width: 100, filterOperators: getGridNumericOperators()
     },
     {
-      field: 'speciality', headerName: t(columnPrefix + 'speciality'), width: 100,
-      valueGetter: ({row}) => t('global.' + (row.speciality ? 'yes' : 'no'))
+      field: 'speciality', headerName: t(columnPrefix + 'speciality'), width: 100, filterOperators: getGridBooleanOperators(),
+      renderCell: ({row}) => t('global.' + (row.speciality ? 'yes' : 'no'))
     },
     ...getEditDeleteColumn({allowed, setOpenUpdate, setOpenDelete, setSelectedRow})
   ];
@@ -357,8 +369,8 @@ export const getTeachersColumns = ({user, setOpenUpdate, setOpenDelete, setSelec
       valueGetter: ({row}) => `${row.User.firstName} ${row.User.lastName}`
     },
     {
-      field: 'active', headerName: t(columnPrefix + 'active'), width: 100,
-      valueGetter: ({row}) => t('global.' + (row.active ? 'yes' : 'no'))
+      field: 'active', headerName: t(columnPrefix + 'active'), width: 100, filterOperators: getGridBooleanOperators(),
+      renderCell: ({row}) => t('global.' + (row.active ? 'yes' : 'no'))
     },
     ...getEditDeleteColumn({allowed, setOpenUpdate, setOpenDelete, setSelectedRow})
   ];
@@ -403,6 +415,7 @@ export const getAbsencesColumns = ({user, setOpenUpdate, setOpenDelete, setSelec
     <Button
       sx={{ml: '-10px'}}
       startIcon={<Download/>}
+      disabled={!row.fileKeys.length}
       onClick={() => downloadFiles(row)}
     >
       {t(columnPrefix + 'files', {count: row.fileKeys.length})}
@@ -413,8 +426,8 @@ export const getAbsencesColumns = ({user, setOpenUpdate, setOpenDelete, setSelec
   return [
     ...userColumn,
     {
-      field: 'date', headerName: t(columnPrefix + 'date'), width: 150,
-      valueGetter: ({row}) => dayjs(row.Planning.date).format(t('global.date.mmm-d-yyyy'))
+      field: 'date', headerName: t(columnPrefix + 'date'), width: 150, filterOperators: getGridDateOperators(),
+      valueGetter: ({row}) => row.Planning.date, renderCell: ({row}) => dayjs(row.Planning.date).format(t('global.date.mmm-d-yyyy'))
     },
     {
       field: 'course', headerName: t(columnPrefix + 'course'), width: 100,
@@ -429,10 +442,8 @@ export const getAbsencesColumns = ({user, setOpenUpdate, setOpenDelete, setSelec
       valueGetter: ({row}) => t(`${columnPrefix}period.${row.period.toLowerCase()}`)
     },
     {
-      field: 'reason', headerName: t(columnPrefix + 'reason'), width: 300, valueGetter: ({row}) => row.reason,
-      renderCell: ({row}) => (
-        <div style={{overflow: 'hidden', textOverflow: 'ellipsis'}} title={row.reason}>{row.reason}</div>
-      )
+      field: 'reason', headerName: t(columnPrefix + 'reason'), width: 300,
+      renderCell: ({row}) => <div className="MuiDataGrid-cellContent" title={row.reason}>{row.reason}</div>
     },
     {
       field: 'documents', headerName: t(columnPrefix + 'documents'), width: 150, filterable: false,
@@ -477,38 +488,43 @@ export const getContractsColumns = ({user, setOpenUpdate, setOpenDelete, setOpen
   return [
     ...userColumn,
     {
-      field: 'startDate', headerName: t(columnPrefix + 'start_date'), width: 150,
-      valueGetter: ({row}) => dayjs(row.startDate).format(t('global.date.mm-dd-yyyy'))
+      field: 'startDate', headerName: t(columnPrefix + 'start_date'), width: 150, filterOperators: getGridDateOperators(),
+      renderCell: ({row}) => dayjs(row.startDate).format(t('global.date.mm-dd-yyyy'))
     },
     {
-      field: 'endDate', headerName: t(columnPrefix + 'end_date'), width: 150,
-      valueGetter: ({row}) => dayjs(row.endDate).format(t('global.date.mm-dd-yyyy'))
+      field: 'endDate', headerName: t(columnPrefix + 'end_date'), width: 150, filterOperators: getGridDateOperators(),
+      renderCell: ({row}) => dayjs(row.endDate).format(t('global.date.mm-dd-yyyy'))
     },
     {
       field: 'company', headerName: t(columnPrefix + 'company'), width: 150
     },
     {
-      field: 'url', headerName: t(columnPrefix + 'url'), width: 150, hide: true // Make link clickable
+      field: 'url', headerName: t(columnPrefix + 'url'), width: 150, hide: true
     },
     {
-      field: 'supervisor', headerName: t(columnPrefix + 'supervisor'), width: 200,
+      field: 'supervisor', headerName: t(columnPrefix + 'supervisor'), width: 200, hide: true,
       valueGetter: ({row}) => `${row.Supervisor.User.firstName} ${row.Supervisor.User.lastName}`
     },
     {
       field: 'mission', headerName: t(columnPrefix + 'mission'), width: 200, hide: true
     },
     {
-      field: 'email', headerName: t(columnPrefix + 'email'), width: 200 // Make email clickable
+      field: 'email', headerName: t(columnPrefix + 'email'), width: 200,
+      renderCell: ({row}) => (
+        <Button sx={{ml: '-10px'}} onClick={() => window.open('mailto:' + row.email)}>
+          {row.email}
+        </Button>
+      )
     },
     {
-      field: 'phone', headerName: t(columnPrefix + 'phone'), width: 150
+      field: 'phone', headerName: t(columnPrefix + 'phone'), width: 150, hide: true
     },
     {
       field: 'address', headerName: t(columnPrefix + 'address'), width: 300, hide: true
     },
     {
-      field: 'details', headerName: t(columnPrefix + 'details'), width: 300, hide: true,
-      renderCell: ({row}) => openDetailsButton(row)
+      field: 'details', headerName: t(columnPrefix + 'details'), width: 150, filterable: false,
+      disableExport: true, renderCell: ({row}) => openDetailsButton(row)
     },
     ...getEditDeleteColumn({allowed, setOpenUpdate, setOpenDelete, setSelectedRow})
   ];

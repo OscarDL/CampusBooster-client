@@ -62,6 +62,7 @@ const GradeTeacherPicker: FC<Props> = ({grade, setGrade}) => {
         className="react-select-component"
         classNamePrefix="react-select-component"
         placeholder={t('grades.fields.teacher')}
+        noOptionsMessage={() => t('grades.no_teacher')}
         isDisabled={!usersList || !grade.classroomHasCourseId}
         onChange={option => setGrade({...grade, teacherId: option?.value ?? 0})}
       />

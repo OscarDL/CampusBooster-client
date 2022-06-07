@@ -27,6 +27,17 @@ export const getUsers = createAsyncThunk('users/getUsers', async (_, thunkAPI) =
   }
 });
 
+export const getUsersForTeacher = createAsyncThunk('users/getUsersForTeacher', async (id: User['id'], thunkAPI) => {
+  try {
+    return await userService.getUsersForTeacher(id);
+  }
+
+  catch (error: any) {
+    const message = error || 'error';
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
 export const createUser = createAsyncThunk('users/createUser', async (user: UserRequest, thunkAPI) => {
   try {
     const { isNew, user: createdUser } = await userService.createUser(user);
@@ -116,14 +127,14 @@ const usersSlice = createSlice({
 
   extraReducers: (builder) => {
     // Retrieve all users
-    builder
-      .addCase(getUsers.fulfilled, (state, {payload}) => {
-        state.usersList = payload;
-      })
-      .addCase(getUsers.rejected, (state, {payload}: any) => {
-        state.usersList = [];
-        toast.error(payload.message);
-      });
+    builder.addCase(getUsers.fulfilled, (state, {payload}) => {
+      state.usersList = payload;
+    });
+
+    // Retrieve all users for given teacher
+    builder.addCase(getUsersForTeacher.fulfilled, (state, {payload}) => {
+      state.usersList = payload;
+    });
 
     // Create new user
     builder.addCase(createUser.fulfilled, (state, {payload}) => {
@@ -146,9 +157,14 @@ const usersSlice = createSlice({
     });
 
     // Show an error message on any of these cases being rejected.
-    builder.addMatcher(isAnyOf(createUser.rejected, updateUser.rejected, deleteUser.rejected), (_, {payload}: any) => {
-      toast.error(payload.message);
-    });
+    builder
+      .addMatcher(isAnyOf(createUser.rejected, updateUser.rejected, deleteUser.rejected), (_, {payload}: any) => {
+        toast.error(payload.message);
+      })
+      .addMatcher(isAnyOf(getUsers.rejected, getUsersForTeacher.rejected), (state, {payload}: any) => {
+        state.usersList = [];
+        toast.error(payload.message);
+      });
   }
 });
 

@@ -118,6 +118,7 @@
     "title": "Grades",
     "icon": "task",
     "add": "New grade",
+    "no_teacher": "No teacher",
     "select_user": "Select a user",
     "select_course": "Select a course",
     "select_teacher": "Select a teacher",
@@ -310,6 +311,8 @@
       "phone":"Contact phone",
       "address": "Address",
       "url": "Link (URL)",
+      "details": "Details",
+      "details_field": "View more",
       "mission": "Mission",
       "supervisor": "Supervisor",
 
@@ -337,6 +340,10 @@
       "text": "Please type in the name of the user and company as shown below to avoid accidental deletion.",
       "student_company": "Student (Company)",
       "success": "Contract of \"{{user}}\" in company \"{{company}}\" successfully deleted."
+    },
+
+    "details": {
+      "title": "Contract details for \"{{user}}\""
     }
   },
 

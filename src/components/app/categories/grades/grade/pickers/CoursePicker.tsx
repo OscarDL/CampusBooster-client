@@ -5,6 +5,7 @@ import React, { FC, useEffect, useMemo, useState } from 'react';
 import { Course } from '../../../../../../shared/types/course';
 import { useAppSelector } from '../../../../../../store/store';
 import { Grade, GradeRequest } from '../../../../../../shared/types/grade';
+import { getLoggedInAuthState, userHasAdminRights } from '../../../../../../shared/functions';
 
 
 type Props = {
@@ -21,6 +22,7 @@ type Option = {
 
 const GradeCoursePicker: FC<Props> = ({grade, setGrade}) => {
   const { t } = useTranslation();
+  const { user } = useAppSelector(getLoggedInAuthState);
   const { usersList } = useAppSelector(state => state.users);
   const { coursesList } = useAppSelector(state => state.courses);
   
@@ -54,6 +56,12 @@ const GradeCoursePicker: FC<Props> = ({grade, setGrade}) => {
           course.ClassroomHasCourses?.map(chc => chc.id).some(id => userChc?.map(chc => chc?.id).includes(id))
         ))
         .sort((a, b) => a.name.localeCompare(b.name))
+        .filter(course => (
+          // Filter a second time if the logged-in user is the teacher adding the grade
+          userHasAdminRights(user.role) ? true : (
+            course.ClassroomHasCourses?.map(chc => chc.Teachers?.map(t => t.userId)).flat().includes(user.id)
+          )
+        ))
         .map(course => ({
           course,
           value: course.id,
@@ -62,7 +70,7 @@ const GradeCoursePicker: FC<Props> = ({grade, setGrade}) => {
 
       setCoursesOptions(coursesOptions);
     }
-  }, [coursesList, userChc]);
+  }, [coursesList, user, userChc]);
 
 
   return !grade.classroomHasCourseId ? (

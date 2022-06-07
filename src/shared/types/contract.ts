@@ -9,6 +9,7 @@ export enum ContractType {
   ProfessionalContract = 'PROFESSIONAL_CONTRACT'
 };
 
+
 export type Contract = {
   id: number,
   url: string,
@@ -25,6 +26,7 @@ export type Contract = {
   supervisorId: Teacher['id'],
 
   User: PublicUser,
+  Supervisor: Teacher,
 };
 
 export type ContractRequest = {

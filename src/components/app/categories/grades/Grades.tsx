@@ -5,7 +5,6 @@ import { FC, useEffect, useMemo, useState } from 'react';
 
 import { Grade } from '../../../../shared/types/grade';
 import { UserRoles } from '../../../../shared/types/user';
-import { getUsers } from '../../../../store/features/users/slice';
 import { getGradesColumns } from '../../../../shared/utils/columns';
 import { getLoggedInAuthState } from '../../../../shared/functions';
 import { ContentBody, ContentHeader } from '../../../shared/content';
@@ -13,6 +12,7 @@ import { getCourses } from '../../../../store/features/courses/slice';
 import { getMuiDataGridLocale } from '../../../../shared/utils/locales';
 import { setDataGridValue } from '../../../../store/features/app/slice';
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
+import { getUsers, getUsersForTeacher } from '../../../../store/features/users/slice';
 import { DataGridFooter, DataGridHeader, StyledDataGrid } from '../../../shared/datagrid';
 import { clearGrades, getGrades, getTeacherAsUserGrades, getUserGrades } from '../../../../store/features/grades/slice';
 
@@ -56,7 +56,7 @@ const Grades: FC = () => {
           case UserRoles.Company:
           case UserRoles.Professor:
           case UserRoles.FullProfessor: {
-            if (!usersList) await dispatch(getUsers()); // FIX (only get users that are a part of the teacher's classrooms)
+            if (!usersList) await dispatch(getUsersForTeacher(user.id));
             await dispatch(getTeacherAsUserGrades(user.id));
             break;
           }

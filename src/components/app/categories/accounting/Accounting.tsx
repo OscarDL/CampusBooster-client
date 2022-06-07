@@ -15,9 +15,9 @@ import { DataGridFooter, DataGridHeader, StyledDataGrid } from '../../../shared/
 import { clearBalances, getBalances, getUserBalance } from '../../../../store/features/accounting/slice';
 
 import Loader from '../../../shared/loader';
-import CreateBalance from './balance/Create';
-import UpdateBalance from './balance/Update';
-import DeleteBalance from './balance/Delete';
+import CreateBalance from './dialogs/Create';
+import UpdateBalance from './dialogs/Update';
+import DeleteBalance from './dialogs/Delete';
 
 
 const Accounting: FC = () => {

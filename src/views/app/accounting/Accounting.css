@@ -1,0 +1,13 @@
+.accounting-view {
+  --credit-color: rgb(0, 160, 100);
+  --debit-color: rgb(220, 80, 60);
+}
+
+.accounting-view .balance-cell-credit {
+  font-weight: 500;
+  color: var(--credit-color);
+}
+.accounting-view .balance-cell-debit {
+  font-weight: 500;
+  color: var(--debit-color);
+}

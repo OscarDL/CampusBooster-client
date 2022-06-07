@@ -16,10 +16,10 @@ import { DataGridFooter, DataGridHeader, StyledDataGrid } from '../../../shared/
 import { clearContracts, getContracts, getSupervisorContracts, getUserContracts } from '../../../../store/features/contracts/slice';
 
 import Loader from '../../../shared/loader';
-import CreateContract from './grade/Create';
-import UpdateContract from './grade/Update';
-import DeleteContract from './grade/Delete';
-import ContractDetails from './grade/Details';
+import CreateContract from './contract/Create';
+import UpdateContract from './contract/Update';
+import DeleteContract from './contract/Delete';
+import ContractDetails from './contract/Details';
 
 
 const Contracts: FC = () => {

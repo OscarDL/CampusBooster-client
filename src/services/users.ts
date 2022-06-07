@@ -28,6 +28,17 @@ const getUserById = async (id: User['id']) => {
   }
 };
 
+const getUsersForTeacher = async (id: User['id']) => {
+  try {
+    const response = await axios.get(apiUrl + 'users/teacher/' + id, getAxiosConfig());
+    return response.data;
+  }
+
+  catch (error: any) {
+    return Promise.reject(error?.response?.data || t('api.error'));
+  }
+};
+
 const createUser = async (user: UserRequest) => {
   try {
     const response = await axios.post(apiUrl + 'users', user, getAxiosConfig());
@@ -123,6 +134,7 @@ const removeUserFromClassrooms = async (id: User['id'], classrooms: (Classroom['
 const userService = {
   getUsers,
   getUserById,
+  getUsersForTeacher,
   createUser,
   updateUser,
   updateBannedUser,

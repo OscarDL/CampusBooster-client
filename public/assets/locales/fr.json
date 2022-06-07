@@ -115,6 +115,7 @@
   "grades": {
     "title": "Notes",
     "add": "Nouvelle note",
+    "no_teacher": "Pas de professeur",
     "select_user": "Sélectionnez un utilisateur",
     "select_course": "Sélectionnez un cours",
     "select_teacher": "Sélectionnez un professeur",
@@ -298,10 +299,12 @@
       "entreprise": "Entreprise",
       "start_date": "Date de début",
       "end_date": "Date de fin",
-      "email": "Email contact",
+      "email": "Email de contact",
       "phone": "Téléphone contact",
       "address": "Addresse",
       "url": "Lien (URL)",
+      "details": "Détails",
+      "details_field": "Voir plus",
       "mission": "Mission",
       "supervisor": "Superviseur",
 
@@ -329,6 +332,10 @@
         "text": "Veuillez entrer le nom de l'étudiant et de l'entreprise comme ci-dessous afin d'éviter une suppression accidentelle.",
         "student_company": "Étudiant (Entreprise)",
       "success": "Contrat de \"{{user}}\" dans l'entreprise \"{{company}}\" supprimé avec succès."
+    },
+
+    "details": {
+      "title": "Détails du contrat pour \"{{user}}\""
     }
   },
 

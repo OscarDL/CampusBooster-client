@@ -14,7 +14,7 @@ const PlanningsView: FC = () => {
 
 
   return (
-    <div className="admin-plannings-view">
+    <div className="admin-plannings-view planning-view">
       <Plannings/>
     </div>
   );
