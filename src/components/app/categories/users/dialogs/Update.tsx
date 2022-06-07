@@ -34,7 +34,36 @@ const newUserRequest = (user: User): UserRequest => ({
 });
 
 
-const UpdateUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
+const UneditableUser: FC<Props> = ({user, open, setOpen}) => {
+  const { t } = useTranslation();
+  const userFullName = `${user.firstName} ${user.lastName}`;
+
+  return (
+    <Dialog
+      onClose={() => setOpen(false)}
+      open={open} fullWidth maxWidth="sm"
+    >
+      <DialogTitle>{t('users.update.title', {user: userFullName})}</DialogTitle>
+
+      <DialogContent sx={{mb: 2}}>
+        <b>{t('users.update.uneditable', {user: userFullName})}</b>
+      </DialogContent>
+
+      <DialogActions>
+        <Button color="primary" onClick={() => setOpen(false)}>
+          {t('global.cancel')}
+        </Button>
+
+        <MainDialogButton color="error" variant="contained" disabled>
+          {t('global.confirm')}
+        </MainDialogButton>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
+
+const EditableUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { user } = useAppSelector(getLoggedInAuthState);
@@ -53,11 +82,13 @@ const UpdateUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
 
 
   const formIsComplete = () => (
-    newUser.firstName &&
-    newUser.lastName &&
     newUser.birthday &&
-    newUser.email && !userEmailMatchesError(newUser.email) &&
-    (newUser.role === UserRoles.Student ? newUser.personalEmail : true) &&
+    newUser.lastName &&
+    newUser.firstName &&
+    newUser.personalEmail &&
+    !userEmailMatchesError(newUser.email) &&
+    (newUser.role === UserRoles.Student ? newUser.address : true) &&
+    (newUser.role === UserRoles.Student ? newUser.promotion : true) &&
     (!userShouldHaveNoCampusAssigned(newUser.role) ? newUser.campusId : true)
   );
 
@@ -167,7 +198,7 @@ const UpdateUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
               label={t('users.fields.role')}
             >
               {Object.values(UserRoles).map(role => (
-                !userHasHigherRole(user, role) ? (
+                !userHasHigherRole(user, role, true) ? (
                   <MenuItem key={role} value={role}>
                     {t(`users.${role.toLowerCase()}.title_role`)}
                   </MenuItem>
@@ -225,17 +256,16 @@ const UpdateUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
 
         <Box className="MuiDialogContent-row">
           <TextField
-            required
             margin="dense"
             variant="standard"
             name="cb-user-address"
             value={newUser.address}
             label={t('users.fields.address')}
+            required={newUser.role === UserRoles.Student}
             InputProps={{autoComplete: Date.now().toString()}}
             onChange={e => setNewUser({...newUser, address: e.target.value})}
           />
           <TextField
-            required
             type="number"
             margin="dense"
             variant="standard"
@@ -243,6 +273,7 @@ const UpdateUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
             value={newUser.promotion ?? ''}
             onChange={handleChangePromotion}
             label={t('users.fields.promotion')}
+            required={newUser.role === UserRoles.Student}
             disabled={newUser.role !== UserRoles.Student}
             inputProps={{inputMode: 'numeric', pattern: '[0-9]*'}}
           />
@@ -258,6 +289,7 @@ const UpdateUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
           label={t('users.fields.email')}
           error={userEmailMatchesError(newUser.email)}
           onChange={e => setNewUser({...newUser, email: e.target.value})}
+          disabled={user.role === newUser.role && user.role !== UserRoles.CampusBoosterAdmin}
           InputProps={{
             autoComplete: Date.now().toString(), // requires a unique value to be disabled
             endAdornment: <InputAdornment position="end">{'@' + azureDomainName}</InputAdornment>
@@ -266,12 +298,12 @@ const UpdateUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
 
         <Box className="MuiDialogContent-row" sx={{mb: 2}}>
           <TextField
+            required
             margin="dense"
             variant="standard"
             name="cb-user-personal-email"
             value={newUser.personalEmail ?? ''}
             label={t('users.fields.personal_email')}
-            required={newUser.role === UserRoles.Student}
             onChange={e => setNewUser({...newUser, personalEmail: e.target.value})}
           />
           <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -319,6 +351,19 @@ const UpdateUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
         </MainDialogButton>
       </DialogActions>
     </Dialog>
+  );
+};
+
+
+const UpdateUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
+  const { user } = useAppSelector(getLoggedInAuthState);
+
+  return (
+    userHasHigherRole(user, selectedUser.role) ? (
+      <UneditableUser user={selectedUser} open={open} setOpen={setOpen}/>
+    ) : (
+      <EditableUser user={selectedUser} open={open} setOpen={setOpen}/>
+    )
   );
 };
 

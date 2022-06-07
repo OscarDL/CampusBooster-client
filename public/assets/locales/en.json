@@ -539,6 +539,7 @@
     "update": {
       "title": "Edit \"{{user}}\"",
       "success": "User \"{{user}}\" successfully updated.",
+      "uneditable": "You do not have sufficient rights to update user \" {{user}}\".",
 
       "reset_pw": {
         "button": "Reset user password",

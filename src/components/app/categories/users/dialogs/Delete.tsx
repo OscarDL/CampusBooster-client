@@ -130,7 +130,7 @@ const DeleteUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
   const { user } = useAppSelector(getLoggedInAuthState);
 
   return (
-    user.id === selectedUser.id || userHasHigherRole(user, selectedUser.role) ? (
+    user.id === selectedUser.id || userHasHigherRole(user, selectedUser.role, true) ? (
       <UndeletableUser user={selectedUser} open={open} setOpen={setOpen}/>
     ) : (
       <DeletableUser user={selectedUser} open={open} setOpen={setOpen}/>

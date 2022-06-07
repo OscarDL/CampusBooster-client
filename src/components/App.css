@@ -304,6 +304,9 @@ body .react-select-component__control--is-focused {
   box-shadow: none;
   border-color: rgb(var(--accent-color)) !important;
 }
+body .react-select-component__control:not(.react-select-component__control--is-disabled) {
+  background-color: transparent;
+}
 body .react-select-component__single-value--is-disabled {
   color: hsl(0, 0%, 50%);
 }

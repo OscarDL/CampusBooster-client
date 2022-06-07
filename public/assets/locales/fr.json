@@ -516,11 +516,12 @@
     "update": {
       "title": "Modifier \"{{user}}\"",
       "success": "Utilisateur \"{{user}}\" modifié avec succès.",
+      "uneditable": "Vous ne possédez pas les droits nécessaires pour modifier l'utilisateur \"{{user}}\".",
 
       "reset_pw": {
         "button": "Réinitialiser le mot de passe",
         "tooltip_1": "Vous ne pouvez pas manuellement réinitialiser le mot de passe de \"{{user}}\" sans adresse mail personelle assignée.",
-        "tooltip_2": "En ajoutant une adresse mail personnelle puis en cliquant \"Modifier\", son mot de passe sera automatiquement réinitialisé.",
+        "tooltip_2": "En ajoutant une adresse mail personnelle puis en cliquant sur \"Modifier\", son mot de passe sera automatiquement réinitialisé.",
         "success": "Le mot de passe de l'utilisateur \"{{user}}\" a été réinitialisé et envoyé à son adresse mail personelle.",
         "success_auto": "Son mot de passe a été réinitialisé et envoyé à son adresse mail personnelle suite à ces changements."
       }

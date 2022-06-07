@@ -44,11 +44,13 @@ const CreateUser: FC<Props> = ({open, setOpen}) => {
 
 
   const formIsComplete = () => (
-    newUser.firstName &&
-    newUser.lastName &&
     newUser.birthday &&
+    newUser.lastName &&
+    newUser.firstName &&
+    newUser.personalEmail &&
     !userEmailMatchesError(newUser.email) &&
-    (newUser.role === UserRoles.Student ? newUser.personalEmail : true) &&
+    (newUser.role === UserRoles.Student ? newUser.address : true) &&
+    (newUser.role === UserRoles.Student ? newUser.promotion : true) &&
     (!userShouldHaveNoCampusAssigned(newUser.role) ? newUser.campusId : true)
   );
 
@@ -126,7 +128,7 @@ const CreateUser: FC<Props> = ({open, setOpen}) => {
               label={t('users.fields.role')}
             >
               {Object.values(UserRoles).map(role => (
-                !userHasHigherRole(user, role) ? (
+                !userHasHigherRole(user, role, true) ? (
                   <MenuItem key={role} value={role}>
                     {t(`users.${role.toLowerCase()}.title_role`)}
                   </MenuItem>
@@ -183,17 +185,16 @@ const CreateUser: FC<Props> = ({open, setOpen}) => {
 
         <Box className="MuiDialogContent-row">
           <TextField
-            required
             margin="dense"
             variant="standard"
             name="cb-user-address"
             value={newUser.address}
             label={t('users.fields.address')}
+            required={newUser.role === UserRoles.Student}
             InputProps={{autoComplete: Date.now().toString()}}
             onChange={e => setNewUser({...newUser, address: e.target.value})}
           />
           <TextField
-            required
             type="number"
             margin="dense"
             variant="standard"
@@ -201,6 +202,7 @@ const CreateUser: FC<Props> = ({open, setOpen}) => {
             value={newUser.promotion ?? ''}
             onChange={handleChangePromotion}
             label={t('users.fields.promotion')}
+            required={newUser.role === UserRoles.Student}
             disabled={newUser.role !== UserRoles.Student}
             placeholder={String(new Date().getFullYear())}
             inputProps={{inputMode: 'numeric', pattern: '[0-9]*'}}
@@ -225,20 +227,20 @@ const CreateUser: FC<Props> = ({open, setOpen}) => {
 
         <Box className="MuiDialogContent-row">
           <TextField
+            required
             margin="dense"
             variant="standard"
             value={newUser.personalEmail}
             name="cb-user-personal-email"
             label={t('users.fields.personal_email')}
-            required={newUser.role === UserRoles.Student}
             onChange={e => setNewUser({...newUser, personalEmail: e.target.value})}
           />
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               label={t('users.fields.birthday')}
               value={newUser.birthday ? dayjs(newUser.birthday) : null}
-              onChange={date => setNewUser({...newUser, birthday: date?.isValid() ? dayjs(date).toISOString() : ''})}
               renderInput={(params) => <TextField {...params} required variant="standard" sx={{mt: 1, mb: 0.5}}/>}
+              onChange={date => setNewUser({...newUser, birthday: date?.isValid() ? dayjs(date).toISOString() : ''})}
             />
           </LocalizationProvider>
         </Box>

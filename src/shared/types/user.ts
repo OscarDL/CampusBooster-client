@@ -27,10 +27,10 @@ export type User = {
   avatar?: string,
   address: string,
   gender?: string,
-  lastName: string,
-  promotion?: number,
-  firstName: string,
   birthday: string,
+  lastName: string,
+  firstName: string,
+  promotion?: number,
   personalEmail: string,
 
   Campus?: Campus, // campus info

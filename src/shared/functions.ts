@@ -138,7 +138,7 @@ export const getUserCategories = (categories: AC[], user: User) => {
 };
 
 
-export const userHasHigherRole = (user: User, role: UserRoles) => {
+export const userHasHigherRole = (user: User, role: UserRoles, excludeSameRole?: boolean) => {
   const {
     CampusBoosterAdmin: cba, CampusManager: cm, Assistant: a,
     Company: c, FullProfessor: fp, Professor: p, Student: s
@@ -146,13 +146,13 @@ export const userHasHigherRole = (user: User, role: UserRoles) => {
 
   switch (user.role) {
     case cba: return false;
-    case cm: return role === cba;
-    case a: return [cba, cm].includes(role);
-    case c: return [cba, cm, a].includes(role);
+    case cm: return [cba].concat(excludeSameRole ? cm : []).includes(role);
+    case a: return [cba, cm].concat(excludeSameRole ? a : []).includes(role);
     // company is not superior to professors
-    case fp: return [cba, cm, a].includes(role);
-    case p: return [cba, cm, a, fp].includes(role);
-    case s: return [cba, cm, a, c, fp, p].includes(role);
+    case c: return [cba, cm, a].concat(excludeSameRole ? c : []).includes(role);
+    case fp: return [cba, cm, a].concat(excludeSameRole ? fp : []).includes(role);
+    case p: return [cba, cm, a, fp].concat(excludeSameRole ? p : []).includes(role);
+    case s: return [cba, cm, a, c, fp, p].concat(excludeSameRole ? s : []).includes(role);
   };
 };
 
