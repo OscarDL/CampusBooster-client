@@ -78,9 +78,9 @@
 
       "lang": {
         "title": "Choix du langage",
-        "en": "Anglais",
+        "en": "English",
         "fr": "Français",
-        "(en)": "(English)",
+        "(en)": "(Anglais)",
         "(fr)": "(Français)"
       },
 
@@ -95,8 +95,8 @@
         "title": "Visuel des liens",
         "default": "Par défaut",
         "bold": "Plus gras",
-        "underline": "Soulignés",
-        "bold_underline": "Plus gras et soulignés"
+        "underline": "Souligné",
+        "bold_underline": "Plus gras et souligné"
       }
     },
 

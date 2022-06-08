@@ -81,9 +81,9 @@
       "lang": {
         "title": "Language selection",
         "en": "English",
-        "fr": "French",
+        "fr": "Français",
         "(en)": "(English)",
-        "(fr)": "(Français)"
+        "(fr)": "(French)"
       },
 
       "theme": {
@@ -96,9 +96,9 @@
       "links": {
         "title": "Link visuals",
         "default": "Default",
-        "bold": "Make bolder",
+        "bold": "Bolder",
         "underline": "Underline",
-        "bold_underline": "Make bolder & underline"
+        "bold_underline": "Bolder & underline"
       }
     },
 

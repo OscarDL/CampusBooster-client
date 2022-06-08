@@ -234,8 +234,10 @@ export const getGradesColumns = ({user, setOpenUpdate, setOpenDelete, setSelecte
       valueGetter: ({row}) => row.ClassroomHasCourse?.Course?.name
     },
     {
-      field: 'average', headerName: t(columnPrefix + 'grade'), width: 100,
-      renderCell: ({row}) => `${row.average} / 20`, filterOperators: getGridNumericOperators()
+      field: 'average', headerName: t(columnPrefix + 'grade'), width: 100, filterOperators: getGridNumericOperators(),
+      renderCell: ({row}) => (
+        <div className={`MuiDataGrid-cellContent grade-cell-${row.average < 10 ? 'failed' : 'passed'}`}>{row.average} / 20</div>
+      )
     },
     {
       field: 'comment', headerName: t(columnPrefix + 'comment'), width: 400

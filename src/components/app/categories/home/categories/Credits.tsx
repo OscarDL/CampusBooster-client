@@ -7,6 +7,7 @@ import { useAppSelector } from '../../../../../store/store';
 import { getFakeCredits } from '../../../../../shared/fake/data';
 import { getDonutChartOptions, getLayoutPosition } from '../utils';
 import { getLoggedInAuthState } from '../../../../../shared/functions';
+import { maxYearlyCredits, requiredYearlyCredits } from '../../../../../shared/utils/values';
 
 import Loader from '../../../../shared/loader';
 import Container from '../../../../shared/container';
@@ -19,12 +20,13 @@ Chart.register(ArcElement, Tooltip, Legend);
 const Credits: FC = () => {
   const { t } = useTranslation();
   const { user } = useAppSelector(getLoggedInAuthState);
+  const { summary } = useAppSelector(state => state.home);
 
   const [subjects, setSubjects] = useState<any[] | null>(null);
   const [legendPos, setLegendPos] = useState<LayoutPosition>(getLayoutPosition());
 
-  const required = subjects?.filter(sub => !sub.optional).map(sub => sub.credits).reduce((a, b) => a + b);
-  const total = subjects?.map(sub => sub.credits).reduce((a, b) => a + b);
+  const total = maxYearlyCredits;
+  const required = requiredYearlyCredits;
 
 
   const data = useMemo(() => ({

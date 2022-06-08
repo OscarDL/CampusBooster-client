@@ -10,6 +10,7 @@ import appReducer, { AppState } from './features/app/slice';
 import authReducer, { AuthState } from './features/auth/slice';
 
 // Individual features
+import homeReducer, { HomeState } from './features/home/slice';
 import toolsReducer, { ToolsState } from './features/tools/slice';
 import usersReducer, { UsersState } from './features/users/slice';
 import campusReducer, { CampusState } from './features/campus/slice';
@@ -30,6 +31,7 @@ type CombinedReducers = {
   auth: AuthState,
 
   // Individual features
+  home: HomeState,
   tools: ToolsState,
   users: UsersState,
   grades: GradesState,
@@ -50,6 +52,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
 
   // Individual features
+  home: homeReducer,
   tools: toolsReducer,
   users: usersReducer,
   campus: campusReducer,

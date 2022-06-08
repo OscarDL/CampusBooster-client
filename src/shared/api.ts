@@ -6,8 +6,10 @@ import authService from '../services/auth';
 import { forceLogout } from '../store/features/auth/slice';
 
 
-const port = process.env.NODE_ENV === 'production' ? '' : (':' + process.env.REACT_APP_API_PORT);
-export const apiUrl = `https://${window.location.hostname}${port}/api/v1/`;
+const port = process.env.NODE_ENV === 'production' ? null : process.env.REACT_APP_API_PORT;
+const domain = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_API_URL : null;
+
+export const apiUrl = `${domain ?? `https://${window.location.hostname}:${port}`}/api/v1/`;
 
 
 export const getAxiosConfig = (): AxiosRequestConfig => ({

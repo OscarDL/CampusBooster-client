@@ -1,0 +1,13 @@
+.grades-view {
+  --failed-color: rgb(220, 80, 60);
+  --passed-color: rgb(0, 160, 100);
+}
+
+.grades-view .grade-cell-failed {
+  font-weight: 500;
+  color: var(--failed-color);
+}
+.grades-view .grade-cell-passed {
+  font-weight: 500;
+  color: var(--passed-color);
+}
