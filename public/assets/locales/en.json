@@ -34,7 +34,32 @@
 
   "home": {
     "icon": "dashboard",
-    "title": "Home"
+    "title": "Home",
+    "banner": "The university built to train future IT experts",
+
+    "top_row": {
+      "campus": "Campus",
+      "courses": "Courses",
+      "students": "Students",
+      "total_credits": "Total credits"
+    },
+
+    "credits": {
+      "title": "ECTS credits: {{earned}}/{{required}}",
+      "earned": "Earned",
+      "required": "Required",
+      "bonus": "Bonus"
+    },
+
+    "planning": {
+      "title": "Upcoming courses",
+      "upcoming_empty": "You have no upcoming courses or exams."
+    },
+
+    "grades": {
+      "title": "Latest grades",
+      "none": "You have no grade at this time."
+    }
   },
 
   "profile": {
@@ -66,13 +91,6 @@
         "success": "Email address was copied to your clipbaord.",
         "error": "Error copying email address to the clipboard."
       }
-    },
-
-    "credits": {
-      "title": "ECTS credits: {{earned}}/{{required}}",
-      "earned": "Earned",
-      "required": "Required",
-      "bonus": "Bonus"
     },
 
     "settings": {

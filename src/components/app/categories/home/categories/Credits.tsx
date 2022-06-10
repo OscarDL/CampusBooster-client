@@ -1,82 +1,89 @@
-import { Doughnut } from 'react-chartjs-2';
+import ReactTooltip from 'react-tooltip';
+import { FC, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FC, useEffect, useMemo, useState } from 'react';
+import { PieChart } from 'react-minimal-pie-chart';
 
+import { Summary } from '../../../../../shared/types/home';
 import { ContentHeader } from '../../../../shared/content';
-import { useAppSelector } from '../../../../../store/store';
-import { getFakeCredits } from '../../../../../shared/fake/data';
-import { getDonutChartOptions, getLayoutPosition } from '../utils';
-import { getLoggedInAuthState } from '../../../../../shared/functions';
 import { maxYearlyCredits, requiredYearlyCredits } from '../../../../../shared/utils/values';
 
-import Loader from '../../../../shared/loader';
 import Container from '../../../../shared/container';
 
-import { Chart, ArcElement, Tooltip, Legend, LayoutPosition } from 'chart.js';
-Chart.register(ArcElement, Tooltip, Legend);
+
+type Props = {
+  summary: Summary
+};
+
+enum ChartColor {
+  blue = '#28d',
+  green = '#4d4',
+  yellow = '#da2'
+};
 
 
-
-const Credits: FC = () => {
+const Credits: FC<Props> = ({summary}) => {
   const { t } = useTranslation();
-  const { user } = useAppSelector(getLoggedInAuthState);
-  const { summary } = useAppSelector(state => state.home);
 
-  const [subjects, setSubjects] = useState<any[] | null>(null);
-  const [legendPos, setLegendPos] = useState<LayoutPosition>(getLayoutPosition());
+  const [hovered, setHovered] = useState<number>();
 
   const total = maxYearlyCredits;
   const required = requiredYearlyCredits;
 
 
-  const data = useMemo(() => ({
-    labels: [
-      t('profile.credits.earned'),
-      t('profile.credits.required'),
-      t('profile.credits.bonus')
-    ],
+  const credits = useMemo(() => summary.annualCredits ?? 0, [summary.annualCredits]);
 
-    datasets: [{
-      data: [
-        user.credits,
-        required - user.credits < 0 ? 0 : required - user.credits,
-        total - Math.max(required, user.credits)
-      ],
-      backgroundColor: ['#4d4', '#da2', '#28d'],
-      label: t('profile.credits.title'),
-    }]
-  }), [user.credits, required, total, t]);
-
-
-  useEffect(() => {
-    const adaptLayout = (e: UIEvent) => {
-      const target = e.target as Window;
-      setLegendPos(getLayoutPosition(target));
+  const data = useMemo(() => ([
+    {
+      value: credits,
+      color: ChartColor.green,
+      tooltip: `${t('home.credits.earned')}${t('global.colon')} ${credits}`
+    },
+    {
+      color: ChartColor.yellow,
+      value: required - credits < 0 ? 0 : required - credits,
+      tooltip: `${t('home.credits.required')}${t('global.colon')} ${required}`
+    },
+    {
+      color: ChartColor.blue,
+      value: total - Math.max(required, credits),
+      tooltip: `${t('home.credits.bonus')}${t('global.colon')} ${total - Math.max(required, credits)}`
     }
-
-    window.addEventListener('resize', adaptLayout);
-
-    return () => window.removeEventListener('resize', adaptLayout);
-  }, []);
-
-  useEffect(() => {
-    setSubjects(getFakeCredits());
-  }, []);
+  ]), [credits, required, total, t]);
 
 
   return (
     <Container className="credits">
-      <ContentHeader title={t('profile.credits.title', {earned: user.credits, required})}/>
+      <ContentHeader title={t('home.credits.title', {earned: summary.annualCredits ?? 0, required})}/>
 
-      {subjects ? (
-        <Doughnut
+      <div id="ects-pie" data-for="ects-pie">
+        <PieChart
+          animate
           data={data}
-          height={100}
-          options={getDonutChartOptions(t, legendPos)}
+          lineWidth={30}
+          startAngle={270}
+          animationDuration={1000}
+          style={{maxHeight: '20rem'}}
+          onMouseOut={() => setHovered(undefined)}
+          onMouseOver={(_, index) => setHovered(index)}
+          animationEasing="cubic-bezier(0.3, 0.7, 0.5, 1)"
         />
-      ) : (
-        <Loader/>
-      )}
+
+        <ul id="ects-legend">
+          <li>
+            <div style={{backgroundColor: ChartColor.green}}/>
+            <p>{t('home.credits.earned')}</p>
+          </li>
+          <li>
+            <div style={{backgroundColor: ChartColor.yellow}}/>
+            <p>{t('home.credits.required')}</p>
+          </li>
+          <li>
+            <div style={{backgroundColor: ChartColor.blue}}/>
+            <p>{t('home.credits.bonus')}</p>
+          </li>
+        </ul>
+        <ReactTooltip id="ects-pie" getContent={() => hovered !== undefined ? data[hovered].tooltip : null}/>
+      </div>
     </Container>
   );
 };

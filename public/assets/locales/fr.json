@@ -33,7 +33,32 @@
   },
 
   "home": {
-    "title": "Accueil"
+    "title": "Accueil",
+    "banner": "L'université des futurs experts métiers de l'informatique",
+
+    "top_row": {
+      "campus": "Campus",
+      "courses": "Cours",
+      "students": "Étudiants",
+      "total_credits": "Crédits totaux"
+    },
+
+    "credits": {
+      "title": "Crédits ECTS: {{earned}}/{{required}}",
+      "earned": "Obtenus",
+      "required": "Requis",
+      "bonus": "Bonus"
+    },
+
+    "planning": {
+      "title": "Cours à venir",
+      "upcoming_empty": "Vous n'avez aucun cours ou examen à venir."
+    },
+
+    "grades": {
+      "title": "Dernières notes",
+      "none": "Vous n'avez actuellement aucune note."
+    }
   },
 
   "profile": {
@@ -64,13 +89,6 @@
         "success": "Adresse mail copiée dans votre presse-papier.",
         "error": "Erreur de copie de l'adresse mail."
       }
-    },
-
-    "credits": {
-      "title": "Crédits ECTS: {{earned}}/{{required}}",
-      "earned": "Obtenu",
-      "required": "Requis",
-      "bonus": "Bonus"
     },
 
     "settings": {

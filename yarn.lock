@@ -7884,6 +7884,11 @@ react-is@^18.0.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.1.0.tgz#61aaed3096d30eacf2a2127118b5b41387d32a67"
   integrity sha512-Fl7FuabXsJnV5Q1qIOQwx/sagGF18kogb4gpfcG4gjLBWO0WDiiz1ko/ExayuxE7InyQkBLkxRFG5oxY6Uu3Kg==
 
+react-minimal-pie-chart@^8.3.0:
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/react-minimal-pie-chart/-/react-minimal-pie-chart-8.3.0.tgz#cf6de3d712ea07e87e404276cbb811143ca00682"
+  integrity sha512-ICot74PGPrmGkaie8O+5tRZ5ivukYQ3fRN5ppvw1J01sIa5tHO9cekakyv9nXUkxKifiKn/FQu5uWHfSD39mRQ==
+
 react-multi-select-component@^4.2.3:
   version "4.2.5"
   resolved "https://registry.yarnpkg.com/react-multi-select-component/-/react-multi-select-component-4.2.5.tgz#507a0814baa856bfbd98e48a854f14e6b4d0f0d8"
@@ -8009,6 +8014,14 @@ react-toastify@^8.2.0:
   integrity sha512-Pg2Ju7NngAamarFvLwqrFomJ57u/Ay6i6zfLurt/qPynWkAkOthu6vxfqYpJCyNhHRhR4hu7+bySSeWWJu6PAg==
   dependencies:
     clsx "^1.1.1"
+
+react-tooltip@^4.2.21:
+  version "4.2.21"
+  resolved "https://registry.yarnpkg.com/react-tooltip/-/react-tooltip-4.2.21.tgz#840123ed86cf33d50ddde8ec8813b2960bfded7f"
+  integrity sha512-zSLprMymBDowknr0KVDiJ05IjZn9mQhhg4PRsqln0OZtURAJ1snt1xi5daZfagsh6vfsziZrc9pErPTDY1ACig==
+  dependencies:
+    prop-types "^15.7.2"
+    uuid "^7.0.3"
 
 react-transition-group@^4.3.0, react-transition-group@^4.4.2:
   version "4.4.2"
@@ -9232,6 +9245,11 @@ utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
+
+uuid@^7.0.3:
+  version "7.0.3"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.3.tgz#c5c9f2c8cf25dc0a372c4df1441c41f5bd0c680b"
+  integrity sha512-DPSke0pXhTZgoF/d+WSt2QaKMCFSfx7QegxEWT+JOuHF5aWrKEn0G+ztjuJg/gG8/ItK+rbPCD/yNv8yyih6Cg==
 
 uuid@^8.3.2:
   version "8.3.2"

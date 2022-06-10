@@ -1,15 +1,296 @@
-.home-view .content__body > #grid {
+.home-view {
+  --failed-color: rgb(220, 80, 60);
+  --passed-color: rgb(0, 160, 100);
+}
+
+.home-view .content__body {
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* --- Supinfo Banner --- */
+
+.home-view .banner {
+  position: relative;
+}
+
+.home-view .banner__background {
+  width: 100%;
+  height: auto;
+  min-height: 9rem;
+  max-height: 12rem;
+  object-fit: cover;
+  filter: blur(1px);
+  border-radius: var(--radius-medium);
+  box-shadow: var(--container-box-shadow);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1)), url(../../../../public/assets/images/banner/background2.png);
+}
+
+.home-view .banner__content {
+  inset: 0;
+  display: flex;
+  position: absolute;
+  justify-content: flex-end;
+}
+
+.home-view .banner__logo {
+  align-self: stretch;
+}
+
+.home-view .banner__text {
+  max-width: 40rem;
+  align-self: center;
+  padding: 0.75rem 1rem 1rem;
+
+  z-index: 1;
+  color: white;
+  text-align: right;
+  text-shadow: 0 0 3rem black;
+}
+
+
+/* --- Top grid row (school info) --- */
+
+.home-view .top-grid {
+  gap: 1rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+}
+
+.home-view .top-grid .top-info-card {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-medium);
+  background-color: rgb(var(--theme-bg));
+  box-shadow: var(--container-box-shadow);
+
+  gap: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.home-view .top-grid .top-info-card__title {
+  gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  color: rgb(var(--accent-color));
+}
+.home-view .top-grid .top-info-card__title > strong {
+  font-size: 2rem;
+}
+.home-view .top-grid .top-info-card__title > p {
+  font-size: 1.1rem;
+}
+
+.home-view .top-grid .top-info-card__icon {
+  opacity: 0.5;
+  font-size: 3rem;
+}
+
+
+/* --- Top grid row (user info) --- */
+
+.home-view .bottom-grid {
   gap: 1rem;
   display: grid;
   grid-auto-flow: column;
   grid-template: auto / 1fr 1fr;
 }
 
+.home-view .bottom-grid > .planning-grades {
+  gap: 1rem;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+
+/* For other users than students */
+.home-view .bottom-grid.no-credits {
+  grid-auto-flow: row;
+  grid-template: auto / 1fr;
+}
+.home-view .bottom-grid.no-credits > .planning-grades {
+  grid-template-columns: 1fr 1fr;
+}
+
+.home-view .bottom-grid .bottom-info-card {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-medium);
+  background-color: rgb(var(--theme-bg));
+  box-shadow: var(--container-box-shadow);
+
+  gap: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 
 /* --- Credits progress --- */
 
 .home-view .credits {
-  /* Workaround for ChartJS not resizing down */
-  width: 99%;
-  margin: 0 auto;
+  display: flex;
+  max-height: 40rem;
+  flex-direction: column;
+}
+
+.home-view .credits #ects-pie {
+  gap: 1rem;
+  flex-grow: 1;
+  display: grid;
+  place-items: center;
+  grid-auto-flow: column;
+}
+
+.home-view .credits #ects-legend {
+  gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  list-style: none;
+  flex-direction: column;
+}
+.home-view .credits #ects-legend > li {
+  gap: 1rem;
+  display: flex;
+  align-items: center;
+}
+.home-view .credits #ects-legend > li > div {
+  width: 3rem;
+  height: 1rem;
+}
+
+
+/* --- Latest grades --- */
+
+.home-view .home-grades .grades__list {
+  gap: 1rem;
+  display: grid;
+  list-style: none;
+  overflow-x: auto;
+  padding: 0 1rem 1rem;
+  margin: 0 -1rem -1rem;
+}
+
+.home-view .home-grades .grades__empty {
+  display: grid;
+  padding: 1.5rem;
+  text-align: center;
+  place-items: center;
+}
+
+.home-view .home-grades .grades__item > div {
+  min-height: 28px;
+  padding-left: 0.66rem;
+
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+
+.home-view .home-grades .grades__item > div::before {
+  left: 0;
+  top: 50%;
+  width: 3px;
+  height: 100%;
+  content: ' ';
+  position: absolute;
+  transform: translateY(-50%);
+  border-radius: var(--radius-large);
+}
+.home-view .home-grades .grades__item > div.past {
+  opacity: 0.5;
+}
+
+.home-view .home-grades .grades__item__course {
+  flex-shrink: 0;
+  font-weight: 600;
+}
+
+.home-view .home-grades .grades__item__title {
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.home-view .home-grades .grades__item > .failed-color::before {
+  background-color: var(--failed-color);
+}
+.home-view .home-grades .grades__item > .failed-color .grades__item__course {
+  color: var(--passed-color);
+}
+
+.home-view .home-grades .grades__item > .passed-color::before {
+  background-color: var(--passed-color);
+}
+.home-view .home-grades .grades__item > .passed-color .grades__item__course {
+  color: var(--passed-color);
+}
+
+/* Action button */
+.home-view .home-grades .grades__item__more {
+  flex-grow: 1;
+  justify-self: flex-end;
+}
+.home-view .home-grades .grades__item__more > button {
+  float: right;
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+
+.home-view .home-grades .details__empty {
+  display: grid;
+  padding: 1.5rem;
+  text-align: center;
+  place-items: center;
+}
+
+
+/* Up to: Laptops */
+@media (max-width: 1279px) {
+  .home-view .credits #ects-legend > li {
+    gap: 0.25rem;
+    flex-direction: column;
+  }
+}
+
+/* Up to: Tablets (landscape) */
+@media (max-width: 1023px) {
+  .home-view .banner__text {
+    max-width: 80%;
+    font-weight: bold;
+    font-size: 1.75rem;
+  }
+
+  .home-view .bottom-grid {
+    flex-grow: unset;
+    grid-auto-flow: row;
+    grid-template: auto 1fr / auto;
+  }
+
+  .home-view .credits #ects-pie {
+    grid-auto-flow: row;
+  }
+
+  .home-view .credits #ects-legend,
+  .home-view .credits #ects-legend > li {
+    flex-direction: row;
+  }
+}
+
+/* Up to: Smartphones */
+@media (max-width: 479px) {
+  .home-view .banner__text {
+    font-size: 1.5rem;
+  }
+}
+
+/* Up to: Very Narrow Smartphones */
+@media (max-width: 360px) {
+  .home-view .banner__text {
+    max-width: 70%;
+    font-size: 1.25rem;
+  }
 }

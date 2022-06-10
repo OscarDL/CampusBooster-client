@@ -36,6 +36,7 @@
   --divider-color: 224, 224, 224;
   --button-bg-darker: 234, 234, 234;
   --scrollbar-background: 100, 100, 100;
+  --container-box-shadow: 0 0 0.5rem 0.05rem rgba(0, 0, 0, 0.05);
 }
 
 :root.dark {

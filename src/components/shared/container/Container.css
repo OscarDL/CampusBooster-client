@@ -2,7 +2,7 @@
   padding: 1rem;
   border-radius: var(--radius-medium);
   background-color: rgb(var(--theme-bg));
-  box-shadow: 0 0 0.5rem 0.05rem rgba(0, 0, 0, 0.05);
+  box-shadow: var(--container-box-shadow);
 }
 
 .container-wrapper {

@@ -1,15 +1,17 @@
+.planning-view {
+  --max-calendar-picker-width: 280px;
+  --course-color-course: rgb(20, 140, 180);
+  --course-color-project: rgb(160, 20, 120);
+  --course-color-oral_exam: rgb(200, 70, 30);
+  --course-color-practice_exam: rgb(80, 160, 20);
+  --course-color-today: rgb(var(--accent-color));
+}
+
 .planning-view .content__body {
   gap: 1rem;
   display: grid;
   grid-auto-flow: column;
   grid-template: auto / auto 1fr;
-
-  --max-calendar-picker-width: 280px;
-  --course-color-practice_exam: rgb(80, 160, 20);
-  --course-color-oral_exam: rgb(200, 70, 30);
-  --course-color-project: rgb(160, 20, 120);
-  --course-color-course: rgb(20, 140, 180);
-  --course-color-today: rgb(var(--accent-color));
 }
 
 .planning-view .calendar-picker > .content__header {
@@ -93,8 +95,8 @@
 }
 
 .planning-view .details__empty {
-  padding: 2rem;
   display: grid;
+  padding: 1.5rem;
   text-align: center;
   place-items: center;
 }

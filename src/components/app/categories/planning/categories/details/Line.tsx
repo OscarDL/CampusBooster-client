@@ -35,7 +35,7 @@ const DetailsLine: FC<Props> = ({planning}) => {
       </span>
 
       <span className="details__item__title">
-        &nbsp;{course?.name} - {course?.description}
+        &nbsp;{course?.name} &ndash; {course?.description}
       </span>
 
       <span className="details__item__more">
