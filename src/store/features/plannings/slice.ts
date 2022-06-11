@@ -49,7 +49,7 @@ export const createPlanningEntry = createAsyncThunk('planning/createPlanningEntr
   };
 });
 
-export const updatePlanningEntry = createAsyncThunk('planning/updatePlanningEntry', async (planning: Planning, thunkAPI) => {
+export const updatePlanningEntry = createAsyncThunk('planning/updatePlanningEntry', async (planning: PlanningRequest, thunkAPI) => {
   try {
     return await planningService.updatePlanningEntry(planning);
   }

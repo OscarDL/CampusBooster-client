@@ -19,10 +19,13 @@
 .home-view .banner__background {
   width: 100%;
   height: 9rem;
-  object-fit: cover;
   filter: blur(1px);
+  object-fit: cover;
   border-radius: var(--radius-medium);
   box-shadow: var(--container-box-shadow);
+
+  background-size: cover;
+  background-repeat: no-repeat;
   background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1)), url(../../../../public/assets/images/banner/background2.png);
 }
 
@@ -158,6 +161,10 @@
   height: 1rem;
 }
 
+.home-view .credits > .container > :last-child {
+  flex-grow: 1;
+}
+
 
 /* --- Planning + Grades layout --- */
 
@@ -240,12 +247,13 @@
   justify-self: flex-end;
 }
 .home-view .home-grades .grades__item__more > button {
+  padding: 0;
   float: right;
   font-size: 1rem;
-  padding: 0 0.5rem;
 }
 
 .home-view .home-grades .details__empty {
+  flex-grow: 1;
   display: grid;
   padding: 1.5rem;
   text-align: center;

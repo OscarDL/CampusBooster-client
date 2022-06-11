@@ -1,38 +1,68 @@
 import dayjs from 'dayjs';
-import { FC } from 'react';
+import { FC, useState } from 'react';
+import { Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { DeleteOutlined, EditOutlined } from '@mui/icons-material';
 
-import { FakeCourse } from '../../../../../../../shared/types/course';
+import { Classroom } from '../../../../../../../shared/types/classroom';
+import { Planning, PlanningPeriod, PlanningType } from '../../../../../../../shared/types/planning';
+
+import UpdatePlanningEntry from './dialogs/Update';
+import DeletePlanningEntry from './dialogs/Delete';
 
 
 type Props = {
-  course: FakeCourse
+  planning: Planning,
+  classroom: Classroom | undefined
 };
 
 
-const DetailsLine: FC<Props> = ({course}) => {
+const DetailsLine: FC<Props> = ({classroom, planning}) => {
   const { t } = useTranslation();
 
-  const courseType = (date: Date): 'today' | undefined => {
-    if (date.setHours(0) === (new Date()).setHours(0)) {
-      return 'today'; // Show today's course in a special (accent) color
+  const [openUpdate, setOpenUpdate] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+
+  const course = planning.ClassroomHasCourse.Course;
+  const past = dayjs(planning.date).isBefore(dayjs(), 'day');
+  const period = t('planning.details.period.' + planning.period.toLowerCase());
+
+  const courseType = (date: string): string => {
+    if (dayjs().isSame(date, 'day')) {
+      return PlanningType.Today.toLowerCase(); // Show today's course in accent color
     }
+    return planning.type.toLowerCase();
   };
 
 
-  return (<>
-    {course.dates?.map((date, key) => (
-      <li key={key} className={'details__item course-color-' + (courseType(date) ?? course.type)}>
-        <span className="details__item__date">
-          {`${dayjs(date).format(t('global.date.mmmm-dd'))} ${t('global.colon')} `}
-        </span>
+  return (
+    <div className={`course-color-${courseType(planning.date)}${past ? ' past' : ''}`}>
+      <span className="details__item__date">
+        {`${dayjs(planning.date).format(t('global.date.mmmm-dd'))}`}
+        {planning.period !== PlanningPeriod.FullDay ? ` (${period})` : ''}
+        {t('global.colon')}
+      </span>
 
-        <span className="details__item__title">
-          {course.name} - {course.title}
-        </span>
-      </li>
-    ))}
-  </>);
+      &nbsp;<span
+        title={!planning.cancelled ? t('admin.plannings.fields.cancelled') : ''}
+        className={'details__item__title' + (planning.cancelled ? ' cancelled' : '')}
+      >
+        {course?.name} <span>&ndash; {course?.description}</span>
+      </span>
+
+      <span className="details__item__more">
+        <Button color="primary" sx={{mr: 1}} onClick={() => setOpenUpdate(true)}>
+          <EditOutlined/>
+        </Button>
+        <Button color="error" onClick={() => setOpenDelete(true)}>
+          <DeleteOutlined/>
+        </Button>
+      </span>
+
+      <UpdatePlanningEntry classroom={classroom} planning={planning} open={openUpdate} setOpen={setOpenUpdate}/>
+      <DeletePlanningEntry planning={planning} open={openDelete} setOpen={setOpenDelete}/>
+    </div>
+  );
 };
 
 

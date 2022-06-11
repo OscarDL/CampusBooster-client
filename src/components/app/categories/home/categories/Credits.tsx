@@ -55,7 +55,7 @@ const Credits: FC<Props> = ({summary}) => {
     <Container className="credits">
       <ContentHeader title={t('home.credits.title', {earned: summary.annualCredits ?? 0, required})}/>
 
-      <div id="ects-pie" data-for="ects-pie">
+      <div id="ects-pie" data-tip="" data-for="ects-pie">
         <PieChart
           animate
           data={data}
@@ -63,7 +63,9 @@ const Credits: FC<Props> = ({summary}) => {
           startAngle={270}
           animationDuration={1000}
           style={{maxHeight: '20rem'}}
+          onBlur={() => setHovered(undefined)}
           onMouseOut={() => setHovered(undefined)}
+          onClick={(_, index) => setHovered(index)}
           onMouseOver={(_, index) => setHovered(index)}
           animationEasing="cubic-bezier(0.3, 0.9, 0.4, 1)"
         />

@@ -1,11 +1,10 @@
 import dayjs from 'dayjs';
-import { FC, useMemo } from 'react';
 import { Divider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { FC, useEffect, useMemo } from 'react';
 
 import { ContentHeader } from '../../../../../shared/content';
 import { useAppSelector } from '../../../../../../store/store';
-import { Project } from '../../../../../../shared/types/project';
 
 import ProjectsLine from './Line';
 import Container from '../../../../../shared/container';
@@ -15,11 +14,16 @@ const ProjectsList: FC = () => {
   const { t } = useTranslation();
   const { projectsList } = useAppSelector(state => state.projects);
 
-  const projects = useMemo(() => {
-    // Only return projects that have not yet met their deadline date
-    const getDeadline = ({endDate}: Project) => dayjs(endDate).add(1, 'day');
-    return (projectsList ?? []).filter(project => dayjs().isBefore(getDeadline(project), 'day'));
-  }, [projectsList]);
+
+  const itemRefs: {[key: number]: HTMLLIElement | null} = useMemo(() => ({}), []);
+
+  useEffect(() => {
+    const item = (projectsList ?? []).find(project => (
+      dayjs(project.endDate).add(1, 'day').isAfter(dayjs(), 'day')
+    ));
+
+    if (item) itemRefs[item.id]?.scrollIntoView();
+  }, [itemRefs, projectsList]);
 
 
   return (
@@ -27,10 +31,14 @@ const ProjectsList: FC = () => {
       <ContentHeader title={t('planning.projects.title')}/>
       <Divider sx={{mb: '1rem'}}/>
 
-      {projects.length > 0 ? (
+      {projectsList ? (
         <ul className="details__list">
-          {projects.map((project, key) => (
-            <li key={key} className="details__item">
+          {projectsList.map((project, key) => (
+            <li
+              key={key}
+              className="details__item"
+              ref={el => (itemRefs[project.id] = el)}
+            >
               <ProjectsLine project={project}/>
             </li>
           ))}

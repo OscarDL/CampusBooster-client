@@ -16,10 +16,6 @@
   flex-direction: column;
 }
 
-.container-wrapper > .container > :last-child {
-  flex-grow: 1;
-}
-
 
 /* Laptops & Desktops */
 @media (min-width: 1024px) {

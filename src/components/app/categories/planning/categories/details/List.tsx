@@ -29,11 +29,11 @@ const DetailsList: FC<Props> = ({date}) => {
 
   useEffect(() => {
     const item = plannings.find(planning => (
-      dayjs(planning.date).add(1, 'day').isAfter(date, 'day')
+      dayjs(planning.date).add(1, 'day').isAfter(dayjs(), 'day')
     ));
 
     if (item) itemRefs[item.id]?.scrollIntoView();
-  }, [date, itemRefs, plannings]);
+  }, [itemRefs, plannings]);
 
 
   return (

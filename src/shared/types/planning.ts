@@ -12,6 +12,12 @@ export enum PlanningType {
   Empty = ''
 };
 
+export enum PlanningRequestType {
+  PracticeExam = 'PRACTICE_EXAM',
+  OralExam = 'ORAL_EXAM',
+  Course = 'COURSE'
+};
+
 export enum PlanningPeriod {
   FullDay = 'FULL_DAY',
   Morning = 'MORNING',
@@ -28,6 +34,7 @@ export type RenderDay = (
 export type Planning = {
   id: number,
   date: string,
+  remote: boolean,
   cancelled: boolean,
   type: PlanningType,
   period: PlanningPeriod,
@@ -39,8 +46,9 @@ export type Planning = {
 export type PlanningRequest = {
   id?: number,
   date: string,
+  remote: boolean,
   cancelled: boolean,
-  type: PlanningType,
   period: PlanningPeriod,
+  type: PlanningRequestType,
   classroomHasCourseId: number
 };

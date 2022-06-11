@@ -98,6 +98,12 @@
   display: none;
 }
 
+.container .content__header .options {
+  color: initial;
+  align-items: center;
+  justify-content: center;
+}
+
 
 /* Content Body */
 

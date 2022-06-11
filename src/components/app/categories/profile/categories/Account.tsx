@@ -18,9 +18,9 @@ type Props = {
 const Account: FC<Props> = ({user}) => {
   const { t } = useTranslation();
 
-  const copyEmailToClipboard = async () => {
+  const copyEmailToClipboard = async (email: string) => {
     try {
-      await navigator.clipboard.writeText(user.email);
+      await navigator.clipboard.writeText(email);
       toast.info(t('profile.account.email_copy.success'));
     }
     catch (error) {
@@ -39,17 +39,23 @@ const Account: FC<Props> = ({user}) => {
           <ul>
             <li>
               <p>{t('profile.account.first_name')}</p>
-              <span>&nbsp;{user.firstName}</span>
+              &nbsp;<span>{user.firstName}</span>
             </li>
 
             <li>
               <p>{t('profile.account.last_name')}</p>
-              <span>&nbsp;{user.lastName}</span>
+              &nbsp;<span>{user.lastName}</span>
             </li>
 
-            <li onClick={copyEmailToClipboard} style={{cursor: 'pointer'}}>
+            <li>
               <p>{t('profile.account.email')}</p>
-              <span title={user.email}>&nbsp;{user.email}</span>
+              &nbsp;<span
+                title={user.email}
+                onClick={() => copyEmailToClipboard(user.email)}
+                style={{cursor: 'pointer', textDecoration: 'underline'}}
+              >
+                {user.email}
+              </span>
             </li>
           </ul>
         </div>
@@ -61,23 +67,40 @@ const Account: FC<Props> = ({user}) => {
         <ContentHeader title={t('profile.account.title_more')}/>
         <ul>
           <li>
+            <p>{t('profile.account.gender.title')}</p>
+            &nbsp;<span>{t('profile.account.gender.' + (user.gender?.toLowerCase() ?? 'none'))}</span>
+          </li>
+
+          <li>
             <p>{t('profile.account.birthday')}</p>
-            <span>&nbsp;{dayjs(user.birthday).format(t('global.date.mmm-d-yyyy'))}</span>
+            &nbsp;<span>{dayjs(user.birthday).format(t('global.date.mmm-d-yyyy'))}</span>
+          </li>
+
+          <li>
+            <p>{t('profile.account.address')}</p>
+            &nbsp;<span>{user.address}</span>
+          </li>
+
+          <li>
+            <p>{t('profile.account.personal_email')}</p>
+            &nbsp;<span
+              title={user.personalEmail}
+              onClick={() => copyEmailToClipboard(user.personalEmail)}
+              style={{cursor: 'pointer', textDecoration: 'underline'}}
+            >
+              {user.personalEmail}
+            </span>
           </li>
 
           <li>
             <p>{t('profile.account.campus')}</p>
-            <span>&nbsp;{user.Campus?.name ?? t('profile.account.no_campus')}</span>
+            &nbsp;<span>{user.Campus?.name ?? t('profile.account.no_campus')}</span>
           </li>
 
           <li>
             <p>{t('profile.account.promotion')}</p>
-            <span>&nbsp;
-              {user.UserHasClassrooms?.[0]?.Classroom?.promotion ? (
-                t('profile.account.promotion_text', {count: user.UserHasClassrooms?.[0]?.Classroom?.promotion})
-              ) : (
-                t('profile.account.no_promotion')
-              )}
+            &nbsp;<span>
+              {user.UserHasClassrooms?.[0]?.Classroom?.promotion ?? t('profile.account.no_promotion')}
             </span>
           </li>
         </ul>

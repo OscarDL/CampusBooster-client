@@ -49,7 +49,7 @@ export const createProject = createAsyncThunk('project/createProject', async (pr
   };
 });
 
-export const updateProject = createAsyncThunk('project/updateProject', async (project: Project, thunkAPI) => {
+export const updateProject = createAsyncThunk('project/updateProject', async (project: ProjectRequest, thunkAPI) => {
   try {
     return await projectService.updateProject(project);
   }

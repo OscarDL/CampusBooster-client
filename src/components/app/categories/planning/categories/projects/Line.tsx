@@ -16,10 +16,11 @@ type Props = {
 const ProjectsLine: FC<Props> = ({project}) => {
   const { t } = useTranslation();
   const [details, setDetails] = useState<Project>();
+  const past = dayjs(project.endDate).isBefore(dayjs(), 'day');
 
 
   return (
-    <div className="course-color-project">
+    <div className={`course-color-project${past ? ' past' : ''}`}>
       <span className="details__item__date">
         {`${t('planning.projects.for')} ${dayjs(project.endDate).format(t('global.date.mmmm-dd'))} ${t('global.colon')}`}
       </span>
@@ -30,7 +31,7 @@ const ProjectsLine: FC<Props> = ({project}) => {
 
       <span className="details__item__more">
         <Button onClick={() => setDetails(project)}>
-          Expand
+          &nbsp;&nbsp;Expand&nbsp;&nbsp;
         </Button>
       </span>
 

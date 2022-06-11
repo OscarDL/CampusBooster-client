@@ -39,7 +39,7 @@ const createPlanningEntry = async (planning: PlanningRequest) => {
   }
 };
 
-const updatePlanningEntry = async (planning: Planning) => {
+const updatePlanningEntry = async (planning: PlanningRequest) => {
   try {
     const response = await axios.patch(apiUrl + 'plannings/' + planning.id, planning, getAxiosConfig());
     return response.data;

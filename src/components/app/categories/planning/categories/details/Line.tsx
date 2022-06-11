@@ -34,8 +34,11 @@ const DetailsLine: FC<Props> = ({planning}) => {
         {t('global.colon')}
       </span>
 
-      <span className="details__item__title">
-        &nbsp;{course?.name} <span>&ndash; {course?.description}</span>
+      &nbsp;<span
+        title={planning.cancelled ? t('planning.details.cancelled') : ''}
+        className={'details__item__title' + (planning.cancelled ? ' cancelled' : '')}
+      >
+        {course?.name} <span>&ndash; {course?.description}</span>
       </span>
 
       <span className="details__item__more">

@@ -1,5 +1,6 @@
 import { FC, ReactFragment } from 'react';
 import { IconButton } from '@mui/material';
+import { Refresh } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton } from '@mui/x-data-grid-pro';
 
@@ -23,8 +24,8 @@ const DataGridHeader: FC<Props> = ({loading, refreshData, title}) => {
         </span>
 
         {refreshData && !loading && (
-          <IconButton onClick={refreshData}>
-            <span className="material-icons">refresh</span>
+          <IconButton color="primary" onClick={refreshData}>
+            <Refresh/>
           </IconButton>
         )}
       </div>

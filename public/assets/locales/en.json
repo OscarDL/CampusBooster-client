@@ -82,10 +82,19 @@
       "birthday": "Birthday:",
       "campus": "Campus location:",
       "no_campus": "No campus.",
+      "address": "Address:",
+      "personal_email": "Personal email address:",
       "promotion": "Current promotion:",
       "promotion_text_one": "Year {{count}}",
       "promotion_text_other": "Year {{count}}",
       "no_promotion": "No promotion.",
+
+      "gender": {
+        "title": "Gender:",
+        "m": "Masculine",
+        "f": "Feminine",
+        "none": "Unknown"
+      },
 
       "email_copy": {
         "success": "Email address was copied to your clipbaord.",
@@ -127,6 +136,18 @@
         {
           "title": "Microsoft Account",
           "url": "https://myaccount.microsoft.com"
+        },
+        {
+          "title": "SUPINFO News",
+          "url": "https://www.supinfo.com/blog"
+        },
+        {
+          "title": "SUPINFO SharePoint",
+          "url": "https://ionissupinfo.sharepoint.com"
+        },
+        {
+          "title": "SUPINFO Azure Portal",
+          "url": "https://portal.azure.com"
         }
       ]
     }
@@ -220,6 +241,7 @@
     "icon": "calendar_month",
 
     "details": {
+      "cancelled": "Cancelled",
       "title": "Details for this month",
       "none": "Planning for {{m}} is currently empty.",
       "period": {
@@ -668,6 +690,79 @@
         "text": "Please type in the name of the classroom below to avoid accidental removal.",
         "name": "Classroom name",
         "success": "Classroom \"{{classroom}}\" successfully deleted."
+      }
+    },
+
+    "plannings": {
+      "title": "Manage plannings",
+      "select_classroom": "Please select a classroom from select menu above the calendar.",
+
+      "fields": {
+        "date": "Date",
+        "remote": "Remote",
+        "cancelled": "Cancelled",
+
+        "type": {
+          "title": "Course type",
+          "course": "Course",
+          "oral_exam": "Oral exam",
+          "practice_exam": "Practice exam"
+        },
+
+        "period": {
+          "title": "Period",
+          "morning": "Morning",
+          "full_day": "Full day",
+          "afternoon": "Afternoon"
+        }
+      },
+
+      "add": {
+        "button": "Add course",
+        "title": "New planning entry",
+        "select_course": "Select a course",
+        "select_classroom": "Select a classroom",
+        "success": "Planning entry successfully created."
+      },
+
+      "update": {
+        "title": "Update planning entry",
+        "success": "Planning entry successfully updated."
+      },
+
+      "delete": {
+        "title": "Delete planning entry",
+        "text": "Please type in the date and name of the course  as shown below to avoid accidental deletion.",
+        "success": "Planning entry successfully deleted."
+      }
+    },
+
+    "projects": {
+      "fields": {
+        "start_date": "Start date",
+        "end_date": "End date",
+        "title": "Project title",
+        "link": "Canvas link",
+        "details": "Details"
+      },
+
+      "create": {
+        "button": "Add project",
+        "title": "New project for classroom",
+        "select_course": "Select a course",
+        "select_classroom": "Select a classroom",
+        "success": "Project successfully created."
+      },
+
+      "update": {
+        "title": "Update project",
+        "success": "Project successfully updated."
+      },
+
+      "delete": {
+        "title": "Delete project",
+        "text": "Please type in the name of the course and project as shown below to avoid accidental deletion.",
+        "success": "Project successfully deleted."
       }
     },
 

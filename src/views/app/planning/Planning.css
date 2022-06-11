@@ -95,6 +95,7 @@
 }
 
 .planning-view .details__empty {
+  flex-grow: 1;
   display: grid;
   padding: 1.5rem;
   text-align: center;
@@ -133,6 +134,9 @@
   overflow-x: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+.planning-view .details__item__title.cancelled {
+  text-decoration: line-through;
 }
 
 .planning-view .details__item > .course-color-course::before {
@@ -175,12 +179,14 @@
 /* Action button */
 .planning-view .details__item__more {
   flex-grow: 1;
-  justify-self: flex-end;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 .planning-view .details__item__more > button {
+  padding: 0;
   float: right;
   font-size: 1rem;
-  padding: 0 0.5rem;
 }
 
 

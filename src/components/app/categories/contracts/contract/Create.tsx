@@ -108,16 +108,16 @@ const CreateContract: FC<Props> = ({open, setOpen}) => {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <Box className="MuiDialogContent-row">
             <DatePicker
-              label={t('contracts.update.start_date')}
+              label={t('contracts.fields.start_date')}
               value={contract.startDate ? dayjs(contract.startDate) : null}
-              renderInput={(params) => <TextField {...params} required variant="standard" InputLabelProps={{shrink: true}}/>}
               onChange={date => setContract({...contract, startDate: date?.isValid() ? dayjs(date).toISOString() : ''})}
+              renderInput={(params) => <TextField {...params} required variant="standard" InputLabelProps={{shrink: true}}/>}
             />
             <DatePicker
-              label={t('contracts.update.end_date')}
+              label={t('contracts.fields.end_date')}
               value={contract.endDate ? dayjs(contract.endDate) : null}
-              renderInput={(params) => <TextField {...params} required variant="standard" InputLabelProps={{shrink: true}}/>}
               onChange={date => setContract({...contract, endDate: date?.isValid() ? dayjs(date).toISOString() : ''})}
+              renderInput={(params) => <TextField {...params} required variant="standard" InputLabelProps={{shrink: true}}/>}
             />
           </Box>
         </LocalizationProvider>

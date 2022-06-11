@@ -24,7 +24,10 @@ const Header: FC<Props> = ({backButton, children, title}) => {
     <div className="content__header">
       <div className="flex flex-align">
         {backButton && (
-          <IconButton onClick={() => navigate('..')}>
+          <IconButton
+            onClick={() => navigate('..')}
+            color="primary" sx={{mb: '-2px'}}
+          >
             <span className="material-icons-round">arrow_back_ios_new</span>
           </IconButton>
         )}

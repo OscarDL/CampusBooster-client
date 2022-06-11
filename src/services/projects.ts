@@ -39,7 +39,7 @@ const createProject = async (project: ProjectRequest) => {
   }
 };
 
-const updateProject = async (project: Project) => {
+const updateProject = async (project: ProjectRequest) => {
   try {
     const response = await axios.patch(apiUrl + 'projects/' + project.id, project, getAxiosConfig());
     return response.data;

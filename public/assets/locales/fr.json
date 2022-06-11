@@ -80,10 +80,19 @@
       "birthday": "Date de naissance :",
       "campus": "Emplacement du campus :",
       "no_campus": "Pas de campus.",
+      "address": "Adresse postale :",
+      "personal_email": "Adresse mail personelle :",
       "promotion": "Promotion actuelle :",
       "promotion_text_one": "{{count}}ère année",
       "promotion_text_other": "{{count}}e année",
       "no_promotion": "Pas de promotion.",
+
+      "gender": {
+        "title": "Genre :",
+        "m": "Masculin",
+        "f": "Féminin",
+        "none": "Inconnu"
+      },
 
       "email_copy": {
         "success": "Adresse mail copiée dans votre presse-papier.",
@@ -125,6 +134,18 @@
         {
           "title": "Compte Microsoft",
           "url": "https://myaccount.microsoft.com"
+        },
+        {
+          "title": "Actualités SUPINFO",
+          "url": "https://www.supinfo.com/blog"
+        },
+        {
+          "title": "SharePoint SUPINFO",
+          "url": "https://ionissupinfo.sharepoint.com"
+        },
+        {
+          "title": "Portail Azure SUPINFO",
+          "url": "https://portal.azure.com"
         }
       ]
     }
@@ -215,6 +236,7 @@
     "label": "Choisissez une date",
 
     "details": {
+      "cancelled": "Annulé",
       "title": "Détails du mois",
       "none": "Le planning de {{m}} est actuellement vide.",
       "period": {
@@ -319,7 +341,7 @@
       "end_date": "Date de fin",
       "email": "Email de contact",
       "phone": "Téléphone contact",
-      "address": "Addresse",
+      "address": "Adresse postale",
       "url": "Lien (URL)",
       "details": "Détails",
       "details_field": "Voir plus",
@@ -509,7 +531,7 @@
       "role": "Rôle",
       "first_name": "Prénom",
       "last_name": "Nom",
-      "address": "Addresse",
+      "address": "Adresse postale",
       "campus": "Campus",
       "promotion": "Promotion",
       "credits": "Crédits",
@@ -585,7 +607,7 @@
 
       "fields": {
         "name": "Nom du campus",
-        "address": "Adresse",
+        "address": "Adresse postale",
         "post_code": "Code postal",
         "city": "Ville",
         "open": "Ouvert",
@@ -644,6 +666,79 @@
         "text": "Veuillez entrer le nom de la classe ci-dessous afin d'éviter une suppression accidentelle.",
         "name": "Nom de la classe",
         "success": "Classe \"{{classroom}}\" supprimé avec succès."
+      }
+    },
+
+    "plannings": {
+      "title": "Gestion des plannings",
+      "select_classroom": "Veuillez sélectionnez une classe depuis le menu de sélection au dessus du calendrier.",
+
+      "fields": {
+        "date": "Date",
+        "remote": "À distance",
+        "cancelled": "Annulé",
+
+        "type": {
+          "title": "Type de cours",
+          "course": "Cours",
+          "oral_exam": "Soutenance",
+          "practice_exam": "Examen (TP)"
+        },
+
+        "period": {
+          "title": "Période",
+          "morning": "Matin",
+          "full_day": "Jour complet",
+          "afternoon": "Après-midi"
+        }
+      },
+
+      "add": {
+        "button": "Ajouter un cours",
+        "title": "Nouvelle entrée de calendrier",
+        "select_course": "Sélectionnez un cours",
+        "select_classroom": "Sélectionnez une classe",
+        "success": "Entrée de calendrier créée avec succès."
+      },
+
+      "update": {
+        "title": "Modifier entrée de calendrier",
+        "success": "Entrée de calendrier modifiée avec succès."
+      },
+
+      "remove": {
+        "title": "Supprimer une entrée de calendrier",
+        "text": "Veuillez entrer la date et le nom du cours de l'entrée de calendrier ci-dessous afin d'éviter une suppression accidentelle.",
+        "success": "Entrée de calendrier supprimée avec succès."
+      }
+    },
+
+    "projects": {
+      "fields": {
+        "start_date": "Date de début",
+        "end_date": "Date de fin",
+        "title": "Titre du projet",
+        "link": "Lien Canvas",
+        "details": "Détails"
+      },
+
+      "create": {
+        "button": "Ajouter un projet",
+        "title": "Nouveau projet pour une classe",
+        "select_course": "Sélectionnez un cours",
+        "select_classroom": "Sélectionnez une classe",
+        "success": "Projet créé avec succès."
+      },
+
+      "update": {
+        "title": "Modifier projet",
+        "success": "Projet modifié avec succès."
+      },
+
+      "delete": {
+        "title": "Supprimer projet",
+        "text": "Veuillez entrer le nom du cours et le titre du projet ci-dessous afin d'éviter une suppression accidentelle.",
+        "success": "Projet supprimé avec succès."
       }
     },
 

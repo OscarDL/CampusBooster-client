@@ -172,7 +172,6 @@ button {
   cursor: pointer;
   user-select: none;
   padding: 0.4rem 0.8rem;
-  /* transition: 0.25s !important; */
 }
 
 .button {
