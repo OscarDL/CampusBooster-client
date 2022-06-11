@@ -32,3 +32,11 @@
     overflow: auto;
   }
 }
+
+/* Up to: Tablets (landscape) */
+@media (max-width: 1023px) {
+  .container-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+}

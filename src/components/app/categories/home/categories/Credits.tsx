@@ -65,7 +65,7 @@ const Credits: FC<Props> = ({summary}) => {
           style={{maxHeight: '20rem'}}
           onMouseOut={() => setHovered(undefined)}
           onMouseOver={(_, index) => setHovered(index)}
-          animationEasing="cubic-bezier(0.3, 0.7, 0.5, 1)"
+          animationEasing="cubic-bezier(0.3, 0.9, 0.4, 1)"
         />
 
         <ul id="ects-legend">
