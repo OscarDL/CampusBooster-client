@@ -12,16 +12,10 @@ const login = async (azureData: AzureData) => {
     };
 
     const response = await axios.post(apiUrl + 'auth/login', loginRequest, getAxiosConfig());
-
-    console.log(1)
-    console.log(response)
-    if (response.statusText !== 'OK') throw response;
     return response.data;
   }
 
   catch (error: any) {
-    console.log(2)
-    console.log(error)
     return Promise.reject(error?.response?.data || t('api.error'));
   }
 };
