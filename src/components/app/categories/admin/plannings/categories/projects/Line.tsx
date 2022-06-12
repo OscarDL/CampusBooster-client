@@ -36,7 +36,7 @@ const ProjectsLine: FC<Props> = ({classroom, project}) => {
       </span>
 
       <span className="details__item__more">
-        <Button color="primary" sx={{mr: 1}} onClick={() => setOpenUpdate(true)}>
+        <Button color="primary" onClick={() => setOpenUpdate(true)}>
           <EditOutlined/>
         </Button>
         <Button color="error" onClick={() => setOpenDelete(true)}>

@@ -41,6 +41,7 @@
       "campus": "Campus",
       "courses": "Courses",
       "students": "Students",
+      "contracts": "Active contracts",
       "total_credits": "Total credits"
     },
 
@@ -241,6 +242,7 @@
     "icon": "calendar_month",
 
     "details": {
+      "remote": "Remote",
       "cancelled": "Cancelled",
       "title": "Details for this month",
       "none": "Planning for {{m}} is currently empty.",

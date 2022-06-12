@@ -20,7 +20,7 @@ const Home: FC = () => {
   const { user } = useAppSelector(getLoggedInAuthState);
   const { summary } = useAppSelector(state => state.home);
 
-  const showCreditsPane = user.role === UserRoles.Student;
+  const userIsStudent = user.role === UserRoles.Student;
 
 
   useEffect(() => {
@@ -33,27 +33,27 @@ const Home: FC = () => {
       <ContentHeader title={t('brand')}/>
 
       <ContentBody>
+        <div className="banner">
+          <div className="banner__background"/>
+
+          <div className="banner__content">
+            <div className="banner__logo">
+              <img src="/assets/images/banner/logo.png" alt="logo" style={{height: '100%', borderRadius: 'var(--radius-medium) 0 0 var(--radius-medium)'}}/>
+            </div>
+            <h1 className="banner__text">{t('home.banner')}</h1>
+          </div>
+        </div>
+
         {summary ? (
           <>
-            <div className="banner">
-              <div className="banner__background"/>
-
-              <div className="banner__content">
-                <div className="banner__logo">
-                  <img src="/assets/images/banner/logo.png" alt="logo" style={{height: '100%', borderRadius: 'var(--radius-medium) 0 0 var(--radius-medium)'}}/>
-                </div>
-                <h1 className="banner__text">{t('home.banner')}</h1>
-              </div>
-            </div>
-
             <TopRow summary={summary}/>
 
-            <div className={'bottom-grid' + (showCreditsPane ? '' : ' no-credits')}>
-              {showCreditsPane ? <Credits summary={summary}/> : null}
+            <div className={'bottom-grid' + (userIsStudent ? '' : ' no-credits')}>
+              {userIsStudent ? <Credits summary={summary}/> : null}
 
               <div className="planning-grades">
                 <Planning summary={summary}/>
-                <Grades summary={summary}/>
+                {userIsStudent ? <Grades summary={summary}/> : null}
               </div>
             </div>
           </>

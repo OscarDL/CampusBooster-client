@@ -69,7 +69,7 @@
   transition: 0.125s;
   border-radius: var(--radius-medium);
   background-color: rgb(var(--theme-bg));
-  box-shadow: 0 0.075rem 0.15rem rgba(0, 0, 0, 0.2);
+  box-shadow: var(--container-box-shadow);
 
   gap: 1rem;
   padding: 1rem;
@@ -79,7 +79,7 @@
 .tools-tab .tool > a:hover, .tools-tab .tool > a:focus-visible {
   transform: scale(1.01);
   background-color: rgba(var(--accent-color), 0.05);
-  box-shadow: 0 0.15rem 0.3rem rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.2);
 }
 
 /* Tool content - left side */
@@ -141,10 +141,6 @@
 
 /* Up to: Small tablets */
 @media (max-width: 767px) {
-  @keyframes tab-slide-in-left {}
-
-  @keyframes tab-slide-in-right {}
-
   .tools-select {
     display: flex;
   }

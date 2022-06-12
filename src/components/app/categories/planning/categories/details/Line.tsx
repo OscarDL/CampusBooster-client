@@ -18,11 +18,20 @@ const DetailsLine: FC<Props> = ({planning}) => {
   const past = dayjs(planning.date).isBefore(dayjs(), 'day');
   const period = t('planning.details.period.' + planning.period.toLowerCase());
 
+  const textPeriod = planning.period !== PlanningPeriod.FullDay ? period : '';
+  const textRemote = planning.remote ? t('planning.details.remote').toLowerCase() : '';
+
+
   const courseType = (date: string): string => {
-    if (dayjs().isSame(date, 'day')) {
-      return PlanningType.Today.toLowerCase(); // Show today's course in accent color
-    }
+    if (dayjs().isSame(date, 'day')) return PlanningType.Today.toLowerCase();
     return planning.type.toLowerCase();
+  };
+
+  const getDetails = (): string => {
+    if (textPeriod && textRemote) return ` (${textPeriod}, ${textRemote})`;
+    if (textPeriod) return ` (${textPeriod})`;
+    if (textRemote) return ` (${textRemote})`;
+    return '';
   };
 
 
@@ -30,7 +39,7 @@ const DetailsLine: FC<Props> = ({planning}) => {
     <div className={`course-color-${courseType(planning.date)}${past ? ' past' : ''}`}>
       <span className="details__item__date">
         {`${dayjs(planning.date).format(t('global.date.mmmm-dd'))}`}
-        {planning.period !== PlanningPeriod.FullDay ? ` (${period})` : ''}
+        {getDetails()}
         {t('global.colon')}
       </span>
 

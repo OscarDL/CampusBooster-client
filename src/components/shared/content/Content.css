@@ -40,7 +40,8 @@
   z-index: var(--z-index-elevated-content-header);
 }
 
-.content__header > h2 {
+.content__header h2 {
+  margin-top: -2px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

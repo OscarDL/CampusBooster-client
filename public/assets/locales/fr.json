@@ -40,6 +40,7 @@
       "campus": "Campus",
       "courses": "Cours",
       "students": "Étudiants",
+      "contracts": "Contrats actifs",
       "total_credits": "Crédits totaux"
     },
 
@@ -236,6 +237,7 @@
     "label": "Choisissez une date",
 
     "details": {
+      "remote": "Distanciel",
       "cancelled": "Annulé",
       "title": "Détails du mois",
       "none": "Le planning de {{m}} est actuellement vide.",
@@ -675,7 +677,7 @@
 
       "fields": {
         "date": "Date",
-        "remote": "À distance",
+        "remote": "Distanciel",
         "cancelled": "Annulé",
 
         "type": {
@@ -706,7 +708,7 @@
         "success": "Entrée de calendrier modifiée avec succès."
       },
 
-      "remove": {
+      "delete": {
         "title": "Supprimer une entrée de calendrier",
         "text": "Veuillez entrer la date et le nom du cours de l'entrée de calendrier ci-dessous afin d'éviter une suppression accidentelle.",
         "success": "Entrée de calendrier supprimée avec succès."

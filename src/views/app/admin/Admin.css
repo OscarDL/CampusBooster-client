@@ -1,3 +1,94 @@
+/* --- Categories grid --- */
+
+.admin-view .admin-links {
+  gap: 1rem;
+  flex-grow: 0;
+  display: grid;
+  overflow-y: auto;
+  animation: 0.05s tab-reveal forwards;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+}
+
+
+/* --- Category container --- */
+
+.admin-links .admin-link {
+  cursor: pointer;
+  text-decoration: none;
+
+  transition: 0.125s;
+  border-radius: var(--radius-medium);
+  background-color: rgb(var(--theme-bg));
+  box-shadow: var(--container-box-shadow);
+
+  gap: 1rem;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-evenly;
+}
+.admin-links .admin-link:hover, .admin-links .admin-link:focus-visible {
+  transform: scale(1.01);
+  background-color: rgba(var(--accent-color), 0.05);
+  box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.2);
+}
+
+/* Category content - left side */
+.category__header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  max-width: 5rem;
+  width: calc(20% - 0.5rem);
+}
+
+/* Category content - right side */
+.category__content {
+  gap: 0.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  width: calc(80% - 0.5rem);
+}
+
+.admin-links .admin-link h2 {
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: rgb(var(--accent-color));
+}
+.admin-links .admin-link p {
+  min-height: 66px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+
+  flex-grow: 1;
+  overflow: hidden;
+  transition: 0.125s;
+  text-overflow: ellipsis;
+  color: rgb(var(--text-color));
+}
+
+.admin-links .admin-link:hover h2, .admin-links .admin-link:focus-visible h2 {
+  text-decoration: underline;
+}
+.admin-links .admin-link:hover p, .admin-links .admin-link:focus-visible p {
+  color: rgb(var(--accent-color));
+}
+
+
+/* Up to: Smartphones */
+@media (max-width: 479px) {
+  .admin-links {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+
+/* --- Plannings view --- */
+
 .admin-plannings-view.planning-view .calendar-picker > .content__header {
   justify-content: flex-start;
 }

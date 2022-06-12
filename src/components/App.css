@@ -7,7 +7,8 @@
   --radius-small: 0.33rem;
   --radius-medium: 0.66rem;
   --radius-large: 1rem;
-  --radius-round: 50%;
+  --radius-circle: 50%;
+  --radius-infinite: 100%;
 
   --z-index-desktop-drawer: 1;
   --z-index-elevated-content-header: 2;
@@ -18,17 +19,14 @@
   --z-index-prompt: 7;
   --z-index-mui-dialog: 7;
 
-  --header-height: 5rem;
-  --mobile-drawer-screen-width: 767px;
-
   --text-color: 0, 0, 0;
 
   --theme-bg: 255, 255, 255;
-  --theme-bg-pink: 186, 143, 247;
-  --theme-bg-purp: 152, 141, 224;
   --theme-bg-blue: 143, 157, 247;
   --theme-bg-cyan: 138, 177, 237;
-  --theme-bg-gradient: rgb(var(--theme-bg-pink)), rgb(var(--theme-bg-purp)), rgb(var(--theme-bg-blue)), rgb(var(--theme-bg-cyan));
+  --theme-bg-pink: 186, 143, 247;
+  --theme-bg-prpl: 152, 141, 224;
+  --theme-bg-gradient: rgb(var(--theme-bg-pink)), rgb(var(--theme-bg-prpl)), rgb(var(--theme-bg-blue)), rgb(var(--theme-bg-cyan));
 
   --card-bg: 248, 248, 248;
   --button-bg: 240, 240, 240;

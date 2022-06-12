@@ -1,8 +1,9 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { ContentBody, ContentHeader } from '../../../shared/content';
+
+import Link from './Link';
 
 
 const Admin: FC = () => {
@@ -13,13 +14,12 @@ const Admin: FC = () => {
     <>
       <ContentHeader title={t('admin.title')}/>
 
-      <ContentBody>
-        Admin : banned users list, classroom list + course access, manage planning for each class, etc
-        <br/><Link to="bans">Banned users list</Link>
-        <br/><Link to="campus">Campus list</Link>
-        <br/><Link to="teachers">Teachers list</Link>
-        <br/><Link to="plannings">Plannings list</Link>
-        <br/><Link to="classrooms">Classrooms list</Link>
+      <ContentBody className="admin-links">
+        <Link to="bans" icon="" title="Banned users" details=""/>
+        <Link to="campus" icon="" title="Campus list" details=""/>
+        <Link to="teachers" icon="" title="Teachers list" details=""/>
+        <Link to="plannings" icon="" title="Plannings" details=""/>
+        <Link to="classrooms" icon="" title="Classrooms list" details=""/>
       </ContentBody>
     </>
   );

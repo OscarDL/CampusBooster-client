@@ -110,9 +110,6 @@
   grid-auto-flow: row;
   grid-template: auto / 1fr;
 }
-.home-view .bottom-grid.no-credits > .planning-grades {
-  grid-template-columns: 1fr 1fr;
-}
 
 .home-view .bottom-grid .bottom-info-card {
   padding: 0.75rem 1rem;
@@ -174,6 +171,11 @@
   grid-template-rows: 1fr 1fr;
 }
 
+.home-view .bottom-grid.no-credits .planning-grades {
+  grid-template-rows: none;
+  grid-template-columns: 1fr;
+}
+
 
 /* --- Latest grades --- */
 
@@ -231,7 +233,7 @@
   background-color: var(--failed-color);
 }
 .home-view .home-grades .grades__item > .failed-color .grades__item__course {
-  color: var(--passed-color);
+  color: var(--failed-color);
 }
 
 .home-view .home-grades .grades__item > .passed-color::before {
