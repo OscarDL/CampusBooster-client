@@ -1,10 +1,8 @@
-import { PlanningType } from "../types/planning";
-import { AppCategories } from "../types/routing";
+import { PlanningType } from '../types/planning';
+import { AppCategories } from '../types/routing';
 
 export const colors = {
-  accent: '#503cb4',
-  accentRGB: '80, 60, 180',
-
+  accent: (mode: 'dark' | 'light') => mode === 'light' ? '#503cb4' : '#9682fa',
   calendarPicker: [
     PlanningType.Course.toLowerCase(),
     PlanningType.PracticeExam.toLowerCase(),

@@ -23,7 +23,7 @@
 .admin-link > button {
   transition: 0.125s;
   border-radius: var(--radius-medium);
-  background-color: rgb(var(--theme-bg));
+  background-color: rgb(var(--card-bg));
   box-shadow: var(--container-box-shadow);
 
   gap: 1rem;
@@ -47,9 +47,11 @@
 }
 .admin-link__header > span[class*="material-icons"] {
   opacity: 0.5;
-  color: initial;
   font-size: 4rem;
   transition: 025s;
+}
+.dark .admin-link__header > span[class*="material-icons"] {
+  opacity: 0.75;
 }
 
 /* Category content - right side */
@@ -92,7 +94,7 @@
 
 /* Up to: Smartphones */
 @media (max-width: 479px) {
-  .admin-links {
+  .admin-view .admin-links {
     display: flex;
     flex-direction: column;
   }

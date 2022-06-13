@@ -13,6 +13,10 @@ button.login-btn img {
   height: 1.5rem;
 }
 
+.dark button.login-btn img + p {
+  color: white;
+}
+
 
 button.logout-btn {
   border-radius: var(--radius-medium);

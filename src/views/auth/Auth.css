@@ -15,38 +15,13 @@
 }
 
 
-/* Form container */
+/* --- Form container --- */
 
 .auth .prompt__backdrop {
 	background: linear-gradient(-45deg, var(--theme-bg-gradient));
 	animation: gradient 30s ease infinite;
 	background-size: 300% 150%;
 }
-
-
-/* .auth .prompt__backdrop {
-  opacity: 1;
-  width: 200%;
-  position: absolute;
-  pointer-events: none;
-  background: var(--artwork);
-  transform: translateZ(0px);
-  backface-visibility: hidden;
-  animation: rotateBg 35s linear infinite;
-  transition: opacity 0.25s cubic-bezier(0.42, 0, 0.58, 1);
-  filter: brightness(200%) blur(180px) saturate(280%) contrast(2);
-}
-.auth .prompt__backdrop.a {
-  top: 0;
-  left: 0;
-}
-.auth .prompt__backdrop.b {
-  right: 0;
-  bottom: 0;
-  animation-delay: 10s;
-  animation-direction: reverse;
-} */
-
 
 /* Background gradient loop */
 @keyframes gradient {
@@ -61,9 +36,8 @@
 	}
 }
 
-
 .auth .prompt__container {
-  background-color: rgba(var(--theme-bg), 0.8);
+  background-color: rgba(var(--card-bg), 0.8);
 }
 
 .auth button.back__button {
@@ -81,8 +55,11 @@
 .auth #logo {
   width: 10rem;
   height: 10rem;
+  padding: 1rem;
   max-width: 80%;
   max-height: 80%;
+  border-radius: var(--radius-small);
+  background-color: rgb(var(--text-color));
 }
 
 .auth #contact {
@@ -91,7 +68,8 @@
 }
 
 
-/* Supported browsers */
+/* --- Unsupported browsers --- */
+
 .unsupported .prompt__content {
   gap: 3rem;
 }

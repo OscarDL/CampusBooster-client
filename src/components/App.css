@@ -19,26 +19,45 @@
   --z-index-prompt: 7;
   --z-index-mui-dialog: 7;
 
-  --text-color: 0, 0, 0;
+  --text-color: 20, 20, 20;
 
-  --theme-bg: 255, 255, 255;
   --theme-bg-blue: 143, 157, 247;
   --theme-bg-cyan: 138, 177, 237;
   --theme-bg-pink: 186, 143, 247;
   --theme-bg-prpl: 152, 141, 224;
   --theme-bg-gradient: rgb(var(--theme-bg-pink)), rgb(var(--theme-bg-prpl)), rgb(var(--theme-bg-blue)), rgb(var(--theme-bg-cyan));
 
-  --card-bg: 248, 248, 248;
+  --app-bg: 248, 248, 248;
+  --card-bg: 255, 255, 255;
   --button-bg: 240, 240, 240;
   --accent-color: 80, 60, 180;
   --divider-color: 224, 224, 224;
   --button-bg-darker: 234, 234, 234;
   --scrollbar-background: 100, 100, 100;
+  --selected-drawer-item-bg-color: rgba(var(--accent-color), 0.075);
+
   --container-box-shadow: 0 0 0.5rem 0.05rem rgba(0, 0, 0, 0.05);
 }
 
 :root.dark {
-  /* --theme-bg: 20, 20, 20; */
+  --text-color: 222, 222, 222;
+
+  --theme-bg-blue: 102, 116, 212;
+  --theme-bg-cyan: 90, 134, 200;
+  --theme-bg-pink: 134, 94, 194;
+  --theme-bg-prpl: 112, 100, 190;
+  --theme-bg-gradient: rgba(var(--theme-bg-pink), 0.66), rgba(var(--theme-bg-prpl), 0.66), rgba(var(--theme-bg-blue), 0.66), rgba(var(--theme-bg-cyan), 0.66);
+
+  --app-bg: 20, 20, 20;
+  --card-bg: 40, 40, 40;
+  --button-bg: 50, 50, 50;
+  --divider-color: 80, 80, 80;
+  --accent-color: 150, 130, 250;
+  --button-bg-darker: 60, 60, 60;
+  --scrollbar-background: 200, 200, 200;
+  --selected-drawer-item-bg-color: rgba(var(--accent-color), 0.15);
+
+  --container-box-shadow: 0 0 0.5rem 0.05rem rgba(0, 0, 0, 0.05);
 }
 
 
@@ -133,6 +152,12 @@ body, button {
   opacity: 0.75;
 }
 
+p,
+h1, h2, h3, h4, h5, h6,
+span[class*="material-icons"] {
+  color: rgb(var(--text-color));
+}
+
 h2 {
   font-size: 1.5rem;
 }
@@ -166,13 +191,15 @@ button {
   padding: 0.4rem 0.8rem;
 }
 
-.button {
+.button,
+.button span[class*="material-icons"] {
   transition: 0.25s;
-  background-color: rgb(var(--button-bg));
 }
 
 .button:not(:disabled):hover,
-.button:not(:disabled):focus-visible {
+.button:not(:disabled):focus-visible,
+.button:not(:disabled):hover span[class*="material-icons"],
+.button:not(:disabled):focus-visible span[class*="material-icons"] {
   color: rgb(var(--accent-color)) !important;
 }
 
@@ -205,29 +232,6 @@ button {
 .branding > span {
   font-size: 1rem;
   font-weight: 600;
-}
-
-
-/* --- Tippy.js - Tooltip component --- */
-
-body [data-tippy-root] {
-  /* Fix issue where the pop-up disappears before hovering it */
-  margin: 0 -0.66rem !important;
-}
-
-body .tippy-box {
-  max-width: 12rem !important;
-  border-radius: var(--radius-medium) !important;
-  box-shadow: 0 0 1.25rem 0.66rem rgb(154 160 174 / 25%), 0 0.25rem 2.5rem -0.5rem rgb(35 40 45 / 50%) !important;
-}
-
-body .tippy-content {
-  padding: 0.66rem 1rem !important;
-}
-body .tippy-content > div {
-  gap: 0.33rem;
-  display: flex;
-  flex-direction: column;
 }
 
 

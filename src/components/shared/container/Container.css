@@ -1,7 +1,7 @@
 .container {
   padding: 1rem;
   border-radius: var(--radius-medium);
-  background-color: rgb(var(--theme-bg));
+  background-color: rgb(var(--card-bg));
   box-shadow: var(--container-box-shadow);
 }
 

@@ -1,10 +1,8 @@
-import { createTheme } from '@mui/material';
-
-import { colors } from './utils/values';
+import { createTheme, PaletteMode } from '@mui/material';
 
 
 // Global Material-UI theme value overrides
-export const muiTheme = createTheme({
+export const getMuiTheme = (mode: PaletteMode) => createTheme({
   components: {
     MuiButton: {
       styleOverrides: {
@@ -12,6 +10,7 @@ export const muiTheme = createTheme({
           fontWeight: '600',
           letterSpacing: '0',
           textTransform: 'none',
+          color: 'rgb(var(--text-color))',
           borderRadius: 'var(--radius-small)'
         }
       }
@@ -85,6 +84,10 @@ export const muiTheme = createTheme({
         root: {
           '&.MuiDialog-paper': {
             borderRadius: 'var(--radius-medium)'
+          },
+          '&.MuiDrawer-paper': {
+            backgroundColor: 'rgb(var(--card-bg))',
+            borderRight: '1px solid rgb(var(--divider-color))'
           }
         }
       }
@@ -105,7 +108,7 @@ export const muiTheme = createTheme({
         root: {
           fontSize: '1.5rem',
           fontWeight: 'bold',
-          color: colors.accent,
+          color: 'rgb(var(--accent-color))',
           transition: 'box-shadow 0.25s',
           boxShadow: '0 0.2rem 0.2rem -0.1rem rgb(var(--divider-color))',
 
@@ -180,18 +183,18 @@ export const muiTheme = createTheme({
           transition: '0.25s',
 
           ':hover': {
-            color: colors.accent
+            color: 'rgb(var(--accent-color))'
           },
           ':focus-visible': {
-            color: colors.accent
+            color: 'rgb(var(--accent-color))'
           },
 
           '&.Mui-selected': {
             fontWeight: 'bold',
-            color: colors.accent,
-            backgroundColor: `rgba(${colors.accentRGB}, 0.075)`,
+            color: 'rgb(var(--accent-color))',
+            backgroundColor: `rgba(var(--accent-color), 0.075)`,
             '&.Mui-focusVisible': {
-              backgroundColor: `rgba(${colors.accentRGB}, 0.075)`
+              backgroundColor: `rgba(var(--accent-color), 0.075)`
             }
           }
         },
@@ -204,26 +207,29 @@ export const muiTheme = createTheme({
           transition: '0.25s',
 
           ':hover': {
-            color: colors.accent,
-            backgroundColor: `rgba(${colors.accentRGB}, 0.075)`
+            color: 'rgb(var(--accent-color))',
+            backgroundColor: `rgba(var(--accent-color), 0.075)`
           },
           ':focus-visible': {
-            color: colors.accent
+            color: 'rgb(var(--accent-color))'
           }
         }
       }
     }
   },
   
-
   palette: {
+    mode,
     primary: {
-      main: colors.accent
+      main: 'rgb(var(--accent-color))'
     }
   },
 
   typography: {
-    fontFamily: 'inherit'
+    fontFamily: 'inherit',
+    allVariants: {
+      color: 'rgb(var(--text-color))'
+    }
   }
 });
 
@@ -231,7 +237,7 @@ export const muiTheme = createTheme({
 export const dataGridTheme = () => ({
   // DataGrid wrapper
   border: 0,
-  backgroundColor: 'rgb(var(--theme-bg))',
+  backgroundColor: 'rgb(var(--card-bg))',
   boxShadow: '0 0 0.5rem 0.05rem rgba(0, 0, 0, 0.05)',
 
   // Header component

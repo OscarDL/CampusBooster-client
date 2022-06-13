@@ -42,7 +42,7 @@ const Login: FC = () => {
             </PromptWrapper>
 
             <PromptActions column>
-              <span id="contact">
+              <p id="contact">
                 {t('login.need_help')}&nbsp;
                 <a
                   target="_blank" rel="noreferrer"
@@ -50,7 +50,7 @@ const Login: FC = () => {
                 >
                   {t('login.contact_us')}
                 </a>.
-              </span>
+              </p>
             </PromptActions>
           </FormPrompt>
         </PromptBackdrop>

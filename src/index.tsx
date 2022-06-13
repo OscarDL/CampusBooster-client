@@ -7,12 +7,10 @@ import { MsalProvider } from '@azure/msal-react';
 import { initReactI18next } from 'react-i18next';
 import { LicenseInfo } from '@mui/x-data-grid-pro';
 import LoadTranslations from 'i18next-http-backend';
-import { ThemeProvider } from '@mui/material/styles';
 import { PersistGate } from 'redux-persist/integration/react';
 import { PublicClientApplication } from '@azure/msal-browser';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-import { muiTheme } from './shared/theme';
 import { msalConfig } from './azure/auth/config';
 import { store, persistor } from './store/store';
 import { getCurrentLang } from './shared/functions';
@@ -71,9 +69,7 @@ ReactDOM.render(
       <Provider store={store}>
         <PersistGate persistor={persistor}>
           <MsalProvider instance={msalInstance}>
-            <ThemeProvider theme={muiTheme}>
-              <App/>  
-            </ThemeProvider>
+            <App/>
           </MsalProvider>
         </PersistGate>
       </Provider>

@@ -19,7 +19,7 @@
   max-width: 40rem;
   max-height: 40rem;
   border-radius: var(--radius-medium);
-  background-color: rgb(var(--theme-bg));
+  background-color: rgb(var(--card-bg));
 }
 
 .prompt__container .flexRow {

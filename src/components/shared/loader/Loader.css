@@ -19,3 +19,7 @@
 .loader.click-through {
   pointer-events: none;
 }
+
+.loader span {
+  color: rgb(var(--accent-color));
+}

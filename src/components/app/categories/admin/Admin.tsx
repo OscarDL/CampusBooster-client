@@ -1,6 +1,9 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useAppSelector } from '../../../../store/store';
+import { UserRoles } from '../../../../shared/types/user';
+import { getLoggedInAuthState } from '../../../../shared/functions';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 
 import Link from './Link';
@@ -8,6 +11,7 @@ import Link from './Link';
 
 const Admin: FC = () => {
   const { t } = useTranslation();
+  const { user } = useAppSelector(getLoggedInAuthState);
 
 
   return (
@@ -15,12 +19,14 @@ const Admin: FC = () => {
       <ContentHeader title={t('admin.title')}/>
 
       <ContentBody className="admin-links">
-        <Link
-          to="campus"
-          icon={t('admin.campus.icon')}
-          title={t('admin.campus.title')}
-          details={t('admin.campus.details')}
-        />
+        {user.role === UserRoles.CampusBoosterAdmin && (
+          <Link
+            to="campus"
+            icon={t('admin.campus.icon')}
+            title={t('admin.campus.title')}
+            details={t('admin.campus.details')}
+          />
+        )}
         <Link
           to="classrooms"
           icon={t('admin.classrooms.icon')}

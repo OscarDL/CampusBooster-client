@@ -8,7 +8,7 @@
 }
 
 /* Trigger area */
-div.dropdown__header {
+.dropdown .dropdown__header {
   height: 100%;
   display: flex;
   position: relative;
@@ -23,23 +23,22 @@ div.dropdown__header {
   background-color: rgb(var(--button-bg-darker));
 }
 
-.dropdown__header > span {
-  transition: 0.25s;
-}
 .dropdown__header > .dropdown__title {
   font-family: inherit;
   font-weight: 600;
   padding: 0 0.4rem 0 0.6rem;
 }
 
-.dropdown__header:hover > span,
-.dropdown__header:focus-visible > span {
+.dropdown__header > * {
+  transition: 0.25s;
+}
+.dropdown__header:hover > *,
+.dropdown__header:focus-visible > * {
   color: rgb(var(--accent-color));
 }
 
-.dropdown__content.open ~ .dropdown__header {
+.dropdown__content.open ~ .dropdown__header > * {
   color: rgb(var(--accent-color));
-  background-color: rgba(var(--accent-color), 0.075);
 }
 
 /* Dropdown */
@@ -59,9 +58,12 @@ div.dropdown__header {
   opacity: 0;
   cursor: default;
   transition: 0.25s;
-  background-color: #fff;
   border-radius: var(--radius-medium);
+  background-color: rgb(var(--card-bg));
   box-shadow: 0px 0px 0.8rem 0.2rem rgb(var(--divider-color));
+}
+.dark .dropdown__content {
+  box-shadow: 0px 0px 0.8rem 0.2rem rgb(var(--button-bg-darker));
 }
 
 /* Dropdown options list */
@@ -97,12 +99,6 @@ div.dropdown__header {
   font-size: 1rem;
   font-weight: 600;
   padding: 0.4rem 0.8rem;
-}
-
-/* Fix delayed transition on icons */
-.dropdown__content button span[class*="material-icons"] {
-  transition: 0s;
-  margin-left: 0.5rem;
 }
 
 

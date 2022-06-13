@@ -50,7 +50,7 @@ const Dropdown: FC<Props> = ({id, icon, title, children, align}) => {
         classes={{root: 'dropdown__header'}}
       >
         <span className="dropdown__open material-icons-outlined dropdown__icon">{icon ?? id}</span>
-        <span className="dropdown__open dropdown__title">{title}</span>
+        <p className="dropdown__open dropdown__title">{title}</p>
         <span className="dropdown__open material-icons-round dropdown__arrow">expand_more</span>
       </ButtonBase>
     </div>

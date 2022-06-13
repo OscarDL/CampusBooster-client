@@ -3,7 +3,7 @@
 .app__content {
   flex-grow: 1;
   overflow: hidden;
-  background-color: rgb(var(--card-bg));
+  background-color: rgb(var(--app-bg));
 }
 
 .app__content > div {
@@ -30,7 +30,7 @@
   flex-direction: column;
 }
 .content__header.elevated {
-  background-color: rgb(var(--card-bg));
+  background-color: rgb(var(--app-bg));
   animation: 0.25s header-box-shadow forwards;
   z-index: var(--z-index-elevated-content-header);
 }
@@ -61,7 +61,6 @@
 }
 
 .content__header .options > .button {
-  color: initial;
   font-size: 1rem;
   padding: 0.25rem 0.75rem;
   background-color: rgb(var(--button-bg-darker));
@@ -96,8 +95,11 @@
   height: auto;
   padding: 0.5rem 0;
   margin-top: -1rem;
+}
+.container .content__header-top h2 {
   color: rgb(var(--accent-color));
 }
+
 .container .content__header + hr {
   display: none;
 }

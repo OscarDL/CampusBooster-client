@@ -13,6 +13,7 @@
 }
 
 .users-tabs .MuiTabs-root {
+  color: rgb(var(--text-color));
   border-radius: var(--radius-medium);
 }
 

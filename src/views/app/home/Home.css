@@ -68,7 +68,7 @@
 .home-view .top-grid .top-info-card {
   padding: 0.75rem 1rem;
   border-radius: var(--radius-medium);
-  background-color: rgb(var(--theme-bg));
+  background-color: rgb(var(--card-bg));
   box-shadow: var(--container-box-shadow);
 
   gap: 1rem;
@@ -81,18 +81,22 @@
   gap: 0.5rem;
   display: flex;
   flex-direction: column;
-  color: rgb(var(--accent-color));
 }
 .home-view .top-grid .top-info-card__title > strong {
   font-size: 2rem;
+  color: rgb(var(--accent-color));
 }
 .home-view .top-grid .top-info-card__title > p {
   font-size: 1.1rem;
+  color: rgb(var(--accent-color));
 }
 
 .home-view .top-grid .top-info-card__icon {
   opacity: 0.5;
   font-size: 3rem;
+}
+.dark .home-view .top-grid .top-info-card__icon {
+  opacity: 0.75;
 }
 
 
@@ -114,7 +118,7 @@
 .home-view .bottom-grid .bottom-info-card {
   padding: 0.75rem 1rem;
   border-radius: var(--radius-medium);
-  background-color: rgb(var(--theme-bg));
+  background-color: rgb(var(--card-bg));
   box-shadow: var(--container-box-shadow);
 
   gap: 1rem;

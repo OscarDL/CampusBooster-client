@@ -68,7 +68,7 @@
 
   transition: 0.125s;
   border-radius: var(--radius-medium);
-  background-color: rgb(var(--theme-bg));
+  background-color: rgb(var(--card-bg));
   box-shadow: var(--container-box-shadow);
 
   gap: 1rem;

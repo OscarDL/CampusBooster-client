@@ -23,7 +23,7 @@ const TopRow: FC<Props> = ({summary}) => {
           <strong>{summary.campus}</strong>
           <p>{t('home.top_row.campus')}</p>
         </div>
-        <div className="top-info-card__icon material-icons-outlined">home_work</div>
+        <span className="top-info-card__icon material-icons-outlined">home_work</span>
       </div>
 
       <div className="top-info-card">
@@ -31,7 +31,7 @@ const TopRow: FC<Props> = ({summary}) => {
           <strong>{summary.courses}</strong>
           <p>{t('home.top_row.courses')}</p>
         </div>
-        <div className="top-info-card__icon material-icons-outlined">auto_stories</div>
+        <span className="top-info-card__icon material-icons-outlined">auto_stories</span>
       </div>
 
       <div className="top-info-card">
@@ -39,7 +39,7 @@ const TopRow: FC<Props> = ({summary}) => {
           <strong>{summary.students}</strong>
           <p>{t('home.top_row.students')}</p>
         </div>
-        <div className="top-info-card__icon material-icons-outlined">person_pin</div>
+        <span className="top-info-card__icon material-icons-outlined">person_pin</span>
       </div>
 
       {summary.contracts ? (
@@ -48,7 +48,7 @@ const TopRow: FC<Props> = ({summary}) => {
             <strong>{summary.contracts}</strong>
             <p>{t('home.top_row.contracts')}</p>
           </div>
-          <div className="top-info-card__icon material-icons-outlined">work_outline</div>
+          <span className="top-info-card__icon material-icons-outlined">work_outline</span>
         </div>
       ) : null}
 
@@ -58,7 +58,7 @@ const TopRow: FC<Props> = ({summary}) => {
             <strong>{user.credits}</strong>
             <p>{t('home.top_row.total_credits')}</p>
           </div>
-          <div className="top-info-card__icon material-icons-outlined">assignment_turned_in</div>
+          <span className="top-info-card__icon material-icons-outlined">assignment_turned_in</span>
         </div>
       ) : null}
     </div>

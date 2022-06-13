@@ -32,7 +32,7 @@
 .profile-view .profile li:not(:last-child) {
   margin-bottom: 0.75rem;
 }
-.profile-view .profile li > span {
+.profile-view .profile li > p:last-child {
   flex-grow: 1;
   font-weight: bold;
   overflow-x: hidden;

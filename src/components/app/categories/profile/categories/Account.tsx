@@ -39,23 +39,23 @@ const Account: FC<Props> = ({user}) => {
           <ul>
             <li>
               <p>{t('profile.account.first_name')}</p>
-              &nbsp;<span>{user.firstName}</span>
+              &nbsp;<p>{user.firstName}</p>
             </li>
 
             <li>
               <p>{t('profile.account.last_name')}</p>
-              &nbsp;<span>{user.lastName}</span>
+              &nbsp;<p>{user.lastName}</p>
             </li>
 
             <li>
               <p>{t('profile.account.email')}</p>
-              &nbsp;<span
+              &nbsp;<p
                 title={user.email}
                 onClick={() => copyEmailToClipboard(user.email)}
                 style={{cursor: 'pointer', textDecoration: 'underline'}}
               >
                 {user.email}
-              </span>
+              </p>
             </li>
           </ul>
         </div>
@@ -68,40 +68,40 @@ const Account: FC<Props> = ({user}) => {
         <ul>
           <li>
             <p>{t('profile.account.gender.title')}</p>
-            &nbsp;<span>{t('profile.account.gender.' + (user.gender?.toLowerCase() ?? 'none'))}</span>
+            &nbsp;<p>{t('profile.account.gender.' + (user.gender?.toLowerCase() ?? 'none'))}</p>
           </li>
 
           <li>
             <p>{t('profile.account.birthday')}</p>
-            &nbsp;<span>{dayjs(user.birthday).format(t('global.date.mmm-d-yyyy'))}</span>
+            &nbsp;<p>{dayjs(user.birthday).format(t('global.date.mmm-d-yyyy'))}</p>
           </li>
 
           <li>
             <p>{t('profile.account.address')}</p>
-            &nbsp;<span>{user.address}</span>
+            &nbsp;<p>{user.address}</p>
           </li>
 
           <li>
             <p>{t('profile.account.personal_email')}</p>
-            &nbsp;<span
+            &nbsp;<p
               title={user.personalEmail}
               onClick={() => copyEmailToClipboard(user.personalEmail)}
               style={{cursor: 'pointer', textDecoration: 'underline'}}
             >
               {user.personalEmail}
-            </span>
+            </p>
           </li>
 
           <li>
             <p>{t('profile.account.campus')}</p>
-            &nbsp;<span>{user.Campus?.name ?? t('profile.account.no_campus')}</span>
+            &nbsp;<p>{user.Campus?.name ?? t('profile.account.no_campus')}</p>
           </li>
 
           <li>
             <p>{t('profile.account.promotion')}</p>
-            &nbsp;<span>
+            &nbsp;<p>
               {user.UserHasClassrooms?.[0]?.Classroom?.promotion ?? t('profile.account.no_promotion')}
-            </span>
+            </p>
           </li>
         </ul>
       </div>

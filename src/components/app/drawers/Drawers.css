@@ -16,17 +16,17 @@
   text-decoration: none !important;
 }
 
-.drawer .drawer__item span[class*="material-icons"] {
+.drawer .drawer__item * {
   transition: 0.25s;
 }
 
-.drawer__item:hover > *,
-.drawer__item:focus-visible > *,
-.drawer .selected > .drawer__item > * {
+.drawer__item:hover *,
+.drawer__item:focus-visible *,
+.drawer .selected > .drawer__item * {
   color: rgb(var(--accent-color));
 }
 .drawer .selected > .drawer__item {
-  background-color: rgba(var(--accent-color), 0.075);
+  background-color: var(--selected-drawer-item-bg-color);
 }
 
 /* Drawer item elements */
@@ -81,8 +81,11 @@
   flex-direction: column;
   
   visibility: visible;
-  background-color: white;
   border-radius: 1rem 1rem 0 0;
+  background-color: rgb(var(--card-bg));
+}
+.dark .drawer-mobile__header {
+  background-color: rgb(var(--button-bg-darker));
 }
 
 .drawer-mobile__header > p {
@@ -103,12 +106,16 @@
   padding: 0 0 0.5rem;
   max-height: calc(100vh - 1rem - 80px);
 }
+.dark #root ~ .MuiDrawer-root ul.drawer {
+  background-color: rgb(var(--button-bg));
+}
 
 #root ~ .MuiDrawer-root ul.drawer hr {
   margin: 0.5rem 0;
 }
 
 #root ~ .MuiDrawer-root > .MuiPaper-root {
+  border: none;
   margin: 0 1rem;
   box-shadow: none;
   overflow: visible;

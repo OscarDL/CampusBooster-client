@@ -1,8 +1,10 @@
-import { FC, useEffect } from 'react';
+import { ThemeProvider } from '@mui/material';
+import { FC, useEffect, useState } from 'react';
 import { Slide, ToastContainer } from 'react-toastify';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
 
+import { getMuiTheme } from '../shared/theme';
 import { login } from '../store/features/auth/slice';
 import { isTouchDevice } from '../views/shared/Drawer';
 import { setCategory } from '../store/features/app/slice';
@@ -29,17 +31,22 @@ const cleanLinkTypeClass = (root: HTMLElement) => {
 const App: FC = () => {
   const dispatch = useAppDispatch();
   const { accounts: [azureData] } = useMsal();
-
   const { user } = useAppSelector(state => state.auth);
   const { settings } = useAppSelector(state => state.app);
+
+  const [currTheme, setCurrTheme] = useState(getCurrentTheme(settings.theme));
 
 
   // Keep classes on HTML root element up-to-date
   useEffect(() => {
-    getCurrentTheme(settings.theme, true);
+    const newTheme = getCurrentTheme(settings.theme, true);
+    setCurrTheme(newTheme);
 
     const browser = window.matchMedia('(prefers-color-scheme: dark)');
-    const updateTheme = (e: MediaQueryListEvent) => getCurrentTheme(SupportedThemes[e.matches ? 'Dark' : 'Light'], true);
+    const updateTheme = (e: MediaQueryListEvent) => {
+      const newTheme = getCurrentTheme(SupportedThemes[e.matches ? 'Dark' : 'Light'], true);
+      setCurrTheme(newTheme);
+    };
 
     if (settings.theme === SupportedThemes.System) browser.addEventListener('change', updateTheme);
     return () => browser.removeEventListener('change', updateTheme);
@@ -68,28 +75,29 @@ const App: FC = () => {
     }
   }, [azureData, user, dispatch]);
 
-
   return (
     <div className="app">
-      <Router>
-        <AuthenticatedTemplate>
-          {user ? (
-            <LoggedInRoutes/>
-          ) : (
-            // User data is not retrieved from the database yet
-            <Loader fullScreen/>
-          )}
-        </AuthenticatedTemplate>
+      <ThemeProvider theme={getMuiTheme(currTheme)}>
+        <Router>
+          <AuthenticatedTemplate>
+            {user ? (
+              <LoggedInRoutes/>
+            ) : (
+              // User data is not retrieved from the database yet
+              <Loader fullScreen/>
+            )}
+          </AuthenticatedTemplate>
 
-        <UnauthenticatedTemplate>
-          <LoggedOutRoutes/>
-        </UnauthenticatedTemplate>
-      </Router>
+          <UnauthenticatedTemplate>
+            <LoggedOutRoutes/>
+          </UnauthenticatedTemplate>
+        </Router>
 
-      <ToastContainer
-        theme="colored" autoClose={3000} transition={Slide}
-        position={isTouchDevice() ? 'top-center' : 'top-right'}
-      />
+        <ToastContainer
+          theme="colored" autoClose={3000} transition={Slide}
+          position={isTouchDevice() ? 'top-center' : 'top-right'}
+        />
+      </ThemeProvider>
     </div>
   );
 };
