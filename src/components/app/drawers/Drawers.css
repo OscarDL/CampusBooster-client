@@ -85,7 +85,7 @@
   background-color: rgb(var(--card-bg));
 }
 .dark .drawer-mobile__header {
-  background-color: rgb(var(--button-bg-darker));
+  background-color: rgb(var(--button-bg));
 }
 
 .drawer-mobile__header > p {

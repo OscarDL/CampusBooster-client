@@ -11,7 +11,11 @@ export const getMuiTheme = (mode: PaletteMode) => createTheme({
           letterSpacing: '0',
           textTransform: 'none',
           color: 'rgb(var(--text-color))',
-          borderRadius: 'var(--radius-small)'
+          borderRadius: 'var(--radius-small)',
+
+          '&.MuiButton-containedPrimary': {
+            color: 'rgb(var(--text-color))', // TODO: Opposite
+          }
         }
       }
     },
@@ -268,7 +272,11 @@ export const dataGridTheme = () => ({
 
     '.MuiDataGrid-toolbarContainer': {
       padding: '0',
-      flexWrap: 'wrap'
+      flexWrap: 'wrap',
+
+      '.MuiButtonBase-root': {
+        color: 'rgb(var(--accent-color))',
+      }
     }
   },
 

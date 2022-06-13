@@ -46,27 +46,27 @@ const DetailsLine: FC<Props> = ({classroom, planning}) => {
 
   return (
     <div className={`course-color-${courseType(planning.date)}${past ? ' past' : ''}`}>
-      <span className="details__item__date">
+      <p className="details__item__date">
         {`${dayjs(planning.date).format(t('global.date.mmmm-dd'))}`}
         {getDetails()}
         {t('global.colon')}
-      </span>
+      </p>
 
-      &nbsp;<span
+      &nbsp;<p
         title={!planning.cancelled ? t('admin.plannings.fields.cancelled') : ''}
         className={'details__item__title' + (planning.cancelled ? ' cancelled' : '')}
       >
         {course?.name} <span>&ndash; {course?.description}</span>
-      </span>
+      </p>
 
-      <span className="details__item__more">
+      <p className="details__item__more">
         <Button color="primary" onClick={() => setOpenUpdate(true)}>
           <EditOutlined/>
         </Button>
         <Button color="error" onClick={() => setOpenDelete(true)}>
           <DeleteOutlined/>
         </Button>
-      </span>
+      </p>
 
       <UpdatePlanningEntry classroom={classroom} planning={planning} open={openUpdate} setOpen={setOpenUpdate}/>
       <DeletePlanningEntry planning={planning} open={openDelete} setOpen={setOpenDelete}/>

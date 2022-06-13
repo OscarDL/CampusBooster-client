@@ -16,7 +16,7 @@ const AdminLink: FC<Props> = ({to, icon, title, details}) => {
   const { t } = useTranslation();
 
   return (
-    <Link to={to} className="admin-link">
+    <Link to={to} tabIndex={-1} className="admin-link">
       <ButtonBase>
         <div className="admin-link__header">
           <span className="material-icons-outlined">{icon}</span>

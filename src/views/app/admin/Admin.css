@@ -32,9 +32,11 @@
   display: flex;
   justify-content: space-evenly;
 }
-.admin-link > button:hover, .admin-link > button:focus-visible {
+
+.admin-link > button:hover,
+.admin-link > button:focus-visible {
   transform: scale(1.01);
-  background-color: rgba(var(--accent-color), 0.05);
+  background-color: rgba(var(--accent-color), 0.1);
   box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.2);
 }
 

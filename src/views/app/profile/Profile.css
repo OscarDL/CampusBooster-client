@@ -51,7 +51,7 @@
   padding: 0.66rem;
 
   border-radius: var(--radius-small);
-  background-color: rgb(var(--button-bg));
+  background-color: rgb(var(--button-bg-darker));
 }
 
 

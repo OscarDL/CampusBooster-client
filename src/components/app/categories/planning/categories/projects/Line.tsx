@@ -21,19 +21,19 @@ const ProjectsLine: FC<Props> = ({project}) => {
 
   return (
     <div className={`course-color-project${past ? ' past' : ''}`}>
-      <span className="details__item__date">
+      <p className="details__item__date">
         {`${t('planning.projects.for')} ${dayjs(project.endDate).format(t('global.date.mmmm-dd'))} ${t('global.colon')}`}
-      </span>
+      </p>
 
-      <span className="details__item__title">
+      <p className="details__item__title">
         &nbsp;{project.ClassroomHasCourse.Course?.name} <span>&ndash; {project.title}</span>
-      </span>
+      </p>
 
-      <span className="details__item__more">
+      <p className="details__item__more">
         <Button onClick={() => setDetails(project)}>
           &nbsp;&nbsp;Expand&nbsp;&nbsp;
         </Button>
-      </span>
+      </p>
 
       {<ProjectDetails project={project} open={!!details} setDetails={setDetails}/>}
     </div>

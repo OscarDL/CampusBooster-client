@@ -19,21 +19,21 @@ const GradesLine: FC<Props> = ({grade}) => {
 
   return (
     <div className={`${grade.average < 10 ? 'failed' : 'passed'}-color`}>
-      <span className="grades__item__course">
+      <p className="grades__item__course">
         {course?.name}
         {t('global.colon')}
         &nbsp;{grade.average} / 20
-      </span>
+      </p>
 
-      <span className="grades__item__title">
+      <p className="grades__item__title">
         &nbsp;&ndash; {grade.comment}
-      </span>
+      </p>
 
-      <span className="grades__item__more">
+      <p className="grades__item__more">
         <Button color="primary" onClick={() => window.open(course?.link, '_blank')}>
           <OpenInNewRounded/>
         </Button>
-      </span>
+      </p>
     </div>
   );
 };

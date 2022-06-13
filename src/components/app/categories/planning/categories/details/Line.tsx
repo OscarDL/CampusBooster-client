@@ -37,24 +37,24 @@ const DetailsLine: FC<Props> = ({planning}) => {
 
   return (
     <div className={`course-color-${courseType(planning.date)}${past ? ' past' : ''}`}>
-      <span className="details__item__date">
+      <p className="details__item__date">
         {`${dayjs(planning.date).format(t('global.date.mmmm-dd'))}`}
         {getDetails()}
         {t('global.colon')}
-      </span>
+      </p>
 
-      &nbsp;<span
+      &nbsp;<p
         title={planning.cancelled ? t('planning.details.cancelled') : ''}
         className={'details__item__title' + (planning.cancelled ? ' cancelled' : '')}
       >
         {course?.name} <span>&ndash; {course?.description}</span>
-      </span>
+      </p>
 
-      <span className="details__item__more">
+      <p className="details__item__more">
         <Button color="primary" onClick={() => window.open(course?.link, '_blank')}>
           <OpenInNewRounded/>
         </Button>
-      </span>
+      </p>
     </div>
   );
 };
