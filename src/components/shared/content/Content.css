@@ -26,6 +26,16 @@
 }
 
 .content__header {
+  display: flex;
+  flex-direction: column;
+}
+.content__header.elevated {
+  background-color: rgb(var(--card-bg));
+  animation: 0.25s header-box-shadow forwards;
+  z-index: var(--z-index-elevated-content-header);
+}
+
+.content__header-top {
   gap: 1rem;
   min-height: 4rem;
   padding: 0.8rem 1rem;
@@ -33,11 +43,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-.content__header.elevated {
-  background-color: rgb(var(--card-bg));
-  animation: 0.25s header-box-shadow forwards;
-  z-index: var(--z-index-elevated-content-header);
 }
 
 .content__header h2 {
@@ -47,21 +52,19 @@
   text-overflow: ellipsis;
 }
 
-.content__header > .options {
+.content__header .options {
   gap: 1rem;
   height: 100%;
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.content__header > .options > .button {
-  color: inherit;
+.content__header .options > .button {
+  color: initial;
   font-size: 1rem;
   padding: 0.25rem 0.75rem;
   background-color: rgb(var(--button-bg-darker));
-}
-
-.button > .MuiButton-label > .MuiButton-startIcon > [class*="material-icons"] {
-  font-size: 1.5rem;
 }
 
 .content__header .button.icon {
@@ -88,7 +91,7 @@
   background-color: rgb(var(--divider-color));
 }
 
-.container .content__header {
+.container .content__header-top {
   width: 100%;
   height: auto;
   padding: 0.5rem 0;
@@ -99,7 +102,7 @@
   display: none;
 }
 
-.container .content__header .options {
+.container .content__header__top .options {
   color: initial;
   align-items: center;
   justify-content: center;
@@ -119,14 +122,14 @@
 
 /* Up to: Narrow Smartphones */
 @media (max-width: 419px) {
-  .content__header .dropdown__title {
+  .content__header-top .dropdown__title {
     display: none;
   }
 }
 
 /* Up to: Smartphones */
 @media (max-width: 479px) {
-  .content__header > .options {
+  .content__header .options {
     flex-direction: column;
   }
 }

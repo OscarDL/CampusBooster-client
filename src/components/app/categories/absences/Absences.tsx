@@ -73,7 +73,7 @@ const Absences: FC = () => {
           onClick={() => setOpenCreate(true)}
           startIcon={<span className="material-icons">add_circle_outline</span>}
         >
-          {t('absences.add')}
+          {t('absences.create.button')}
         </Button>
       </ContentHeader>
 

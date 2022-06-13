@@ -8,11 +8,12 @@ import { handleHeaderScrollShadow } from '../../../shared/functions';
 type Props = {
   title: string,
   backButton?: boolean,
-  children?: React.ReactNode
+  children?: React.ReactNode,
+  underHeaderComponent?: React.ReactNode
 };
 
 
-const Header: FC<Props> = ({backButton, children, title}) => {
+const Header: FC<Props> = ({backButton, children, title, underHeaderComponent}) => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,18 +23,22 @@ const Header: FC<Props> = ({backButton, children, title}) => {
 
   return (
     <div className="content__header">
-      <div className="flex flex-align" style={{overflow: 'hidden'}}>
-        {backButton && (
-          <IconButton sx={{my: '-1px'}} onClick={() => navigate('..')}>
-            <span className="material-icons-round">arrow_back_ios_new</span>
-          </IconButton>
-        )}
-        <h2>{title}</h2>
+      <div className="content__header-top">
+        <div className="flex flex-align" style={{overflow: 'hidden'}}>
+          {backButton && (
+            <IconButton sx={{my: '-1px'}} onClick={() => navigate('..')}>
+              <span className="material-icons-round">arrow_back_ios_new</span>
+            </IconButton>
+          )}
+          <h2>{title}</h2>
+        </div>
+
+        <div className="options">
+          {children}
+        </div>
       </div>
 
-      <div className="options">
-        {children}
-      </div>
+      {underHeaderComponent}
     </div>
   );
 };

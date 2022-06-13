@@ -84,7 +84,7 @@ const Contracts: FC = () => {
             onClick={() => setOpenCreate(true)}
             startIcon={<span className="material-icons">add_circle_outline</span>}
           >
-            {t('contracts.add')}
+            {t('contracts.create.button')}
           </Button>
         )}
       </ContentHeader>

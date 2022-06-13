@@ -18,3 +18,11 @@ button.logout-btn {
   border-radius: var(--radius-medium);
   background-color: rgb(var(--button-bg));
 }
+
+
+/* Up to: Narrow smartphones */
+@media (max-width: 419px) {
+  .profile-view .content__header .dropdown__content li span[class*="material-icons"] {
+    display: none;
+  }
+}

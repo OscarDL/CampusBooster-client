@@ -33,19 +33,20 @@ const Tools: FC = () => {
 
   return (
     <>
-      <ContentHeader title={t('tools.title')}>
+      <ContentHeader
+        title={t('tools.title')}
+        underHeaderComponent={<ToolTabs tab={tab} setTab={setTab}/>}
+      >
         {user.role === UserRoles.CampusBoosterAdmin && (
           <Button
             className="button"
             onClick={() => setOpen(true)}
             startIcon={<span className="material-icons">add_circle_outline</span>}
           >
-            {t('tools.add')}
+            {t('tools.create.button')}
           </Button>
         )}
       </ContentHeader>
-
-      <ToolTabs tab={tab} setTab={setTab}/>
 
       <ContentBody>
         {toolsList ? (

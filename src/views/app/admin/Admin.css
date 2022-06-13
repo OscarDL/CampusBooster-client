@@ -12,52 +12,64 @@
 
 /* --- Category container --- */
 
-.admin-links .admin-link {
+.admin-link {
   cursor: pointer;
   text-decoration: none;
+}
+.admin-link:active {
+  color: inherit;
+}
 
+.admin-link > button {
   transition: 0.125s;
   border-radius: var(--radius-medium);
   background-color: rgb(var(--theme-bg));
   box-shadow: var(--container-box-shadow);
 
   gap: 1rem;
+  width: 100%;
   padding: 1rem;
   display: flex;
   justify-content: space-evenly;
 }
-.admin-links .admin-link:hover, .admin-links .admin-link:focus-visible {
+.admin-link > button:hover, .admin-link > button:focus-visible {
   transform: scale(1.01);
   background-color: rgba(var(--accent-color), 0.05);
   box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.2);
 }
 
 /* Category content - left side */
-.category__header {
+.admin-link__header {
   display: flex;
+  max-width: 5rem;
   flex-direction: column;
   justify-content: center;
-
-  max-width: 5rem;
-  width: calc(20% - 0.5rem);
+}
+.admin-link__header > span[class*="material-icons"] {
+  opacity: 0.5;
+  color: initial;
+  font-size: 4rem;
+  transition: 025s;
 }
 
 /* Category content - right side */
-.category__content {
+.admin-link__content {
   gap: 0.5rem;
   height: 100%;
+  flex-grow: 1;
   display: flex;
+  text-align: start;
   flex-direction: column;
-  width: calc(80% - 0.5rem);
 }
 
-.admin-links .admin-link h2 {
+.admin-link h2 {
   overflow-x: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   color: rgb(var(--accent-color));
 }
-.admin-links .admin-link p {
+.admin-link p {
+  font-size: 1rem;
   min-height: 66px;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -70,10 +82,10 @@
   color: rgb(var(--text-color));
 }
 
-.admin-links .admin-link:hover h2, .admin-links .admin-link:focus-visible h2 {
+.admin-link > button:hover h2, .admin-link > button:focus-visible h2 {
   text-decoration: underline;
 }
-.admin-links .admin-link:hover p, .admin-links .admin-link:focus-visible p {
+.admin-link > button:hover p, .admin-link > button:focus-visible p {
   color: rgb(var(--accent-color));
 }
 

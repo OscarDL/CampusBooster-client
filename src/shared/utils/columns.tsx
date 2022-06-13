@@ -133,7 +133,8 @@ export const getUsersColumns = ({user, setOpenUpdate, setOpenDelete, setSelected
       valueGetter: ({row}) => t(`users.${row.role.toLowerCase()}.title_role`)
     },
     {
-      field: 'Campus', headerName: t(columnPrefix + 'campus'), width: 150, valueGetter: ({row}) => row.Campus?.name
+      field: 'Campus', headerName: t(columnPrefix + 'campus'), width: 150,
+      valueGetter: ({row}) => row.Campus?.name ?? t('users.no_campus')
     },
     {
       field: 'gender', headerName: t(columnPrefix + 'gender.title'), width: 100, hide: true,
@@ -191,7 +192,8 @@ export const getBannedUsersColumns = ({setOpenDelete, setSelectedRow}: Partial<B
       field: 'email', headerName: t(columnPrefix + 'email'), width: 300
     },
     {
-      field: 'Campus', headerName: t(columnPrefix + 'campus'), width: 150, valueGetter: ({row}) => row.Campus?.name
+      field: 'Campus', headerName: t(columnPrefix + 'campus'), width: 150,
+      valueGetter: ({row}) => row.Campus?.name ?? t('users.no_campus')
     },
     {
       field: 'actions', headerName: t('data_grid.actions'), width: 100, filterable: false, sortable: false, disableExport: true,
@@ -243,6 +245,10 @@ export const getGradesColumns = ({user, setOpenUpdate, setOpenDelete, setSelecte
       field: 'comment', headerName: t(columnPrefix + 'comment'), width: 400
     },
     {
+      field: 'credits', headerName: t(columnPrefix + 'credits'), width: 100,
+      valueGetter: ({row}) => row.ClassroomHasCourse?.Course?.credits
+    },
+    {
       field: 'teacher', headerName: t(columnPrefix + 'teacher'), width: 200,
       valueGetter: ({row}) => `${row.Teacher?.User?.firstName} ${row.Teacher?.User?.lastName}`
     },
@@ -289,7 +295,7 @@ export const getClassroomsColumns = ({user, setOpenUpdate, setOpenDelete, setSel
   return [
     {
       field: 'campus', headerName: t(columnPrefix + 'campus'), width: 200,
-      valueGetter: ({row}) => row.Campus?.name ?? t(columnPrefix + 'no_campus')
+      valueGetter: ({row}) => row.Campus?.name ?? t('users.no_campus')
     },
     {
       field: 'name', headerName: t(columnPrefix + 'name'), width: 200
@@ -356,7 +362,7 @@ export const getTeachersColumns = ({user, setOpenUpdate, setOpenDelete, setSelec
   return [
     {
       field: 'campus', headerName: t(columnPrefix + 'campus'), width: 200,
-      valueGetter: ({row}) => row.ClassroomHasCourse.Classroom.Campus.name
+      valueGetter: ({row}) => row.ClassroomHasCourse.Classroom.Campus?.name ?? t('users.no_campus')
     },
     {
       field: 'classroom', headerName: t(columnPrefix + 'classroom'), width: 250,

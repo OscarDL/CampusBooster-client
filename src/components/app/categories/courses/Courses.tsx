@@ -58,7 +58,7 @@ const Courses: FC = () => {
             onClick={() => setOpenCreate(true)}
             startIcon={<span className="material-icons">add_circle_outline</span>}
           >
-            {t('courses.add')}
+            {t('courses.create.button')}
           </Button>
         )}
       </ContentHeader>

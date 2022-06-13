@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { FC, useEffect } from 'react';
+import { Refresh } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { Divider, IconButton, TextField } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -15,7 +16,6 @@ import { PlanningType, RenderDay } from '../../../../../../shared/types/planning
 
 import Container from '../../../../../shared/container';
 import PlanningClassroomPicker from './ClassroomPicker';
-import { Refresh } from '@mui/icons-material';
 
 
 type Props = {
@@ -53,7 +53,7 @@ const Calendar: FC<Props> = ({date, setDate, classroom, setClassroom}) => {
         selected={isToday}
         key={day.toString()}
         onDaySelect={() => null}
-        style={isToday ? {} : dayStyle}
+        style={!classroom || isToday ? {} : dayStyle}
         outsideCurrentMonth={props.outsideCurrentMonth}
       />
     );

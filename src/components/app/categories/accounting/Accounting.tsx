@@ -70,7 +70,7 @@ const Accounting: FC = () => {
             onClick={() => setOpenCreate(true)}
             startIcon={<span className="material-icons">add_circle_outline</span>}
           >
-            {t('accounting.add')}
+            {t('accounting.create.button')}
           </Button>
         )}
       </ContentHeader>

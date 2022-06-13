@@ -78,16 +78,11 @@
 
 /* Up to: Smartphones */
 @media (max-width: 479px) {
-  /* .profile-view .content__body {
-    padding: 0;
-  }
-  .profile-view .content__body .container {
-    border: none;
-  } */
-
   .profile-view .profile__main-info .content__header {
-    padding-top: 1rem;
     padding-left: 4rem;
+  }
+  .profile-view .profile__main-info .content__header h2 {
+    padding-top: 1rem;
   }
   .profile-view .profile__main-info .content__header + hr {
     margin-left: 4rem;

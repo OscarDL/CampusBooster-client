@@ -88,7 +88,7 @@ const Grades: FC = () => {
             onClick={() => setOpenCreate(true)}
             startIcon={<span className="material-icons">add_circle_outline</span>}
           >
-            {t('grades.add')}
+            {t('grades.create.button')}
           </Button>
         )}
       </ContentHeader>

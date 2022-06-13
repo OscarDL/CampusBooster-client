@@ -154,7 +154,6 @@
 
   "grades": {
     "title": "Notes",
-    "add": "Nouvelle note",
     "no_teacher": "Pas de professeur",
     "select_user": "Sélectionnez un utilisateur",
     "select_course": "Sélectionnez un cours",
@@ -165,12 +164,14 @@
       "title_other": "{{count}} résultats",
       "student": "Étudiant",
       "course": "Cours",
+      "credits": "Crédits",
       "grade": "Note",
       "teacher": "Professeur",
       "comment": "Commentaire"
     },
 
     "create": {
+      "button": "Note",
       "title": "Nouvelle note",
       "success": "Note ajoutée avec succès."
     },
@@ -190,7 +191,6 @@
 
   "courses": {
     "title": "Matières",
-    "add": "Ajouter une matière",
 
     "tabs": {
       "all": "Tous les cours",
@@ -215,6 +215,7 @@
     },
 
     "create": {
+      "button": "Cours",
       "title": "Nouveau cours",
       "success": "Cours \"{{course}}\" ajouté avec succès."
     },
@@ -273,7 +274,6 @@
 
   "absences": {
     "title": "Absences",
-    "add": "Déclarer une absence",
     "select_date": "Sélectionnez une date",
     "select_student": "Sélectionnez un étudiant",
 
@@ -306,6 +306,7 @@
     },
 
     "create": {
+      "button": "Déclarer",
       "title": "Déclarer une absence",
       "documents": "Téléverser des documents",
       "max_documents": "Le nombre maximal de fichiers autorisé est de {{count}}.",
@@ -330,7 +331,6 @@
   "contracts": {
     "title": "Contrats",
     "title_header": "Stages et contrats",
-    "add": "Nouveau contrat",
     "select_student": "Sélectionnez un étudiant",
     "select_supervisor": "Sélectionnez un superviseur",
 
@@ -360,6 +360,7 @@
     },
 
     "create": {
+      "add": "Contrat",
       "title": "Nouveau contrat d'entreprise",
       "success": "Contrat pour \"{{user}}\" avec l'entreprise \"{{company}}\" créé avec succès."
     },
@@ -383,7 +384,6 @@
 
   "accounting": {
     "title": "Comptabilité",
-    "add": "Ajouter une entrée",
     "select_user": "Sélectionnez un utilisateur",
 
     "status": {
@@ -410,6 +410,7 @@
     },
 
     "create": {
+      "button": "Entrée",
       "title": "Nouvelle entrée de solde",
       "date_requested": "Date de demande",
       "date_confirmed": "Confirmée le",
@@ -441,7 +442,6 @@
 
   "tools": {
     "title": "Outils",
-    "add": "Ajouter un outil",
     "no_description": "Aucune description disponible pour cet outil.",
     "image_too_large": "L'image sélectionnée est trop volumineuse, veuillez en choisir une autre (max:\u00A0{{size}}Mo)",
 
@@ -459,6 +459,7 @@
     },
 
     "create": {
+      "button": "Outil",
       "title": "Nouvel outil",
       "name": "Nom de l'outil",
       "url": "Lien (URL)",
@@ -490,7 +491,7 @@
 
   "users": {
     "title": "Utilisateurs",
-    "add": "Nouvel utilisateur",
+    "no_campus": "Aucun campus assigné",
     "select_campus": "Sélectionnez un campus",
     "select_classrooms": "Sélectionnez des classes",
     "no_classrooms": "Aucune classe restante",
@@ -550,6 +551,7 @@
     },
 
     "create": {
+      "button": "Utilisateur",
       "title": "Nouvel utilisateur",
       "success": "Utilisateur \"{{user}}\" créé avec succès.\nL'utilisateur existe déjà dans l'AD Azure et a été lié automatiquement.",
       "success_new": "Utilisateur \"{{user}}\" créé avec succès.\nLe compte a été automatiquement créé dans l'AD Azure."
@@ -586,9 +588,10 @@
       "title": "Utilisateurs bannis",
       "title_one": "{{count}} utilisateur banni",
       "title_other": "{{count}} utilisateurs bannis",
+      "details": "Révoquer ou réautoriser l'accès à {{brand}} pour un utilisateur.",
 
       "add": {
-        "button": "Bannir un utilisateur",
+        "button": "Bannir",
         "select_user": "Sélectionnez un utilisateur",
         "title": "Ajouter un utilisateur à la liste",
         "success": "Utilisateur \"{{user}}\" banni avec succès."
@@ -606,6 +609,7 @@
       "title": "Liste des campus",
       "title_one": "{{count}} campus",
       "title_other": "{{count}} campus",
+      "details": "Créer, modifier et supprimer les campus physiques et virtuels.",
 
       "fields": {
         "name": "Nom du campus",
@@ -617,7 +621,7 @@
       },
 
       "create": {
-        "button": "Nouveau campus",
+        "button": "Campus",
         "select_campus_manager": "Veuillez ensuite assigner le campus manager souhaité depuis l'onglet \"utilisateurs\".",
         "title": "Nouveau campus",
         "success": "Campus \"{{campus}}\" créé avec succès."
@@ -643,17 +647,17 @@
       "title_other": "{{count}} classes",
       "select_campus": "Sélectionnez un campus",
       "select_courses": "Sélectionnez des cours",
+      "details": "Gérer les classes pour chaque campus, ainsi que les cours disponibles pour chaque classe.",
 
       "fields": {
         "campus": "Campus",
-        "no_campus": "Aucun campus assigné",
         "name": "Nom de la classe",
         "promotion": "Promotion",
         "courses": "Liste des cours"
       },
 
       "create": {
-        "button": "Nouvelle classe",
+        "button": "Classe",
         "title": "Nouvelle classe",
         "success": "Classe \"{{classroom}}\" créé avec succès."
       },
@@ -672,7 +676,8 @@
     },
 
     "plannings": {
-      "title": "Gestion des plannings",
+      "title": "Plannings",
+      "details": "Gestion des cours et des projets avec un planning jour-par-jour pour chaque classe.",
       "select_classroom": "Veuillez sélectionnez une classe depuis le menu de sélection au dessus du calendrier.",
 
       "fields": {
@@ -696,7 +701,7 @@
       },
 
       "add": {
-        "button": "Ajouter un cours",
+        "button": "Cours",
         "title": "Nouvelle entrée de calendrier",
         "select_course": "Sélectionnez un cours",
         "select_classroom": "Sélectionnez une classe",
@@ -725,7 +730,7 @@
       },
 
       "create": {
-        "button": "Ajouter un projet",
+        "button": "Projet",
         "title": "Nouveau projet pour une classe",
         "select_course": "Sélectionnez un cours",
         "select_classroom": "Sélectionnez une classe",
@@ -748,6 +753,7 @@
       "title": "Professeurs",
       "title_one": "{{count}} professeur",
       "title_other": "{{count}} professeurs",
+      "details": "Ajouter ou retirer un utilisateur pour être assigné comme professeur pour chaque classe.",
 
       "fields": {
         "campus": "Campus",
@@ -758,7 +764,7 @@
       },
 
       "add": {
-        "button": "Ajouter un professeur",
+        "button": "Professeur",
         "select_user": "Sélectionnez un utilisateur",
         "select_course": "Sélectionnez un cours",
         "select_classroom": "Sélectionnez une classe",

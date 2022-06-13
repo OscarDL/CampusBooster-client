@@ -157,7 +157,6 @@
   "grades": {
     "title": "Grades",
     "icon": "task",
-    "add": "New grade",
     "no_teacher": "No teacher",
     "select_user": "Select a user",
     "select_course": "Select a course",
@@ -168,12 +167,14 @@
       "title_other": "{{count}} results",
       "grade": "Grade",
       "course": "Course",
+      "credits": "Credits",
       "comment": "Comment",
       "student": "Student",
       "teacher": "Teacher"
     },
 
     "create": {
+      "button": "Grade",
       "title": "New grade",
       "success": "Grade successfully created."
     },
@@ -194,7 +195,6 @@
   "courses": {
     "title": "Courses",
     "icon": "topic",
-    "add": "Add course",
 
     "tabs": {
       "all": "All courses",
@@ -219,6 +219,7 @@
     },
 
     "create": {
+      "button": "Course",
       "title": "New course",
       "success": "Course \"{{course}}\" successfully created."
     },
@@ -279,7 +280,6 @@
   "absences": {
     "title": "Absences",
     "icon": "event_busy",
-    "add": "Declare absence",
     "select_date": "Select date",
     "select_student": "Select student",
 
@@ -312,6 +312,7 @@
     },
 
     "create": {
+      "button": "Declare",
       "title": "Declare absence",
       "documents": "Upload documents",
       "max_documents": "Maximum number of files allowed is {{count}}.",
@@ -338,7 +339,6 @@
     "title": "Contracts",
     "title_header": "Internships & contracts",
     "icon": "work_outline",
-    "add": "New contract",
     "select_student": "Select a student",
     "select_supervisor": "Select a supervisor",
 
@@ -368,6 +368,7 @@
     },
 
     "create": {
+      "button": "Contract",
       "title": "New entreprise contract",
       "success": "Contract for \"{{user}}\" with company \"{{company}}\" successfully created."
     },
@@ -392,7 +393,6 @@
   "accounting": {
     "title": "Accounting",
     "icon": "balance",
-    "add": "Add an entry",
     "select_user": "Select a user",
 
     "status": {
@@ -419,6 +419,7 @@
     },
 
     "create": {
+      "button": "Entry",
       "title": "New balance entry",
       "description": "Description",
       "date_requested": "Request date",
@@ -451,7 +452,6 @@
   "tools": {
     "title": "Tools",
     "icon": "handyman",
-    "add": "Add tool",
     "no_description": "No description available for this tool.",
     "image_too_large": "Image selected is too large, please choose another one (max:\u00A0{{size}}MB)",
 
@@ -473,6 +473,7 @@
     },
 
     "create": {
+      "button": "Tool",
       "title": "New tool",
       "name": "Tool name",
       "url": "Link (URL)",
@@ -505,7 +506,7 @@
   "users": {
     "title": "Users",
     "icon": "school",
-    "add": "New user",
+    "no_campus": "No campus assigned",
     "select_campus": "Select a campus",
     "select_classrooms": "Select classrooms",
     "no_classrooms": "No classrooms remaining",
@@ -573,6 +574,7 @@
     },
 
     "create": {
+      "button": "User",
       "title": "New user",
       "success": "User \"{{user}}\" successfully created.\nUser already exists in Azure AD and was linked automatically.",
       "success_new": "User \"{{user}}\" successfully created.\nAccount automatically created in the Azure AD."
@@ -608,11 +610,13 @@
 
     "banned_users": {
       "title": "Banned users",
+      "icon": "no_accounts",
       "title_one": "{{count}} banned user",
       "title_other": "{{count}} banned users",
+      "details": "Revoke or reauthorize access to {{brand}} for any user.",
 
       "add": {
-        "button": "Ban user",
+        "button": "Ban",
         "select_user": "Select a user",
         "title": "Add user to ban list",
         "success": "User \"{{user}}\" successfully banned."
@@ -628,8 +632,10 @@
 
     "campus": {
       "title": "Campus list",
+      "icon": "home_work",
       "title_one": "{{count}} campus",
       "title_other": "{{count}} campuses",
+      "details": "Create, update and delete physical & virtual campuses.",
 
       "fields": {
         "name": "Campus name",
@@ -641,7 +647,7 @@
       },
 
       "create": {
-        "button": "New campus",
+        "button": "Campus",
         "select_campus_manager": "Please then assign the desired campus manager from the \"users\" tab.",
         "title": "Create a new campus",
         "success": "Campus \"{{campus}}\" successfully created."
@@ -663,21 +669,22 @@
 
     "classrooms": {
       "title": "Classroom list",
+      "icon": "supervised_user_circle",
       "title_one": "{{count}} classroom",
       "title_other": "{{count}} classrooms",
       "select_campus": "Select a campus",
       "select_courses": "Select courses",
+      "details": "Manage classrooms for each campus, as well as available courses for each classroom.",
 
       "fields": {
         "campus": "Campus",
-        "no_campus": "No campus assigned",
         "name": "Classroom name",
         "promotion": "Promotion",
         "courses": "Courses list"
       },
 
       "create": {
-        "button": "New classroom",
+        "button": "Classroom",
         "title": "Create a new classroom",
         "success": "Classroom \"{{classroom}}\" successfully created."
       },
@@ -696,7 +703,9 @@
     },
 
     "plannings": {
-      "title": "Manage plannings",
+      "title": "Plannings",
+      "icon": "calendar_month",
+      "details": "Manage courses and projects with a day-to-day planning for each classroom.",
       "select_classroom": "Please select a classroom from select menu above the calendar.",
 
       "fields": {
@@ -720,7 +729,7 @@
       },
 
       "add": {
-        "button": "Add course",
+        "button": "Course",
         "title": "New planning entry",
         "select_course": "Select a course",
         "select_classroom": "Select a classroom",
@@ -749,7 +758,7 @@
       },
 
       "create": {
-        "button": "Add project",
+        "button": "Project",
         "title": "New project for classroom",
         "select_course": "Select a course",
         "select_classroom": "Select a classroom",
@@ -770,8 +779,10 @@
 
     "teachers": {
       "title": "Teachers",
+      "icon": "assignment_ind",
       "title_one": "{{count}} teacher",
       "title_other": "{{count}} teachers",
+      "details": "Add or remove any user to be assigned as teacher for each classroom.",
 
       "fields": {
         "campus": "Campus",
@@ -782,7 +793,7 @@
       },
 
       "add": {
-        "button": "Add teacher",
+        "button": "Teacher",
         "title": "Add user to teachers list",
         "select_user": "Select a user",
         "select_course": "Select a course",

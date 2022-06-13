@@ -80,7 +80,7 @@ const Users: FC = () => {
             onClick={() => setOpenCreate(true)}
             startIcon={<span className="material-icons">add_circle_outline</span>}
           >
-            {t('users.add')}
+            {t('users.create.button')}
           </Button>
         )}
       </ContentHeader>

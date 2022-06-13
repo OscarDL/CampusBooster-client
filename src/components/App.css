@@ -38,9 +38,7 @@
 }
 
 :root.dark {
-  /*
-    --theme-bg: 20, 20, 20;
-  */
+  /* --theme-bg: 20, 20, 20; */
 }
 
 
@@ -58,12 +56,8 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-body {
+body, button {
   font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 
@@ -187,17 +181,9 @@ button {
   cursor: not-allowed;
 }
 
-
-/* --- Links --- */
-
-/*
-a {
-  text-decoration: none;
+.button > .MuiButton-label > .MuiButton-startIcon > [class*="material-icons"] {
+  font-size: 1.5rem;
 }
-a:hover, a:focus {
-  text-decoration: underline;
-}
-*/
 
 
 /* --- Top left logo --- */
