@@ -34,14 +34,14 @@ const Calendar: FC<Props> = ({date, setDate}) => {
 
     const planningType = (): PlanningType => (
       dayInPlanning ? dayInPlanning.type : PlanningType.Empty
-    );
+    );  
+    const isToday = day.format(t('global.date.compare')) === dayjs().format(t('global.date.compare'));
+
     const dayStyle = {
       opacity: past ? 0.5 : 1,
-      color: planningType() && 'white',
+      color: planningType() ? 'white' : '',
       backgroundColor: `var(--course-color-${planningType().toLowerCase()})`
     };
-  
-    const isToday = day.format(t('global.date.compare')) === dayjs().format(t('global.date.compare'));
 
     return (
       <PickersDay

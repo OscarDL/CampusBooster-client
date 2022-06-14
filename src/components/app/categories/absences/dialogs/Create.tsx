@@ -180,13 +180,13 @@ const CreateAbsence: FC<Props> = ({open, setOpen}) => {
             </IconButton>
           </Box>
 
-          <span className="text-overflow">
+          <p className="text-overflow">
             {documents.length ? (
               t('absences.create.files_selected', {count: documents.length})
             ) : (
               t('absences.create.no_files_selected')
             )}
-          </span>
+          </p>
         </Box>
       </DialogContent>
 

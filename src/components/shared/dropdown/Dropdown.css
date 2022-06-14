@@ -78,13 +78,6 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.dropdown__content > li:hover {
-  background-color: rgb(var(--button-bg));
-}
-.dropdown__content > li:hover > * {
-  color: rgb(var(--accent-color));
-}
-
 .dropdown__content > li > * {
   text-decoration: none;
   color: rgb(var(--text-color));
@@ -99,6 +92,17 @@
   font-size: 1rem;
   font-weight: 600;
   padding: 0.4rem 0.8rem;
+}
+.dropdown__content > li * {
+  transition: 0.25s;
+  color: rgb(var(--text-color));
+}
+
+.dropdown__content > li:hover {
+  background-color: rgb(var(--button-bg));
+}
+.dropdown__content > li:hover * {
+  color: rgb(var(--accent-color));
 }
 
 

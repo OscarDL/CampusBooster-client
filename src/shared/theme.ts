@@ -7,14 +7,26 @@ export const getMuiTheme = (mode: PaletteMode) => createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
+          minWidth: 'unset',
           fontWeight: '600',
           letterSpacing: '0',
           textTransform: 'none',
-          color: 'rgb(var(--text-color))',
+          padding: '0.4rem 0.8rem',
           borderRadius: 'var(--radius-small)',
+          
+          '&.MuiButton-contained:not(.Mui-disabled)': {
+            color: 'white'
+          },
 
-          '&.MuiButton-containedPrimary': {
-            color: 'rgb(var(--text-color))', // TODO: Opposite
+          '&.MuiButton-text': {
+            color: 'rgb(var(--accent-color))'
+          },
+
+          '&.Mui-disabled': {
+            opacity: '0.5',
+            '[class*="material-icons"]': {
+              color: 'initial'
+            }
           }
         }
       }
@@ -33,6 +45,8 @@ export const getMuiTheme = (mode: PaletteMode) => createTheme({
     MuiInputBase: {
       styleOverrides: {
         root: {
+          color: 'rgb(var(--text-color))',
+
           '.MuiOutlinedInput-notchedOutline': {
             borderWidth: '2px',
             transition: '0.25s',
@@ -45,6 +59,13 @@ export const getMuiTheme = (mode: PaletteMode) => createTheme({
 
           '&.Mui-focused > fieldset.MuiOutlinedInput-notchedOutline': {
             borderColor: 'rgb(var(--accent-color))'
+          },
+
+          '.MuiSelect-icon': {
+            color: 'rgb(var(--text-color))'
+          },
+          '.MuiIconButton-root': {
+            color: 'rgb(var(--text-color))'
           }
         }
       }
@@ -54,7 +75,8 @@ export const getMuiTheme = (mode: PaletteMode) => createTheme({
       styleOverrides: {
         root: {
           zIndex: 'unset',
-          fontWeight: '500'
+          fontWeight: '500',
+          color: 'rgba(var(--text-color), 0.66)',
         }
       }
     },
@@ -63,7 +85,8 @@ export const getMuiTheme = (mode: PaletteMode) => createTheme({
       styleOverrides: {
         root: {
           '> .MuiInput-root::before': {
-            transition: '0.25s'
+            transition: '0.25s',
+            borderBottom: '2px solid rgb(var(--divider-color-darker))'
           },
           '> .MuiInput-root:hover:not(.Mui-disabled)::before': {
             borderWidth: '2px',
@@ -274,8 +297,10 @@ export const dataGridTheme = () => ({
       padding: '0',
       flexWrap: 'wrap',
 
-      '.MuiButtonBase-root': {
-        color: 'rgb(var(--accent-color))',
+      '.MuiButton-iconSizeSmall': {
+        '.MuiSvgIcon-root': {
+          fontSize: '1.25rem'
+        }
       }
     }
   },

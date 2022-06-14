@@ -34,6 +34,7 @@
   --divider-color: 224, 224, 224;
   --button-bg-darker: 234, 234, 234;
   --scrollbar-background: 100, 100, 100;
+  --divider-color-darker: 200, 200, 200;
   --selected-drawer-item-bg-color: rgba(var(--accent-color), 0.075);
 
   --container-box-shadow: 0 0 0.5rem 0.05rem rgba(0, 0, 0, 0.05);
@@ -54,6 +55,7 @@
   --divider-color: 80, 80, 80;
   --accent-color: 140, 120, 240;
   --button-bg-darker: 60, 60, 60;
+  --divider-color-darker: 120, 120, 120;
   --scrollbar-background: 200, 200, 200;
   --selected-drawer-item-bg-color: rgba(var(--accent-color), 0.15);
 
@@ -266,6 +268,7 @@ button {
 
 
 /* --- React select component - Single select --- */
+/* --- Using body prefix for higher CSS specificity detection --- */
 
 @keyframes react-select-menu {
   0% {
@@ -303,6 +306,10 @@ body .react-select-component__value-container {
   padding-left: 10px;
 }
 
+body .react-select-component__indicator-separator {
+  background-color: rgb(var(--divider-color-darker));
+}
+
 body .react-select-component__menu {
   animation: 0.25s cubic-bezier(0.4, 0, 0.2, 1) react-select-menu;
 }
@@ -311,9 +318,12 @@ body .react-select-component__menu > * {
 }
 
 body .react-select-component__option:hover,
-body .react-select-component__option:active,
 body .react-select-component__option--is-focused {
   background-color: rgba(var(--accent-color), 0.2);
+}
+
+body .react-select-component__option:active {
+  background-color: rgba(var(--accent-color), 0.5);
 }
 
 body .react-select-component__option--is-selected,
@@ -321,15 +331,33 @@ body .react-select-component__option--is-selected:hover {
   background-color: rgba(var(--accent-color), 0.8);
 }
 
-.dark body .react-select-component__control {
-  border-color: rgba(255, 255, 255, 0.23);
-}
-
-.dark body .react-select-component__input-container {
+body .react-select-component__multi-value > * {
+  transition: 0.25s;
   color: rgb(var(--text-color));
 }
 
-.dark body .react-select-component__menu {
+body .react-select-component__clear-indicator:hover,
+body .react-select-component__multi-value__remove:hover {
+  color: red;
+}
+
+.dark .react-select-component__control {
+  border-color: rgba(255, 255, 255, 0.23);
+}
+.dark .react-select-component__control--is-disabled {
+  opacity: 0.66;
+  background-color: rgb(var(--divider-color));
+}
+
+.dark .react-select-component__value-container > * {
+  color: rgb(var(--text-color));
+}
+
+.dark .react-select-component__multi-value {
+  background-color: rgb(var(--divider-color));
+}
+
+.dark .react-select-component__menu {
   color: rgb(var(--text-color));
   background-color: rgb(var(--button-bg));
 }
@@ -359,47 +387,14 @@ body div[role="tooltip"] .MuiInputLabel-root.Mui-focused {
   color: rgb(var(--accent-color)) !important;
 }
 
-/* Mui Text inputs */
-body button.MuiButton-root {
-  min-width: unset;
-  padding: 0.4rem 0.8rem;
-}
-body button.MuiButton-root.Mui-disabled {
-  opacity: 0.5;
-}
-body button.MuiButton-root.Mui-disabled [class*="material-icons"] {
-  color: initial;
-}
-
-/* Make primary buttons text bigger */
-body button.MuiButton-root.btnPrimary > .MuiButton-label {
-  transform: scale(1.1);
-}
-
-body button.MuiButton-root.btnDismiss {
-  color: #f22;
-  background-color: transparent !important;
-}
-
-body button.MuiButton-root.btnSecondary {
-  color: black;
-  border: 1px solid black;
-  background-color: transparent !important;
-}
-
-/* body .MuiInputAdornment-root button[class*="MuiButton"] {
-  padding: 0;
-  color: unset;
-  transform: unset;
-  background-color: transparent;
-} */
-
-body button .MuiButton-startIcon.MuiButton-iconSizeSmall {
-  margin-left: 0;
+/* Calendar picker */
+.dark .MuiPickerStaticWrapper-root,
+.dark .MuiPickersDay-root {
+  background-color: rgb(var(--card-bg));
 }
 
 
-/* --- DataGrid tables --- */
+/* --- Responsive properties --- */
 
 @media (min-width: 768px) {
   /* Make Grid pop-ups at the top-right */
@@ -411,10 +406,6 @@ body button .MuiButton-startIcon.MuiButton-iconSizeSmall {
     z-index: var(--z-index-mui-tooltip) !important;
   }
 }
-
-body .MuiDataGrid-toolbarContainer .MuiButton-label { font-family: inherit; }
-body .MuiDataGrid-toolbarContainer .MuiButton-textSizeSmall { font-size: inherit; }
-body .MuiDataGrid-toolbarContainer .MuiButton-iconSizeSmall .MuiSvgIcon-root { font-size: 1.25rem; }
 
 body .MuiDataGrid-root {
   font-weight: unset;
@@ -436,16 +427,6 @@ body .MuiDataGrid-root .MuiDataGrid-columnHeader:focus-within,
 body .MuiDataGrid-root .MuiDataGrid-cell:focus:not(:focus-visible),
 body .MuiDataGrid-root .MuiDataGrid-columnHeader:focus:not(:focus-visible) {
   outline: none;
-}
-
-
-/* --- React switch --- */
-
-.react-switch-handle {
-  box-shadow: none !important;
-}
-.react-switch-handle > div {
-  display: flex;
 }
 
 

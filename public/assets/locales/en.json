@@ -108,17 +108,17 @@
 
       "lang": {
         "title": "Language selection",
-        "en": "English",
-        "fr": "Français",
+        "en": "👑 English",
+        "fr": "🥖 Français",
         "(en)": "(English)",
         "(fr)": "(French)"
       },
 
       "theme": {
         "title": "Theme selection",
-        "system": "System",
-        "light": "Light",
-        "dark": "Dark"
+        "system": "💻 System",
+        "light": "⚪ Light",
+        "dark": "⚫ Dark"
       },
 
       "links": {

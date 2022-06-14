@@ -106,17 +106,15 @@
 
       "lang": {
         "title": "Choix du langage",
-        "en": "English",
-        "fr": "Français",
         "(en)": "(Anglais)",
         "(fr)": "(Français)"
       },
 
       "theme": {
         "title": "Choix du thème",
-        "system": "Système",
-        "light": "Clair",
-        "dark": "Sombre"
+        "system": "💻 Système",
+        "light": "⚪ Clair",
+        "dark": "⚫ Sombre"
       },
 
       "links": {

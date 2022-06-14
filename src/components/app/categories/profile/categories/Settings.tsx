@@ -99,7 +99,10 @@ const Settings: FC = () => {
             label={t('profile.settings.links.title')}
           >
             {Object.values(LinkTypes).map(linkType => (
-              <MenuItem key={linkType} value={linkType}>
+              <MenuItem
+                key={linkType} value={linkType}
+                id={'profile-link-type-' + linkType}
+              >
                 {t('profile.settings.links.' + linkType)}
               </MenuItem>
             ))}

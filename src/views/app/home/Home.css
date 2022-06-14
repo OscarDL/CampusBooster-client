@@ -94,6 +94,7 @@
 .home-view .top-grid .top-info-card__icon {
   opacity: 0.5;
   font-size: 3rem;
+  color: rgb(var(--text-color));
 }
 .dark .home-view .top-grid .top-info-card__icon {
   opacity: 0.75;

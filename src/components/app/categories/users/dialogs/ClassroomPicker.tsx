@@ -43,7 +43,24 @@ const UserClassroomPicker: FC<Props> = ({user, setUser}) => {
   }, [campusList, classroomsList, user.campusId]);
 
 
-  return (
+  return (!user.campusId || user.role !== UserRoles.Student) ? (
+    <div>
+      <ReactSelect
+        isMulti
+        isDisabled
+        isSearchable
+        menuPosition="fixed"
+        closeMenuOnSelect={false}
+        options={classroomOptions}
+        className="react-select-component"
+        classNamePrefix="react-select-component"
+        placeholder={t('users.select_classrooms')}
+        isLoading={!(campusList && classroomsList)}
+        noOptionsMessage={() => t('users.no_classrooms')}
+        onChange={classrooms => setUser({...user, classrooms: classrooms.map(c => c.value)})}
+      />
+    </div>
+  ) : (
     <ReactSelect
       isMulti isSearchable
       menuPosition="fixed"
@@ -52,9 +69,7 @@ const UserClassroomPicker: FC<Props> = ({user, setUser}) => {
       className="react-select-component"
       classNamePrefix="react-select-component"
       placeholder={t('users.select_classrooms')}
-      isLoading={!(campusList && classroomsList)}
       noOptionsMessage={() => t('users.no_classrooms')}
-      isDisabled={!(campusList && classroomsList) || user.role !== UserRoles.Student}
       value={classroomOptions.filter(option => user.classrooms.includes(option.value))}
       onChange={classrooms => setUser({...user, classrooms: classrooms.map(c => c.value)})}
     />

@@ -159,9 +159,9 @@ const CreateTool: FC<Props> = ({open, setOpen}) => {
             <Close/>
           </IconButton>
 
-          <span className="text-overflow" title={tool.img}>
+          <p className="text-overflow" title={tool.img}>
             {tool.img || t('tools.create.no_image')}
-          </span>
+          </p>
         </Box>
       </DialogContent>
 

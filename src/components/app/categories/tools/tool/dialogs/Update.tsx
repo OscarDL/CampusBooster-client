@@ -179,9 +179,9 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
             </IconButton>
           </Box>
 
-          <span className="text-overflow" title={newTool.img}>
+          <p className="text-overflow" title={newTool.img}>
             {newTool.img || t('tools.update.no_image')}
-          </span>
+          </p>
         </Box>
       </DialogContent>
 

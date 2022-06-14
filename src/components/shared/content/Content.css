@@ -63,18 +63,8 @@
 .content__header .options > .button {
   font-size: 1rem;
   padding: 0.25rem 0.75rem;
+  color: rgb(var(--text-color));
   background-color: rgb(var(--button-bg-darker));
-}
-
-.content__header .button.icon {
-  height: 2rem;
-  padding: 0 0.33rem !important;
-
-  display: flex;
-  align-items: center;
-}
-.content__header .button.icon > * {
-  color: #333;
 }
 
 .content__header a {

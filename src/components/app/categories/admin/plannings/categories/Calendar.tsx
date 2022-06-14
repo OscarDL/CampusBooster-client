@@ -38,14 +38,18 @@ const Calendar: FC<Props> = ({date, setDate, classroom, setClassroom}) => {
 
     const planningType = (): PlanningType => (
       dayInPlanning ? dayInPlanning.type : PlanningType.Empty
-    );
-    const dayStyle = {
-      opacity: past ? 0.5 : 1,
-      color: planningType() && 'white',
-      backgroundColor: `var(--course-color-${planningType().toLowerCase()})`
-    };
-  
+    );  
     const isToday = day.format(t('global.date.compare')) === dayjs().format(t('global.date.compare'));
+
+    const baseStyle = {
+      color: isToday ? 'white' : ''
+    };
+    const dayStyle = {
+      ...baseStyle,
+      opacity: past ? 0.5 : 1,
+      color: planningType() ? 'white' : '',
+      backgroundColor: isToday ? '' : `var(--course-color-${planningType().toLowerCase()})`
+    };
 
     return (
       <PickersDay
@@ -53,7 +57,7 @@ const Calendar: FC<Props> = ({date, setDate, classroom, setClassroom}) => {
         selected={isToday}
         key={day.toString()}
         onDaySelect={() => null}
-        style={!classroom || isToday ? {} : dayStyle}
+        style={classroom ? dayStyle : baseStyle}
         outsideCurrentMonth={props.outsideCurrentMonth}
       />
     );
