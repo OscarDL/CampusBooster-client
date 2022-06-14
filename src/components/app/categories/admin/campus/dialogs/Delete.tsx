@@ -61,11 +61,9 @@ const DeleteCampus: FC<Props> = ({campus, open, setOpen}) => {
         <p>{t('admin.campus.delete.text')}</p>
 
         <TextField
-          sx={{mt: 2}}
-          value={campusName}
-          required autoFocus
+          required autoFocus sx={{my: 1}}
           margin="dense" variant="standard"
-          label={t('admin.campus.delete.name')}
+          label={campus.name} value={campusName}
           onChange={e => setCampusName(e.target.value)}
         />
       </DialogContent>

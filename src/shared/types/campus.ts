@@ -13,7 +13,7 @@ export type Campus = {
 
   Users?: User[],
   Classrooms?: Classroom[],
-  CampusManager: PublicUser
+  CampusManager?: PublicUser
 };
 
 export type CampusRequest = {

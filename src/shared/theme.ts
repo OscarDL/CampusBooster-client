@@ -14,11 +14,12 @@ export const getMuiTheme = (mode: PaletteMode) => createTheme({
           padding: '0.4rem 0.8rem',
           borderRadius: 'var(--radius-small)',
           
-          '&.MuiButton-contained:not(.Mui-disabled)': {
-            color: 'white'
+          '&.MuiButton-containedPrimary:not(.Mui-disabled)': {
+            color: 'white',
+            backgroundColor: 'rgba(var(--accent-color), 0.75)'
           },
 
-          '&.MuiButton-text': {
+          '&.MuiButton-textPrimary': {
             color: 'rgb(var(--accent-color))'
           },
 

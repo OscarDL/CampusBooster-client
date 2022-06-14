@@ -64,11 +64,9 @@ const DeleteContract: FC<Props> = ({contract, open, setOpen}) => {
         <p>{t('contracts.delete.text')}</p>
 
         <TextField
-          sx={{mt: 2}}
-          required autoFocus
-          value={studentCompany}
+          required autoFocus sx={{my: 1}} 
           margin="dense" variant="standard"
-          label={t('contracts.delete.student_company')}
+          label={textTemplate} value={studentCompany}
           onChange={e => setStudentCompany(e.target.value)}
         />
       </DialogContent>

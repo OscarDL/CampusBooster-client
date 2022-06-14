@@ -15,7 +15,7 @@ const axiosFormDataConfig = {
 };
 
 
-const getAbsences = async () => {
+const getAbsences = async (): Promise<Absence[]> => {
   try {
     const response = await axios.get(apiUrl + 'absences', getAxiosConfig());
     return response.data;
@@ -26,7 +26,7 @@ const getAbsences = async () => {
   }
 };
 
-const getUserAbsences = async (id: User['id']) => {
+const getUserAbsences = async (id: User['id']): Promise<Absence[]> => {
   try {
     const response = await axios.get(apiUrl + 'absences/user/' + id, getAxiosConfig());
     return response.data;
@@ -37,7 +37,7 @@ const getUserAbsences = async (id: User['id']) => {
   }
 };
 
-const getSupervisorAbsences = async (id: User['id']) => {
+const getSupervisorAbsences = async (id: User['id']): Promise<Absence[]> => {
   try {
     const response = await axios.get(apiUrl + 'absences/supervisor/' + id, getAxiosConfig());
     return response.data;
@@ -48,7 +48,7 @@ const getSupervisorAbsences = async (id: User['id']) => {
   }
 };
 
-const createAbsence = async (absenceData: FormData) => {
+const createAbsence = async (absenceData: FormData): Promise<Absence> => {
   try {
     const response = await axios.post(apiUrl + 'absences', absenceData, axiosFormDataConfig);
     return response.data;
@@ -59,7 +59,7 @@ const createAbsence = async (absenceData: FormData) => {
   }
 };
 
-const updateAbsence = async (id: Absence['id'], absenceData: FormData) => {
+const updateAbsence = async (id: Absence['id'], absenceData: FormData): Promise<Absence> => {
   try {
     const response = await axios.patch(apiUrl + 'absences/' + id, absenceData, axiosFormDataConfig);
     return response.data;
@@ -70,7 +70,7 @@ const updateAbsence = async (id: Absence['id'], absenceData: FormData) => {
   }
 };
 
-const deleteAbsence = async (id: Absence['id']) => {
+const deleteAbsence = async (id: Absence['id']): Promise<void> => {
   try {
     const response = await axios.delete(apiUrl + 'absences/' + id, getAxiosConfig());
     return response.data;

@@ -10,6 +10,7 @@ import { azureDomainName } from '../../../../../shared/utils/values';
 import { createUser } from '../../../../../store/features/users/slice';
 import { UserRequest, UserRoles } from '../../../../../shared/types/user';
 import { useAppDispatch, useAppSelector } from '../../../../../store/store';
+import { updateCampusManager } from '../../../../../store/features/campus/slice';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
 import { getLoggedInAuthState, userHasHigherRole, userShouldHaveNoCampusAssigned } from '../../../../../shared/functions';
 
@@ -92,6 +93,20 @@ const CreateUser: FC<Props> = ({open, setOpen}) => {
     try {
       const user = {...newUser, email: `${newUser.email}@${azureDomainName}`};
       const res = await dispatch(createUser(user)).unwrap();
+
+      // Add campus manager to concerned campus if user is a campus manager
+      if (res.user.role === UserRoles.CampusManager) {
+        dispatch(updateCampusManager({
+          campusId: res.user.campusId ?? 0,
+          campusManager: {
+            id: res.user.id,
+            role: res.user.role,
+            email: res.user.email,
+            lastName: res.user.lastName,
+            firstName: res.user.firstName
+          }
+        }));
+      }
 
       setOpen(false);
       setNewUser(newUserRequest());

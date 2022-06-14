@@ -8,16 +8,17 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { Box, Button, FormControl, InputAdornment, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Tooltip, Zoom } from '@mui/material';
 
 import { userEmailMatchesError } from './Create';
+import userService from '../../../../../services/users';
 import { azureDomainName } from '../../../../../shared/utils/values';
 import { updateUser } from '../../../../../store/features/users/slice';
 import { useAppDispatch, useAppSelector } from '../../../../../store/store';
 import { User, UserRequest, UserRoles } from '../../../../../shared/types/user';
+import { updateCampusManager } from '../../../../../store/features/campus/slice';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
 import { getLoggedInAuthState, userHasHigherRole, userShouldHaveNoCampusAssigned } from '../../../../../shared/functions';
 
 import UserCampusPicker from './CampusPicker';
 import UserClassroomPicker from './ClassroomPicker';
-import userService from '../../../../../services/users';
 
 
 type Props = {
@@ -157,7 +158,29 @@ const EditableUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
           .map(uhc => uhc.classroomId)
       };
 
-      await dispatch(updateUser(request)).unwrap();
+      const updatedUser = await dispatch(updateUser(request)).unwrap();
+
+      // Update campus manager if any campus is concerned by this change
+      const userWasCM = selectedUser.role === UserRoles.CampusManager;
+      const userIsCM = updatedUser.role === UserRoles.CampusManager;
+
+      if (selectedUser.campusId !== updatedUser.campusId) {
+        if (userWasCM && !userIsCM) {
+          dispatch(updateCampusManager({campusId: selectedUser.campusId ?? 0, campusManager: undefined}));
+        }
+        if (!userWasCM && userIsCM) {
+          dispatch(updateCampusManager({
+            campusId: updatedUser.campusId ?? 0,
+            campusManager: {
+              id: updatedUser.id,
+              role: updatedUser.role,
+              email: updatedUser.email,
+              lastName: updatedUser.lastName,
+              firstName: updatedUser.firstName
+            }
+          }));
+        }
+      }
 
       setOpen(false);
       toast.success(t('users.update.success', {user: `${selectedUser.firstName} ${selectedUser.lastName}`}));
@@ -166,7 +189,7 @@ const EditableUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
     catch (error: any) {
       toast.error(error);
     };
-
+console.log(6)
     setLoading(false);
   };
 

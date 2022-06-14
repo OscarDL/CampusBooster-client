@@ -22,6 +22,7 @@ const RemoveBan: FC<Props> = ({user, open, setOpen}) => {
 
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
+  const userFullName = `${user.firstName} ${user.lastName}`;
 
 
   const handleRemoveBan = async (e: React.FormEvent<HTMLElement>) => {
@@ -61,10 +62,10 @@ const RemoveBan: FC<Props> = ({user, open, setOpen}) => {
         <p>{t('admin.banned_users.remove.text')}</p>
 
         <TextField
-          required autoFocus
+          required autoFocus sx={{my: 1}}
           margin="dense" variant="standard"
+          label={userFullName} value={name}
           onChange={e => setName(e.target.value)}
-          label={t('admin.banned_users.remove.full_name')}
         />
       </DialogContent>
 
@@ -75,7 +76,7 @@ const RemoveBan: FC<Props> = ({user, open, setOpen}) => {
 
         <MainDialogButton
           type="submit" color="error" variant="contained"
-          loading={loading} disabled={name !== `${user.firstName} ${user.lastName}`}
+          loading={loading} disabled={name !== userFullName}
         >
           {t('global.confirm')}
         </MainDialogButton>

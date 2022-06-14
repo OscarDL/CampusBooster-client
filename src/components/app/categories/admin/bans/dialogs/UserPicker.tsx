@@ -4,6 +4,7 @@ import React, { FC, useEffect, useState } from 'react';
 
 import { User } from '../../../../../../shared/types/user';
 import { useAppSelector } from '../../../../../../store/store';
+import { getLoggedInAuthState, userHasHigherRole } from '../../../../../../shared/functions';
 
 
 type Props = {
@@ -21,6 +22,7 @@ type Option = {
 const UserClassroomPicker: FC<Props> = ({user, setUser}) => {
   const { t } = useTranslation();
   const { usersList } = useAppSelector(state => state.users);
+  const { user: loggedInUser } = useAppSelector(getLoggedInAuthState);
 
   const [userOptions, setUserOptions] = useState<Option[]>([]);
 
@@ -28,7 +30,8 @@ const UserClassroomPicker: FC<Props> = ({user, setUser}) => {
   useEffect(() => {
     if (usersList) {
       const userOptions: Option[] = usersList
-        .filter(user => !user.banned)
+        .filter(user => !user.banned && user.id !== loggedInUser.id)
+        .filter(user => userHasHigherRole(loggedInUser, user.role))
         .map(user => ({
           user,
           value: user.id,
@@ -37,7 +40,7 @@ const UserClassroomPicker: FC<Props> = ({user, setUser}) => {
 
       setUserOptions(userOptions);
     }
-  }, [usersList]);
+  }, [loggedInUser, usersList]);
 
 
   return (

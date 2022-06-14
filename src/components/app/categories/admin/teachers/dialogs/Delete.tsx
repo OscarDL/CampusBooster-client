@@ -23,6 +23,7 @@ const DeleteTeacher: FC<Props> = ({teacher, open, setOpen}) => {
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
   const userFullName = `${teacher.User.firstName} ${teacher.User.lastName}`;
+  const textTemplate = `${userFullName} (${teacher.ClassroomHasCourse.Course?.name})`;
 
 
   const handleDeleteTeacher = async (e: React.FormEvent<HTMLElement>) => {
@@ -57,18 +58,22 @@ const DeleteTeacher: FC<Props> = ({teacher, open, setOpen}) => {
       onClose={() => setOpen(false)}
       open={open} fullWidth maxWidth="sm"
     >
-      <DialogTitle>{t('admin.teachers.remove.title', {user: userFullName})}</DialogTitle>
+      <DialogTitle>
+        {t('admin.teachers.remove.title', {
+          teacher: userFullName,
+          course: teacher.ClassroomHasCourse.Course?.name,
+          classroom: teacher.ClassroomHasCourse.Classroom?.name
+        })}
+      </DialogTitle>
 
       <DialogContent>
         <p>{t('admin.teachers.remove.text')}</p>
 
         <TextField
-          required autoFocus
+          required autoFocus sx={{my: 1}}
           margin="dense" variant="standard"
+          label={textTemplate} value={name}
           onChange={e => setName(e.target.value)}
-          label={t('admin.teachers.remove.name_course', {
-            user: userFullName, course: teacher.ClassroomHasCourse.Course?.name
-          })}
         />
       </DialogContent>
 
@@ -79,7 +84,7 @@ const DeleteTeacher: FC<Props> = ({teacher, open, setOpen}) => {
 
         <MainDialogButton
           type="submit" color="error" variant="contained"
-          loading={loading} disabled={name !== userFullName}
+          loading={loading} disabled={name !== textTemplate}
         >
           {t('global.confirm')}
         </MainDialogButton>

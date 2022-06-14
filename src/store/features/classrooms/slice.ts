@@ -27,17 +27,6 @@ export const getClassrooms = createAsyncThunk('classrooms/getClassrooms', async 
   };
 });
 
-export const getClassroomById = createAsyncThunk('classrooms/getClassroomById', async (id: Classroom['id'], thunkAPI) => {
-  try {
-    return await classroomsService.getClassroomById(id);
-  }
-
-  catch (error: any) {
-    const message = error || 'error';
-    return thunkAPI.rejectWithValue(message);
-  };
-});
-
 export const createClassroom = createAsyncThunk('classrooms/createClassroom', async (classroom: ClassroomRequest, thunkAPI) => {
   try {
     const newClassroom = {...classroom, courses: undefined};
@@ -109,11 +98,6 @@ const classroomsSlice = createSlice({
       state.classroomsList = payload;
     });
 
-    // Retrieve classroom by classroom id
-    builder.addCase(getClassroomById.fulfilled, (state, {payload}) => {
-      state.classroomsList = payload;
-    });
-
     // Create new classroom
     builder.addCase(createClassroom.fulfilled, (state, {payload}) => {
       state.classroomsList = (state.classroomsList ?? []).concat(payload);
@@ -139,7 +123,7 @@ const classroomsSlice = createSlice({
       .addMatcher(isAnyOf(createClassroom.rejected, updateClassroom.rejected, deleteClassroom.rejected), (_, {payload}: any) => {
         toast.error(payload.message);
       })
-      .addMatcher(isAnyOf(getClassrooms.rejected, getClassroomById.rejected), (state, {payload}: any) => {
+      .addMatcher(isAnyOf(getClassrooms.rejected), (state, {payload}: any) => {
         state.classroomsList = [];
         toast.error(payload.message);
       });

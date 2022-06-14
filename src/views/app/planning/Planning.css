@@ -6,6 +6,9 @@
   --course-color-practice_exam: rgb(80, 160, 20);
   --course-color-today: rgb(var(--accent-color));
 }
+.dark .planning-view {
+  --course-color-project: rgb(175, 45, 135);
+}
 
 .planning-view .content__body {
   gap: 1rem;

@@ -21,8 +21,10 @@ const DeleteBalance: FC<Props> = ({balance, open, setOpen}) => {
   const dispatch = useAppDispatch();
 
   const [loading, setLoading] = useState(false);
-  const [studentName, setStudentName] = useState('');
+  const [studentDesc, setStudentDesc] = useState('');
+
   const userFullName = `${balance.User?.firstName} ${balance.User?.lastName}`;
+  const textTemplate = `${userFullName} (${balance.description})`;
 
 
   const handleDeleteBalance = async (e: React.FormEvent<HTMLElement>) => {
@@ -45,7 +47,7 @@ const DeleteBalance: FC<Props> = ({balance, open, setOpen}) => {
 
   useEffect(() => {
     // Reset state on new dialog open
-    if (open) setStudentName('');
+    if (open) setStudentDesc('');
   }, [open]);
 
 
@@ -62,12 +64,10 @@ const DeleteBalance: FC<Props> = ({balance, open, setOpen}) => {
         <p>{t('accounting.delete.text')}</p>
 
         <TextField
-          sx={{mt: 2}}
-          required autoFocus
-          value={studentName}
+          required autoFocus sx={{my: 1}}
           margin="dense" variant="standard"
-          label={t('accounting.delete.description')}
-          onChange={e => setStudentName(e.target.value)}
+          label={textTemplate} value={studentDesc}
+          onChange={e => setStudentDesc(e.target.value)}
         />
       </DialogContent>
 
@@ -78,7 +78,7 @@ const DeleteBalance: FC<Props> = ({balance, open, setOpen}) => {
 
         <MainDialogButton
           type="submit" color="error" variant="contained" 
-          loading={loading} disabled={studentName !== userFullName}
+          loading={loading} disabled={studentDesc !== textTemplate}
         >
           {t('global.confirm')}
         </MainDialogButton>

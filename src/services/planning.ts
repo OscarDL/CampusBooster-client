@@ -6,7 +6,7 @@ import { apiUrl, getAxiosConfig } from '../shared/api';
 import { Planning, PlanningRequest } from '../shared/types/planning';
 
 
-const getPlannings = async () => {
+const getPlannings = async (): Promise<Planning[]> => {
   try {
     const response = await axios.get(apiUrl + 'plannings', getAxiosConfig());
     return response.data;
@@ -17,7 +17,7 @@ const getPlannings = async () => {
   }
 };
 
-const getUserPlanning = async (id: User['id']) => {
+const getUserPlanning = async (id: User['id']): Promise<Planning[]> => {
   try {
     const response = await axios.get(apiUrl + 'plannings/user/' + id, getAxiosConfig());
     return response.data;
@@ -28,7 +28,7 @@ const getUserPlanning = async (id: User['id']) => {
   }
 };
 
-const createPlanningEntry = async (planning: PlanningRequest) => {
+const createPlanningEntry = async (planning: PlanningRequest): Promise<Planning> => {
   try {
     const response = await axios.post(apiUrl + 'plannings', planning, getAxiosConfig());
     return response.data;
@@ -39,7 +39,7 @@ const createPlanningEntry = async (planning: PlanningRequest) => {
   }
 };
 
-const updatePlanningEntry = async (planning: PlanningRequest) => {
+const updatePlanningEntry = async (planning: PlanningRequest): Promise<Planning> => {
   try {
     const response = await axios.patch(apiUrl + 'plannings/' + planning.id, planning, getAxiosConfig());
     return response.data;
@@ -50,7 +50,7 @@ const updatePlanningEntry = async (planning: PlanningRequest) => {
   }
 };
 
-const deletePlanningEntry = async (id: Planning['id']) => {
+const deletePlanningEntry = async (id: Planning['id']): Promise<void> => {
   try {
     const response = await axios.delete(apiUrl + 'plannings/' + id, getAxiosConfig());
     return response.data;

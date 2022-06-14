@@ -138,13 +138,13 @@ export const getUserCategories = (categories: AC[], user: User) => {
 };
 
 
-export const userHasHigherRole = (user: User, role: UserRoles, excludeSameRole?: boolean) => {
+export const userHasHigherRole = (loggedInUser: User, role: UserRoles, excludeSameRole?: boolean) => {
   const {
     CampusBoosterAdmin: cba, CampusManager: cm, Assistant: a,
     Company: c, FullProfessor: fp, Professor: p, Student: s
   } = UserRoles;
 
-  switch (user.role) {
+  switch (loggedInUser.role) {
     case cba: return false;
     case cm: return [cba].concat(excludeSameRole ? cm : []).includes(role);
     case a: return [cba, cm].concat(excludeSameRole ? a : []).includes(role);

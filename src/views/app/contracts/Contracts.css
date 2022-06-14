@@ -1,0 +1,7 @@
+.dark .contract-details a {
+  color: rgb(var(--text-color));
+}
+.dark .contract-details a:hover,
+.dark .contract-details a:focus-visible {
+  color: rgb(var(--accent-color));
+}

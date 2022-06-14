@@ -78,7 +78,13 @@ const UpdateTeacher: FC<Props> = ({teacher, open, setOpen}) => {
       onClose={() => setOpen(false)}
       open={open} fullWidth maxWidth="sm"
     >
-      <DialogTitle>{t('admin.teachers.update.title', {teacher: userFullName})}</DialogTitle>
+      <DialogTitle>
+        {t('admin.teachers.update.title', {
+          teacher: userFullName,
+          course: teacher.ClassroomHasCourse.Course?.name,
+          classroom: teacher.ClassroomHasCourse.Classroom?.name
+        })}
+      </DialogTitle>
 
       <DialogContent>
         <Box sx={{mb: 2}}>

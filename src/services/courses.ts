@@ -6,7 +6,7 @@ import { apiUrl, getAxiosConfig } from '../shared/api';
 import { Course, CourseRequest } from '../shared/types/course';
 
 
-const getCourses = async () => {
+const getCourses = async (): Promise<Course[]> => {
   try {
     const response = await axios.get(apiUrl + 'courses', getAxiosConfig());
     return response.data;
@@ -17,7 +17,7 @@ const getCourses = async () => {
   }
 };
 
-const getUserCourses = async (id: User['id']) => {
+const getUserCourses = async (id: User['id']): Promise<Course[]> => {
   try {
     const response = await axios.get(apiUrl + 'courses/' + id, getAxiosConfig());
     return response.data;
@@ -28,7 +28,7 @@ const getUserCourses = async (id: User['id']) => {
   }
 };
 
-const createCourse = async (course: CourseRequest) => {
+const createCourse = async (course: CourseRequest): Promise<Course> => {
   try {
     const response = await axios.post(apiUrl + 'courses', course, getAxiosConfig());
     return response.data;
@@ -39,7 +39,7 @@ const createCourse = async (course: CourseRequest) => {
   }
 };
 
-const updateCourse = async (course: Course) => {
+const updateCourse = async (course: Course): Promise<Course> => {
   try {
     const response = await axios.patch(apiUrl + 'courses/' + course.id, course, getAxiosConfig());
     return response.data;
@@ -50,7 +50,7 @@ const updateCourse = async (course: Course) => {
   }
 };
 
-const deleteCourse = async (id: Course['id']) => {
+const deleteCourse = async (id: Course['id']): Promise<void> => {
   try {
     const response = await axios.delete(apiUrl + 'courses/' + id, getAxiosConfig());
     return response.data;

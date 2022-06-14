@@ -57,11 +57,9 @@ const DeletePlanningEntry: FC<Props> = ({project, open, setOpen}) => {
         <p>{t('admin.projects.delete.text')}</p>
 
         <TextField
-          sx={{mt: 2}}
-          required autoFocus
-          label={textTemplate}
-          value={courseProject}
+          required autoFocus sx={{my: 1}}
           margin="dense" variant="standard"
+          label={textTemplate} value={courseProject}
           onChange={e => setCourseProject(e.target.value)}
         />
       </DialogContent>

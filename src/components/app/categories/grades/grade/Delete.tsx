@@ -63,11 +63,9 @@ const DeleteGrade: FC<Props> = ({grade, open, setOpen}) => {
         <p>{t('grades.delete.text', {text: textTemplate})}</p>
 
         <TextField
-          sx={{mt: 2}}
-          required autoFocus
-          value={studentGrade}
+          required autoFocus sx={{my: 1}}
           margin="dense" variant="standard"
-          label={t('grades.delete.student_grade')}
+          label={textTemplate} value={studentGrade}
           onChange={e => setStudentGrade(e.target.value)}
         />
       </DialogContent>

@@ -24,6 +24,7 @@ const ContractDetails: FC<Props> = ({contract, open, setOpen}) => {
 
   return (
     <Dialog
+      className="contract-details"
       onClose={() => setOpen(false)}
       open={open} fullWidth maxWidth="sm"
     >

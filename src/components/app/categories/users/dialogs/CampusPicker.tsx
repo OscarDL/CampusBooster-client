@@ -33,7 +33,7 @@ const UserCampusPicker: FC<Props> = ({user: selectedUser, setUser}) => {
       const campusOptions: Option[] = campusList
         // Only let Campus Booster admins select other campuses
         .filter(campus => user.campusId ? user.campusId === campus.id : true)
-        // Only show campuses that do not have a campus manager if selected user role is manager
+        // Only show campuses that do not have a campus manager if selected user role is campus manager
         .filter(campus => {
           if (selectedUser.role === UserRoles.CampusManager) {
             return !campus.CampusManager || campus.CampusManager.id === selectedUser.id;

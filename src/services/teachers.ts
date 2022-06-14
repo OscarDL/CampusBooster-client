@@ -5,7 +5,7 @@ import { apiUrl, getAxiosConfig } from '../shared/api';
 import { Teacher, TeacherRequest } from '../shared/types/teacher';
 
 
-const getTeachers = async () => {
+const getTeachers = async (): Promise<Teacher[]> => {
   try {
     const response = await axios.get(apiUrl + 'teachers', getAxiosConfig());
     return response.data;
@@ -16,7 +16,7 @@ const getTeachers = async () => {
   }
 };
 
-const createTeacher = async (teacher: TeacherRequest) => {
+const createTeacher = async (teacher: TeacherRequest): Promise<Teacher> => {
   try {
     const response = await axios.post(apiUrl + 'teachers', teacher, getAxiosConfig());
     return response.data;
@@ -27,7 +27,7 @@ const createTeacher = async (teacher: TeacherRequest) => {
   }
 };
 
-const updateTeacher = async (teacher: TeacherRequest) => {
+const updateTeacher = async (teacher: TeacherRequest): Promise<Teacher> => {
   try {
     const response = await axios.patch(apiUrl + 'teachers/' + teacher.id, teacher, getAxiosConfig());
     return response.data;
@@ -38,7 +38,7 @@ const updateTeacher = async (teacher: TeacherRequest) => {
   }
 };
 
-const deleteTeacher = async (id: Teacher['id']) => {
+const deleteTeacher = async (id: Teacher['id']): Promise<void> => {
   try {
     const response = await axios.delete(apiUrl + 'teachers/' + id, getAxiosConfig());
     return response.data;

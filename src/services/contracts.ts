@@ -6,7 +6,7 @@ import { apiUrl, getAxiosConfig } from '../shared/api';
 import { Contract, ContractRequest } from '../shared/types/contract';
 
 
-const getContracts = async () => {
+const getContracts = async (): Promise<Contract[]> => {
   try {
     const response = await axios.get(apiUrl + 'contracts', getAxiosConfig());
     return response.data;
@@ -17,7 +17,7 @@ const getContracts = async () => {
   }
 };
 
-const getUserContracts = async (id: User['id']) => {
+const getUserContracts = async (id: User['id']): Promise<Contract[]> => {
   try {
     const response = await axios.get(apiUrl + 'contracts/user/' + id, getAxiosConfig());
     return response.data;
@@ -28,7 +28,7 @@ const getUserContracts = async (id: User['id']) => {
   }
 };
 
-const getSupervisorContracts = async (id: User['id']) => {
+const getSupervisorContracts = async (id: User['id']): Promise<Contract[]> => {
   try {
     const response = await axios.get(apiUrl + 'contracts/supervisor/' + id, getAxiosConfig());
     return response.data;
@@ -39,7 +39,7 @@ const getSupervisorContracts = async (id: User['id']) => {
   }
 };
 
-const createContract = async (contract: ContractRequest) => {
+const createContract = async (contract: ContractRequest): Promise<Contract> => {
   try {
     const response = await axios.post(apiUrl + 'contracts', contract, getAxiosConfig());
     return response.data;
@@ -50,7 +50,7 @@ const createContract = async (contract: ContractRequest) => {
   }
 };
 
-const updateContract = async (contract: Contract) => {
+const updateContract = async (contract: Contract): Promise<Contract> => {
   try {
     const response = await axios.patch(apiUrl + 'contracts/' + contract.id, contract, getAxiosConfig());
     return response.data;
@@ -61,7 +61,7 @@ const updateContract = async (contract: Contract) => {
   }
 };
 
-const deleteContract = async (id: Contract['id']) => {
+const deleteContract = async (id: Contract['id']): Promise<void> => {
   try {
     const response = await axios.delete(apiUrl + 'contracts/' + id, getAxiosConfig());
     return response.data;

@@ -6,7 +6,7 @@ import { apiUrl, getAxiosConfig } from '../shared/api';
 import { Project, ProjectRequest } from '../shared/types/project';
 
 
-const getProjects = async () => {
+const getProjects = async (): Promise<Project[]> => {
   try {
     const response = await axios.get(apiUrl + 'projects', getAxiosConfig());
     return response.data;
@@ -17,7 +17,7 @@ const getProjects = async () => {
   }
 };
 
-const getUserProjects = async (id: User['id']) => {
+const getUserProjects = async (id: User['id']): Promise<Project[]> => {
   try {
     const response = await axios.get(apiUrl + 'projects/user/' + id, getAxiosConfig());
     return response.data;
@@ -28,7 +28,7 @@ const getUserProjects = async (id: User['id']) => {
   }
 };
 
-const createProject = async (project: ProjectRequest) => {
+const createProject = async (project: ProjectRequest): Promise<Project> => {
   try {
     const response = await axios.post(apiUrl + 'projects', project, getAxiosConfig());
     return response.data;
@@ -39,7 +39,7 @@ const createProject = async (project: ProjectRequest) => {
   }
 };
 
-const updateProject = async (project: ProjectRequest) => {
+const updateProject = async (project: ProjectRequest): Promise<Project> => {
   try {
     const response = await axios.patch(apiUrl + 'projects/' + project.id, project, getAxiosConfig());
     return response.data;
@@ -50,7 +50,7 @@ const updateProject = async (project: ProjectRequest) => {
   }
 };
 
-const deleteProject = async (id: Project['id']) => {
+const deleteProject = async (id: Project['id']): Promise<void> => {
   try {
     const response = await axios.delete(apiUrl + 'projects/' + id, getAxiosConfig());
     return response.data;

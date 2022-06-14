@@ -181,8 +181,7 @@
 
     "delete": {
       "title": "Supprimer note",
-      "text": "Veuillez entrer le nom de l'étudiant ainsi que sa note comme l'exemple ci-dessous afin d'éviter une suppression accidentelle.",
-      "student_grade": "Nom de l'étudiant (XX/20)",
+      "text": "Veuillez entrer le nom de l'étudiant ainsi que sa note comme ci-dessous afin d'éviter une suppression accidentelle.",
       "success": "Note supprimée avec succès."
     }
   },
@@ -371,7 +370,6 @@
     "delete": {
       "title": "Supprimer le contrat de \"{{user}}\"",
         "text": "Veuillez entrer le nom de l'étudiant et de l'entreprise comme ci-dessous afin d'éviter une suppression accidentelle.",
-        "student_company": "Étudiant (Entreprise)",
       "success": "Contrat de \"{{user}}\" dans l'entreprise \"{{company}}\" supprimé avec succès."
     },
 
@@ -432,8 +430,7 @@
 
     "delete": {
       "title": "Supprimer entrée de solde pour \"{{user}}\"",
-      "text": "Veuillez écrire le nom de l'étudiant ci-dessous afin d'éviter une suppression accidentelle.",
-      "description": "Description",
+      "text": "Veuillez écrire le nom de l'étudiant avec la description de l'opération ci-dessous afin d'éviter une suppression accidentelle.",
       "success": "Entrée de solde supprimée avec succès."
     }
   },
@@ -571,8 +568,8 @@
 
     "delete": {
       "title": "Supprimer \"{{user}}\"",
-      "text": "Veuillez entrer le nom de l'utilisateur ci-dessous afin d'éviter une suppression accidentelle.",
-      "name": "Nom complet",
+      "text": "Veuillez entrer le nom complet de l'utilisateur ci-dessous afin d'éviter une suppression accidentelle.",
+      "name": "Nom complet de l'utilisateur",
       "azure": "Supprimer l'utilisateur de l'AD Azure",
       "success": "Utilisateur \"{{user}}\" supprimé avec succès.",
       "undeletable": "Vous ne possédez pas les droits nécessaires pour supprimer l'utilisateur \"{{user}}\"."
@@ -598,7 +595,6 @@
       "remove": {
         "title": "Retirer un utilisateur des bannis",
         "text": "Veuillez entrer le nom de l'utilisateur ci-dessous afin d'éviter un dé-bannissement accidentel.",
-        "full_name": "Nom complet",
         "success": "Utilisateur \"{{user}}\" dé-banni avec succès."
       }
     },
@@ -634,7 +630,6 @@
       "delete": {
         "title": "Supprimer \"{{campus}}\"",
         "text": "Veuillez entrer le nom du campus ci-dessous afin d'éviter une suppression accidentelle.",
-        "name": "Nom du campus",
         "success": "Campus \"{{campus}}\" supprimé avec succès."
       }
     },
@@ -668,7 +663,6 @@
       "delete": {
         "title": "Supprimer \"{{classroom}}\"",
         "text": "Veuillez entrer le nom de la classe ci-dessous afin d'éviter une suppression accidentelle.",
-        "name": "Nom de la classe",
         "success": "Classe \"{{classroom}}\" supprimé avec succès."
       }
     },
@@ -771,14 +765,13 @@
       },
 
       "update": {
-        "title": "Modifier professeur \"{{teacher}}\"",
+        "title": "Modifier professeur \"{{teacher}}\" pour \"{{classroom}}\" ({{course}})",
         "success": "User \"{{user}}\" successfully updated."
       },
 
       "remove": {
-        "title": "Retirer \"{{user}}\" de la liste des professeurs",
+        "title": "Retirer \"{{teacher}}\" comme professeur pour \"{{classroom}}\" ({{course}})",
         "text": "Veuillez entrer le nom de l'utilisateur et du cours comme ci-dessous afin d'éviter un retrait accidentel.",
-        "name_course": "{{user}} - {{course}}",
         "success": "Utilisateur \"{{user}}\" retiré de la liste des professeurs avec succès."
       }
     }

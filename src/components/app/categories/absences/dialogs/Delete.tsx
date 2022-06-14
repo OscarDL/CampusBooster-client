@@ -64,11 +64,9 @@ const DeleteAbsence: FC<Props> = ({absence, open, setOpen}) => {
         <p>{t('absences.delete.text')}</p>
 
         <TextField
-          sx={{mt: 2}}
-          required autoFocus
-          value={studentDate}
-          label={textTemplate}
+          required autoFocus sx={{my: 1}}
           margin="dense" variant="standard"
+          label={textTemplate} value={studentDate}
           onChange={e => setStudentDate(e.target.value)}
         />
       </DialogContent>

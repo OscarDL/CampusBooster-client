@@ -6,7 +6,7 @@ import { apiUrl, getAxiosConfig } from '../shared/api';
 import { Balance, BalanceRequest } from '../shared/types/accounting';
 
 
-const getBalances = async () => {
+const getBalances = async (): Promise<Balance[]> => {
   try {
     const response = await axios.get(apiUrl + 'balances', getAxiosConfig());
     return response.data;
@@ -17,7 +17,7 @@ const getBalances = async () => {
   }
 };
 
-const getUserBalance = async (id: User['id']) => {
+const getUserBalance = async (id: User['id']): Promise<Balance[]> => {
   try {
     const response = await axios.get(apiUrl + 'balances/user/' + id, getAxiosConfig());
     return response.data;
@@ -28,7 +28,7 @@ const getUserBalance = async (id: User['id']) => {
   }
 };
 
-const createBalance = async (balance: BalanceRequest) => {
+const createBalance = async (balance: BalanceRequest): Promise<Balance> => {
   try {
     const response = await axios.post(apiUrl + 'balances', balance, getAxiosConfig());
     return response.data;
@@ -39,7 +39,7 @@ const createBalance = async (balance: BalanceRequest) => {
   }
 };
 
-const updateBalance = async (balance: Balance) => {
+const updateBalance = async (balance: Balance): Promise<Balance> => {
   try {
     const response = await axios.patch(apiUrl + 'balances/' + balance.id, balance, getAxiosConfig());
     return response.data;
@@ -50,7 +50,7 @@ const updateBalance = async (balance: Balance) => {
   }
 };
 
-const deleteBalance = async (id: Balance['id']) => {
+const deleteBalance = async (id: Balance['id']): Promise<void> => {
   try {
     const response = await axios.delete(apiUrl + 'balances/' + id, getAxiosConfig());
     return response.data;

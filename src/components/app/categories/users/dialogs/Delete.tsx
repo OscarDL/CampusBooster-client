@@ -3,9 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { FC, useEffect, useState } from 'react';
 import { Button, Checkbox, FormControlLabel, FormGroup, TextField } from '@mui/material';
 
-import { User } from '../../../../../shared/types/user';
+import { User, UserRoles } from '../../../../../shared/types/user';
 import { deleteUser } from '../../../../../store/features/users/slice';
 import { useAppDispatch, useAppSelector } from '../../../../../store/store';
+import { updateCampusManager } from '../../../../../store/features/campus/slice';
 import { getLoggedInAuthState, userHasHigherRole } from '../../../../../shared/functions';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
 
@@ -61,7 +62,12 @@ const DeletableUser: FC<Props> = ({user, open, setOpen}) => {
     setLoading(true);
 
     try {
-      await dispatch(deleteUser({user, deleteInAD})).unwrap();
+      const deletedUser = await dispatch(deleteUser({user, deleteInAD})).unwrap();
+
+      // Remove campus manager from concerned campus if user is a campus manager
+      if (deletedUser.role === UserRoles.CampusManager) {
+        dispatch(updateCampusManager({campusId: deletedUser.campusId ?? 0, campusManager: undefined}));
+      }
 
       setOpen(false);
       toast.success(t('users.delete.success', {user: userFullName}));
@@ -76,7 +82,10 @@ const DeletableUser: FC<Props> = ({user, open, setOpen}) => {
 
   useEffect(() => {
     // Reset state on new dialog open
-    if (open) setUserName('');
+    if (open) {
+      setUserName('');
+      setDeleteInAD(false);
+    }
   }, [open]);
 
 
@@ -93,12 +102,10 @@ const DeletableUser: FC<Props> = ({user, open, setOpen}) => {
         <p>{t('users.delete.text')}</p>
 
         <TextField
-          sx={{mt: 2}}
-          value={userName}
-          required autoFocus
-          label={t('users.delete.name')}
+          required autoFocus sx={{my: 1}}
           margin="dense" variant="standard"
           onChange={e => setUserName(e.target.value)}
+          label={t('users.delete.name')} value={userName}
         />
 
         <FormGroup>

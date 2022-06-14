@@ -63,21 +63,24 @@ type UpdateRequest = {
 };
 export const updateUser = createAsyncThunk('users/updateUser', async (request: UpdateRequest, thunkAPI) => {
   try {
+    // Keep current user state for campus manager update
+    const currentUser = await userService.getUserById(request.user.id!);
+
     // Remove needed classrooms first
     if (request.removeClassrooms && request.removeClassrooms.length > 0) {
-      await userService.removeUserFromClassrooms(request.user.id!, request.removeClassrooms);
+      await userService.removeUserFromClassrooms(currentUser.id, request.removeClassrooms);
     }
 
     // Then update core user info
-    const updatedUser = await userService.updateUser(request.user);
+    await userService.updateUser(request.user);
 
     // Then add the necessary classrooms
     if (request.addClassrooms && request.addClassrooms.length > 0) {
-      await userService.addUserToClassrooms(request.user.id!, request.addClassrooms);
+      await userService.addUserToClassrooms(currentUser.id, request.addClassrooms);
     }
 
     // Then return the updated user
-    return await userService.getUserById(updatedUser.id);
+    return await userService.getUserById(currentUser.id);
   }
 
   catch (error: any) {
@@ -105,7 +108,7 @@ type DeleteRequest = {user: User, deleteInAD: boolean};
 export const deleteUser = createAsyncThunk('users/deleteUser', async ({user, deleteInAD}: DeleteRequest, thunkAPI) => {
   try {
     await userService.deleteUser(user.id, deleteInAD);
-    return user.id;
+    return user;
   }
 
   catch (error: any) {
@@ -150,9 +153,9 @@ const usersSlice = createSlice({
     });
 
     // Delete user
-    builder.addCase(deleteUser.fulfilled, (state, {payload: id}) => {
+    builder.addCase(deleteUser.fulfilled, (state, {payload: deletedUser}) => {
       if (state.usersList) {
-        state.usersList = state.usersList.filter(user => user.id !== id);
+        state.usersList = state.usersList.filter(user => user.id !== deletedUser.id);
       }
     });
 

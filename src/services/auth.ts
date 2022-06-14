@@ -1,11 +1,15 @@
 import axios from 'axios';
 import { t } from 'i18next';
 
-import { AzureData } from '../shared/types/user';
+import { AzureData, User } from '../shared/types/user';
 import { apiUrl, getAxiosConfig } from '../shared/api';
 
 
-const login = async (azureData: AzureData) => {
+type LoginData = {
+  user: User,
+  refreshToken: string
+};
+const login = async (azureData: AzureData): Promise<LoginData> => {
   try {
     const loginRequest = {
       azureId: azureData.localAccountId
@@ -20,7 +24,7 @@ const login = async (azureData: AzureData) => {
   }
 };
 
-const logout = async () => {
+const logout = async (): Promise<void> => {
   try {
     await axios.get(apiUrl + 'auth/logout', getAxiosConfig());
   }
@@ -30,7 +34,7 @@ const logout = async () => {
   }
 };
 
-const refreshAccessToken = async (refreshToken: string) => {
+const refreshAccessToken = async (refreshToken: string): Promise<void> => {
   try {
     await axios.post(apiUrl + 'auth/refresh', {refreshToken}, getAxiosConfig());
   }

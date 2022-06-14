@@ -5,7 +5,7 @@ import { apiUrl, getAxiosConfig } from '../shared/api';
 import { Campus, CampusRequest } from '../shared/types/campus';
 
 
-const getCampus = async () => {
+const getCampus = async (): Promise<Campus[]> => {
   try {
     const response = await axios.get(apiUrl + 'campus', getAxiosConfig());
     return response.data;
@@ -16,18 +16,7 @@ const getCampus = async () => {
   }
 };
 
-const getCampusById = async (id: Campus['id']) => {
-  try {
-    const response = await axios.get(apiUrl + 'campus/' + id, getAxiosConfig());
-    return response.data;
-  }
-
-  catch (error: any) {
-    return Promise.reject(error?.response?.data || t('api.error'));
-  }
-};
-
-const createCampus = async (campus: CampusRequest) => {
+const createCampus = async (campus: CampusRequest): Promise<Campus> => {
   try {
     const response = await axios.post(apiUrl + 'campus', campus, getAxiosConfig());
     return response.data;
@@ -38,7 +27,7 @@ const createCampus = async (campus: CampusRequest) => {
   }
 };
 
-const updateCampus = async (campus: Campus) => {
+const updateCampus = async (campus: Campus): Promise<Campus> => {
   try {
     const response = await axios.patch(apiUrl + 'campus/' + campus.id, campus, getAxiosConfig());
     return response.data;
@@ -49,7 +38,7 @@ const updateCampus = async (campus: Campus) => {
   }
 };
 
-const deleteCampus = async (id: Campus['id']) => {
+const deleteCampus = async (id: Campus['id']): Promise<void> => {
   try {
     const response = await axios.delete(apiUrl + 'campus/' + id, getAxiosConfig());
     return response.data;
@@ -63,7 +52,6 @@ const deleteCampus = async (id: Campus['id']) => {
 
 const campusService = {
   getCampus,
-  getCampusById,
   createCampus,
   updateCampus,
   deleteCampus

@@ -187,7 +187,6 @@
     "delete": {
       "title": "Delete grade",
       "text": "Please type in the student name with the grade as shown below to avoid accidental deletion.",
-      "student_grade": "Student name (XX/20)",
       "success": "Grade successfully deleted."
     }
   },
@@ -381,7 +380,6 @@
     "delete": {
       "title": "Delete contract of \"{{user}}\"",
       "text": "Please type in the name of the user and company as shown below to avoid accidental deletion.",
-      "student_company": "Student (Company)",
       "success": "Contract of \"{{user}}\" in company \"{{company}}\" successfully deleted."
     },
 
@@ -443,8 +441,7 @@
 
     "delete": {
       "title": "Delete balance entry for \"{{user}}\"",
-      "text": "Please type in the student name description below to avoid accidental deletion.",
-      "description": "Description",
+      "text": "Please type in the student name with the entry description below to avoid accidental deletion.",
       "success": "Balance entry successfully deleted."
     }
   },
@@ -596,8 +593,8 @@
 
     "delete": {
       "title": "Delete \"{{user}}\"",
-      "text": "Please type in the name of the user below to avoid accidental deletion.",
-      "name": "Full name",
+      "text": "Please type in the full name of the user below to avoid accidental deletion.",
+      "name": "Full user name",
       "azure": "Delete user from Azure AD",
       "success": "User \"{{user}}\" successfully deleted.",
       "undeletable": "You do not have sufficient rights to delete user \" {{user}}\"."
@@ -625,7 +622,6 @@
       "remove": {
         "title": "Remove \"{{user}}\" from ban list",
         "text": "Please type in the name of the user below to avoid accidental unban.",
-        "full_name": "Full name",
         "success": "User \"{{user}}\" successfully unbanned."
       }
     },
@@ -662,7 +658,6 @@
       "delete": {
         "title": "Delete \"{{campus}}\"",
         "text": "Please type in the name of the campus below to avoid accidental removal.",
-        "name": "Campus name",
         "success": "Campus \"{{campus}}\" successfully deleted."
       }
     },
@@ -697,7 +692,6 @@
       "delete": {
         "title": "Delete \"{{classroom}}\"",
         "text": "Please type in the name of the classroom below to avoid accidental removal.",
-        "name": "Classroom name",
         "success": "Classroom \"{{classroom}}\" successfully deleted."
       }
     },
@@ -743,7 +737,7 @@
 
       "delete": {
         "title": "Delete planning entry",
-        "text": "Please type in the date and name of the course  as shown below to avoid accidental deletion.",
+        "text": "Please type in the date and name of the course as shown below to avoid accidental deletion.",
         "success": "Planning entry successfully deleted."
       }
     },
@@ -802,14 +796,13 @@
       },
 
       "update": {
-        "title": "Update teacher \"{{teacher}}\"",
+        "title": "Update teacher \"{{teacher}}\" for \"{{classroom}}\" ({{course}})",
         "success": "User \"{{user}}\" successfully updated."
       },
 
       "remove": {
-        "title": "Remove \"{{user}}\" from teachers list",
+        "title": "Remove \"{{teacher}}\" as teacher for \"{{classroom}}\" ({{course}})",
         "text": "Please type in the name of the user and course as shown below to avoid accidental removal.",
-        "name_course": "{{user}} - {{course}}",
         "success": "User \"{{user}}\" successfully removed from teachers list."
       }
     }

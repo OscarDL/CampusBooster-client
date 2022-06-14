@@ -61,12 +61,10 @@ const DeleteTool: FC<Props> = ({tool, open, setOpen}) => {
         <p>{t('tools.delete.text')}</p>
 
         <TextField
-          sx={{mt: 2}}
-          value={toolTitle}
-          required autoFocus
-          label={t('tools.delete.name')}
+          required autoFocus sx={{my: 1}}
           margin="dense" variant="standard"
           onChange={e => setToolTitle(e.target.value)}
+          label={t('tools.delete.name')} value={toolTitle}
         />
       </DialogContent>
 

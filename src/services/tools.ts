@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { t } from 'i18next';
 
-import { ToolLink } from '../shared/types/tool';
 import { apiUrl, getAxiosConfig } from '../shared/api';
+import { ToolLink, ToolLinkBase64Image } from '../shared/types/tool';
 
 
 const axiosFormDataConfig = {
@@ -14,7 +14,7 @@ const axiosFormDataConfig = {
 };
 
 
-const getTools = async () => {
+const getTools = async (): Promise<ToolLinkBase64Image[]> => {
   try {
     const response = await axios.get(apiUrl + 'tools', getAxiosConfig());
     return response.data;
@@ -25,7 +25,7 @@ const getTools = async () => {
   }
 };
 
-const createTool = async (toolData: FormData) => {
+const createTool = async (toolData: FormData): Promise<ToolLinkBase64Image> => {
   try {
     const response = await axios.post(apiUrl + 'tools', toolData, axiosFormDataConfig);
     return response.data;
@@ -36,7 +36,7 @@ const createTool = async (toolData: FormData) => {
   }
 };
 
-const updateTool = async (id: ToolLink['id'], toolData: FormData) => {
+const updateTool = async (id: ToolLink['id'], toolData: FormData): Promise<ToolLinkBase64Image> => {
   try {
     const response = await axios.patch(apiUrl + 'tools/' + id, toolData, axiosFormDataConfig);
     return response.data;
@@ -47,7 +47,7 @@ const updateTool = async (id: ToolLink['id'], toolData: FormData) => {
   }
 };
 
-const deleteTool = async (id: ToolLink['id']) => {
+const deleteTool = async (id: ToolLink['id']): Promise<void> => {
   try {
     const response = await axios.delete(apiUrl + 'tools/' + id, getAxiosConfig());
     return response.data;

@@ -61,12 +61,10 @@ const DeleteCourse: FC<Props> = ({course, open, setOpen}) => {
         <p>{t('courses.delete.text')}</p>
 
         <TextField
-          sx={{mt: 2}}
-          value={courseName}
-          required autoFocus
-          label={t('courses.delete.name')}
+          required autoFocus sx={{my: 1}}
           margin="dense" variant="standard"
           onChange={e => setCourseName(e.target.value)}
+          label={t('courses.delete.name')} value={courseName}
         />
       </DialogContent>
 

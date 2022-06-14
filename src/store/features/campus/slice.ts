@@ -2,11 +2,17 @@ import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 import campusService from '../../../services/campus';
+import { PublicUser } from '../../../shared/types/user';
 import { Campus, CampusRequest } from '../../../shared/types/campus';
 
 
 export type CampusState = {
   campusList: Campus[] | null,
+};
+
+type UpdateCampusManager = {
+  campusId: Campus['id'],
+  campusManager?: PublicUser,
 };
 
 
@@ -18,17 +24,6 @@ const initialState: CampusState = {
 export const getCampus = createAsyncThunk('campus/getCampus', async (_, thunkAPI) => {
   try {
     return await campusService.getCampus();
-  }
-
-  catch (error: any) {
-    const message = error || 'error';
-    return thunkAPI.rejectWithValue(message);
-  };
-});
-
-export const getCampusById = createAsyncThunk('campus/getCampusById', async (id: Campus['id'], thunkAPI) => {
-  try {
-    return await campusService.getCampusById(id);
   }
 
   catch (error: any) {
@@ -79,17 +74,19 @@ const campusSlice = createSlice({
   reducers: {
     clearCampus: (state: CampusState) => {
       state.campusList = null;
+    },
+
+    updateCampusManager: (state: CampusState, {payload}: {payload: UpdateCampusManager}) => {
+      const campusIndex = state.campusList?.findIndex(campus => campus.id === payload.campusId);
+      if (campusIndex && state.campusList) {
+        state.campusList[campusIndex].CampusManager = payload.campusManager;
+      }
     }
   },
 
   extraReducers: (builder) => {
     // Retrieve all campus for admins
     builder.addCase(getCampus.fulfilled, (state, {payload}) => {
-      state.campusList = payload;
-    });
-
-    // Retrieve campus by campus id
-    builder.addCase(getCampusById.fulfilled, (state, {payload}) => {
       state.campusList = payload;
     });
 
@@ -118,7 +115,7 @@ const campusSlice = createSlice({
       .addMatcher(isAnyOf(createCampus.rejected, updateCampus.rejected, deleteCampus.rejected), (_, {payload}: any) => {
         toast.error(payload.message);
       })
-      .addMatcher(isAnyOf(getCampus.rejected, getCampusById.rejected), (state, {payload}: any) => {
+      .addMatcher(isAnyOf(getCampus.rejected), (state, {payload}: any) => {
         state.campusList = [];
         toast.error(payload.message);
       });
@@ -126,5 +123,5 @@ const campusSlice = createSlice({
 });
 
 
-export const { clearCampus } = campusSlice.actions;
+export const { clearCampus, updateCampusManager } = campusSlice.actions;
 export default campusSlice.reducer;
