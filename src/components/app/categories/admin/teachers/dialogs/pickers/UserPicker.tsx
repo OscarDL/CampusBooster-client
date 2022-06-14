@@ -40,8 +40,10 @@ const TeacherUserPicker: FC<Props> = ({teacher, setTeacher, setClassroom}) => {
 
   useEffect(() => {
     if (usersList) {
+      const rolesAllowedAsTeacher = [UserRoles.Student, UserRoles.Professor, UserRoles.Company];
+
       const userOptions: Option[] = usersList
-        .filter(user => [UserRoles.Student, UserRoles.Professor].includes(user.role))
+        .filter(user => rolesAllowedAsTeacher.includes(user.role))
         .map(user => ({
           user,
           value: user.id,

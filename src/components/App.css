@@ -107,6 +107,10 @@ body, button {
   background-color: rgba(var(--scrollbar-background), 0.75);
 }
 
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
 
 /* ----- Global custom CSS ----- */
 
@@ -363,21 +367,7 @@ body .react-select-component__multi-value__remove:hover {
 }
 
 
-/* --- Material-UI custom styling - "body" for higher specificity CSS detection --- */
-
-/* Mui Select header */
-body .select > .MuiInputBase-input {
-  transition: 0.25s;
-}
-body .select:hover > .MuiInputBase-input {
-  color: rgb(var(--accent-color));
-}
-body .select.Mui-focused {
-  color: rgb(var(--accent-color));
-  background-color: rgba(var(--accent-color), 0.05);
-}
-
-/* Mui Select list item */
+/* Material-UI Select list item */
 body .MuiInputLabel-root.Mui-focused,
 body .MuiCheckbox-colorPrimary.Mui-checked,
 body .MuiOutlinedInput-root.Mui-focused .material-icons-outlined {
@@ -387,7 +377,7 @@ body div[role="tooltip"] .MuiInputLabel-root.Mui-focused {
   color: rgb(var(--accent-color)) !important;
 }
 
-/* Calendar picker */
+/* Material-UI Calendar picker */
 .dark .MuiPickerStaticWrapper-root,
 .dark .MuiPickersDay-root {
   background-color: rgb(var(--card-bg));

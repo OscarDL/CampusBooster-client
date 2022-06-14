@@ -59,6 +59,8 @@
   max-width: 80%;
   max-height: 80%;
   border-radius: var(--radius-small);
+}
+.dark .auth #logo {
   background-color: rgb(var(--text-color));
 }
 

@@ -58,7 +58,6 @@ const Settings: FC = () => {
           <InputLabel>{t('profile.settings.lang.title')}</InputLabel>
 
           <Select
-            className="select"
             value={settings.lang}
             onChange={handleChangeLang}
             label={t('profile.settings.lang.title')}
@@ -77,7 +76,6 @@ const Settings: FC = () => {
 
           <Select
             value={theme}
-            className="select"
             onChange={handleChangeTheme}
             label={t('profile.settings.theme.title')}
           >
@@ -93,7 +91,6 @@ const Settings: FC = () => {
           <InputLabel>{t('profile.settings.links.title')}</InputLabel>
 
           <Select
-            className="select"
             value={settings.linkType}
             onChange={handleChangeLinkType}
             label={t('profile.settings.links.title')}

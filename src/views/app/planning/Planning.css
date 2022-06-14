@@ -59,6 +59,11 @@
   max-width: var(--max-calendar-picker-width);
 }
 
+.planning-view .MuiPickersDay-root.Mui-selected,
+.planning-view .PrivatePickersMonth-root.Mui-selected {
+  color: white;
+}
+
 .planning-view .PrivatePickersYear-yearButton {
   padding: unset;
 }

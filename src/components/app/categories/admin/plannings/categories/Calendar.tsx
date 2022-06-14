@@ -33,7 +33,10 @@ const Calendar: FC<Props> = ({date, setDate, classroom, setClassroom}) => {
 
 
   const renderDay: RenderDay = (day, _, props) => {
-    const dayInPlanning = planningsList?.find(planning => dayjs(planning.date).isSame(day, 'day'));
+    const dayInPlanning = planningsList?.find(planning => (
+      classroom?.id === planning.ClassroomHasCourse.Classroom?.id
+      && dayjs(planning.date).isSame(day, 'day')
+    ));
     const past = dayjs(dayInPlanning?.date).isBefore(dayjs(), 'day');
 
     const planningType = (): PlanningType => (
@@ -41,11 +44,7 @@ const Calendar: FC<Props> = ({date, setDate, classroom, setClassroom}) => {
     );  
     const isToday = day.format(t('global.date.compare')) === dayjs().format(t('global.date.compare'));
 
-    const baseStyle = {
-      color: isToday ? 'white' : ''
-    };
     const dayStyle = {
-      ...baseStyle,
       opacity: past ? 0.5 : 1,
       color: planningType() ? 'white' : '',
       backgroundColor: isToday ? '' : `var(--course-color-${planningType().toLowerCase()})`
@@ -57,7 +56,7 @@ const Calendar: FC<Props> = ({date, setDate, classroom, setClassroom}) => {
         selected={isToday}
         key={day.toString()}
         onDaySelect={() => null}
-        style={classroom ? dayStyle : baseStyle}
+        style={classroom ? dayStyle : {}}
         outsideCurrentMonth={props.outsideCurrentMonth}
       />
     );

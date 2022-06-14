@@ -4,10 +4,10 @@
 }
 
 .accounting-view .balance-cell-credit {
-  font-weight: 500;
+  font-weight: 600;
   color: var(--credit-color);
 }
 .accounting-view .balance-cell-debit {
-  font-weight: 500;
+  font-weight: 600;
   color: var(--debit-color);
 }

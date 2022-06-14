@@ -77,6 +77,10 @@ export const getMuiTheme = (mode: PaletteMode) => createTheme({
           zIndex: 'unset',
           fontWeight: '500',
           color: 'rgba(var(--text-color), 0.66)',
+
+          '&.Mui-disabled': {
+            opacity: '0.5'
+          }
         }
       }
     },

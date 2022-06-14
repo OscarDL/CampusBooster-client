@@ -4,10 +4,10 @@
 }
 
 .grades-view .grade-cell-failed {
-  font-weight: 500;
+  font-weight: 600;
   color: var(--failed-color);
 }
 .grades-view .grade-cell-passed {
-  font-weight: 500;
+  font-weight: 600;
   color: var(--passed-color);
 }

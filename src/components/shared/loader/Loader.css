@@ -13,7 +13,9 @@
 }
 
 .loader.full-screen {
+  /* inset: 0; */
   position: fixed;
+  background-color: rgb(var(--app-bg));
 }
 
 .loader.click-through {
