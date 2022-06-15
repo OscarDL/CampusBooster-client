@@ -75,6 +75,7 @@ const App: FC = () => {
     }
   }, [azureData, user, dispatch]);
 
+
   return (
     <div className="app">
       <ThemeProvider theme={getMuiTheme(currTheme)}>
