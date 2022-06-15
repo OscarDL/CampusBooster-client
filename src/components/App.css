@@ -37,7 +37,7 @@
   --divider-color-darker: 200, 200, 200;
   --selected-drawer-item-bg-color: rgba(var(--accent-color), 0.075);
 
-  --container-box-shadow: 0 0 0.5rem 0.05rem rgba(0, 0, 0, 0.05);
+  --container-box-shadow: 0 0 0.5rem 0.05rem rgba(0, 0, 0, 0.025);
 }
 
 :root.dark {
@@ -47,7 +47,7 @@
   --theme-bg-cyan: 90, 134, 200;
   --theme-bg-pink: 134, 94, 194;
   --theme-bg-prpl: 112, 100, 190;
-  --theme-bg-gradient: rgba(var(--theme-bg-pink), 0.66), rgba(var(--theme-bg-prpl), 0.66), rgba(var(--theme-bg-blue), 0.66), rgba(var(--theme-bg-cyan), 0.66);
+  --theme-bg-gradient: rgba(var(--theme-bg-pink), 0.8), rgba(var(--theme-bg-prpl), 0.8), rgba(var(--theme-bg-blue), 0.8), rgba(var(--theme-bg-cyan), 0.8);
 
   --app-bg: 26, 26, 28;
   --card-bg: 40, 40, 42;
@@ -59,7 +59,11 @@
   --scrollbar-background: 200, 200, 202;
   --selected-drawer-item-bg-color: rgba(var(--accent-color), 0.15);
 
-  --container-box-shadow: 0 0 0.5rem 0.05rem rgba(0, 0, 0, 0.05);
+  --container-box-shadow: 0 0 0.5rem 0.05rem rgba(0, 0, 0, 0.025);
+}
+
+:root.dark {
+  background-color: rgb(var(--app-bg));
 }
 
 
@@ -366,16 +370,6 @@ body .react-select-component__multi-value__remove:hover {
   background-color: rgb(var(--button-bg));
 }
 
-
-/* Material-UI Select list item */
-body .MuiInputLabel-root.Mui-focused,
-body .MuiCheckbox-colorPrimary.Mui-checked,
-body .MuiOutlinedInput-root.Mui-focused .material-icons-outlined {
-  color: rgb(var(--accent-color)) !important;
-}
-body div[role="tooltip"] .MuiInputLabel-root.Mui-focused {
-  color: rgb(var(--accent-color)) !important;
-}
 
 /* Material-UI Calendar picker */
 .dark .MuiPickerStaticWrapper-root,

@@ -5,8 +5,8 @@ import { Button, Checkbox, FormControlLabel, FormGroup, TextField } from '@mui/m
 
 import { User, UserRoles } from '../../../../../shared/types/user';
 import { deleteUser } from '../../../../../store/features/users/slice';
+import { getCampus } from '../../../../../store/features/campus/slice';
 import { useAppDispatch, useAppSelector } from '../../../../../store/store';
-import { updateCampusManager } from '../../../../../store/features/campus/slice';
 import { getLoggedInAuthState, userHasHigherRole } from '../../../../../shared/functions';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
 
@@ -64,9 +64,9 @@ const DeletableUser: FC<Props> = ({user, open, setOpen}) => {
     try {
       const deletedUser = await dispatch(deleteUser({user, deleteInAD})).unwrap();
 
-      // Remove campus manager from concerned campus if user is a campus manager
+      // Update campus list with removed campus manager for concerned campus
       if (deletedUser.role === UserRoles.CampusManager) {
-        dispatch(updateCampusManager({campusId: deletedUser.campusId ?? 0, campusManager: undefined}));
+        await dispatch(getCampus());
       }
 
       setOpen(false);

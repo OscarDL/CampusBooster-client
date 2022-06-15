@@ -30,7 +30,7 @@
   justify-content: flex-start;
 }
 .profile-view .profile li:not(:last-child) {
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
 .profile-view .profile li > p:last-child {
   flex-grow: 1;
@@ -46,8 +46,8 @@
 }
 
 .profile-view .profile__main-info img {
-  width: 6rem;
-  height: 6rem;
+  width: 6.25rem;
+  height: 6.25rem;
   padding: 0.66rem;
 
   border-radius: var(--radius-small);
@@ -63,7 +63,7 @@
 }
 
 .profile-view .links li:not(:last-child) {
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .profile-view .links li > a {

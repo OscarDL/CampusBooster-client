@@ -28,14 +28,6 @@
 }
 
 
-/* Up to: Smartphones */
-@media (max-width: 479px) {
-  .users-tab {
-    display: flex;
-    flex-direction: column;
-  }
-}
-
 /* Up to: Small tablets */
 @media (max-width: 767px) {
   .users-select {
@@ -48,9 +40,5 @@
   }
   .users-tabs button, .users-tabs .MuiTabs-indicator {
     transition: 0s !important;
-  }
-
-  .users-tab {
-    animation: none;
   }
 }

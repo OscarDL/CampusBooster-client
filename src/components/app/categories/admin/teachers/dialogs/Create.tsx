@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch } from '../../../../../../store/store';
 import { Classroom } from '../../../../../../shared/types/classroom';
+import { getCourses } from '../../../../../../store/features/courses/slice';
 import { createTeacher } from '../../../../../../store/features/teachers/slice';
 import { Teacher, TeacherRequest } from '../../../../../../shared/types/teacher';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../../shared/dialog';
@@ -40,9 +41,12 @@ const CreateTeacher: FC<Props> = ({open, setOpen}) => {
     try {
       const addedTeacher: Teacher = await dispatch(createTeacher(teacher)).unwrap();
 
+      // Update courses list with new teacher for concerned course
+      await dispatch(getCourses());
+
       setOpen(false);
       setTeacher(newTeacherRequest());
-      toast.success(t('admin.teachers.create.success', {
+      toast.success(t('admin.teachers.add.success', {
         teacher: `${addedTeacher.User.firstName} ${addedTeacher.User.lastName}`
       }));
     }

@@ -8,11 +8,11 @@ import { Box, Button, FormControl, InputAdornment, InputLabel, MenuItem, Select,
 
 import { azureDomainName } from '../../../../../shared/utils/values';
 import { createUser } from '../../../../../store/features/users/slice';
+import { getCampus } from '../../../../../store/features/campus/slice';
 import { UserRequest, UserRoles } from '../../../../../shared/types/user';
 import { useAppDispatch, useAppSelector } from '../../../../../store/store';
-import { updateCampusManager } from '../../../../../store/features/campus/slice';
+import { getLoggedInAuthState, userHasHigherRole, userNeedsCampus } from '../../../../../shared/functions';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
-import { getLoggedInAuthState, userHasHigherRole, userShouldHaveNoCampusAssigned } from '../../../../../shared/functions';
 
 import UserCampusPicker from './CampusPicker';
 import UserClassroomPicker from './ClassroomPicker';
@@ -50,9 +50,9 @@ const CreateUser: FC<Props> = ({open, setOpen}) => {
     newUser.firstName &&
     newUser.personalEmail &&
     !userEmailMatchesError(newUser.email) &&
+    (userNeedsCampus(newUser.role) ? newUser.campusId : true) &&
     (newUser.role === UserRoles.Student ? newUser.address : true) &&
-    (newUser.role === UserRoles.Student ? newUser.promotion : true) &&
-    (!userShouldHaveNoCampusAssigned(newUser.role) ? newUser.campusId : true)
+    (newUser.role === UserRoles.Student ? newUser.promotion : true)
   );
 
   const handleChangeRole = (e: SelectChangeEvent<UserRoles>) => {
@@ -94,18 +94,9 @@ const CreateUser: FC<Props> = ({open, setOpen}) => {
       const user = {...newUser, email: `${newUser.email}@${azureDomainName}`};
       const res = await dispatch(createUser(user)).unwrap();
 
-      // Add campus manager to concerned campus if user is a campus manager
+      // Update campus list with new campus manager for concerned campus
       if (res.user.role === UserRoles.CampusManager) {
-        dispatch(updateCampusManager({
-          campusId: res.user.campusId ?? 0,
-          campusManager: {
-            id: res.user.id,
-            role: res.user.role,
-            email: res.user.email,
-            lastName: res.user.lastName,
-            firstName: res.user.firstName
-          }
-        }));
+        await dispatch(getCampus());
       }
 
       setOpen(false);

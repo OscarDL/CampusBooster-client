@@ -157,8 +157,8 @@ export const userHasHigherRole = (loggedInUser: User, role: UserRoles, excludeSa
 };
 
 
-export const userShouldHaveNoCampusAssigned = (role: UserRoles) => (
-  ![UserRoles.Student, UserRoles.Assistant, UserRoles.CampusManager].includes(role)
+export const userNeedsCampus = (role: UserRoles) => (
+  [UserRoles.Student, UserRoles.Company, UserRoles.Assistant, UserRoles.CampusManager].includes(role)
 );
 
 

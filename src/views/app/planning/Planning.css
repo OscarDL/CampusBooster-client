@@ -95,11 +95,12 @@
 
 .planning-view .details__list {
   gap: 1rem;
-  display: grid;
+  display: flex;
   list-style: none;
   overflow-x: auto;
   padding: 0 1rem 1rem;
   margin: 0 -1rem -1rem;
+  flex-direction: column;
 }
 
 .planning-view .details__empty {
@@ -134,10 +135,10 @@
 }
 
 .planning-view .details__item__date {
-  flex-shrink: 0;
   font-weight: 600;
 }
 
+.planning-view .details__item__date,
 .planning-view .details__item__title {
   overflow-x: hidden;
   white-space: nowrap;

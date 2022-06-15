@@ -4,12 +4,13 @@ import { handleHeaderScrollShadow } from '../../../shared/functions';
 
 
 type Props = {
+  id?: string,
   className?: string,
   children: React.ReactNode
 };
 
 
-const Body: FC<Props> = ({className, children}) => {
+const Body: FC<Props> = ({id, className, children}) => {
   const classes = `content__body ${className ?? ''}`.trimEnd();
 
   useEffect(() => {
@@ -18,7 +19,7 @@ const Body: FC<Props> = ({className, children}) => {
   }, []);
 
   return (
-    <div className={classes} onScroll={handleHeaderScrollShadow}>
+    <div id={id} className={classes} onScroll={handleHeaderScrollShadow}>
       {children}
     </div>
   );

@@ -5,7 +5,6 @@
   flex-grow: 0;
   display: grid;
   overflow-y: auto;
-  animation: 0.05s tab-reveal forwards;
   grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
 }
 
@@ -91,15 +90,6 @@
 }
 .admin-link > button:hover p, .admin-link > button:focus-visible p {
   color: rgb(var(--accent-color));
-}
-
-
-/* Up to: Smartphones */
-@media (max-width: 479px) {
-  .admin-view .admin-links {
-    display: flex;
-    flex-direction: column;
-  }
 }
 
 

@@ -124,6 +124,11 @@
   .content__header .options {
     flex-direction: column;
   }
+
+  #mobile-drawer + .app__content .content__body {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 /* Up to: Small tablets */

@@ -249,7 +249,7 @@ export const getMuiTheme = (mode: PaletteMode) => createTheme({
       }
     }
   },
-  
+
   palette: {
     mode,
     primary: {

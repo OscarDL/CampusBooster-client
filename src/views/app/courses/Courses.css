@@ -27,14 +27,6 @@
 }
 
 
-/* Up to: Smartphones */
-@media (max-width: 479px) {
-  .courses-tab {
-    display: flex;
-    flex-direction: column;
-  }
-}
-
 /* Up to: Small tablets */
 @media (max-width: 767px) {
   .courses-select {
@@ -47,9 +39,5 @@
   }
   .courses-tabs button, .courses-tabs .MuiTabs-indicator {
     transition: 0s !important;
-  }
-
-  .courses-tab {
-    animation: none;
   }
 }

@@ -5,6 +5,7 @@ import { Button, TextField } from '@mui/material';
 
 import { useAppDispatch } from '../../../../../../store/store';
 import { Teacher } from '../../../../../../shared/types/teacher';
+import { getCourses } from '../../../../../../store/features/courses/slice';
 import { deleteTeacher } from '../../../../../../store/features/teachers/slice';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../../shared/dialog';
 
@@ -32,6 +33,9 @@ const DeleteTeacher: FC<Props> = ({teacher, open, setOpen}) => {
 
     try {
       await dispatch(deleteTeacher(teacher.id)).unwrap();
+
+      // Update courses list with removed teacher for concerned course
+      await dispatch(getCourses());
 
       setName('');
       setOpen(false);

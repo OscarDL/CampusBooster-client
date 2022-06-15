@@ -5,6 +5,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { Box, Button, Checkbox, FormControlLabel, FormGroup } from '@mui/material';
 
 import { Classroom } from '../../../../../../shared/types/classroom';
+import { getCourses } from '../../../../../../store/features/courses/slice';
 import { useAppDispatch, useAppSelector } from '../../../../../../store/store';
 import { updateTeacher } from '../../../../../../store/features/teachers/slice';
 import { Teacher, TeacherRequest } from '../../../../../../shared/types/teacher';
@@ -47,6 +48,9 @@ const UpdateTeacher: FC<Props> = ({teacher, open, setOpen}) => {
 
     try {
       await dispatch(updateTeacher(teacher)).unwrap();
+
+      // Update courses list with updated teacher for concerned course
+      await dispatch(getCourses());
 
       setOpen(false);
       toast.success(t('admin.teachers.update.success', {teacher: userFullName}));

@@ -11,11 +11,11 @@ import { userEmailMatchesError } from './Create';
 import userService from '../../../../../services/users';
 import { azureDomainName } from '../../../../../shared/utils/values';
 import { updateUser } from '../../../../../store/features/users/slice';
+import { getCampus } from '../../../../../store/features/campus/slice';
 import { useAppDispatch, useAppSelector } from '../../../../../store/store';
 import { User, UserRequest, UserRoles } from '../../../../../shared/types/user';
-import { updateCampusManager } from '../../../../../store/features/campus/slice';
+import { getLoggedInAuthState, userHasHigherRole, userNeedsCampus } from '../../../../../shared/functions';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
-import { getLoggedInAuthState, userHasHigherRole, userShouldHaveNoCampusAssigned } from '../../../../../shared/functions';
 
 import UserCampusPicker from './CampusPicker';
 import UserClassroomPicker from './ClassroomPicker';
@@ -88,9 +88,9 @@ const EditableUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
     newUser.firstName &&
     newUser.personalEmail &&
     !userEmailMatchesError(newUser.email) &&
+    (userNeedsCampus(newUser.role) ? newUser.campusId : true) &&
     (newUser.role === UserRoles.Student ? newUser.address : true) &&
-    (newUser.role === UserRoles.Student ? newUser.promotion : true) &&
-    (!userShouldHaveNoCampusAssigned(newUser.role) ? newUser.campusId : true)
+    (newUser.role === UserRoles.Student ? newUser.promotion : true)
   );
 
   const handleChangeRole = (e: SelectChangeEvent<UserRoles>) => {
@@ -164,22 +164,11 @@ const EditableUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
       const userWasCM = selectedUser.role === UserRoles.CampusManager;
       const userIsCM = updatedUser.role === UserRoles.CampusManager;
 
-      if (selectedUser.campusId !== updatedUser.campusId) {
-        if (userWasCM && !userIsCM) {
-          dispatch(updateCampusManager({campusId: selectedUser.campusId ?? 0, campusManager: undefined}));
-        }
-        if (!userWasCM && userIsCM) {
-          dispatch(updateCampusManager({
-            campusId: updatedUser.campusId ?? 0,
-            campusManager: {
-              id: updatedUser.id,
-              role: updatedUser.role,
-              email: updatedUser.email,
-              lastName: updatedUser.lastName,
-              firstName: updatedUser.firstName
-            }
-          }));
-        }
+      if (
+        selectedUser.campusId !== updatedUser.campusId ||
+        (userWasCM && !userIsCM) || (!userWasCM && userIsCM)
+      ) {
+        dispatch(getCampus());
       }
 
       setOpen(false);
@@ -189,7 +178,7 @@ const EditableUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
     catch (error: any) {
       toast.error(error);
     };
-console.log(6)
+
     setLoading(false);
   };
 
