@@ -20,7 +20,9 @@ const Links: FC = () => {
       <ul>
         {links?.map(link => (
           <li key={link.url}>
-            <a href={link.url} target="_blank" rel="noreferrer">{link.title}</a>
+            <a href={link.url} target="_blank" rel="noreferrer">
+              <span>{link.title}</span>
+            </a>
           </li>
         ))}
       </ul>
