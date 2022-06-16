@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch } from '../../../../../../store/store';
 import { Classroom } from '../../../../../../shared/types/classroom';
+import { TeacherRequest } from '../../../../../../shared/types/teacher';
 import { getCourses } from '../../../../../../store/features/courses/slice';
 import { createTeacher } from '../../../../../../store/features/teachers/slice';
-import { Teacher, TeacherRequest } from '../../../../../../shared/types/teacher';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../../shared/dialog';
 
 import TeacherUserPicker from './pickers/UserPicker';
@@ -39,7 +39,7 @@ const CreateTeacher: FC<Props> = ({open, setOpen}) => {
     setLoading(true);
 
     try {
-      const addedTeacher: Teacher = await dispatch(createTeacher(teacher)).unwrap();
+      const addedTeacher = await dispatch(createTeacher(teacher)).unwrap();
 
       // Update courses list with new teacher for concerned course
       await dispatch(getCourses());
@@ -47,7 +47,7 @@ const CreateTeacher: FC<Props> = ({open, setOpen}) => {
       setOpen(false);
       setTeacher(newTeacherRequest());
       toast.success(t('admin.teachers.add.success', {
-        teacher: `${addedTeacher.User.firstName} ${addedTeacher.User.lastName}`
+        user: `${addedTeacher.User.firstName} ${addedTeacher.User.lastName}`
       }));
     }
     catch (error: any) {
@@ -60,10 +60,10 @@ const CreateTeacher: FC<Props> = ({open, setOpen}) => {
 
   return (
     <Dialog
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onSubmit={handleCreateTeacher}
-      onClose={() => setOpen(false)}
-      open={open} fullWidth maxWidth="sm"
+      open={open} onSubmit={handleCreateTeacher}
+      onClose={() => loading ? null : setOpen(false)}
     >
       <DialogTitle>{t('admin.teachers.add.title')}</DialogTitle>
 
@@ -93,7 +93,7 @@ const CreateTeacher: FC<Props> = ({open, setOpen}) => {
       </DialogContent>
 
       <DialogActions>
-        <Button color="error" onClick={() => setOpen(false)}>
+        <Button color="error" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 

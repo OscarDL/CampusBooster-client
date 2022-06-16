@@ -26,7 +26,7 @@ const GradesLine: FC<Props> = ({grade}) => {
       </p>
 
       <p className="grades__item__title">
-        &nbsp;&ndash; {grade.comment}
+        &nbsp;&ndash; {grade.comment || <em>{t('grades.no_comment')}</em>}
       </p>
 
       <p className="grades__item__more">

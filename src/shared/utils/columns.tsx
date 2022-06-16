@@ -242,7 +242,8 @@ export const getGradesColumns = ({user, setOpenUpdate, setOpenDelete, setSelecte
       )
     },
     {
-      field: 'comment', headerName: t(columnPrefix + 'comment'), width: 400
+      field: 'comment', headerName: t(columnPrefix + 'comment'), width: 400,
+      renderCell: ({row}) => row.comment || <em>{t('grades.no_comment')}</em>
     },
     {
       field: 'credits', headerName: t(columnPrefix + 'credits'), width: 100,
@@ -496,6 +497,10 @@ export const getContractsColumns = ({user, setOpenUpdate, setOpenDelete, setOpen
   return [
     ...userColumn,
     {
+      field: 'type', headerName: t(columnPrefix + 'type.title'), width: 250,
+      valueGetter: ({row}) => t(`${columnPrefix}type.${row.type.toLowerCase()}`)
+    },
+    {
       field: 'startDate', headerName: t(columnPrefix + 'start_date'), width: 150, filterOperators: getGridDateOperators(),
       renderCell: ({row}) => dayjs(row.startDate).format(t('global.date.mm-dd-yyyy'))
     },
@@ -507,9 +512,6 @@ export const getContractsColumns = ({user, setOpenUpdate, setOpenDelete, setOpen
       field: 'company', headerName: t(columnPrefix + 'company'), width: 150
     },
     {
-      field: 'url', headerName: t(columnPrefix + 'url'), width: 150, hide: true
-    },
-    {
       field: 'supervisor', headerName: t(columnPrefix + 'supervisor'), width: 200, hide: true,
       valueGetter: ({row}) => `${row.Supervisor.User.firstName} ${row.Supervisor.User.lastName}`
     },
@@ -517,7 +519,7 @@ export const getContractsColumns = ({user, setOpenUpdate, setOpenDelete, setOpen
       field: 'mission', headerName: t(columnPrefix + 'mission'), width: 200, hide: true
     },
     {
-      field: 'email', headerName: t(columnPrefix + 'email'), width: 200,
+      field: 'email', headerName: t(columnPrefix + 'email'), width: 200, hide: true,
       renderCell: ({row}) => (
         <Button sx={{ml: '-10px'}} onClick={() => window.open('mailto:' + row.email)}>
           {row.email}

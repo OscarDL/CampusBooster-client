@@ -2,15 +2,17 @@ import dayjs from 'dayjs';
 import copy from 'fast-copy';
 import { toast } from 'react-toastify';
 import isEqual from 'react-fast-compare';
+import { Close } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { FC, useEffect, useState } from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Box, Button, FormControl, IconButton, InputLabel, MenuItem, Select, styled, TextField } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from '../../../../../store/store';
 import { Contract, ContractType } from '../../../../../shared/types/contract';
 import { updateContract } from '../../../../../store/features/contracts/slice';
+import { allowedFileTypes, maxDocumentSize } from '../../../../../shared/utils/values';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
 
 import ContractStudentPicker from './pickers/StudentPicker';
@@ -23,6 +25,8 @@ type Props = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 };
 
+const Input = styled('input')({display: 'none'});
+
 
 const UpdateContract: FC<Props> = ({contract, open, setOpen}) => {
   const { t } = useTranslation();
@@ -30,6 +34,7 @@ const UpdateContract: FC<Props> = ({contract, open, setOpen}) => {
   const { contractsList } = useAppSelector(state => state.contracts);
 
   const [loading, setLoading] = useState(false);
+  const [documents, setDocuments] = useState<File[]>([]);
   const [newContract, setNewContract] = useState(copy(contract));
   const userFullName = `${contract.User.firstName} ${contract.User.lastName}`;
 
@@ -40,19 +45,59 @@ const UpdateContract: FC<Props> = ({contract, open, setOpen}) => {
     newContract.userId &&
     newContract.supervisorId &&
     newContract.company &&
-    newContract.url &&
     newContract.email &&
     newContract.phone &&
-    newContract.address &&
     newContract.mission
   );
+
+  const handleAddDocuments = (e: React.FormEvent<HTMLInputElement>) => {
+    const result = e.target as HTMLInputElement;
+
+    if (result.files) {
+      const files = Array.from(result.files);
+
+      if (files.length > 5) {
+        toast.error(t('contracts.create.max_documents', {count: 5}));
+        return;
+      }
+
+      for (let i = 0; i < files.length; i++) {
+        if (files[i].size > maxDocumentSize) {
+          toast.error(t(`contracts.file_too_large`, {file: i, size: maxDocumentSize/1024/1024})); // bytes to megabytes
+          setDocuments([]);
+          return;
+        }
+        setDocuments(documents => documents.concat(files[i]));
+      }
+    }
+  };
+
+  const handleRemoveDocuments = () => {
+    setDocuments([]);
+  };
 
   const handleUpdateContract = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
     setLoading(true);
 
+    const contractData = new FormData();
+    contractData.append('type', newContract.type);
+    contractData.append('email', newContract.email);
+    contractData.append('phone', newContract.phone);
+    contractData.append('address', newContract.address);
+    contractData.append('company', newContract.company);
+    contractData.append('mission', newContract.mission);
+    contractData.append('endDate', newContract.endDate);
+    contractData.append('startDate', newContract.startDate);
+    contractData.append('userId', String(newContract.userId));
+    contractData.append('supervisorId', String(newContract.supervisorId));
+
+    for (const document of documents) {
+      if (documents) contractData.append('files', document);
+    };
+
     try {
-      await dispatch(updateContract(newContract)).unwrap();
+      await dispatch(updateContract({id: contract.id, contractData})).unwrap();
 
       setOpen(false);
       toast.success(t('contracts.update.success', {user: userFullName, company: contract.company}));
@@ -72,10 +117,10 @@ const UpdateContract: FC<Props> = ({contract, open, setOpen}) => {
 
   return (
     <Dialog
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onSubmit={handleUpdateContract}
-      onClose={() => setOpen(false)}
-      open={open} fullWidth maxWidth="sm"
+      open={open} onSubmit={handleUpdateContract}
+      onClose={() => loading ? null : setOpen(false)}
     >
       <DialogTitle>{t('contracts.update.title', {user: userFullName})}</DialogTitle>
 
@@ -130,14 +175,14 @@ const UpdateContract: FC<Props> = ({contract, open, setOpen}) => {
           />
           <TextField
             variant="standard"
-            name="cb-contract-url"
-            value={newContract.url}
-            label={t('contracts.fields.url')}
-            onChange={e => setNewContract({...newContract, url: e.target.value})}
+            name="cb-contract-address"
+            value={newContract.address}
+            label={t('contracts.fields.address')}
+            onChange={e => setNewContract({...newContract, address: e.target.value})}
           />
         </Box>
 
-        <Box className="MuiDialogContent-row" sx={{mt: 2}}>
+        <Box className="MuiDialogContent-row" sx={{mt: 2, mb: 3}}>
           <TextField
             variant="standard"
             name="cb-contract-email"
@@ -154,17 +199,6 @@ const UpdateContract: FC<Props> = ({contract, open, setOpen}) => {
           />
         </Box>
 
-        <Box className="MuiDialogContent-row" sx={{mt: 2, mb: 3}}>
-          <TextField
-            fullWidth
-            variant="standard"
-            name="cb-contract-address"
-            value={newContract.address}
-            label={t('contracts.fields.address')}
-            onChange={e => setNewContract({...newContract, address: e.target.value})}
-          />
-        </Box>
-
         <TextField
           multiline fullWidth
           name="cb-contract-mission"
@@ -172,10 +206,43 @@ const UpdateContract: FC<Props> = ({contract, open, setOpen}) => {
           label={t('contracts.fields.mission')}
           onChange={e => setNewContract({...newContract, mission: e.target.value})}
         />
+
+        <Box sx={{mt: 2, display: 'grid', gap: '10px'}}>
+          <Box sx={{display: 'flex', alignItems: 'center'}}>
+            <label htmlFor="file-btn">
+              <Input
+                disabled={loading}
+                onInput={handleAddDocuments}
+                multiple type="file" id="file-btn"
+                accept={allowedFileTypes.contracts.join(', ')}
+              />
+              <Button variant="contained" component="span">
+                {t('contracts.fields.documents')}
+              </Button>
+            </label>
+
+            <IconButton
+              color="error"
+              sx={{p: '6px', ml: 2}}
+              onClick={handleRemoveDocuments}
+              disabled={loading || documents.length === 0}
+            >
+              <Close/>
+            </IconButton>
+          </Box>
+
+          <p className="text-overflow">
+            {documents.length ? (
+              t('contracts.fields.files_selected', {count: documents.length})
+            ) : (
+              t('contracts.fields.no_files_selected')
+            )}
+          </p>
+        </Box>
       </DialogContent>
 
       <DialogActions>
-        <Button color="error" onClick={() => setOpen(false)}>
+        <Button color="error" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 

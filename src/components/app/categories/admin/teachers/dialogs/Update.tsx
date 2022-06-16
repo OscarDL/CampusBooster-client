@@ -47,13 +47,13 @@ const UpdateTeacher: FC<Props> = ({teacher, open, setOpen}) => {
     setLoading(true);
 
     try {
-      await dispatch(updateTeacher(teacher)).unwrap();
+      await dispatch(updateTeacher(newTeacher)).unwrap();
 
       // Update courses list with updated teacher for concerned course
       await dispatch(getCourses());
 
       setOpen(false);
-      toast.success(t('admin.teachers.update.success', {teacher: userFullName}));
+      toast.success(t('admin.teachers.update.success', {user: userFullName}));
     }
     catch (error: any) {
       toast.error(error);
@@ -77,10 +77,10 @@ const UpdateTeacher: FC<Props> = ({teacher, open, setOpen}) => {
 
   return (
     <Dialog
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onSubmit={handleUpdateTeacher}
-      onClose={() => setOpen(false)}
-      open={open} fullWidth maxWidth="sm"
+      open={open} onSubmit={handleUpdateTeacher}
+      onClose={() => loading ? null : setOpen(false)}
     >
       <DialogTitle>
         {t('admin.teachers.update.title', {
@@ -126,7 +126,7 @@ const UpdateTeacher: FC<Props> = ({teacher, open, setOpen}) => {
       </DialogContent>
 
       <DialogActions>
-        <Button color="error" onClick={() => setOpen(false)}>
+        <Button color="error" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 

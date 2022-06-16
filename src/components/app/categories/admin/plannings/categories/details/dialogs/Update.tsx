@@ -63,10 +63,10 @@ const UpdatePlanningEntry: FC<Props> = ({classroom, planning, open, setOpen}) =>
 
   return (
     <Dialog
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onClose={() => setOpen(false)}
-      open={open} fullWidth maxWidth="sm"
-      onSubmit={handleUpdatePlanningEntry}
+      onClose={() => loading ? null : setOpen(false)}
+      open={open} onSubmit={handleUpdatePlanningEntry}
     >
       <DialogTitle>{t('admin.plannings.update.title')}</DialogTitle>
 
@@ -146,7 +146,7 @@ const UpdatePlanningEntry: FC<Props> = ({classroom, planning, open, setOpen}) =>
       </DialogContent>
 
       <DialogActions>
-        <Button color="error" onClick={() => setOpen(false)}>
+        <Button color="error" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 

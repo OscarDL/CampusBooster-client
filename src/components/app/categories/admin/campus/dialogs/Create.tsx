@@ -55,10 +55,10 @@ const CreateCampus: FC<Props> = ({open, setOpen}) => {
 
   return (
     <Dialog
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onSubmit={handleCreateCampus}
-      onClose={() => setOpen(false)}
-      open={open} fullWidth maxWidth="sm"
+      open={open} onSubmit={handleCreateCampus}
+      onClose={() => loading ? null : setOpen(false)}
     >
       <DialogTitle>{t('admin.campus.create.title')}</DialogTitle>
 
@@ -133,7 +133,7 @@ const CreateCampus: FC<Props> = ({open, setOpen}) => {
       </DialogContent>
 
       <DialogActions>
-        <Button color="error" onClick={() => setOpen(false)}>
+        <Button color="error" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 

@@ -37,7 +37,7 @@ const UpdateCampus: FC<Props> = ({campus, open, setOpen}) => {
     setLoading(true);
 
     try {
-      await dispatch(updateCampus(campus)).unwrap();
+      await dispatch(updateCampus(newCampus)).unwrap();
 
       setOpen(false);
       toast.success(t('admin.campus.update.success', {campus: campus.name}));
@@ -58,10 +58,10 @@ const UpdateCampus: FC<Props> = ({campus, open, setOpen}) => {
 
   return (
     <Dialog
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onSubmit={handleUpdateCampus}
-      onClose={() => setOpen(false)}
-      open={open} fullWidth maxWidth="sm"
+      open={open} onSubmit={handleUpdateCampus}
+      onClose={() => loading ? null : setOpen(false)}
     >
       <DialogTitle>{t('admin.campus.update.title', {campus: campus.name})}</DialogTitle>
 
@@ -135,7 +135,7 @@ const UpdateCampus: FC<Props> = ({campus, open, setOpen}) => {
       </DialogContent>
 
       <DialogActions>
-        <Button color="error" onClick={() => setOpen(false)}>
+        <Button color="error" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 

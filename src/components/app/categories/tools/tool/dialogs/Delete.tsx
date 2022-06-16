@@ -50,10 +50,10 @@ const DeleteTool: FC<Props> = ({tool, open, setOpen}) => {
 
   return (
     <Dialog
-      onSubmit={handleDeleteTool}
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onClose={() => setOpen(false)}
-      open={open} fullWidth maxWidth="sm"
+      open={open} onSubmit={handleDeleteTool}
+      onClose={() => loading ? null : setOpen(false)}
     >
       <DialogTitle>{t('tools.delete.title', {tool: tool.title})}</DialogTitle>
 
@@ -69,7 +69,7 @@ const DeleteTool: FC<Props> = ({tool, open, setOpen}) => {
       </DialogContent>
 
       <DialogActions>
-        <Button color="primary" onClick={() => setOpen(false)}>
+        <Button color="primary" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 

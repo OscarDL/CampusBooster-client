@@ -53,10 +53,10 @@ const DeleteAbsence: FC<Props> = ({absence, open, setOpen}) => {
 
   return (
     <Dialog
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onClose={() => setOpen(false)}
-      onSubmit={handleDeleteAbsence}
-      open={open} fullWidth maxWidth="sm"
+      open={open} onSubmit={handleDeleteAbsence}
+      onClose={() => loading ? null : setOpen(false)}
     >
       <DialogTitle>{t('absences.delete.title', {user: userFullName})}</DialogTitle>
 
@@ -72,7 +72,7 @@ const DeleteAbsence: FC<Props> = ({absence, open, setOpen}) => {
       </DialogContent>
 
       <DialogActions>
-        <Button color="primary" onClick={() => setOpen(false)}>
+        <Button color="primary" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 

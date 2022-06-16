@@ -13,10 +13,13 @@
 
 .admin-link {
   cursor: pointer;
-  text-decoration: none;
 }
 .admin-link:active {
   color: inherit;
+}
+
+.admin-link, .admin-link > button, .admin-link__header {
+  text-decoration: none !important;
 }
 
 .admin-link > button {

@@ -1,5 +1,8 @@
 import dayjs from 'dayjs';
+import JSZip from 'jszip';
 import { FC } from 'react';
+import { saveAs } from 'file-saver';
+import { Download } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Box, Button, TextField, Typography } from '@mui/material';
@@ -22,11 +25,29 @@ const ContractDetails: FC<Props> = ({contract, open, setOpen}) => {
   const userFullName = `${contract.User.firstName} ${contract.User.lastName}`;
 
 
+  const downloadFiles = () => {
+    const zip = new JSZip();
+    const keys = contract.fileKeys;
+    const files = contract.fileBase64;
+
+    for (let i = 0; i < files.length; i++) {
+      const name = keys[i];
+      const file = files[i].split('base64,')?.[1];
+      zip.file(name.slice(name.lastIndexOf('/') + 1), file, {base64: true});
+    };
+
+    zip.generateAsync({type: 'blob'}).then((content) => {
+      const student = `${contract.User.firstName} ${contract.User.lastName}`;
+      saveAs(content, `${student} - ${contract.company} (${t('contracts.fields.type.' + contract.type.toLowerCase())}).zip`);
+    });
+  };
+
+
   return (
     <Dialog
+      fullWidth maxWidth="sm"
       className="contract-details"
-      onClose={() => setOpen(false)}
-      open={open} fullWidth maxWidth="sm"
+      open={open} onClose={() => setOpen(false)}
     >
       <DialogTitle>{t('contracts.details.title', {user: userFullName})}</DialogTitle>
 
@@ -49,84 +70,86 @@ const ContractDetails: FC<Props> = ({contract, open, setOpen}) => {
         </LocalizationProvider>
 
         <Typography sx={{mt: 2}}>
-          <Typography color="primary" fontWeight="bold" sx={{display: 'inline'}}>
+          <Typography color="primary" fontWeight="bold" component="span">
             {t('contracts.fields.type.title')}
             {t('global.colon')}
           </Typography>
-          <Typography sx={{display: 'inline'}}>
+          <Typography component="span">
             &nbsp;{t('contracts.fields.type.' + contract.type.toLowerCase())}
           </Typography>
         </Typography>
 
         <Typography sx={{mt: 2}}>
-          <Typography color="primary" fontWeight="bold" sx={{display: 'inline'}}>
+          <Typography color="primary" fontWeight="bold" component="span">
             {t('contracts.fields.company')}
             {t('global.colon')}
           </Typography>
-          <Typography sx={{display: 'inline'}}>
+          <Typography component="span">
             &nbsp;{contract.company}
           </Typography>
         </Typography>
 
         <Typography>
-          <Typography color="primary" fontWeight="bold" sx={{display: 'inline'}}>
-            {t('contracts.fields.url')}
-            {t('global.colon')}
-          </Typography>
-          <Typography sx={{display: 'inline'}}>
-            &nbsp;<a href={contract.url} target="_blank" rel="noreferrer">{contract.url}</a>
-          </Typography>
-        </Typography>
-
-        <Typography>
-          <Typography color="primary" fontWeight="bold" sx={{display: 'inline'}}>
+          <Typography color="primary" fontWeight="bold" component="span">
             {t('contracts.fields.address')}
             {t('global.colon')}
           </Typography>
-          <Typography sx={{display: 'inline'}}>
+          <Typography component="span">
             &nbsp;{contract.address}
           </Typography>
         </Typography>
 
-        <Typography sx={{mt: 2}}>
-          <Typography color="primary" fontWeight="bold" sx={{display: 'inline'}}>
+        <Typography>
+          <Typography color="primary" fontWeight="bold" component="span">
             {t('contracts.fields.supervisor')}
             {t('global.colon')}
           </Typography>
-          <Typography sx={{display: 'inline'}}>
+          <Typography component="span">
             &nbsp;{contract.Supervisor.User.firstName} {contract.Supervisor.User.lastName}
           </Typography>
         </Typography>
 
         <Typography>
-          <Typography color="primary" fontWeight="bold" sx={{display: 'inline'}}>
+          <Typography color="primary" fontWeight="bold" component="span">
             {t('contracts.fields.email')}
             {t('global.colon')}
           </Typography>
-          <Typography sx={{display: 'inline'}}>
-            &nbsp;<a href={'mailto:' + contract.email}>{contract.email}</a>
+          <Typography component="span">
+            &nbsp;<a href={'mailto:' + contract.email}>
+              <span>{contract.email}</span>
+            </a>
           </Typography>
         </Typography>
 
         <Typography>
-          <Typography color="primary" fontWeight="bold" sx={{display: 'inline'}}>
+          <Typography color="primary" fontWeight="bold" component="span">
             {t('contracts.fields.phone')}
             {t('global.colon')}
           </Typography>
-          <Typography sx={{display: 'inline'}}>
-            &nbsp;<a href={'tel:' + contract.phone}>{contract.phone}</a>
+          <Typography component="span">
+            &nbsp;<a href={'tel:' + contract.phone}>
+              <span>{contract.phone}</span>
+            </a>
           </Typography>
         </Typography>
 
         <Typography sx={{mt: 2}}>
-          <Typography color="primary" fontWeight="bold" sx={{display: 'inline'}}>
+          <Typography color="primary" fontWeight="bold" component="span">
             {t('contracts.fields.mission')}
             {t('global.colon')}
           </Typography>
-          <Typography sx={{display: 'inline'}}>
+          <Typography component="span">
             &nbsp;{contract.mission}
           </Typography>
         </Typography>
+
+        <Button
+          sx={{mt: 2}} variant="contained"
+          disabled={!contract.fileKeys.length}
+          startIcon={<Download/>} onClick={downloadFiles}
+        >
+          {t('contracts.fields.files', {count: contract.fileKeys.length})}
+        </Button>
       </DialogContent>
 
       <DialogActions>

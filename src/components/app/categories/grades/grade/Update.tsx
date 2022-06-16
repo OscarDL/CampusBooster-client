@@ -68,10 +68,10 @@ const UpdateGrade: FC<Props> = ({grade, open, setOpen}) => {
 
   return (
     <Dialog
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onSubmit={handleUpdateGrade}
-      onClose={() => setOpen(false)}
-      open={open} fullWidth maxWidth="sm"
+      open={open} onSubmit={handleUpdateGrade}
+      onClose={() => loading ? null : setOpen(false)}
     >
       <DialogTitle>{t('grades.update.title')}</DialogTitle>
 
@@ -114,7 +114,7 @@ const UpdateGrade: FC<Props> = ({grade, open, setOpen}) => {
       </DialogContent>
 
       <DialogActions>
-        <Button color="error" onClick={() => setOpen(false)}>
+        <Button color="error" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 

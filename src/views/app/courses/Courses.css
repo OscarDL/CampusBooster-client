@@ -12,10 +12,6 @@
   opacity: 0.5;
 }
 
-.courses-tabs .MuiTabs-root {
-  border-radius: var(--radius-medium);
-}
-
 .courses-select {
   display: none;
   padding: 1rem 0;

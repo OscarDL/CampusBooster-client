@@ -29,7 +29,7 @@ const newPlanningRequest = (): PlanningRequest => ({
 });
 
 
-const AddPlanningEntry: FC<Props> = ({classroom, open, setOpen}) => {
+const CreatePlanningEntry: FC<Props> = ({classroom, open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
@@ -37,7 +37,7 @@ const AddPlanningEntry: FC<Props> = ({classroom, open, setOpen}) => {
   const [planningEntry, setPlanningEntry] = useState(newPlanningRequest());
 
 
-  const handleAddPlanningEntry = async (e: React.FormEvent<HTMLElement>) => {
+  const handleCreatePlanningEntry = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
     setLoading(true);
 
@@ -58,10 +58,10 @@ const AddPlanningEntry: FC<Props> = ({classroom, open, setOpen}) => {
 
   return (
     <Dialog
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onClose={() => setOpen(false)}
-      onSubmit={handleAddPlanningEntry}
-      open={open} fullWidth maxWidth="sm"
+      onClose={() => loading ? null : setOpen(false)}
+      open={open} onSubmit={handleCreatePlanningEntry}
     >
       <DialogTitle>{t('admin.plannings.add.title')}</DialogTitle>
 
@@ -141,7 +141,7 @@ const AddPlanningEntry: FC<Props> = ({classroom, open, setOpen}) => {
       </DialogContent>
 
       <DialogActions>
-        <Button color="error" onClick={() => setOpen(false)}>
+        <Button color="error" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 
@@ -157,4 +157,4 @@ const AddPlanningEntry: FC<Props> = ({classroom, open, setOpen}) => {
 };
 
 
-export default AddPlanningEntry;
+export default CreatePlanningEntry;

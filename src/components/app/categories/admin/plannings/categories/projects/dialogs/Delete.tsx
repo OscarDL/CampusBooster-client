@@ -46,10 +46,10 @@ const DeletePlanningEntry: FC<Props> = ({project, open, setOpen}) => {
 
   return (
     <Dialog
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onClose={() => setOpen(false)}
-      open={open} fullWidth maxWidth="sm"
-      onSubmit={handleDeletePlanningEntry}
+      onClose={() => loading ? null : setOpen(false)}
+      open={open} onSubmit={handleDeletePlanningEntry}
     >
       <DialogTitle>{t('admin.projects.delete.title')}</DialogTitle>
 
@@ -65,7 +65,7 @@ const DeletePlanningEntry: FC<Props> = ({project, open, setOpen}) => {
       </DialogContent>
 
       <DialogActions>
-        <Button color="error" onClick={() => setOpen(false)}>
+        <Button color="error" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 

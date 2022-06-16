@@ -58,10 +58,10 @@ const UpdateProject: FC<Props> = ({classroom, project, open, setOpen}) => {
 
   return (
     <Dialog
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onClose={() => setOpen(false)}
-      onSubmit={handleUpdateProject}
-      open={open} fullWidth maxWidth="sm"
+      open={open} onSubmit={handleUpdateProject}
+      onClose={() => loading ? null : setOpen(false)}
     >
       <DialogTitle>{t('admin.projects.update.title')}</DialogTitle>
 
@@ -128,7 +128,7 @@ const UpdateProject: FC<Props> = ({classroom, project, open, setOpen}) => {
       </DialogContent>
 
       <DialogActions>
-        <Button color="error" onClick={() => setOpen(false)}>
+        <Button color="error" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 

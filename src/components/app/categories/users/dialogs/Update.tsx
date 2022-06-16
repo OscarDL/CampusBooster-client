@@ -41,8 +41,8 @@ const UneditableUser: FC<Props> = ({user, open, setOpen}) => {
 
   return (
     <Dialog
-      onClose={() => setOpen(false)}
-      open={open} fullWidth maxWidth="sm"
+      fullWidth maxWidth="sm"
+      open={open} onClose={() => setOpen(false)}
     >
       <DialogTitle>{t('users.update.title', {user: userFullName})}</DialogTitle>
 
@@ -191,10 +191,10 @@ const EditableUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
 
   return (
     <Dialog
-      onSubmit={handleUpdateUser}
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onClose={() => setOpen(false)}
-      open={open} fullWidth maxWidth="sm"
+      open={open} onSubmit={handleUpdateUser}
+      onClose={() => loading ? null : setOpen(false)}
     >
       <DialogTitle>{t('users.update.title', {user: userFullName})}</DialogTitle>
 
@@ -351,7 +351,7 @@ const EditableUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
       </DialogContent>
 
       <DialogActions>
-        <Button color="error" onClick={() => setOpen(false)}>
+        <Button color="error" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 

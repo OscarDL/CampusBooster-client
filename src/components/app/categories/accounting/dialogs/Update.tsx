@@ -65,10 +65,10 @@ const UpdateBalance: FC<Props> = ({balance, open, setOpen}) => {
 
   return (
     <Dialog
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onClose={() => setOpen(false)}
-      onSubmit={handleUpdateBalance}
-      open={open} fullWidth maxWidth="sm"
+      open={open} onSubmit={handleUpdateBalance}
+      onClose={() => loading ? null : setOpen(false)}
     >
       <DialogTitle>{t('accounting.update.title', {user: userFullName})}</DialogTitle>
 
@@ -141,7 +141,7 @@ const UpdateBalance: FC<Props> = ({balance, open, setOpen}) => {
       </DialogContent>
 
       <DialogActions>
-        <Button color="error" onClick={() => setOpen(false)}>
+        <Button color="error" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 

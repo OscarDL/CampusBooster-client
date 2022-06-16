@@ -79,7 +79,7 @@
       "title_more": "Additional info",
       "first_name": "First name:",
       "last_name": "Last name:",
-      "email": "Email\u00A0address:",
+      "email": "Email address:",
       "birthday": "Birthday:",
       "campus": "Campus location:",
       "no_campus": "No campus.",
@@ -89,12 +89,14 @@
       "promotion_text_one": "Year {{count}}",
       "promotion_text_other": "Year {{count}}",
       "no_promotion": "No promotion.",
+      "classrooms": "Classrooms:",
+      "no_classrooms": "No classrooms assigned.",
 
       "gender": {
         "title": "Gender:",
         "m": "Masculine",
         "f": "Feminine",
-        "none": "Unknown"
+        "none": "Unspecified"
       },
 
       "email_copy": {
@@ -161,6 +163,7 @@
     "select_user": "Select a user",
     "select_course": "Select a course",
     "select_teacher": "Select a teacher",
+    "no_comment": "No comment from teacher.",
 
     "fields": {
       "title_one": "{{count}} result",
@@ -356,6 +359,12 @@
       "details_field": "View more",
       "mission": "Mission",
       "supervisor": "Supervisor",
+      "documents": "Documents",
+      "files_one": "{{count}} file",
+      "files_other": "{{count}} files",
+      "no_files_selected": "No files selected",
+      "files_selected_one": "{{count}} file selected",
+      "files_selected_other": "{{count}} file(s) selected",
 
       "type": {
         "title": "Type",
@@ -564,7 +573,7 @@
       "personal_email": "Personal email address",
       "gender": {
         "title": "Gender",
-        "none": "Unknown",
+        "none": "Unspecified",
         "m": "Masculine",
         "f": "Feminine"
       }
@@ -797,7 +806,7 @@
 
       "update": {
         "title": "Update teacher \"{{teacher}}\" for \"{{classroom}}\" ({{course}})",
-        "success": "User \"{{user}}\" successfully updated."
+        "success": "Teacher \"{{user}}\" successfully updated."
       },
 
       "remove": {

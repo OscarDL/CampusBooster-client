@@ -44,6 +44,7 @@ const TeacherUserPicker: FC<Props> = ({teacher, setTeacher, setClassroom}) => {
 
       const userOptions: Option[] = usersList
         .filter(user => rolesAllowedAsTeacher.includes(user.role))
+        .sort((a, b) => a.firstName.localeCompare(b.firstName))
         .map(user => ({
           user,
           value: user.id,

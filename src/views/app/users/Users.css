@@ -12,11 +12,6 @@
   opacity: 0.5;
 }
 
-.users-tabs .MuiTabs-root {
-  color: rgb(var(--text-color));
-  border-radius: var(--radius-medium);
-}
-
 .users-select {
   display: none;
   padding: 1rem 0;

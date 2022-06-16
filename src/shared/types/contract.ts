@@ -12,7 +12,6 @@ export enum ContractType {
 
 export type Contract = {
   id: number,
-  url: string,
   email: string,
   phone: string,
   address: string,
@@ -25,13 +24,15 @@ export type Contract = {
   userId: User['id'],
   supervisorId: Teacher['id'],
 
+  fileKeys: string[],
+  fileBase64: string[],
+
   User: PublicUser,
   Supervisor: Teacher,
 };
 
 export type ContractRequest = {
   id?: number,
-  url: string,
   email: string,
   phone: string,
   address: string,

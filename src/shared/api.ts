@@ -25,6 +25,14 @@ export const getAxiosConfig = (): AxiosRequestConfig => ({
   withCredentials: true
 });
 
+export const getAxiosFormDataConfig = (): AxiosRequestConfig => ({
+  ...getAxiosConfig(),
+  headers: {
+    ...getAxiosConfig().headers,
+    'Content-Type': 'multipart/form-data'
+  }
+});
+
 
 axios.interceptors.response.use(
   (response) => {

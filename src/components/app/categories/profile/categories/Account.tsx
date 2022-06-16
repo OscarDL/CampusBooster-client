@@ -1,22 +1,21 @@
 import dayjs from 'dayjs';
 import { FC } from 'react';
+import { toast } from 'react-toastify';
 import { Divider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { User } from '../../../../../shared/types/user';
 import { ContentHeader } from '../../../../shared/content';
+import { useAppSelector } from '../../../../../store/store';
+import { UserRoles } from '../../../../../shared/types/user';
+import { getLoggedInAuthState, userHasAdminRights } from '../../../../../shared/functions';
 
 import Container from '../../../../shared/container';
-import { toast } from 'react-toastify';
 
 
-type Props = {
-  user: User
-};
-
-
-const Account: FC<Props> = ({user}) => {
+const Account: FC = () => {
   const { t } = useTranslation();
+  const { user } = useAppSelector(getLoggedInAuthState)
+
 
   const copyEmailToClipboard = async (email: string) => {
     try {
@@ -92,17 +91,28 @@ const Account: FC<Props> = ({user}) => {
             </p>
           </li>
 
-          <li>
-            <p>{t('profile.account.campus')}</p>
-            &nbsp;<p>{user.Campus?.name ?? t('profile.account.no_campus')}</p>
-          </li>
+          {user.role !== UserRoles.CampusBoosterAdmin && (
+            <li>
+              <p>{t('profile.account.campus')}</p>
+              &nbsp;<p>{user.Campus?.name ?? t('profile.account.no_campus')}</p>
+            </li>
+          )}
 
-          <li>
-            <p>{t('profile.account.promotion')}</p>
-            &nbsp;<p>
-              {user.UserHasClassrooms?.[0]?.Classroom?.promotion ?? t('profile.account.no_promotion')}
-            </p>
-          </li>
+          {!userHasAdminRights(user.role) && (<>
+            <li>
+              <p>{t('profile.account.promotion')}</p>
+              &nbsp;<p>
+                {user.promotion ? `${user.promotion} \u2013 ${user.promotion + 1}` : t('profile.account.no_promotion')}
+              </p>
+            </li>
+
+            <li>
+              <p>{t('profile.account.classrooms')}</p>
+              &nbsp;<p>
+                {user.UserHasClassrooms?.map(uhc => uhc.Classroom?.name).join(', ')}
+              </p>
+            </li>
+          </>)}
         </ul>
       </div>
     </Container>

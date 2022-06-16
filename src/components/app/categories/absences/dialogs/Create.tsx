@@ -102,10 +102,10 @@ const CreateAbsence: FC<Props> = ({open, setOpen}) => {
 
   return (
     <Dialog
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onClose={() => setOpen(false)}
-      onSubmit={handleCreateAbsence}
-      open={open} fullWidth maxWidth="sm"
+      open={open} onSubmit={handleCreateAbsence}
+      onClose={() => loading ? null : setOpen(false)}
     >
       <DialogTitle>{t('absences.create.title')}</DialogTitle>
 
@@ -161,6 +161,7 @@ const CreateAbsence: FC<Props> = ({open, setOpen}) => {
           <Box sx={{display: 'flex', alignItems: 'center'}}>
             <label htmlFor="file-btn">
               <Input
+                disabled={loading}
                 onInput={handleAddDocuments}
                 multiple type="file" id="file-btn"
                 accept={allowedFileTypes.absences.join(', ')}
@@ -174,7 +175,7 @@ const CreateAbsence: FC<Props> = ({open, setOpen}) => {
               color="error"
               sx={{p: '6px', ml: 2}}
               onClick={handleRemoveDocuments}
-              disabled={documents.length === 0}
+              disabled={loading || documents.length === 0}
             >
               <Close/>
             </IconButton>
@@ -191,7 +192,7 @@ const CreateAbsence: FC<Props> = ({open, setOpen}) => {
       </DialogContent>
 
       <DialogActions>
-        <Button color="error" onClick={() => setOpen(false)}>
+        <Button color="error" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 

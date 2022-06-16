@@ -24,8 +24,8 @@ const UndeletableUser: FC<Props> = ({user, open, setOpen}) => {
 
   return (
     <Dialog
-      onClose={() => setOpen(false)}
-      open={open} fullWidth maxWidth="sm"
+      fullWidth maxWidth="sm"
+      open={open} onClose={() => setOpen(false)}
     >
       <DialogTitle>{t('users.delete.title', {user: userFullName})}</DialogTitle>
 
@@ -91,10 +91,10 @@ const DeletableUser: FC<Props> = ({user, open, setOpen}) => {
 
   return (
     <Dialog
-      onSubmit={handleDeleteUser}
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onClose={() => setOpen(false)}
-      open={open} fullWidth maxWidth="sm"
+      open={open} onSubmit={handleDeleteUser}
+      onClose={() => loading ? null : setOpen(false)}
     >
       <DialogTitle>{t('users.delete.title', {user: userFullName})}</DialogTitle>
 
@@ -117,7 +117,7 @@ const DeletableUser: FC<Props> = ({user, open, setOpen}) => {
       </DialogContent>
 
       <DialogActions>
-        <Button color="primary" onClick={() => setOpen(false)}>
+        <Button color="primary" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 

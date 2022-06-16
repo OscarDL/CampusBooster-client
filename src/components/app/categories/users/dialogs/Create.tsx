@@ -115,10 +115,10 @@ const CreateUser: FC<Props> = ({open, setOpen}) => {
 
   return (
     <Dialog
-      onSubmit={handleCreateUser}
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onClose={() => setOpen(false)}
-      open={open} fullWidth maxWidth="sm"
+      open={open} onSubmit={handleCreateUser}
+      onClose={() => loading ? null : setOpen(false)}
     >
       <DialogTitle>{t('users.create.title')}</DialogTitle>
 
@@ -253,7 +253,7 @@ const CreateUser: FC<Props> = ({open, setOpen}) => {
       </DialogContent>
 
       <DialogActions>
-        <Button color="error" onClick={() => setOpen(false)}>
+        <Button color="error" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 

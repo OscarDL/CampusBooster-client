@@ -38,6 +38,7 @@ const TeacherClassroomPicker: FC<Props> = ({teacher, setTeacher, classroom, setC
   useEffect(() => {
     if (usersList) {
       const classroomsOptions: Option[] = classroomsList
+        ?.slice()?.sort((a, b) => a.name.localeCompare(b.name))
         ?.map(classroom => ({
           classroom,
           value: classroom.id,

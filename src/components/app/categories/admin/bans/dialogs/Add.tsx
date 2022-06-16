@@ -47,10 +47,10 @@ const AddBan: FC<Props> = ({open, setOpen}) => {
 
   return (
     <Dialog
-      onSubmit={handleBanUser}
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onClose={() => setOpen(false)}
-      open={open} fullWidth maxWidth="sm"
+      open={open} onSubmit={handleBanUser}
+      onClose={() => loading ? null : setOpen(false)}
     >
       <DialogTitle>{t('admin.banned_users.add.title')}</DialogTitle>
 
@@ -59,7 +59,7 @@ const AddBan: FC<Props> = ({open, setOpen}) => {
       </DialogContent>
 
       <DialogActions>
-        <Button color="error" onClick={() => setOpen(false)}>
+        <Button color="error" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 

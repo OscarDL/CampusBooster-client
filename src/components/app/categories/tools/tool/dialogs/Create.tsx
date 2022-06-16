@@ -85,10 +85,10 @@ const CreateTool: FC<Props> = ({open, setOpen}) => {
 
   return (
     <Dialog
-      onSubmit={handleCreateTool}
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onClose={() => setOpen(false)}
-      open={open} fullWidth maxWidth="sm"
+      open={open} onSubmit={handleCreateTool}
+      onClose={() => loading ? null : setOpen(false)}
     >
       <DialogTitle>{t('tools.create.title')}</DialogTitle>
 
@@ -142,9 +142,9 @@ const CreateTool: FC<Props> = ({open, setOpen}) => {
         <Box sx={{display: 'flex', flexWrap: 'wrap', gap: '10px', alignItems: 'center'}}>
           <label htmlFor="file-btn">
             <Input
-              type="file"
-              id="file-btn"
+              disabled={loading}
               onInput={handleAddImage}
+              type="file" id="file-btn"
               accept={allowedFileTypes.tools.join(', ')}
             />
             <Button variant="contained" component="span">
@@ -153,8 +153,9 @@ const CreateTool: FC<Props> = ({open, setOpen}) => {
           </label>
 
           <IconButton
+            onClick={handleRemoveImage}
             sx={{p: '6px'}} color="error"
-            disabled={!tool.img} onClick={handleRemoveImage}
+            disabled={loading || !tool.img}
           >
             <Close/>
           </IconButton>
@@ -166,7 +167,7 @@ const CreateTool: FC<Props> = ({open, setOpen}) => {
       </DialogContent>
 
       <DialogActions>
-        <Button color="error" onClick={() => setOpen(false)}>
+        <Button color="error" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 

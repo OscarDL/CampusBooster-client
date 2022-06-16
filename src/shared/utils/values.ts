@@ -39,6 +39,13 @@ export const allowedFileTypes = {
     'image/jpeg',
     'application/pdf',
     'application/document'
+  ],
+
+  contracts: [
+    'image/png',
+    'image/jpeg',
+    'application/pdf',
+    'application/document'
   ]
 };
 

@@ -2,8 +2,8 @@ import axios from 'axios';
 import { t } from 'i18next';
 
 import { User } from '../shared/types/user';
-import { apiUrl, getAxiosConfig } from '../shared/api';
-import { Contract, ContractRequest } from '../shared/types/contract';
+import { Contract } from '../shared/types/contract';
+import { apiUrl, getAxiosConfig, getAxiosFormDataConfig } from '../shared/api';
 
 
 const getContracts = async (): Promise<Contract[]> => {
@@ -39,9 +39,9 @@ const getSupervisorContracts = async (id: User['id']): Promise<Contract[]> => {
   }
 };
 
-const createContract = async (contract: ContractRequest): Promise<Contract> => {
+const createContract = async (contractData: FormData): Promise<Contract> => {
   try {
-    const response = await axios.post(apiUrl + 'contracts', contract, getAxiosConfig());
+    const response = await axios.post(apiUrl + 'contracts', contractData, getAxiosFormDataConfig());
     return response.data;
   }
 
@@ -50,9 +50,9 @@ const createContract = async (contract: ContractRequest): Promise<Contract> => {
   }
 };
 
-const updateContract = async (contract: Contract): Promise<Contract> => {
+const updateContract = async (id: Contract['id'], contractData: FormData): Promise<Contract> => {
   try {
-    const response = await axios.patch(apiUrl + 'contracts/' + contract.id, contract, getAxiosConfig());
+    const response = await axios.patch(apiUrl + 'contracts/' + id, contractData, getAxiosFormDataConfig());
     return response.data;
   }
 

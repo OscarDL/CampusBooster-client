@@ -87,12 +87,14 @@
       "promotion_text_one": "{{count}}ère année",
       "promotion_text_other": "{{count}}e année",
       "no_promotion": "Pas de promotion.",
+      "classrooms": "Classes :",
+      "no_classrooms": "Aucune classe assignée.",
 
       "gender": {
         "title": "Genre :",
         "m": "Masculin",
         "f": "Féminin",
-        "none": "Inconnu"
+        "none": "Non spécifié"
       },
 
       "email_copy": {
@@ -156,6 +158,7 @@
     "select_user": "Sélectionnez un utilisateur",
     "select_course": "Sélectionnez un cours",
     "select_teacher": "Sélectionnez un professeur",
+    "no_comment": "Pas de commentaire du professeur.",
 
     "fields": {
       "title_one": "{{count}} résultat",
@@ -335,7 +338,7 @@
       "title_one": "{{count}} contrat",
       "title_other": "{{count}} contrats",
       "student": "Étudiant",
-      "entreprise": "Entreprise",
+      "company": "Entreprise",
       "start_date": "Date de début",
       "end_date": "Date de fin",
       "email": "Email de contact",
@@ -346,6 +349,12 @@
       "details_field": "Voir plus",
       "mission": "Mission",
       "supervisor": "Superviseur",
+      "documents": "Documents",
+      "files_one": "{{count}} fichier",
+      "files_other": "{{count}} fichiers",
+      "no_files_selected": "Aucun fichier sélectionné",
+      "files_selected_one": "{{count}} fichier sélectionné",
+      "files_selected_other": "{{count}} fichiers sélectionnés",
 
       "type": {
         "title": "Type",
@@ -539,7 +548,7 @@
       "personal_email": "Adresse mail personelle",
       "gender": {
         "title": "Genre",
-        "none": "Inconnu",
+        "none": "Non spécifié",
         "m": "Masculin",
         "f": "Feminin"
       }
@@ -766,7 +775,7 @@
 
       "update": {
         "title": "Modifier professeur \"{{teacher}}\" pour \"{{classroom}}\" ({{course}})",
-        "success": "User \"{{user}}\" successfully updated."
+        "success": "Professeur \"{{user}}\" modifié avec succès."
       },
 
       "remove": {

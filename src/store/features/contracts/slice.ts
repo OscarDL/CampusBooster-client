@@ -2,8 +2,8 @@ import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 import { User } from '../../../shared/types/user';
+import { Contract } from '../../../shared/types/contract';
 import contractService from '../../../services/contracts';
-import { Contract, ContractRequest } from '../../../shared/types/contract';
 
 
 export type ContractsState = {
@@ -49,9 +49,9 @@ export const getSupervisorContracts = createAsyncThunk('contracts/getSupervisorC
   };
 });
 
-export const createContract = createAsyncThunk('contracts/createContract', async (contract: ContractRequest, thunkAPI) => {
+export const createContract = createAsyncThunk('contracts/createContract', async (contractData: FormData, thunkAPI) => {
   try {
-    return await contractService.createContract(contract);
+    return await contractService.createContract(contractData);
   }
 
   catch (error: any) {
@@ -60,9 +60,13 @@ export const createContract = createAsyncThunk('contracts/createContract', async
   };
 });
 
-export const updateContract = createAsyncThunk('contracts/updateContract', async (contract: Contract, thunkAPI) => {
+type UpdateRequest = {
+  id: Contract['id'],
+  contractData: FormData
+};
+export const updateContract = createAsyncThunk('contracts/updateContract', async ({id, contractData}: UpdateRequest, thunkAPI) => {
   try {
-    return await contractService.updateContract(contract);
+    return await contractService.updateContract(id, contractData);
   }
 
   catch (error: any) {

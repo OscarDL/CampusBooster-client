@@ -50,10 +50,10 @@ const DeleteCourse: FC<Props> = ({course, open, setOpen}) => {
 
   return (
     <Dialog
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onClose={() => setOpen(false)}
-      onSubmit={handleDeleteCourse}
-      open={open} fullWidth maxWidth="sm"
+      open={open} onSubmit={handleDeleteCourse}
+      onClose={() => loading ? null : setOpen(false)}
     >
       <DialogTitle>{t('courses.delete.title', {course: course.name})}</DialogTitle>
 
@@ -69,7 +69,7 @@ const DeleteCourse: FC<Props> = ({course, open, setOpen}) => {
       </DialogContent>
 
       <DialogActions>
-        <Button color="primary" onClick={() => setOpen(false)}>
+        <Button color="primary" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 

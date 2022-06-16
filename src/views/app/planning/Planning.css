@@ -135,6 +135,7 @@
 }
 
 .planning-view .details__item__date {
+  flex-shrink: 0;
   font-weight: 600;
 }
 

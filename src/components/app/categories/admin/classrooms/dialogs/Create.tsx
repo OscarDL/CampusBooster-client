@@ -60,10 +60,10 @@ const CreateClassroom: FC<Props> = ({open, setOpen}) => {
 
   return (
     <Dialog
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onClose={() => setOpen(false)}
-      onSubmit={handleCreateClassroom}
-      open={open} fullWidth maxWidth="sm"
+      open={open} onSubmit={handleCreateClassroom}
+      onClose={() => loading ? null : setOpen(false)}
     >
       <DialogTitle>{t('admin.classrooms.create.title', {classroom: classroom.name})}</DialogTitle>
 
@@ -101,7 +101,7 @@ const CreateClassroom: FC<Props> = ({open, setOpen}) => {
       </DialogContent>
 
       <DialogActions>
-        <Button color="error" onClick={() => setOpen(false)}>
+        <Button color="error" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 

@@ -1,7 +1,9 @@
 .dark .contract-details a {
+  text-decoration: none;
   color: rgb(var(--text-color));
 }
 .dark .contract-details a:hover,
 .dark .contract-details a:focus-visible {
+  text-decoration: underline;
   color: rgb(var(--accent-color));
 }

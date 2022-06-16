@@ -66,10 +66,10 @@ const UpdateCourse: FC<Props> = ({course, open, setOpen}) => {
 
   return (
     <Dialog
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onSubmit={handleUpdateCourse}
-      onClose={() => setOpen(false)}
-      open={open} fullWidth maxWidth="sm"
+      open={open} onSubmit={handleUpdateCourse}
+      onClose={() => loading ? null : setOpen(false)}
     >
       <DialogTitle>{t('courses.update.title', {course: course.name})}</DialogTitle>
 
@@ -143,7 +143,7 @@ const UpdateCourse: FC<Props> = ({course, open, setOpen}) => {
       </DialogContent>
 
       <DialogActions>
-        <Button color="error" onClick={() => setOpen(false)}>
+        <Button color="error" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 

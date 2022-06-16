@@ -50,10 +50,10 @@ const DeleteCampus: FC<Props> = ({campus, open, setOpen}) => {
 
   return (
     <Dialog
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onSubmit={handleDeleteCampus}
-      onClose={() => setOpen(false)}
-      open={open} fullWidth maxWidth="sm"
+      open={open} onSubmit={handleDeleteCampus}
+      onClose={() => loading ? null : setOpen(false)}
     >
       <DialogTitle>{t('admin.campus.delete.title', {campus: campus.name})}</DialogTitle>
 
@@ -69,7 +69,7 @@ const DeleteCampus: FC<Props> = ({campus, open, setOpen}) => {
       </DialogContent>
 
       <DialogActions>
-        <Button color="primary" onClick={() => setOpen(false)}>
+        <Button color="primary" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 

@@ -1,17 +1,8 @@
 import axios from 'axios';
 import { t } from 'i18next';
 
-import { apiUrl, getAxiosConfig } from '../shared/api';
 import { ToolLink, ToolLinkBase64Image } from '../shared/types/tool';
-
-
-const axiosFormDataConfig = {
-  ...getAxiosConfig(),
-  headers: {
-    ...getAxiosConfig().headers,
-    'Content-Type': 'multipart/form-data'
-  }
-};
+import { apiUrl, getAxiosConfig, getAxiosFormDataConfig } from '../shared/api';
 
 
 const getTools = async (): Promise<ToolLinkBase64Image[]> => {
@@ -27,7 +18,7 @@ const getTools = async (): Promise<ToolLinkBase64Image[]> => {
 
 const createTool = async (toolData: FormData): Promise<ToolLinkBase64Image> => {
   try {
-    const response = await axios.post(apiUrl + 'tools', toolData, axiosFormDataConfig);
+    const response = await axios.post(apiUrl + 'tools', toolData, getAxiosFormDataConfig());
     return response.data;
   }
 
@@ -38,7 +29,7 @@ const createTool = async (toolData: FormData): Promise<ToolLinkBase64Image> => {
 
 const updateTool = async (id: ToolLink['id'], toolData: FormData): Promise<ToolLinkBase64Image> => {
   try {
-    const response = await axios.patch(apiUrl + 'tools/' + id, toolData, axiosFormDataConfig);
+    const response = await axios.patch(apiUrl + 'tools/' + id, toolData, getAxiosFormDataConfig());
     return response.data;
   }
 

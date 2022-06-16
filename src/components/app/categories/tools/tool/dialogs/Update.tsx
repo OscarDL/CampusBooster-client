@@ -95,10 +95,10 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
 
   return (
     <Dialog
-      onSubmit={handleUpdateTool}
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onClose={() => setOpen(false)}
-      open={open} fullWidth maxWidth="sm"
+      open={open} onSubmit={handleUpdateTool}
+      onClose={() => loading ? null : setOpen(false)}
     >
       <DialogTitle>{t('tools.update.title', {tool: tool.title})}</DialogTitle>
 
@@ -153,9 +153,9 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
           <Box sx={{display: 'flex', alignItems: 'center'}}>
             <label htmlFor="file-btn">
               <Input
-                type="file"
-                id="file-btn"
+                disabled={loading}
                 onInput={handleAddImage}
+                type="file" id="file-btn"
                 accept={allowedFileTypes.tools.join(', ')}
               />
               <Button variant="contained" component="span">
@@ -164,8 +164,9 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
             </label>
 
             <IconButton
+              onClick={handleRemoveImage}
+              disabled={loading || !newTool.img}
               sx={{p: '6px', ml: 2}} color="error"
-              disabled={!newTool.img} onClick={handleRemoveImage}
             >
               <Close/>
             </IconButton>
@@ -173,7 +174,7 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
             <IconButton
               sx={{p: '6px', ml: 1}}
               onClick={handleResetImage}
-              disabled={tool.img === newTool.img}
+              disabled={loading || tool.img === newTool.img}
             >
               <Replay/>
             </IconButton>
@@ -186,7 +187,7 @@ const UpdateTool: FC<Props> = ({open, tool, setOpen}) => {
       </DialogContent>
 
       <DialogActions>
-        <Button color="error" onClick={() => setOpen(false)}>
+        <Button color="error" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 

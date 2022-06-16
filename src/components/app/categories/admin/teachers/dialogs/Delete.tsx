@@ -39,7 +39,7 @@ const DeleteTeacher: FC<Props> = ({teacher, open, setOpen}) => {
 
       setName('');
       setOpen(false);
-      toast.success(t('admin.teachers.remove.success', {teacher: userFullName}));
+      toast.success(t('admin.teachers.remove.success', {user: userFullName}));
     }
     catch (error: any) {
       toast.error(error);
@@ -57,10 +57,10 @@ const DeleteTeacher: FC<Props> = ({teacher, open, setOpen}) => {
 
   return (
     <Dialog
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onSubmit={handleDeleteTeacher}
-      onClose={() => setOpen(false)}
-      open={open} fullWidth maxWidth="sm"
+      open={open} onSubmit={handleDeleteTeacher}
+      onClose={() => loading ? null : setOpen(false)}
     >
       <DialogTitle>
         {t('admin.teachers.remove.title', {
@@ -82,7 +82,7 @@ const DeleteTeacher: FC<Props> = ({teacher, open, setOpen}) => {
       </DialogContent>
 
       <DialogActions>
-        <Button color="primary" onClick={() => setOpen(false)}>
+        <Button color="primary" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 

@@ -7,10 +7,6 @@
   opacity: 0.5;
 }
 
-.tools-tabs .MuiTabs-root {
-  border-radius: var(--radius-medium);
-}
-
 .tools-select {
   display: none;
   padding: 1rem 0;
@@ -30,7 +26,6 @@
   padding: 1rem;
   display: grid;
   overflow-y: auto;
-  animation: 0.05s tab-reveal forwards;
   grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
 }
 
@@ -152,12 +147,5 @@
   .tools-tabs {
     height: 0;
     visibility: hidden;
-  }
-  .tools-tabs button, .tools-tabs .MuiTabs-indicator {
-    transition: 0s !important;
-  }
-
-  .tools-tab {
-    animation: none;
   }
 }

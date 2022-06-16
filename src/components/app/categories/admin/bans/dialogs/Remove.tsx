@@ -51,10 +51,10 @@ const RemoveBan: FC<Props> = ({user, open, setOpen}) => {
 
   return (
     <Dialog
-      onSubmit={handleRemoveBan}
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onClose={() => setOpen(false)}
-      open={open} fullWidth maxWidth="sm"
+      open={open} onSubmit={handleRemoveBan}
+      onClose={() => loading ? null : setOpen(false)}
     >
       <DialogTitle>{t('admin.banned_users.remove.title', {user: `${user.firstName} ${user.lastName}`})}</DialogTitle>
 
@@ -70,7 +70,7 @@ const RemoveBan: FC<Props> = ({user, open, setOpen}) => {
       </DialogContent>
 
       <DialogActions>
-        <Button color="primary" onClick={() => setOpen(false)}>
+        <Button color="primary" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 

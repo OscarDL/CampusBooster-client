@@ -3,16 +3,7 @@ import { t } from 'i18next';
 
 import { User } from '../shared/types/user';
 import { Absence } from '../shared/types/absence';
-import { apiUrl, getAxiosConfig } from '../shared/api';
-
-
-const axiosFormDataConfig = {
-  ...getAxiosConfig(),
-  headers: {
-    ...getAxiosConfig().headers,
-    'Content-Type': 'multipart/form-data'
-  }
-};
+import { apiUrl, getAxiosConfig, getAxiosFormDataConfig } from '../shared/api';
 
 
 const getAbsences = async (): Promise<Absence[]> => {
@@ -50,7 +41,7 @@ const getSupervisorAbsences = async (id: User['id']): Promise<Absence[]> => {
 
 const createAbsence = async (absenceData: FormData): Promise<Absence> => {
   try {
-    const response = await axios.post(apiUrl + 'absences', absenceData, axiosFormDataConfig);
+    const response = await axios.post(apiUrl + 'absences', absenceData, getAxiosFormDataConfig());
     return response.data;
   }
 
@@ -61,7 +52,7 @@ const createAbsence = async (absenceData: FormData): Promise<Absence> => {
 
 const updateAbsence = async (id: Absence['id'], absenceData: FormData): Promise<Absence> => {
   try {
-    const response = await axios.patch(apiUrl + 'absences/' + id, absenceData, axiosFormDataConfig);
+    const response = await axios.patch(apiUrl + 'absences/' + id, absenceData, getAxiosFormDataConfig());
     return response.data;
   }
 

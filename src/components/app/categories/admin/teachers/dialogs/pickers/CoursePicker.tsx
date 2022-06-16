@@ -24,21 +24,27 @@ const TeacherCoursePicker: FC<Props> = ({classroom, teacher, setTeacher}) => {
   const { t } = useTranslation();
   const { usersList } = useAppSelector(state => state.users);
   const { coursesList } = useAppSelector(state => state.courses);
+  const { teachersList } = useAppSelector(state => state.teachers);
   
   const [coursesOptions, setCoursesOptions] = useState<Option[]>([]);
 
 
   useEffect(() => {
     if (coursesList) {
-      const coursesOptions: Option[] = classroom?.ClassroomHasCourses?.map(chc => ({
-        ClassroomHasCourse: chc,
-        value: chc.id,
-        label: `${chc.Course?.name} (${chc.Course?.description})`
-      })) ?? [];
+      const courses = teachersList?.map(teacher => teacher.ClassroomHasCourse.Course?.id ?? 0) ?? [];
+
+      const coursesOptions: Option[] = classroom?.ClassroomHasCourses
+        ?.filter(chc => !courses.includes(chc.Course?.id ?? 0))
+        ?.sort((a, b) => a.Course?.name?.localeCompare(b.Course?.name ?? '') ?? 1)
+        ?.map(chc => ({
+          ClassroomHasCourse: chc,
+          value: chc.id,
+          label: `${chc.Course?.name} (${chc.Course?.description})`
+        })) ?? [];
 
       setCoursesOptions(coursesOptions);
     }
-  }, [classroom, coursesList]);
+  }, [classroom, coursesList, teachersList]);
 
 
   return !teacher.classroomHasCourseId ? (

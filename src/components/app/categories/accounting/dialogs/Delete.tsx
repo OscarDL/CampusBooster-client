@@ -53,10 +53,10 @@ const DeleteBalance: FC<Props> = ({balance, open, setOpen}) => {
 
   return (
     <Dialog
+      fullWidth maxWidth="sm"
       components={{Root: 'form'}}
-      onClose={() => setOpen(false)}
-      onSubmit={handleDeleteBalance}
-      open={open} fullWidth maxWidth="sm"
+      open={open} onSubmit={handleDeleteBalance}
+      onClose={() => loading ? null : setOpen(false)}
     >
       <DialogTitle>{t('accounting.delete.title', {user: userFullName})}</DialogTitle>
 
@@ -72,7 +72,7 @@ const DeleteBalance: FC<Props> = ({balance, open, setOpen}) => {
       </DialogContent>
 
       <DialogActions>
-        <Button color="primary" onClick={() => setOpen(false)}>
+        <Button color="primary" disabled={loading} onClick={() => setOpen(false)}>
           {t('global.cancel')}
         </Button>
 
