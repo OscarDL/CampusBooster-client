@@ -121,7 +121,7 @@ const CreateBalance: FC<Props> = ({open, setOpen}) => {
           >
             {Object.values(BalanceStatus).map(status => (
               <MenuItem key={status} value={status}>
-                {t('accounting.status.' + status)}
+                {t('accounting.status.' + status.toLowerCase())}
               </MenuItem>
             ))}
           </Select>

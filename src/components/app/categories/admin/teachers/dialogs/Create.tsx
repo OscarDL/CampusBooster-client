@@ -3,10 +3,10 @@ import { Box, Button } from '@mui/material';
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useAppDispatch } from '../../../../../../store/store';
 import { Classroom } from '../../../../../../shared/types/classroom';
 import { TeacherRequest } from '../../../../../../shared/types/teacher';
 import { getCourses } from '../../../../../../store/features/courses/slice';
+import { useAppDispatch, useAppSelector } from '../../../../../../store/store';
 import { createTeacher } from '../../../../../../store/features/teachers/slice';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../../shared/dialog';
 
@@ -28,6 +28,7 @@ const newTeacherRequest = (): TeacherRequest => ({
 const CreateTeacher: FC<Props> = ({open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const { teachersList } = useAppSelector(state => state.teachers);
 
   const [loading, setLoading] = useState(false);
   const [teacher, setTeacher] = useState(newTeacherRequest());
@@ -99,7 +100,7 @@ const CreateTeacher: FC<Props> = ({open, setOpen}) => {
 
         <MainDialogButton
           type="submit" variant="contained" loading={loading}
-          disabled={!teacher.userId || !teacher.classroomHasCourseId}
+          disabled={!teachersList || !teacher.userId || !teacher.classroomHasCourseId}
         >
           {t('global.confirm')}
         </MainDialogButton>

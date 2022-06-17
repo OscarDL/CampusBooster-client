@@ -1,26 +1,19 @@
-# Campus Booster
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/27915933/174158191-d209ecc6-7466-41aa-87e4-fcf60536dffe.png" alt="Logo" width="150px"/>
+  <h1 align="center">Campus Booster</h1>
+</p>
 
-<img src="https://www.supinfo.com/wp-content/uploads/2020/11/Capture-décran-2020-11-27-à-16.02.29.png" alt="Logo" width="200px">
+## What is Campus Booster?
+Campus Booster is a .
 
-### How to install?
+### Local install process
 
-Make sure you have Node.js on your device: [install yarn](https://classic.yarnpkg.com/en/docs/install)
+- Make sure you have Node.js on your device: [install yarn](https://nodejs.org/en)
+- Then install yarn with the Node package manager: `npm install -g yarn`
+- Clone the project locally with Git: `git clone https://github.com/CampusBooster/client.git`
 
-After Git clone,
-Go to project command line root
-Execute :
-```shell
-yarn
-```
+### Run project locally
 
-### Run project in local 
-Run:
-```shell
-yarn start
-```
-The project will automatically open as https://localhost:3000
+- `yarn start`
 
-## CONTACT:
-Campus Booster [Admin](mailto:ulysse.dupont@supinfo.com?subject=[GitHub]%20Source%20Han%20Sans) \
-<img src="https://www.supinfo.com/wp-content/uploads/2020/11/Capture-décran-2020-11-27-à-16.02.29.png" alt="Logo" width="100px"> \
-Thanks you!
+The project will automatically open in your browser.

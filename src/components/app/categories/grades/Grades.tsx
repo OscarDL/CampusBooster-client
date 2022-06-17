@@ -20,6 +20,7 @@ import CreateGrade from './grade/Create';
 import UpdateGrade from './grade/Update';
 import DeleteGrade from './grade/Delete';
 import Loader from '../../../shared/loader';
+import Container from '../../../shared/container';
 
 
 const Grades: FC = () => {
@@ -120,6 +121,22 @@ const Grades: FC = () => {
 
           localeText={getMuiDataGridLocale(settings.lang)}
         />
+
+        {gradesList && user.role === UserRoles.Student && (
+          <Container className="student-grades-summary">
+            <p id="passed">{t('grades.footer.passed', {
+              passed: gradesList.filter(grade => grade.average >= 10).length,
+              total: user.UserHasClassrooms?.map(uhc => uhc.Classroom?.ClassroomHasCourses).flat().length
+            })}</p>
+
+            <b>&bull;</b>
+
+            <p id="failed">{t('grades.footer.failed', {
+              failed: gradesList.filter(grade => grade.average < 10).length,
+              total: user.UserHasClassrooms?.map(uhc => uhc.Classroom?.ClassroomHasCourses).flat().length
+            })}</p>
+          </Container>
+        )}
       </ContentBody>
 
       <CreateGrade open={openCreate} setOpen={setOpenCreate}/>

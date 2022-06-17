@@ -7,12 +7,12 @@ import { useTranslation } from 'react-i18next';
 import { FC, useEffect, useState } from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { Box, Button, FormControl, IconButton, InputLabel, MenuItem, Select, styled, TextField } from '@mui/material';
+import { Box, Button, Checkbox, FormControl, FormControlLabel, FormGroup, IconButton, InputLabel, MenuItem, Select, styled, TextField, Tooltip, Zoom } from '@mui/material';
 
-import { useAppDispatch, useAppSelector } from '../../../../../store/store';
+import { useAppDispatch } from '../../../../../store/store';
 import { Contract, ContractType } from '../../../../../shared/types/contract';
 import { updateContract } from '../../../../../store/features/contracts/slice';
-import { allowedFileTypes, maxDocumentSize } from '../../../../../shared/utils/values';
+import { allowedFileTypes, maxDocumentSize, maxNumberOfDocuments } from '../../../../../shared/utils/values';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
 
 import ContractStudentPicker from './pickers/StudentPicker';
@@ -31,11 +31,11 @@ const Input = styled('input')({display: 'none'});
 const UpdateContract: FC<Props> = ({contract, open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { contractsList } = useAppSelector(state => state.contracts);
 
   const [loading, setLoading] = useState(false);
   const [documents, setDocuments] = useState<File[]>([]);
   const [newContract, setNewContract] = useState(copy(contract));
+  const [keepExistingFiles, setKeepExistingFiles] = useState(true);
   const userFullName = `${contract.User.firstName} ${contract.User.lastName}`;
 
 
@@ -56,8 +56,9 @@ const UpdateContract: FC<Props> = ({contract, open, setOpen}) => {
     if (result.files) {
       const files = Array.from(result.files);
 
-      if (files.length > 5) {
-        toast.error(t('contracts.create.max_documents', {count: 5}));
+      const selectedFiles = keepExistingFiles ? (contract.fileKeys.length + files.length) : files.length;
+      if (selectedFiles > maxNumberOfDocuments) {
+        toast.error(t('contracts.files.max', {count: maxNumberOfDocuments}));
         return;
       }
 
@@ -91,6 +92,7 @@ const UpdateContract: FC<Props> = ({contract, open, setOpen}) => {
     contractData.append('startDate', newContract.startDate);
     contractData.append('userId', String(newContract.userId));
     contractData.append('supervisorId', String(newContract.supervisorId));
+    if (keepExistingFiles) contractData.append('fileKeys', JSON.stringify(contract.fileKeys));
 
     for (const document of documents) {
       if (documents) contractData.append('files', document);
@@ -111,7 +113,11 @@ const UpdateContract: FC<Props> = ({contract, open, setOpen}) => {
 
 
   useEffect(() => {
-    if (open) setNewContract(copy(contract));
+    if (open) {
+      setDocuments([]);
+      setKeepExistingFiles(true);
+      setNewContract(copy(contract));
+    }
   }, [contract, open]);
 
 
@@ -207,37 +213,52 @@ const UpdateContract: FC<Props> = ({contract, open, setOpen}) => {
           onChange={e => setNewContract({...newContract, mission: e.target.value})}
         />
 
-        <Box sx={{mt: 2, display: 'grid', gap: '10px'}}>
-          <Box sx={{display: 'flex', alignItems: 'center'}}>
-            <label htmlFor="file-btn">
-              <Input
-                disabled={loading}
-                onInput={handleAddDocuments}
-                multiple type="file" id="file-btn"
-                accept={allowedFileTypes.contracts.join(', ')}
-              />
-              <Button variant="contained" component="span">
-                {t('contracts.fields.documents')}
-              </Button>
-            </label>
+        <Box sx={{display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 1}}>
+          <Box sx={{mt: 2, display: 'grid', gap: '10px', flexGrow: 1}}>
+            <Box sx={{display: 'flex', alignItems: 'center'}}>
+              <label htmlFor="file-btn">
+                <Input
+                  disabled={loading}
+                  onInput={handleAddDocuments}
+                  multiple type="file" id="file-btn"
+                  accept={allowedFileTypes.contracts.join(', ')}
+                />
+                <Button variant="contained" component="span">
+                  {t('contracts.fields.documents')}
+                </Button>
+              </label>
 
-            <IconButton
-              color="error"
-              sx={{p: '6px', ml: 2}}
-              onClick={handleRemoveDocuments}
-              disabled={loading || documents.length === 0}
-            >
-              <Close/>
-            </IconButton>
+              <IconButton
+                color="error"
+                sx={{p: '6px', ml: 2}}
+                onClick={handleRemoveDocuments}
+                disabled={loading || documents.length === 0}
+              >
+                <Close/>
+              </IconButton>
+            </Box>
+
+            <p className="text-overflow">
+              {documents.length ? (
+                t('contracts.files.selected', {count: documents.length})
+              ) : (
+                t('contracts.files.no_selected')
+              )}
+            </p>
           </Box>
 
-          <p className="text-overflow">
-            {documents.length ? (
-              t('contracts.fields.files_selected', {count: documents.length})
-            ) : (
-              t('contracts.fields.no_files_selected')
-            )}
-          </p>
+          <Tooltip TransitionComponent={Zoom} title={t('contracts.files.tooltip')} placement="top">
+            <FormGroup>
+              <FormControlLabel
+                label={t('contracts.files.keep_existing')}
+                control={<Checkbox
+                  disabled={!contract.fileKeys.length}
+                  onChange={e => setKeepExistingFiles(e.target.checked)}
+                  checked={contract.fileKeys.length > 0 ? keepExistingFiles : false}
+                />}
+              />
+            </FormGroup>
+          </Tooltip>
         </Box>
       </DialogContent>
 
@@ -248,7 +269,7 @@ const UpdateContract: FC<Props> = ({contract, open, setOpen}) => {
 
         <MainDialogButton
           type="submit" variant="contained" loading={loading}
-          disabled={!contractsList || isEqual(contract, newContract) || !formIsComplete()}
+          disabled={(isEqual(contract, newContract) && !documents.length && keepExistingFiles) || !formIsComplete()}
         >
           {t('global.confirm')}
         </MainDialogButton>

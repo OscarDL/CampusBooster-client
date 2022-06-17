@@ -9,7 +9,7 @@ import { getLoggedInAuthState } from '../../../../../shared/functions';
 import { useAppDispatch, useAppSelector } from '../../../../../store/store';
 import { createAbsence } from '../../../../../store/features/absences/slice';
 import { AbsencePeriod, AbsenceRequest } from '../../../../../shared/types/absence';
-import { allowedFileTypes, maxDocumentSize } from '../../../../../shared/utils/values';
+import { allowedFileTypes, maxDocumentSize, maxNumberOfDocuments } from '../../../../../shared/utils/values';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
 
 import AbsenceUserPicker from './pickers/UserPicker';
@@ -33,6 +33,7 @@ const CreateAbsence: FC<Props> = ({open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { user } = useAppSelector(getLoggedInAuthState);
+  const { absencesList } = useAppSelector(state => state.absences);
 
   const [loading, setLoading] = useState(false);
   const [documents, setDocuments] = useState<File[]>([]);
@@ -45,8 +46,8 @@ const CreateAbsence: FC<Props> = ({open, setOpen}) => {
     if (result.files) {
       const files = Array.from(result.files);
 
-      if (files.length > 5) {
-        toast.error(t('absences.create.max_documents', {count: 5}));
+      if (files.length > maxNumberOfDocuments) {
+        toast.error(t('absences.create.max_documents', {count: maxNumberOfDocuments}));
         return;
       }
 
@@ -198,7 +199,7 @@ const CreateAbsence: FC<Props> = ({open, setOpen}) => {
 
         <MainDialogButton
           type="submit" variant="contained" loading={loading}
-          disabled={!absence.reason || !absence.userId || !absence.planningId}
+          disabled={!(absencesList && absence.reason && absence.userId && absence.planningId)}
         >
           {t('global.confirm')}
         </MainDialogButton>

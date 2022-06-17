@@ -51,6 +51,7 @@ export const allowedFileTypes = {
 
 export const maxImageSize = 2097152; // 2MB in bytes
 export const maxDocumentSize = 5242880; // 5MB in bytes
+export const maxNumberOfDocuments = 5; // 5 documents max. per request
 
 export const maxYearlyCredits = 72;
 export const requiredYearlyCredits = 60;

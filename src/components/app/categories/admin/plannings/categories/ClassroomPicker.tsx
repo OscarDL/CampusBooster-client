@@ -29,15 +29,17 @@ const PlanningClassroomPicker: FC<Props> = ({disabled, classroom, setClassroom})
 
 
   useEffect(() => {
-    const classroomsOptions: Option[] = classroomsList
-      ?.filter(classroom => user.campusId ? classroom.campusId === user.campusId : true)
-      ?.map(classroom => ({
-        classroom,
-        value: classroom.id,
-        label: `${classroom.name} ${user.campusId ? '' : `(${classroom.Campus?.name})`}`
-      })) ?? [];
+    if (classroomsList) {
+      const classroomsOptions: Option[] = classroomsList
+        .filter(classroom => user.campusId ? classroom.campusId === user.campusId : true)
+        .map(classroom => ({
+          classroom,
+          value: classroom.id,
+          label: `${classroom.name} ${user.campusId ? '' : `(${classroom.Campus?.name})`}`
+        }));
 
-    setClassroomsOptions(classroomsOptions);
+      setClassroomsOptions(classroomsOptions);
+    }
   }, [classroomsList, user.campusId]);
 
 

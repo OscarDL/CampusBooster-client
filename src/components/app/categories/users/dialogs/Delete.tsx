@@ -30,7 +30,7 @@ const UndeletableUser: FC<Props> = ({user, open, setOpen}) => {
       <DialogTitle>{t('users.delete.title', {user: userFullName})}</DialogTitle>
 
       <DialogContent sx={{mb: 2}}>
-        <b>{t('users.delete.undeletable', {user: userFullName})}</b>
+        <strong>{t('users.delete.undeletable', {user: userFullName})}</strong>
       </DialogContent>
 
       <DialogActions>

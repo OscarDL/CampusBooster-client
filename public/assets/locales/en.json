@@ -176,6 +176,11 @@
       "teacher": "Teacher"
     },
 
+    "footer": {
+      "failed": "Failed modules: {{failed}}/{{total}}",
+      "passed": "Passed modules: {{passed}}/{{total}}"
+    },
+
     "create": {
       "button": "Grade",
       "title": "New grade",
@@ -360,11 +365,6 @@
       "mission": "Mission",
       "supervisor": "Supervisor",
       "documents": "Documents",
-      "files_one": "{{count}} file",
-      "files_other": "{{count}} files",
-      "no_files_selected": "No files selected",
-      "files_selected_one": "{{count}} file selected",
-      "files_selected_other": "{{count}} file(s) selected",
 
       "type": {
         "title": "Type",
@@ -373,6 +373,17 @@
         "apprentice_contract": "Apprentice contract",
         "professional_contract": "Professional contract"
       }
+    },
+
+    "files": {
+      "files_one": "{{count}} file",
+      "files_other": "{{count}} files",
+      "no_selected": "No files selected",
+      "keep_existing": "Keep existing files",
+      "selected_one": "{{count}} file selected",
+      "selected_other": "{{count}} file(s) selected",
+      "max": "Maximum number of files allowed is {{count}}.",
+      "tooltip": "This will keep the existing files and add the ones you select. If this is unchecked, the existing files will be deleted."
     },
 
     "create": {

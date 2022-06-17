@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Box, Button, TextField } from '@mui/material';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 
-import { useAppDispatch, useAppSelector } from '../../../../../../store/store';
+import { useAppDispatch } from '../../../../../../store/store';
 import { updateClassroom } from '../../../../../../store/features/classrooms/slice';
 import { Classroom, ClassroomRequest } from '../../../../../../shared/types/classroom';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../../shared/dialog';
@@ -29,7 +29,6 @@ const newClassroomRequest = (classroom: Classroom): ClassroomRequest => ({
 const UpdateClassroom: FC<Props> = ({classroom, open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { classroomsList } = useAppSelector(state => state.classrooms);
 
   const [loading, setLoading] = useState(false);
   const [newClassroom, setNewClassroom] = useState(newClassroomRequest(classroom));
@@ -129,7 +128,7 @@ const UpdateClassroom: FC<Props> = ({classroom, open, setOpen}) => {
 
         <MainDialogButton
           type="submit" variant="contained" loading={loading}
-          disabled={!classroomsList || classroomEqual || !newClassroom.name || !newClassroom.promotion}
+          disabled={classroomEqual || !newClassroom.name || !newClassroom.promotion}
         >
           {t('global.confirm')}
         </MainDialogButton>

@@ -47,7 +47,7 @@ const UneditableUser: FC<Props> = ({user, open, setOpen}) => {
       <DialogTitle>{t('users.update.title', {user: userFullName})}</DialogTitle>
 
       <DialogContent sx={{mb: 2}}>
-        <b>{t('users.update.uneditable', {user: userFullName})}</b>
+        <strong>{t('users.update.uneditable', {user: userFullName})}</strong>
       </DialogContent>
 
       <DialogActions>
@@ -68,7 +68,6 @@ const EditableUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { user } = useAppSelector(getLoggedInAuthState);
-  const { usersList } = useAppSelector(state => state.users);
 
   const [loading, setLoading] = useState(false);
   const [loadingResetPw, setLoadingResetPw] = useState(false);
@@ -356,8 +355,8 @@ const EditableUser: FC<Props> = ({user: selectedUser, open, setOpen}) => {
         </Button>
 
         <MainDialogButton
+          disabled={userEqual || !formIsComplete()}
           type="submit" variant="contained" loading={loading}
-          disabled={!usersList || userEqual || !formIsComplete()}
         >
           {t('global.confirm')}
         </MainDialogButton>

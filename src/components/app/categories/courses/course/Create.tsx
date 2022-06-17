@@ -3,9 +3,9 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { Box, Button, Checkbox, FormControlLabel, FormGroup, InputAdornment, TextField } from '@mui/material';
 
-import { useAppDispatch } from '../../../../../store/store';
 import { CourseRequest } from '../../../../../shared/types/course';
 import { createCourse } from '../../../../../store/features/courses/slice';
+import { useAppDispatch, useAppSelector } from '../../../../../store/store';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
 
 
@@ -23,6 +23,7 @@ const newCourseRequest = (): CourseRequest => ({
 const CreateCourse: FC<Props> = ({open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const { coursesList } = useAppSelector(state => state.courses);
 
   const [loading, setLoading] = useState(false);
   const [course, setCourse] = useState(newCourseRequest());
@@ -146,7 +147,7 @@ const CreateCourse: FC<Props> = ({open, setOpen}) => {
         </Button>
 
         <MainDialogButton
-          disabled={!formIsComplete()}
+          disabled={!coursesList || !formIsComplete()}
           type="submit" variant="contained" loading={loading}
         >
           {t('global.confirm')}

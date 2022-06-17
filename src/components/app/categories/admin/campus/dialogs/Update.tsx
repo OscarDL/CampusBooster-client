@@ -6,8 +6,8 @@ import React, { FC, useEffect, useState } from 'react';
 import { Box, Button, Checkbox, FormControlLabel, FormGroup, TextField } from '@mui/material';
 
 import { Campus } from '../../../../../../shared/types/campus';
+import { useAppDispatch } from '../../../../../../store/store';
 import { updateCampus } from '../../../../../../store/features/campus/slice';
-import { useAppDispatch, useAppSelector } from '../../../../../../store/store';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../../shared/dialog';
 
 
@@ -21,7 +21,6 @@ type Props = {
 const UpdateCampus: FC<Props> = ({campus, open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { campusList } = useAppSelector(state => state.campus);
 
   const [loading, setLoading] = useState(false);
   const [newCampus, setNewCampus] = useState(copy(campus));
@@ -141,7 +140,7 @@ const UpdateCampus: FC<Props> = ({campus, open, setOpen}) => {
 
         <MainDialogButton
           type="submit" variant="contained" loading={loading}
-          disabled={!campusList || isEqual(campus, newCampus) || !formIsComplete()}
+          disabled={isEqual(campus, newCampus) || !formIsComplete()}
         >
           {t('global.confirm')}
         </MainDialogButton>

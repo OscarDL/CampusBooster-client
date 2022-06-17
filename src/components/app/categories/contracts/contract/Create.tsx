@@ -10,7 +10,7 @@ import { Box, Button, FormControl, IconButton, InputLabel, MenuItem, Select, sty
 import { useAppDispatch, useAppSelector } from '../../../../../store/store';
 import { createContract } from '../../../../../store/features/contracts/slice';
 import { ContractRequest, ContractType } from '../../../../../shared/types/contract';
-import { allowedFileTypes, maxDocumentSize } from '../../../../../shared/utils/values';
+import { allowedFileTypes, maxDocumentSize, maxNumberOfDocuments } from '../../../../../shared/utils/values';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
 
 import ContractStudentPicker from './pickers/StudentPicker';
@@ -59,8 +59,8 @@ const CreateContract: FC<Props> = ({open, setOpen}) => {
     if (result.files) {
       const files = Array.from(result.files);
 
-      if (files.length > 5) {
-        toast.error(t('contracts.create.max_documents', {count: 5}));
+      if (files.length > maxNumberOfDocuments) {
+        toast.error(t('contracts.create.max_documents', {count: maxNumberOfDocuments}));
         return;
       }
 

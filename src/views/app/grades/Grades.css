@@ -2,12 +2,29 @@
   --failed-color: rgb(220, 80, 60);
   --passed-color: rgb(0, 160, 100);
 }
+.dark .grades-view {
+  --failed-color: rgb(230, 80, 40);
+  --passed-color: rgb(10, 180, 80);
+}
 
-.grades-view .grade-cell-failed {
+.grades-view .content__body {
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+.grades-view .student-grades-summary {
+  gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.grades-view .grade-cell-failed,
+.grades-view .student-grades-summary #failed {
   font-weight: 600;
   color: var(--failed-color);
 }
-.grades-view .grade-cell-passed {
+.grades-view .grade-cell-passed,
+.grades-view .student-grades-summary #passed {
   font-weight: 600;
   color: var(--passed-color);
 }

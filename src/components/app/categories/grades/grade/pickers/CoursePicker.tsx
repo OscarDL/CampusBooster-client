@@ -24,6 +24,7 @@ const GradeCoursePicker: FC<Props> = ({grade, setGrade}) => {
   const { t } = useTranslation();
   const { user } = useAppSelector(getLoggedInAuthState);
   const { usersList } = useAppSelector(state => state.users);
+  const { gradesList } = useAppSelector(state => state.grades);
   const { coursesList } = useAppSelector(state => state.courses);
   
   const [coursesOptions, setCoursesOptions] = useState<Option[]>([]);
@@ -51,10 +52,12 @@ const GradeCoursePicker: FC<Props> = ({grade, setGrade}) => {
 
   useEffect(() => {
     if (coursesList) {
+      const chcIds = (course: Course) => course.ClassroomHasCourses?.map(chc => chc.id);
+      const grades = gradesList?.map(grade => grade.ClassroomHasCourse?.Course?.id ?? 0) ?? [];
+
       const coursesOptions: Option[] = coursesList
-        .filter(course => (
-          course.ClassroomHasCourses?.map(chc => chc.id).some(id => userChc?.map(chc => chc?.id).includes(id))
-        ))
+        .filter(course => !grades.includes(course?.id ?? 0))
+        .filter(course => chcIds(course)?.some(id => userChc?.map(chc => chc?.id).includes(id)))
         .sort((a, b) => a.name.localeCompare(b.name))
         .filter(course => (
           // Filter a second time if the logged-in user is the teacher adding the grade
@@ -70,7 +73,7 @@ const GradeCoursePicker: FC<Props> = ({grade, setGrade}) => {
 
       setCoursesOptions(coursesOptions);
     }
-  }, [coursesList, user, userChc]);
+  }, [coursesList, gradesList, user, userChc]);
 
 
   return !grade.classroomHasCourseId ? (

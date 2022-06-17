@@ -36,18 +36,18 @@ const TeacherClassroomPicker: FC<Props> = ({teacher, setTeacher, classroom, setC
 
 
   useEffect(() => {
-    if (usersList) {
-      const classroomsOptions: Option[] = classroomsList
-        ?.slice()?.sort((a, b) => a.name.localeCompare(b.name))
-        ?.map(classroom => ({
+    if (classroomsList) {
+      const classroomsOptions: Option[] = classroomsList.slice()
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map(classroom => ({
           classroom,
           value: classroom.id,
           label: `${classroom.name} (${classroom.Campus?.name})`
-        })) ?? [];
+        }));
 
       setClassroomsOptions(classroomsOptions);
     }
-  }, [classroomsList, usersList, teacher]);
+  }, [classroomsList, teacher]);
 
 
   return !classroom ? (

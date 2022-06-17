@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 import { RootState } from '../store/store';
 import { User, UserRoles } from './types/user';
 import { supportedLangs } from './utils/locales';
@@ -135,6 +137,17 @@ export const getUserCategories = (categories: AC[], user: User) => {
       return categories.filter(category => !hiddenForStudents.includes(category));
     }
   };
+};
+
+
+export const getCurrentUserYear = (user: User): number => {
+  let monthsToAdd = 3;
+  const promotion = user.promotion ?? dayjs().year();
+
+  // Year 1 students start in october, others start in november -> calculate year
+  if (dayjs().add(monthsToAdd, 'month').year() - promotion > 1) monthsToAdd -= 1;
+
+  return dayjs().add(monthsToAdd, 'month').year() - promotion;
 };
 
 

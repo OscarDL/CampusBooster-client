@@ -33,16 +33,18 @@ const ProjectClassroomPicker: FC<Props> = ({classroom: selectedClassroom, projec
 
 
   useEffect(() => {
-    const classroomHasCourseOptions: Option[] = classroomsList
-      ?.find(classroom => classroom.id === selectedClassroom?.id)?.ClassroomHasCourses
-      ?.slice()?.sort((a, b) => a.Course!.name.localeCompare(b.Course!.name))
-      ?.map(classroomHasCourse => ({
-        classroomHasCourse,
-        value: classroomHasCourse.id,
-        label: classroomHasCourse.Course!.name
-      })) ?? [];
+    if (classroomsList) {
+      const classroomHasCourseOptions: Option[] = classroomsList
+        .find(classroom => classroom.id === selectedClassroom?.id)?.ClassroomHasCourses?.slice()
+        .sort((a, b) => a.Course!.name.localeCompare(b.Course!.name))
+        .map(classroomHasCourse => ({
+          classroomHasCourse,
+          value: classroomHasCourse.id,
+          label: classroomHasCourse.Course!.name
+        })) ?? [];
 
-    setClassroomHasCourseOptions(classroomHasCourseOptions);
+      setClassroomHasCourseOptions(classroomHasCourseOptions);
+    }
   }, [classroomsList, selectedClassroom]);
 
 

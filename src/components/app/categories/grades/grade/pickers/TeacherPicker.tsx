@@ -30,7 +30,7 @@ const GradeTeacherPicker: FC<Props> = ({grade, setGrade}) => {
 
 
   useEffect(() => {
-    if (usersList) {
+    if (coursesList) {
       const selectedCourse = coursesList?.find(course => (
         course?.ClassroomHasCourses?.find(chc => chc.id === grade.classroomHasCourseId)
       ));
@@ -47,7 +47,7 @@ const GradeTeacherPicker: FC<Props> = ({grade, setGrade}) => {
 
       setTeacherOptions(teacherOptions);
     }
-  }, [coursesList, grade.classroomHasCourseId, user, usersList]);
+  }, [coursesList, grade.classroomHasCourseId, user]);
 
 
   return !grade.teacherId ? (

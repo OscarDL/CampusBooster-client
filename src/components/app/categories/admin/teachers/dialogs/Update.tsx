@@ -33,7 +33,6 @@ const newTeacherRequest = (teacher: Teacher): TeacherRequest => ({
 const UpdateTeacher: FC<Props> = ({teacher, open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { teachersList } = useAppSelector(state => state.teachers);
   const { classroomsList } = useAppSelector(state => state.classrooms);
 
   const [loading, setLoading] = useState(false);
@@ -132,7 +131,7 @@ const UpdateTeacher: FC<Props> = ({teacher, open, setOpen}) => {
 
         <MainDialogButton
           type="submit" variant="contained" loading={loading}
-          disabled={!teachersList || isEqual(teacher, newTeacher) || !newTeacher.classroomHasCourseId || !newTeacher.userId}
+          disabled={isEqual(teacher, newTeacher) || !newTeacher.classroomHasCourseId || !newTeacher.userId}
         >
           {t('global.confirm')}
         </MainDialogButton>

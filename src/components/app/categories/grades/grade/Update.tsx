@@ -6,8 +6,8 @@ import { FC, useEffect, useState } from 'react';
 import { Box, Button, InputAdornment, TextField } from '@mui/material';
 
 import { Grade } from '../../../../../shared/types/grade';
+import { useAppDispatch } from '../../../../../store/store';
 import { updateGrade } from '../../../../../store/features/grades/slice';
-import { useAppDispatch, useAppSelector } from '../../../../../store/store';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
 
 import GradeUserPicker from './pickers/UserPicker';
@@ -25,7 +25,6 @@ type Props = {
 const UpdateGrade: FC<Props> = ({grade, open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { gradesList } = useAppSelector(state => state.grades);
 
   const [loading, setLoading] = useState(false);
   const [newGrade, setNewGrade] = useState(copy(grade));
@@ -120,7 +119,7 @@ const UpdateGrade: FC<Props> = ({grade, open, setOpen}) => {
 
         <MainDialogButton
           type="submit" variant="contained" loading={loading}
-          disabled={!gradesList || isEqual(grade, newGrade) || !newGrade.teacherId}
+          disabled={isEqual(grade, newGrade) || !newGrade.teacherId}
         >
           {t('global.confirm')}
         </MainDialogButton>

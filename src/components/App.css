@@ -162,7 +162,7 @@ body, button {
   opacity: 0.75;
 }
 
-p,
+p, i, em, b, strong,
 h1, h2, h3, h4, h5, h6,
 span[class*="material-icons"] {
   color: rgb(var(--text-color));

@@ -42,7 +42,7 @@ const TopRow: FC<Props> = ({summary}) => {
         <span className="top-info-card__icon material-icons-outlined">person_pin</span>
       </div>
 
-      {summary.contracts ? (
+      {summary.contracts && summary.contracts >= 0 ? (
         <div className="top-info-card">
           <div className="top-info-card__title">
             <p>{t('home.top_row.contracts')}</p>
