@@ -78,7 +78,7 @@ const updateBannedUser = async (id: UserRequest['id'], banned: UserRequest['bann
 
 const activateUser = async (userId: User['id']): Promise<User> => {
   try {
-    const response = await axios.patch(apiUrl + `users/${userId}/activate`, {}, getAxiosConfig());
+    const response = await axios.patch(apiUrl + `users/activate/${userId}`, {}, getAxiosConfig());
     return response.data;
   }
 
@@ -89,7 +89,7 @@ const activateUser = async (userId: User['id']): Promise<User> => {
 
 const resetUserPassword = async (userId: User['id'], personalEmail: User['personalEmail']): Promise<User> => {
   try {
-    const response = await axios.patch(apiUrl + `users/${userId}/resetpassword`, {personalEmail}, getAxiosConfig());
+    const response = await axios.patch(apiUrl + `users/resetpassword/${userId}`, {personalEmail}, getAxiosConfig());
     return response.data;
   }
 
@@ -114,7 +114,7 @@ const deleteUser = async (id: User['id'], deleteInAD: boolean): Promise<void> =>
 
 const addUserToClassrooms = async (id: User['id'], classrooms: (Classroom['id'])[]): Promise<User> => {
   try {
-    const response = await axios.post(apiUrl + `users/${id}/classrooms/add`, {classrooms}, getAxiosConfig());
+    const response = await axios.post(apiUrl + `users/classrooms/add/${id}`, {classrooms}, getAxiosConfig());
     return response.data;
   }
   
@@ -125,7 +125,7 @@ const addUserToClassrooms = async (id: User['id'], classrooms: (Classroom['id'])
 
 const removeUserFromClassrooms = async (id: User['id'], classrooms: (Classroom['id'])[]): Promise<User> => {
   try {
-    const response = await axios.post(apiUrl + `users/${id}/classrooms/remove`, {classrooms}, getAxiosConfig());
+    const response = await axios.post(apiUrl + `users/classrooms/remove/${id}`, {classrooms}, getAxiosConfig());
     return response.data;
   }
   

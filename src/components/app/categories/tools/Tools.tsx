@@ -50,7 +50,7 @@ const Tools: FC = () => {
 
       {toolsList ? (
         Object.values(ToolCategory).map((category, key) => (tab === key && (
-          <ContentBody className="tools-tab" id={`tools-tab-${tab}`}>
+          <ContentBody key={key} className="tools-tab" id={`tools-tab-${tab}`}>
             <ToolTab key={tab} tools={toolsList.filter(tool => tool.category === category)}/>
           </ContentBody>
         )))

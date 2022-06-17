@@ -58,7 +58,7 @@ axios.interceptors.response.use(
     }
 
     // Access token expired
-    if (error.response.status === 401) {
+    if (error.response.status === 401 && error.response.data === 'refresh_token') {
       originalRequest._retry = true;
       const axiosApiInstance = axios.create();
 
