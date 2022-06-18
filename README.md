@@ -6,6 +6,10 @@
 ## What is Campus Booster?
 Campus Booster is a school management system for SUPINFO.
 
+### Open the project
+
+[Open App online](https://campusbooster.eu/)
+
 ### Local install process
 
 - Make sure you have Node.js on your device: [install yarn](https://nodejs.org/en)
