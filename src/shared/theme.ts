@@ -252,7 +252,8 @@ export const getMuiTheme = (mode: PaletteMode) => createTheme({
     MuiTabs: {
       styleOverrides: {
         root: {
-          color: 'rgb(var(--text-color))'
+          color: 'rgb(var(--text-color))',
+          borderRadius: 'var(--radius-medium)'
         }
       }
     }

@@ -154,15 +154,29 @@
 
   "grades": {
     "title": "Notes",
-    "no_teacher": "Pas de professeur",
+    "no_courses": "Pas de cours.",
+    "no_students": "Pas d'étudiant.",
+    "no_teacher": "Pas de professeur.",
     "select_user": "Sélectionnez un utilisateur",
     "select_course": "Sélectionnez un cours",
     "select_teacher": "Sélectionnez un professeur",
     "no_comment": "Pas de commentaire du professeur.",
 
+    "tabs": {
+      "all": "Tous les cours",
+      "year_1": "B.Eng.1",
+      "year_2": "B.Eng.2",
+      "year_3": "B.Eng.3",
+      "year_4": "M.Eng.1",
+      "year_5": "M.Eng.2"
+    },
+
     "fields": {
       "title_one": "{{count}} résultat",
       "title_other": "{{count}} résultats",
+      "year": "Année",
+      "year_field_one": "{{count}}ère année",
+      "year_field_other": "{{count}}e année",
       "student": "Étudiant",
       "course": "Cours",
       "credits": "Crédits",
@@ -214,7 +228,8 @@
       "link_field": "Accéder",
       "description": "Description",
       "year": "Année",
-      "year_field": "{{year}}e année",
+      "year_field_one": "{{count}}ère année",
+      "year_field_other": "{{count}}e année",
       "credits": "Crédits",
       "speciality": "Spécialité"
     },

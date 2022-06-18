@@ -232,6 +232,10 @@ export const getGradesColumns = ({user, setOpenUpdate, setOpenDelete, setSelecte
   return [
     ...userColumn,
     {
+      field: 'year', headerName: t(columnPrefix + 'year'), width: 150, filterOperators: getGridNumericOperators(),
+      renderCell: ({row}) => t(columnPrefix + 'year_field', {count: row.ClassroomHasCourse.Course.year})
+    },
+    {
       field: 'course', headerName: t(columnPrefix + 'course'), width: 100,
       valueGetter: ({row}) => row.ClassroomHasCourse?.Course?.name
     },
@@ -332,13 +336,14 @@ export const getCoursesColumns = ({user, setOpenUpdate, setOpenDelete, setSelect
   return [
     {
       field: 'year', headerName: t(columnPrefix + 'year'), width: 150, filterOperators: getGridNumericOperators(),
-      renderCell: ({row}) => t(columnPrefix + 'year_field', {year: row.year})
+      renderCell: ({row}) => t(columnPrefix + 'year_field', {count: row.year})
     },
     {
       field: 'name', headerName: t(columnPrefix + 'name'), width: 150
     },
     {
-      field: 'description', headerName: t(columnPrefix + 'description'), width: 450
+      field: 'description', headerName: t(columnPrefix + 'description'), width: 400,
+      renderCell: ({row}) => <div className="MuiDataGrid-cellContent" title={row.description}>{row.description}</div>
     },
     {
       field: 'link', headerName: t(columnPrefix + 'link'), width: 150, filterable: false, sortable: false,

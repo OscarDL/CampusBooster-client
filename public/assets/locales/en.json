@@ -159,15 +159,29 @@
   "grades": {
     "title": "Grades",
     "icon": "task",
-    "no_teacher": "No teacher",
+    "no_teacher": "No teacher.",
+    "no_courses": "No courses.",
+    "no_students": "No students.",
     "select_user": "Select a user",
     "select_course": "Select a course",
     "select_teacher": "Select a teacher",
     "no_comment": "No comment from teacher.",
 
+    "tabs": {
+      "all": "All courses",
+      "year_1": "B.Eng.1",
+      "year_2": "B.Eng.2",
+      "year_3": "B.Eng.3",
+      "year_4": "M.Eng.1",
+      "year_5": "M.Eng.2"
+    },
+
     "fields": {
       "title_one": "{{count}} result",
       "title_other": "{{count}} results",
+      "year": "Year",
+      "year_field_one": "Year {{count}}",
+      "year_field_other": "Year {{count}}",
       "grade": "Grade",
       "course": "Course",
       "credits": "Credits",
@@ -220,7 +234,8 @@
       "link_field": "Access course",
       "description": "Description",
       "year": "Year",
-      "year_field": "Year {{year}}",
+      "year_field_one": "Year {{count}}",
+      "year_field_other": "Year {{count}}",
       "credits": "Credits",
       "speciality": "Speciality"
     },

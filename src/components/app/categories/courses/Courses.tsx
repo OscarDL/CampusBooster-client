@@ -10,8 +10,8 @@ import { getMuiDataGridLocale } from '../../../../shared/utils/locales';
 import { setDataGridValue } from '../../../../store/features/app/slice';
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
 import { clearCourses, getCourses } from '../../../../store/features/courses/slice';
-import { getLoggedInAuthState, userHasAdminRights } from '../../../../shared/functions';
 import { DataGridFooter, DataGridHeader, StyledDataGrid } from '../../../shared/datagrid';
+import { getCurrentUserYear, getLoggedInAuthState, userHasAdminRights } from '../../../../shared/functions';
 
 import YearTabs from './Tabs';
 import CreateCourse from './course/Create';
@@ -28,10 +28,10 @@ const Courses: FC = () => {
   const { settings } = useAppSelector(state => state.app);
   const { coursesList } = useAppSelector(state => state.courses);
 
-  const [tab, setTab] = useState(0);
   const [openCreate, setOpenCreate] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
+  const [tab, setTab] = useState(getCurrentUserYear(user));
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
 
   const isAdmin = useMemo(() => userHasAdminRights(user.role), [user.role]);

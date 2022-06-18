@@ -61,6 +61,7 @@ const GradeUserPicker: FC<Props> = ({grade, setGrade}) => {
       className="react-select-component"
       placeholder={t('grades.select_user')}
       classNamePrefix="react-select-component"
+      noOptionsMessage={() => t('grades.no_students')}
       isDisabled={!usersList || !!grade.id} // disable for grade update
       value={userOptions.find(option => option.user.id === grade.userId)}
     />

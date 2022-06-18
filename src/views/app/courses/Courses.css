@@ -1,8 +1,3 @@
-.courses-view .content__body {
-  padding: 1rem;
-  overflow-x: hidden;
-}
-
 .courses-view .courses-tabs-container {
   padding: 0;
   margin: 0 1rem 1rem;
@@ -32,8 +27,5 @@
   .courses-tabs {
     height: 0;
     visibility: hidden;
-  }
-  .courses-tabs button, .courses-tabs .MuiTabs-indicator {
-    transition: 0s !important;
   }
 }

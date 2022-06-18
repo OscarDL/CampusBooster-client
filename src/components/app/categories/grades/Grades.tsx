@@ -6,21 +6,22 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import { Grade } from '../../../../shared/types/grade';
 import { UserRoles } from '../../../../shared/types/user';
 import { getGradesColumns } from '../../../../shared/utils/columns';
-import { getLoggedInAuthState } from '../../../../shared/functions';
 import { ContentBody, ContentHeader } from '../../../shared/content';
 import { getCourses } from '../../../../store/features/courses/slice';
 import { getMuiDataGridLocale } from '../../../../shared/utils/locales';
 import { setDataGridValue } from '../../../../store/features/app/slice';
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
 import { getUsers, getUsersForTeacher } from '../../../../store/features/users/slice';
+import { getCurrentUserYear, getLoggedInAuthState } from '../../../../shared/functions';
 import { DataGridFooter, DataGridHeader, StyledDataGrid } from '../../../shared/datagrid';
 import { clearGrades, getGrades, getTeacherAsUserGrades, getUserGrades } from '../../../../store/features/grades/slice';
 
+import GradeSum from './Sum';
+import YearTabs from './Tabs';
 import CreateGrade from './grade/Create';
 import UpdateGrade from './grade/Update';
 import DeleteGrade from './grade/Delete';
 import Loader from '../../../shared/loader';
-import Container from '../../../shared/container';
 
 
 const Grades: FC = () => {
@@ -36,11 +37,16 @@ const Grades: FC = () => {
   const [openCreate, setOpenCreate] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
+  const [tab, setTab] = useState(getCurrentUserYear(user));
   const [selectedGrade, setSelectedGrade] = useState<Grade | null>(null);
 
   const columns = useMemo(() => (
     getGradesColumns({user, setOpenUpdate, setOpenDelete, setSelectedRow: setSelectedGrade})
   ), [user]);
+
+  const showUserGradeSum = useMemo(() => (
+    gradesList && tab > 0 && user.role === UserRoles.Student
+  ), [gradesList, user, tab]);
 
 
   useEffect(() => {
@@ -50,6 +56,7 @@ const Grades: FC = () => {
       if (!gradesList) {
         switch (user.role) {
           case UserRoles.Student: {
+            if (!usersList) await dispatch(getUsersForTeacher(user.id));
             await dispatch(getUserGrades(user.id));
             break;
           }
@@ -79,11 +86,15 @@ const Grades: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gradesList, user.id, user.role, dispatch]);
 
+  useEffect(() => {
+    apiRef.current.setColumnVisibility('year', tab === 0);
+  }, [apiRef, tab]);
+
 
   return (
     <>
       <ContentHeader title={t('grades.title')}>
-        {user.role !== UserRoles.Student && (
+        {/* {user.role !== UserRoles.Student && ( */}
           <Button
             className="button"
             onClick={() => setOpenCreate(true)}
@@ -91,8 +102,10 @@ const Grades: FC = () => {
           >
             {t('grades.create.button')}
           </Button>
-        )}
+        {/* )} */}
       </ContentHeader>
+
+      <YearTabs tab={tab} setTab={setTab}/>
 
       <ContentBody>
         <StyledDataGrid
@@ -101,8 +114,12 @@ const Grades: FC = () => {
           disableColumnPinning
           disableSelectionOnClick
 
+          columns={columns}
           loading={!gradesList}
-          columns={columns} rows={gradesList ?? []}
+          rows={(gradesList ?? [])
+            .filter(grade => tab > 0 ? grade.ClassroomHasCourse?.Course?.year === tab : true)
+            .sort((a, b) => (a.ClassroomHasCourse?.Course?.name ?? '').localeCompare(b.ClassroomHasCourse?.Course?.name ?? ''))
+          }
           pageSize={settings.dataGrid.pageSize} pagination={settings.dataGrid.pagination}
           onPageSizeChange={value => dispatch(setDataGridValue({key: 'pageSize', value}))}
 
@@ -122,21 +139,7 @@ const Grades: FC = () => {
           localeText={getMuiDataGridLocale(settings.lang)}
         />
 
-        {gradesList && user.role === UserRoles.Student && (
-          <Container className="student-grades-summary">
-            <p id="passed">{t('grades.footer.passed', {
-              passed: gradesList.filter(grade => grade.average >= 10).length,
-              total: user.UserHasClassrooms?.map(uhc => uhc.Classroom?.ClassroomHasCourses).flat().length
-            })}</p>
-
-            <b>&bull;</b>
-
-            <p id="failed">{t('grades.footer.failed', {
-              failed: gradesList.filter(grade => grade.average < 10).length,
-              total: user.UserHasClassrooms?.map(uhc => uhc.Classroom?.ClassroomHasCourses).flat().length
-            })}</p>
-          </Container>
-        )}
+        {showUserGradeSum && <GradeSum tab={tab}/>}
       </ContentBody>
 
       <CreateGrade open={openCreate} setOpen={setOpenCreate}/>

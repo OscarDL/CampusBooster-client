@@ -33,7 +33,4 @@
     height: 0;
     visibility: hidden;
   }
-  .users-tabs button, .users-tabs .MuiTabs-indicator {
-    transition: 0s !important;
-  }
 }

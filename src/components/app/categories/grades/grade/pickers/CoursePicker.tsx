@@ -76,20 +76,20 @@ const GradeCoursePicker: FC<Props> = ({grade, setGrade}) => {
   }, [coursesList, gradesList, user, userChc]);
 
 
-  return !grade.classroomHasCourseId ? (
+  return !grade.userId ? (
     // We have to do it this way because for some reason, setting the value
     // to undefined doesn't refresh the value shown in the component's view
     <div>
       <ReactSelect
+        isDisabled
         isSearchable
         menuPosition="fixed"
-        options={coursesOptions}
         onChange={handleChangeCourse}
         className="react-select-component"
         placeholder={t('grades.select_course')}
         isLoading={!(coursesList && usersList)}
         classNamePrefix="react-select-component"
-        isDisabled={!(coursesList && usersList) || !grade.userId}
+        noOptionsMessage={() => t('grades.no_courses')}
         value={coursesOptions.find(option => option.course.ClassroomHasCourses?.find(chc => chc.id === grade.classroomHasCourseId))}
       />
     </div>
@@ -102,6 +102,7 @@ const GradeCoursePicker: FC<Props> = ({grade, setGrade}) => {
       className="react-select-component"
       placeholder={t('grades.select_course')}
       classNamePrefix="react-select-component"
+      noOptionsMessage={() => t('grades.no_courses')}
       isDisabled={!!grade.id} // disable for grade update
       value={coursesOptions.find(option => option.course.ClassroomHasCourses?.find(chc => chc.id === grade.classroomHasCourseId))}
     />
