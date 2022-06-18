@@ -4,7 +4,7 @@
 </p>
 
 ## What is Campus Booster?
-Campus Booster is a .
+Campus Booster is a school management system for SUPINFO.
 
 ### Local install process
 
