@@ -103,7 +103,7 @@ export const getUserCategories = (categories: AC[], user: User) => {
   const hiddenForStudents: AC[] = [AC.Admin, AC.Users];
   const hiddenForProfessors: AC[] = [AC.Admin, AC.Users, AC.Planning, AC.Accounting, AC.Absences, AC.Contracts];
   const hiddenForFullProfessors: AC[] = [AC.Admin, AC.Users, AC.Planning, AC.Accounting, AC.Absences, AC.Contracts];
-  const hiddenForCompanies: AC[] = [AC.Admin, AC.Users, AC.Planning, AC.Accounting, AC.Tools, AC.Absences];
+  const hiddenForCompanies: AC[] = [AC.Admin, AC.Users, AC.Planning, AC.Accounting, AC.Tools, AC.Absences, AC.Courses];
   const hiddenForAssistants: AC[] = [AC.Planning];
   const hiddenForCampusManagers: AC[] = [AC.Planning];
   const hiddenForCampusBoosterAdmins: AC[] = [AC.Planning];

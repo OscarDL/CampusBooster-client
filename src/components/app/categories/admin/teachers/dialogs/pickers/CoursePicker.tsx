@@ -36,6 +36,7 @@ const TeacherCoursePicker: FC<Props> = ({classroom, teacher, setTeacher}) => {
       const coursesOptions: Option[] = (classroom.ClassroomHasCourses ?? [])
         .filter(chc => !courses.includes(chc.Course?.id ?? 0))
         .sort((a, b) => a.Course?.name?.localeCompare(b.Course?.name ?? '') ?? 1)
+        .concat(teacher.id ? (classroom.ClassroomHasCourses?.find(chc => chc.id === teacher.classroomHasCourseId) ?? []) : [])
         .map(chc => ({
           ClassroomHasCourse: chc,
           value: chc.id,
@@ -44,7 +45,7 @@ const TeacherCoursePicker: FC<Props> = ({classroom, teacher, setTeacher}) => {
 
       setCoursesOptions(coursesOptions);
     }
-  }, [classroom, teachersList]);
+  }, [classroom, teacher, teachersList]);
 
 
   return !teacher.classroomHasCourseId ? (

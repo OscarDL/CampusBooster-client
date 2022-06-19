@@ -51,6 +51,15 @@ const Admin: FC = () => {
           title={t('admin.banned_users.title')}
           details={t('admin.banned_users.details', {brand: t('brand')})}
         />
+        {user.role === UserRoles.CampusBoosterAdmin && (
+          <Link
+            absoluteLink
+            icon={t('admin.swagger.icon')}
+            title={t('admin.swagger.title')}
+            details={t('admin.swagger.details')}
+            to={process.env.REACT_APP_API_URL + 'api-docs'}
+          />
+        )}
       </ContentBody>
     </>
   );

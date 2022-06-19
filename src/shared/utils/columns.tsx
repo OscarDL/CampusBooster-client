@@ -247,7 +247,9 @@ export const getGradesColumns = ({user, setOpenUpdate, setOpenDelete, setSelecte
     },
     {
       field: 'comment', headerName: t(columnPrefix + 'comment'), width: 400,
-      renderCell: ({row}) => row.comment || <em>{t('grades.no_comment')}</em>
+      renderCell: ({row}) => (
+        <div className="MuiDataGrid-cellContent">{row.comment || <em>{t('grades.no_comment')}</em>}</div>
+      )
     },
     {
       field: 'credits', headerName: t(columnPrefix + 'credits'), width: 100,

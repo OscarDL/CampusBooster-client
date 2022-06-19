@@ -31,7 +31,7 @@ const UserClassroomPicker: FC<Props> = ({user, setUser}) => {
     if (usersList) {
       const userOptions: Option[] = usersList
         .filter(user => !user.banned && user.id !== loggedInUser.id)
-        .filter(user => userHasHigherRole(loggedInUser, user.role))
+        .filter(user => !userHasHigherRole(loggedInUser, user.role))
         .map(user => ({
           user,
           value: user.id,

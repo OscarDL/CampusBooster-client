@@ -65,6 +65,7 @@ const GradeCoursePicker: FC<Props> = ({grade, setGrade}) => {
         ))
         .filter(course => chcIds(course)?.some(id => userChc?.map(chc => chc?.id).includes(id)))
         .sort((a, b) => a.name.localeCompare(b.name))
+        .concat(grade.id ? (coursesList.find(course => course.ClassroomHasCourses?.find(chc => chc.id === grade.classroomHasCourseId)) ?? []) : [])
         .filter(course => (
           // Filter a second time if the logged-in user is the teacher adding the grade
           userHasAdminRights(user.role) ? true : (
