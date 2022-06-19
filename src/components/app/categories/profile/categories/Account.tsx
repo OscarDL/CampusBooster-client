@@ -34,7 +34,7 @@ const Account: FC = () => {
         <ContentHeader title={t('profile.account.title')}/>
 
         <div className="flex">
-          <img src={user.avatar ?? `https://avatars.dicebear.com/api/avataaars/${user.azureData.localAccountId}.svg`} alt="avatar"/>
+          <img src={user.avatar ?? `https://avatars.dicebear.com/api/bottts/${user.azureData.localAccountId}.svg`} alt="avatar"/>
           <ul>
             <li>
               <p>{t('profile.account.first_name')}</p>

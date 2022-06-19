@@ -16,7 +16,13 @@ The website is available at this address: https://campusbooster.eu<br/><br/>
 
 - Make sure you have Node.js on your device: [install yarn](https://nodejs.org/en)
 - Then install yarn with the Node package manager: `npm install -g yarn`
-- Clone the project locally with Git: `git clone https://github.com/CampusBooster/client.git`<br/><br/>
+- Clone the project locally with Git: `git clone https://github.com/CampusBooster/client.git`
+- Install mkcert with the package manager of your choice:
+  - For Windows: [Chocolatey](https://community.chocolatey.org/packages/mkcert)
+  - For MacOS: run `brew install mkcert`
+  - For Linux: install certutil with `sudo apt install libnss3-tools`, then run `brew install mkcert`
+- Run this command at the root directory: `mkcert -key-file key.pem -cert-file crt.pem localhost`
+<br/><br/>
 
 ## Run project locally
 

@@ -152,7 +152,9 @@
           "title": "SUPINFO Azure Portal",
           "url": "https://portal.azure.com"
         }
-      ]
+      ],
+
+      "gdpr": "Privacy policy"
     }
   },
 
@@ -840,6 +842,168 @@
         "text": "Please type in the name of the user and course as shown below to avoid accidental removal.",
         "success": "User \"{{user}}\" successfully removed from teachers list."
       }
+    },
+
+    "swagger": {
+      "title": "API documentation",
+      "icon": "webhook",
+      "details": "Consult and test the API in real-time with the integrated Swagger documentation."
+    }
+  },
+
+  "gdpr": {
+    "title": "Privacy policy and legal notice",
+    "intro": {
+      "text": "The individual company SUPINFO is concerned about the rights of individuals, in particular with regard to automated processing, and in a desire for transparency with its customers, has set up a policy covering all this processing, the purposes pursued by the latter as well as the means of action available to individuals so that they can best exercise their rights.",
+      "item_1": "For any additional information on the protection of personal data, we invite you to consult the site https://www.cnil.fr/",
+      "item_2": "By continuing to browse this site, you accept without reservation the following provisions and conditions of use.",
+      "item_3": "The version of these terms of use currently online is the only one that can be enforced during the entire period of use of the site and until a new version replaces it."
+    },
+
+    "article_1": {
+      "title": "Article 1 - Legal mentions",
+      "1": "Site (hereinafter \"the site\"): Campus Booster",
+      "2": "Editor (hereafter \"the editor\"): The company SUPINFO \u2013 located : 123 RUE DE LONGCHAMP, 75116 PARIS \u2013 registered at the RCS of 479472458 \u2013 phone number : 01 44 78 88 88",
+      "3": "Host (hereinafter \"host\"): Campus Booster is hosted by Digital Ocean, headquartered in New York State, USA.",
+      "4": "Data Protection Officer (DPO): A Data Protection Officer, Noé Chérigui, noe.cherigui@supinfo.com, is at your disposal for any question relating to the protection of your personal data."
+    },
+
+    "article_2": {
+      "title": "Article 2 - Access to the site",
+      "text": "L'accès au site et son utilisation sont réservés à un usage strictement personnel. Vous vous engagez à ne pas utiliser ce site et les informations ou données qui y figurent à des fins commerciales, politiques, publicitaires et pour toute forme de sollicitation commerciale et notamment l'envoi de courriers électroniques non sollicités"
+    },
+
+    "article_3": {
+      "title": "Article 3 - Site content",
+      "1": "All trademarks, photographs, texts, comments, illustrations, animated images or not video sequences, sounds as well as all computer applications that could be used to operate this site and more generally all elements reproduced or used on the site are protected by the laws in force under intellectual property",
+      "2": "They are the full and complete property of the publisher or its partners. Any reproduction, representation, use or adaptation, in any form whatsoever, of all or part of these elements, including computer applications, without the prior written consent of the publisher, are strictly prohibited. The fact that the publisher does not initiate proceedings upon becoming aware of such unauthorized use does not constitute acceptance of such use and waiver of proceedings."
+    },
+
+    "article_4": {
+      "title": "Article 4 - Management of the site",
+      "text": "For the proper management of the site, the publisher may at any time:",
+      "1": "Suspend, interrupt or limit access to all or part of the site, reserve access to the site, or to certain parts of the site, to a specific category of Internet users,",
+      "2": "Delete any information that may disrupt the operation of the site or contravene national or international laws,",
+      "3": "Suspend the site in order to proceed with updates."
+    },
+
+    "article_5": {
+      "title": "Article 5 - Responsibilities",
+      "1": "The responsibility of the publisher can not be engaged in case of failure, breakdown difficulty or interruption of operation preventing access to the site or any of its features.",
+      "2": "The material of connection to the site that you use is under your entire responsibility. You must take all appropriate measures to protect your equipment and your own data, in particular from viral attacks via the Internet. You are also solely responsible for the sites and data you consult.",
+      "3": {
+        "text": "The publisher cannot be held responsible in case of legal proceedings against you",
+        "1": "due to the use of the site or any service accessible via the Internet,",
+        "2": "as a result of your failure to comply with these terms and conditions."
+      },
+      "4": "The publisher is not responsible for any damage caused to you, to third parties and/or to your equipment as a result of your connection to or use of the site and you waive any action against the publisher as a result",
+      "5": "If the publisher is the subject of a legal or amicable proceeding because of your use of the site, it may turn against you to obtain compensation for all damages, sums, sentences and costs that may result from this procedure."
+    },
+
+    "article_6": {
+      "title": "Article 6 - Hypertext links",
+      "1": "The establishment by users of any hypertext links to all or part of the site is strictly prohibited, unless prior written permission of the publisher.",
+      "2": "The editor is free to refuse this authorization without having to justify his decision in any way. In the case where the editor grants his authorization, it is in all cases only temporary and may be withdrawn at any time without obligation of justification on the part of the editor",
+      "3": "Any information accessible via a link to other sites is not published by the publisher. The publisher has no rights to the content of the linked site."
+    },
+
+    "article_7": {
+      "title": "Article 7 - Data collection and protection",
+      "text": "Your data are collected by the individual company SUPINFO.",
+      "1": "Personal data means any information relating to an identified or identifiable natural person (data subject): is deemed identifiable a person who can be identified, directly or indirectly, in particular by reference to a name, an identification number or one or more specific elements, specific to his physical identity. physiological, genetic, mental, economic, cultural or social.",
+      "2": "Personal information that may be collected on the site is mainly used by the publisher to manage relations with you, and where appropriate for the processing of your orders.",
+      "3": {
+        "text": "The personal data collected are the following:",
+        "1": "first and last name,",
+        "2": "address,",
+        "3": "email address,",
+        "4": "date of birth,",
+        "5": "gender."
+      },
+      "4": "A data protection officer: Noé Chérigui, noe.cherigui@supinfo.com is at your disposal for any question regarding the protection of your personal data"
+    },
+
+    "article_8": {
+      "title": "Article 8 - Right of access, rectification and removal of your data",
+      "1": {
+        "text": "In application of the regulations applicable to personal data, users have the following rights:",
+        "1": "The right of access: they can exercise their right of access, to know the personal data concerning them by writing to the e-mail address mentioned below. In this case, before the implementation of this right, the Platform may request proof of the user's identity in order to verify its accuracy.",
+        "2": "The right of rectification: if the personal data held by the Platform are inaccurate, they may request the update of the information.",
+        "3": "The right to deletion of data users can request the deletion of their personal data, in accordance with the applicable data protection laws te right to limitation of processing: users can request the Platform to limit the processing of personal data in accordance with the assumptions provided by the RGPD.",
+        "4": "The right to object to the processing of data: users may object to their data being processed in accordance with the assumptions provided for by the RGPD.",
+        "5": "The right to portability they can claim that the Platform gives them the personal data they have provided to transmit to a new Platform."
+      },
+      "2": "You can exercise this right by contacting us, at the following address: 123 RUE DE LONGCHAMP75116 PARIS",
+      "3": "Or by email, at the address: info@supinfo.com",
+      "4": "You can also contact our data protection officer: Noé Chérigui noe.cherigui@supinfo.com who is at your disposal for any question related to the protection of your personal data.",
+      "5": "Any request must be accompanied by a photocopy of a valid identity document signed by the applicant and mention the address at which the publisher may contact the applicant. The reply will be sent within one month of receipt of the request. This one-month period may be extended by two months if the complexity of the request and/or the number of requests so require.",
+      "6": "In addition, and since the law n°2016-1321 of October 7, 2016, people who wish to do so, have the possibility to organize the fate of their data after their death. For more information on the subject, you can consult the CNIL website: https://www.cnil.fr",
+      "7": "Users can also file a complaint with the CNIL on the CNIL website - https://www.cnil.fr",
+      "8": "We recommend that you contact us first before filing a complaint with the CNIL, as we are entirely at your disposal to resolve your problem."
+    },
+
+    "article_9": {
+      "title": "Article 9 - Use of data",
+      "text": "The personal data collected from users is intended to provide the services of the Platform, their improvement and the maintenance of a secure environment. The legal basis for the processing is the execution of the contract between the user and the Platform. Specifically, the uses are as follows:",
+      "1": "access and use of the Platform by the user,",
+      "2": "management of the operation and optimization of the Platform,",
+      "3": "implementation of user support,",
+      "4": "verification identification and authentication of data transmitted by the user,",
+      "5": "personalization of services by displaying advertisements according to the user's browsing history and preferences,",
+      "6": "prevention and detection of malicious software fraud and management of security incidents, management of possible disputes with users,",
+      "7": "sending commercial and advertising information, according to the user's preferences."
+    },
+
+    "article_10": {
+      "title": "Article 10 - Data retention policy",
+      "1": "The Platform keeps your data for the time necessary to provide you with its services or assistance.",
+      "2": "To the extent reasonably necessary or required to satisfy legal or regulatory obligations, resolve disputes, prevent fraud and abuse, or enforce our terms and conditions, we may also retain some of your information as necessary, even after you have closed your account or we no longer need it to provide our services to you."
+    },
+
+    "article_11": {
+      "title": "Article 11 - Sharing of personal data with third parties",
+      "text": "Personal data may be shared with third party companies exclusively in the European Union in the following cases:",
+      "1": "when the user publishes, in the free comment areas of the Platform, information accessible to the public,",
+      "2": "when the user allows a third party's website to access his data,",
+      "3": "when the Platform uses the services of service providers to provide user support, advertising and payment services. These service providers have limited access to the user's data, in the context of the execution of these services, and are contractually obliged to use them in accordance with the provisions of the applicable regulations on the protection of personal data,",
+      "4": "if required by law, the Platform may carry out the transmission of data to follow up on claims made against the Platform and comply with administrative and judicial proceedings."
+    },
+
+    "article_12": {
+      "title": "Article 12 - Commercial Offers",
+      "1": "You may receive commercial offers from the publisher. If you do not wish to do so, please click on the following link: https://campusbooster.eu",
+      "2": "Your data may be used by the publisher's partners for commercial prospecting purposes, if you do not wish to do so, please click on the following link https://campusbooster.eu",
+      "3": "If, during the consultation of the site, you access personal data you must refrain from any collection, any unauthorized use and any act that may constitute an invasion of privacy or reputation of persons.",
+      "4": "The publisher disclaims any responsibility in this regard.",
+      "5": "The data is kept and used for a period of time in accordance with the legislation in force."
+    },
+
+    "article_13": {
+      "title": "Article 12 - Cookies",
+      "1": "What is a \"cookie\"?",
+      "2": "A \"Cookie\" or tracer is an electronic file deposited on a terminal (computer, tablet, smartphone, ...) and read, for example, when consulting a website of reading an email of installing or using a software or a mobile application and this, regardless of the type of terminal used (source https://www.cnil.fr/fr/cookies-traceurs-que-dit-la-loi).",
+      "3": "The site may automatically collect standard information. Any information collected indirectly will only be used to track the volume, type and pattern of traffic using this site, to develop the design and layout of the site and for other administrative and planning purposes and generally to improve the service we provide to you.",
+      "4": "Where appropriate, \"cookies\" from the site editor and/or third-party companies may be deposited on your terminal with your consent. In this case, the first time you browse this site, a banner explaining the use of \"cookies\" will appear. Before continuing the navigation, the customer or prospect will have to accept or refuse the use of the said \"cookies\". The consent given will be valid for a period of thirteen (13) months. The user has the possibility to deactivate the cookies at any time.",
+      "5": {
+        "text": "The following cookies are present on this site:",
+        "1": "connection cookies"
+      },
+      "6": "The lifetime of these cookies is 30 minutes."
+    },
+
+    "article_14": {
+      "title": "Article 14 - Photographs and representation of products",
+      "text": "The photographs of products, accompanying their description, are not contractual and do not commit the publisher."
+    },
+
+    "article_15": {
+      "title": "Article 15 - Applicable Law",
+      "text": "These conditions of use of the site are governed by French law and subject to the jurisdiction of the courts of the registered office of the publisher, subject to a specific attribution of jurisdiction arising from a particular law or regulation."
+    },
+
+    "article_16": {
+      "title": "Article 16 - Contact us",
+      "text": "For any question, information on the products presented on the site, or concerning the site itself, you can leave a message at the following address: info@supinfo com."
     }
   },
 

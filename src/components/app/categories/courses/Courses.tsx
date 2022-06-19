@@ -10,14 +10,15 @@ import { getMuiDataGridLocale } from '../../../../shared/utils/locales';
 import { setDataGridValue } from '../../../../store/features/app/slice';
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
 import { clearCourses, getCourses } from '../../../../store/features/courses/slice';
+import { getCurrentUserYear, getLoggedInAuthState } from '../../../../shared/functions';
 import { DataGridFooter, DataGridHeader, StyledDataGrid } from '../../../shared/datagrid';
-import { getCurrentUserYear, getLoggedInAuthState, userHasAdminRights } from '../../../../shared/functions';
 
 import YearTabs from './Tabs';
 import CreateCourse from './course/Create';
 import UpdateCourse from './course/Update';
 import DeleteCourse from './course/Delete';
 import Loader from '../../../shared/loader';
+import { UserRoles } from '../../../../shared/types/user';
 
 
 const Courses: FC = () => {
@@ -34,7 +35,6 @@ const Courses: FC = () => {
   const [tab, setTab] = useState(getCurrentUserYear(user));
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
 
-  const isAdmin = useMemo(() => userHasAdminRights(user.role), [user.role]);
   const columns = useMemo(() => (
     getCoursesColumns({user, setOpenUpdate, setOpenDelete, setSelectedRow: setSelectedCourse})
   ), [user]);
@@ -52,7 +52,7 @@ const Courses: FC = () => {
   return (
     <>
       <ContentHeader title={t('courses.title')}>
-        {isAdmin && (
+        {user.role === UserRoles.CampusBoosterAdmin && (
           <Button
             className="button"
             onClick={() => setOpenCreate(true)}

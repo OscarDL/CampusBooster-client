@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { ContentHeader } from '../../../../shared/content';
@@ -25,6 +26,12 @@ const Links: FC = () => {
             </a>
           </li>
         ))}
+
+        <li>
+          <Link to={'/gdpr'}>
+            <span>{t('profile.links.gdpr')}</span>
+          </Link>
+        </li>
       </ul>
     </Container>
   );

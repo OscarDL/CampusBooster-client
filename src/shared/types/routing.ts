@@ -12,7 +12,6 @@ export enum AppCategories {
   Admin = 'admin'
 };
 
-
 // These keys should be lowercase
 export enum AppRoutes {
   profile = '/profile',
@@ -25,7 +24,8 @@ export enum AppRoutes {
   contracts = '/contracts',
   accounting = '/accounting',
   tools = '/tools',
-  admin = '/admin/*'
+  admin = '/admin/*',
+  gdpr = '/gdpr'
 };
 
 // These keys should be lowercase

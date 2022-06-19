@@ -1,0 +1,19 @@
+.gdpr-view .content__body {
+  display: flex;
+  overflow: hidden;
+}
+
+.gdpr-view .content__body > .container {
+  overflow-y: auto;
+  padding: 1.5rem 3rem;
+}
+
+.gdpr-view .content__body > .container h2 {
+  color: rgb(var(--accent-color));
+  margin: 2rem 0 1rem;
+}
+.gdpr-view .content__body > .container p,
+.gdpr-view .content__body > .container ol,
+.gdpr-view .content__body > .container ul {
+  margin-bottom: 0.5rem;
+}

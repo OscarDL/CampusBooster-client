@@ -31,7 +31,9 @@ const TeacherCoursePicker: FC<Props> = ({classroom, teacher, setTeacher}) => {
 
   useEffect(() => {
     if (classroom) {
-      const courses = teachersList?.map(teacher => teacher.ClassroomHasCourse.Course?.id ?? 0) ?? [];
+      const courses = teachersList
+        ?.filter(t => t.userId === teacher.userId)
+        ?.map(teacher => teacher.ClassroomHasCourse.Course?.id ?? 0) ?? [];
 
       const coursesOptions: Option[] = (classroom.ClassroomHasCourses ?? [])
         .filter(chc => !courses.includes(chc.Course?.id ?? 0))

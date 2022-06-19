@@ -32,7 +32,7 @@ const DeleteCourse: FC<Props> = ({course, open, setOpen}) => {
       await dispatch(deleteCourse(course.id)).unwrap();
 
       setOpen(false);
-      toast.success(t('courses.delete.success'));
+      toast.success(t('courses.delete.success', {course: course.name}));
     }
     catch (error: any) {
       toast.error(error);

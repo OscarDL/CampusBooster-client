@@ -57,7 +57,7 @@ const Admin: FC = () => {
             icon={t('admin.swagger.icon')}
             title={t('admin.swagger.title')}
             details={t('admin.swagger.details')}
-            to={process.env.REACT_APP_API_URL + 'api-docs'}
+            to={`${process.env.REACT_APP_API_URL}/api-docs`}
           />
         )}
       </ContentBody>

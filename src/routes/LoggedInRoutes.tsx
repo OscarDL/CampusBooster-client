@@ -7,6 +7,7 @@ import { AppCategories, AppRoutes } from '../shared/types/routing';
 import { getLoggedInAuthState, getUserCategories } from '../shared/functions';
 
 import Admin from './AdminRoutes';
+import Gdpr from '../views/app/gdpr/Gdpr';
 import Home from '../views/app/home/Home';
 import Drawer from '../views/shared/Drawer';
 import Tools from '../views/app/tools/Tools';
@@ -66,7 +67,8 @@ const LoggedInRoutes: FC = () => {
             <Route key={category} path={paths[category]} element={components[category]}/>
           ))}
 
-          <Route path="/profile" element={<Profile/>}/>
+          <Route path={AppRoutes.profile} element={<Profile/>}/>
+          <Route path={AppRoutes.gdpr} element={<Gdpr/>}/>
 
           {/* Redirect to the home page if the route doesn't exist */}
           <Route path="*" element={<Navigate replace to={AppRoutes.home}/>}/>
