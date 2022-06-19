@@ -94,15 +94,13 @@ const Grades: FC = () => {
   return (
     <>
       <ContentHeader title={t('grades.title')}>
-        {/* {user.role !== UserRoles.Student && ( */}
-          <Button
-            className="button"
-            onClick={() => setOpenCreate(true)}
-            startIcon={<span className="material-icons">add_circle_outline</span>}
-          >
-            {t('grades.create.button')}
-          </Button>
-        {/* )} */}
+        <Button
+          className="button"
+          onClick={() => setOpenCreate(true)}
+          startIcon={<span className="material-icons">add_circle_outline</span>}
+        >
+          {t('grades.create.button')}
+        </Button>
       </ContentHeader>
 
       <YearTabs tab={tab} setTab={setTab}/>

@@ -4,6 +4,7 @@ import React, { FC, useEffect, useMemo, useState } from 'react';
 
 import { Course } from '../../../../../../shared/types/course';
 import { useAppSelector } from '../../../../../../store/store';
+import { UserRoles } from '../../../../../../shared/types/user';
 import { Grade, GradeRequest } from '../../../../../../shared/types/grade';
 import { getLoggedInAuthState, userHasAdminRights } from '../../../../../../shared/functions';
 
@@ -56,7 +57,12 @@ const GradeCoursePicker: FC<Props> = ({grade, setGrade}) => {
       const grades = gradesList?.map(grade => grade.ClassroomHasCourse?.Course?.id ?? 0) ?? [];
 
       const coursesOptions: Option[] = coursesList
-        .filter(course => !grades.includes(course?.id ?? 0))
+        .filter(course => user.role === UserRoles.Student ? (
+          // Check in user grades to see if the course is already graded by the currently logged-in student (as teacher here)
+          !usersList?.find(user => user.id === grade.userId)?.Grades?.map(grade => grade.ClassroomHasCourse?.courseId).includes(course.id)
+        ) : (
+          !grades.includes(course?.id ?? 0)
+        ))
         .filter(course => chcIds(course)?.some(id => userChc?.map(chc => chc?.id).includes(id)))
         .sort((a, b) => a.name.localeCompare(b.name))
         .filter(course => (
@@ -73,7 +79,7 @@ const GradeCoursePicker: FC<Props> = ({grade, setGrade}) => {
 
       setCoursesOptions(coursesOptions);
     }
-  }, [coursesList, gradesList, user, userChc]);
+  }, [coursesList, grade, gradesList, user, userChc, usersList]);
 
 
   return !grade.userId ? (

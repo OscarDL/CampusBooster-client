@@ -3,9 +3,12 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { Box, Button, InputAdornment, TextField } from '@mui/material';
 
+import { UserRoles } from '../../../../../shared/types/user';
 import { GradeRequest } from '../../../../../shared/types/grade';
+import { getLoggedInAuthState } from '../../../../../shared/functions';
 import { createGrade } from '../../../../../store/features/grades/slice';
 import { useAppDispatch, useAppSelector } from '../../../../../store/store';
+import { getUsersForTeacher } from '../../../../../store/features/users/slice';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MainDialogButton } from '../../../../shared/dialog';
 
 import GradeUserPicker from './pickers/UserPicker';
@@ -26,6 +29,7 @@ const newGradeRequest = (): GradeRequest => ({
 const CreateGrade: FC<Props> = ({open, setOpen}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const { user } = useAppSelector(getLoggedInAuthState);
   const { gradesList } = useAppSelector(state => state.grades);
 
   const [loading, setLoading] = useState(false);
@@ -44,7 +48,11 @@ const CreateGrade: FC<Props> = ({open, setOpen}) => {
     setLoading(true);
 
     try {
-      await dispatch(createGrade(grade)).unwrap();
+      await dispatch(createGrade({user, grade})).unwrap();
+
+      if (user.role === UserRoles.Student) {
+        await dispatch(getUsersForTeacher(user.id)).unwrap();
+      }
 
       setOpen(false);
       setGrade(newGradeRequest());

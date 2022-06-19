@@ -23,7 +23,7 @@ const DeleteGrade: FC<Props> = ({grade, open, setOpen}) => {
   const [loading, setLoading] = useState(false);
   const [studentGrade, setStudentGrade] = useState('');
 
-  const textTemplate = `${grade.User?.firstName} ${grade.User?.lastName} (${grade.average}/20)`;
+  const textTemplate = `${grade.User?.firstName} ${grade.User?.lastName} (${grade.ClassroomHasCourse?.Course?.name} - ${grade.average}/20)`;
 
 
   const handleDeleteGrade = async (e: React.FormEvent<HTMLElement>) => {

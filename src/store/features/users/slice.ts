@@ -148,7 +148,7 @@ const usersSlice = createSlice({
     builder.addCase(updateUser.fulfilled, (state, {payload}) => {
       if (state.usersList) {
         const userIndex = state.usersList.findIndex(user => user.id === payload.id);
-        state.usersList[userIndex] = payload;
+        if (userIndex >= 0) state.usersList[userIndex] = payload;
       }
     });
 

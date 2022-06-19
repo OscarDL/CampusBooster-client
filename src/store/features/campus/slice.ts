@@ -77,9 +77,9 @@ const campusSlice = createSlice({
     },
 
     updateCampusManager: (state: CampusState, {payload}: {payload: UpdateCampusManager}) => {
-      const campusIndex = state.campusList?.findIndex(campus => campus.id === payload.campusId);
-      if (campusIndex && state.campusList) {
-        state.campusList[campusIndex].CampusManager = payload.campusManager;
+      if (state.campusList) {
+        const campusIndex = state.campusList.findIndex(campus => campus.id === payload.campusId);
+        if (campusIndex >= 0) state.campusList[campusIndex].CampusManager = payload.campusManager;
       }
     }
   },
@@ -99,7 +99,7 @@ const campusSlice = createSlice({
     builder.addCase(updateCampus.fulfilled, (state, {payload}) => {
       if (state.campusList) {
         const campusIndex = state.campusList.findIndex(campus => campus.id === payload.id);
-        state.campusList[campusIndex] = payload;
+        if (campusIndex >= 0) state.campusList[campusIndex] = payload;
       }
     });
 

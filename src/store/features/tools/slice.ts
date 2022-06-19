@@ -95,7 +95,7 @@ const toolsSlice = createSlice({
     builder.addCase(updateTool.fulfilled, (state, {payload}) => {
       if (state.toolsList) {
         const toolIndex = state.toolsList.findIndex(tool => tool.id === payload.id);
-        state.toolsList[toolIndex] = payload;
+        if (toolIndex >= 0) state.toolsList[toolIndex] = payload;
       }
     });
 

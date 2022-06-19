@@ -1,9 +1,9 @@
 import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-import absenceService from '../../../services/absences';
-import { Absence } from '../../../shared/types/absence';
 import { User } from '../../../shared/types/user';
+import { Absence } from '../../../shared/types/absence';
+import absenceService from '../../../services/absences';
 
 
 export type AbsencesState = {
@@ -107,7 +107,7 @@ const absencesSlice = createSlice({
     builder.addCase(updateAbsence.fulfilled, (state, {payload}) => {
       if (state.absencesList) {
         const absenceIndex = state.absencesList.findIndex(absence => absence.id === payload.id);
-        state.absencesList[absenceIndex] = payload;
+        if (absenceIndex >= 0) state.absencesList[absenceIndex] = payload;
       }
     });
 

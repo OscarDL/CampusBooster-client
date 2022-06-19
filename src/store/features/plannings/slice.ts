@@ -103,7 +103,7 @@ const planningsSlice = createSlice({
     builder.addCase(updatePlanningEntry.fulfilled, (state, {payload}) => {
       if (state.planningsList) {
         const planningIndex = state.planningsList.findIndex(entry => entry.id === payload.id);
-        state.planningsList[planningIndex] = payload;
+        if (planningIndex >= 0) state.planningsList[planningIndex] = payload;
       }
     });
 

@@ -103,7 +103,7 @@ const accountingSlice = createSlice({
     builder.addCase(updateBalance.fulfilled, (state, {payload}) => {
       if (state.balances) {
         const balanceIndex = state.balances.findIndex(balance => balance.id === payload.id);
-        state.balances[balanceIndex] = payload;
+        if (balanceIndex >= 0) state.balances[balanceIndex] = payload;
       }
     });
 

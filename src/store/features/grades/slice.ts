@@ -1,9 +1,9 @@
 import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-import { User } from '../../../shared/types/user';
 import gradeService from '../../../services/grades';
 import { Teacher } from '../../../shared/types/teacher';
+import { User, UserRoles } from '../../../shared/types/user';
 import { Grade, GradeRequest } from '../../../shared/types/grade';
 
 
@@ -61,9 +61,11 @@ export const getTeacherAsUserGrades = createAsyncThunk('grades/getTeacherAsUserG
   };
 });
 
-export const createGrade = createAsyncThunk('grades/createGrade', async (grade: GradeRequest, thunkAPI) => {
+type CreateGradeRequest = {user: User, grade: GradeRequest};
+export const createGrade = createAsyncThunk('grades/createGrade', async ({user, grade}: CreateGradeRequest, thunkAPI) => {
   try {
-    return await gradeService.createGrade(grade);
+    const createdGrade = await gradeService.createGrade(grade);
+    return {user, grade: createdGrade};
   }
 
   catch (error: any) {
@@ -109,14 +111,20 @@ const gradesSlice = createSlice({
   extraReducers: (builder) => {
     // Create new grade
     builder.addCase(createGrade.fulfilled, (state, {payload}) => {
-      state.gradesList = (state.gradesList ?? []).concat(payload);
+      if (payload.user.role !== UserRoles.Student) { 
+        state.gradesList = (state.gradesList ?? []).concat(payload.grade);
+      } else {
+        if (payload.grade.userId === payload.user.id) {
+          state.gradesList = (state.gradesList ?? []).concat(payload.grade);
+        }
+      }
     });
 
     // Update existing grade
     builder.addCase(updateGrade.fulfilled, (state, {payload}) => {
       if (state.gradesList) {
         const gradeIndex = state.gradesList.findIndex(grade => grade.id === payload.id);
-        state.gradesList[gradeIndex] = payload;
+        if (gradeIndex >= 0) state.gradesList[gradeIndex] = payload;
       }
     });
 

@@ -91,7 +91,7 @@ const teachersSlice = createSlice({
     builder.addCase(updateTeacher.fulfilled, (state, {payload}) => {
       if (state.teachersList) {
         const teacherIndex = state.teachersList.findIndex(teacher => teacher.id === payload.id);
-        state.teachersList[teacherIndex] = payload;
+        if (teacherIndex >= 0) state.teachersList[teacherIndex] = payload;
       }
     });
 

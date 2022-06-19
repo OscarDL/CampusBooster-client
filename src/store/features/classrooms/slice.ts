@@ -1,9 +1,9 @@
 import { toast } from 'react-toastify';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
+import { Course } from '../../../shared/types/course';
 import classroomsService from '../../../services/classrooms';
 import { Classroom, ClassroomRequest } from '../../../shared/types/classroom';
-import { Course } from '../../../shared/types/course';
 
 
 export type ClassroomsState = {
@@ -107,7 +107,7 @@ const classroomsSlice = createSlice({
     builder.addCase(updateClassroom.fulfilled, (state, {payload}) => {
       if (state.classroomsList) {
         const classroomIndex = state.classroomsList.findIndex(classroom => classroom.id === payload.id);
-        state.classroomsList[classroomIndex] = payload;
+        if (classroomIndex >= 0) state.classroomsList[classroomIndex] = payload;
       }
     });
 

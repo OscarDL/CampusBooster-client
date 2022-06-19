@@ -103,7 +103,7 @@ const projectsSlice = createSlice({
     builder.addCase(updateProject.fulfilled, (state, {payload}) => {
       if (state.projectsList) {
         const projectIndex = state.projectsList.findIndex(project => project.id === payload.id);
-        state.projectsList[projectIndex] = payload;
+        if (projectIndex >= 0) state.projectsList[projectIndex] = payload;
       }
     });
 

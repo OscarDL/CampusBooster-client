@@ -103,7 +103,7 @@ const coursesSlice = createSlice({
     builder.addCase(updateCourse.fulfilled, (state, {payload}) => {
       if (state.coursesList) {
         const courseIndex = state.coursesList.findIndex(course => course.id === payload.id);
-        state.coursesList[courseIndex] = payload;
+        if (courseIndex >= 0) state.coursesList[courseIndex] = payload;
       }
     });
 

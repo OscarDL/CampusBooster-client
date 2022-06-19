@@ -118,7 +118,7 @@ const contractsSlice = createSlice({
     builder.addCase(updateContract.fulfilled, (state, {payload}) => {
       if (state.contractsList) {
         const contractIndex = state.contractsList.findIndex(contract => contract.id === payload.id);
-        state.contractsList[contractIndex] = payload;
+        if (contractIndex >= 0) state.contractsList[contractIndex] = payload;
       }
     });
 
