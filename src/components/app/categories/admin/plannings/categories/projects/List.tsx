@@ -26,9 +26,11 @@ const ProjectsList: FC<Props> = ({classroom}) => {
   const [openCreate, setOpenCreate] = useState(false);
 
   const projects = useMemo(() => {
-    return (projectsList ?? []).filter(project => (
-      project.ClassroomHasCourse.classroomId === classroom?.id
-    ));
+    return (projectsList ?? [])
+      .filter(project => (
+        project.ClassroomHasCourse.classroomId === classroom?.id
+      ))
+      .sort((a, b) => dayjs(a.date).diff(dayjs(b.date)));
   }, [classroom, projectsList]);
 
 

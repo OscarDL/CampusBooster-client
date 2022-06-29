@@ -21,7 +21,7 @@ const Gdpr: FC = () => {
 
   return (
     <>
-      <ContentHeader title={t('gdpr.title')}/>
+      <ContentHeader backButton title={t('gdpr.title')}/>
 
       <ContentBody>
         <Container>

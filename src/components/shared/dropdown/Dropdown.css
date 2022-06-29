@@ -24,8 +24,8 @@
 }
 
 .dropdown__header > .dropdown__title {
-  font-family: inherit;
   font-weight: 600;
+  font-family: inherit;
   padding: 0 0.4rem 0 0.6rem;
 }
 
@@ -47,6 +47,7 @@
   margin: 0;
   min-width: 100%;
   padding: 0.33rem;
+  pointer-events: none;
   z-index: var(--z-index-dropdown);
 
   list-style: none;
@@ -110,6 +111,7 @@
 .dropdown__content.open {
   opacity: 1;
   visibility: inherit;
+  pointer-events: initial;
   transform: translateY(6px);
 }
 .dropdown__content.open ~ .dropdown__header > .dropdown__arrow {

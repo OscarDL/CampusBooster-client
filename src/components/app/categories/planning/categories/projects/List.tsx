@@ -14,11 +14,15 @@ const ProjectsList: FC = () => {
   const { t } = useTranslation();
   const { projectsList } = useAppSelector(state => state.projects);
 
+  const projects = useMemo(() => {
+    return projectsList?.slice()?.sort((a, b) => dayjs(a.date).diff(dayjs(b.date)));
+  }, [projectsList]);
+
 
   const itemRefs: {[key: number]: HTMLLIElement | null} = useMemo(() => ({}), []);
 
   useEffect(() => {
-    const item = (projectsList ?? []).find(project => (
+    const item = projects.find(project => (
       dayjs(project.endDate).add(1, 'day').isAfter(dayjs(), 'day')
     ));
 

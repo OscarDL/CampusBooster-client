@@ -1,8 +1,8 @@
 import { AccountInfo } from '@azure/msal-browser';
 
+import { Grade } from './grade';
 import { Campus } from './campus';
 import { Classroom, UserHasClassroom } from './classroom';
-import { Grade } from './grade';
 
 
 export type AzureData = AccountInfo;

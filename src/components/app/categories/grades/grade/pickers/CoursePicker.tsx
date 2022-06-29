@@ -54,7 +54,7 @@ const GradeCoursePicker: FC<Props> = ({grade, setGrade}) => {
   useEffect(() => {
     if (coursesList) {
       const chcIds = (course: Course) => course.ClassroomHasCourses?.map(chc => chc.id);
-      const grades = gradesList?.map(grade => grade.ClassroomHasCourse?.Course?.id ?? 0) ?? [];
+      const grades = gradesList?.map(g => g.ClassroomHasCourse?.Course?.id ?? 0)?.filter(g => g.userId === grade.userId) ?? [];
 
       const coursesOptions: Option[] = coursesList
         .filter(course => user.role === UserRoles.Student ? (
